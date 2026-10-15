@@ -1,8 +1,11 @@
 # ============================================================
-# BUILD PUBLIC PORTAL FACTUAL JSON
+# BUILD PUBLIC PORTAL FACTUAL JSON — MULTI-SEASON
 #
 # Reads:
 #   data/current_player_season_stats.csv
+#
+# The CSV name is retained for compatibility, but the file now
+# stores every preserved season (starting with 2022-23).
 #
 # Writes:
 #   public/portal_factual_data.json
@@ -57,21 +60,36 @@ for (nm in numeric_fields) {
 }
 
 stats <- stats %>%
+  mutate(
+    season_num = suppressWarnings(as.integer(season))
+  ) %>%
   filter(
     !is.na(athlete_id),
-    athlete_id != ""
+    athlete_id != "",
+    !is.na(season_num)
   ) %>%
-  distinct(
-    athlete_id,
-    .keep_all = TRUE
-  )
+  arrange(athlete_id, season_num) %>%
+  distinct(season_num, athlete_id, .keep_all = TRUE)
 
-if (nrow(stats) < 1000) {
+season_values <- sort(unique(stats$season_num))
+
+if (length(season_values) < 4) {
+  stop(
+    paste0(
+      "Safety stop: expected at least 4 seasons, found ",
+      length(season_values),
+      ": ",
+      paste(season_values, collapse = ", ")
+    )
+  )
+}
+
+if (nrow(stats) < 15000) {
   stop(
     paste0(
       "Safety stop: only ",
       nrow(stats),
-      " player rows are present. Refusing to publish."
+      " player-season rows are present. Refusing to publish."
     )
   )
 }
@@ -87,15 +105,8 @@ char_or_null <- function(x) {
   as.character(x)
 }
 
-players <- list()
-
-for (i in seq_len(nrow(stats))) {
-
-  row <- stats[i, ]
-  athlete_id <- as.character(row$athlete_id[[1]])
-
+make_season_record <- function(row) {
   rec <- list(
-    espnAthleteId = athlete_id,
     season = suppressWarnings(as.integer(row$season[[1]])),
     seasonLabel = char_or_null(row$season_label[[1]]),
     name = char_or_null(row$player_name[[1]]),
@@ -110,24 +121,59 @@ for (i in seq_len(nrow(stats))) {
     rec[[field]] <- num_or_null(row[[field]][[1]])
   }
 
-  players[[athlete_id]] <- rec
+  rec
 }
 
-season_value <- max(
-  suppressWarnings(as.integer(stats$season)),
-  na.rm = TRUE
+player_groups <- split(stats, stats$athlete_id)
+
+players <- lapply(
+  names(player_groups),
+  function(athlete_id) {
+    player_rows <- player_groups[[athlete_id]] %>%
+      arrange(season_num)
+
+    seasons <- lapply(
+      seq_len(nrow(player_rows)),
+      function(i) make_season_record(player_rows[i, ])
+    )
+
+    list(
+      espnAthleteId = as.character(athlete_id),
+      latest = seasons[[length(seasons)]],
+      seasons = seasons
+    )
+  }
 )
 
-season_label_value <- stats$season_label[
-  which(!is.na(stats$season_label) & stats$season_label != "")[1]
+names(players) <- names(player_groups)
+
+latest_season <- max(season_values)
+
+latest_label_values <- stats %>%
+  filter(season_num == latest_season) %>%
+  pull(season_label)
+
+latest_label_values <- latest_label_values[
+  !is.na(latest_label_values) & latest_label_values != ""
 ]
 
+season_counts <- stats %>%
+  count(season_num, name = "players") %>%
+  arrange(season_num)
+
+season_player_counts <- as.list(season_counts$players)
+names(season_player_counts) <- as.character(season_counts$season_num)
+
 payload <- list(
-  schemaVersion = 1,
+  schemaVersion = 2,
   generatedAt = format(Sys.time(), "%Y-%m-%dT%H:%M:%SZ", tz = "UTC"),
-  season = season_value,
-  seasonLabel = ifelse(length(season_label_value) == 0, NA, season_label_value),
+  latestSeason = latest_season,
+  seasonLabel = if (length(latest_label_values) > 0) latest_label_values[[1]] else NULL,
+  seasonCount = length(season_values),
+  seasons = season_values,
+  playerSeasonCount = nrow(stats),
   playerCount = length(players),
+  seasonPlayerCounts = season_player_counts,
   scope = "NCAA Division I men's basketball factual data only",
   players = players
 )
@@ -145,6 +191,7 @@ write_json(
 )
 
 cat("\nBuilt:", OUTPUT_FILE, "\n")
-cat("Season:", payload$season, "\n")
-cat("Players:", payload$playerCount, "\n")
+cat("Seasons:", paste(season_values, collapse = ", "), "\n")
+cat("Player-seasons:", payload$playerSeasonCount, "\n")
+cat("Unique players:", payload$playerCount, "\n")
 cat("Size MB:", round(file.info(OUTPUT_FILE)$size / 1024^2, 2), "\n")
