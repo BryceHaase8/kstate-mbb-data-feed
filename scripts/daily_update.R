@@ -66,6 +66,32 @@ ensure_column <- function(df, name, value = NA) {
   df
 }
 
+numeric_stat_columns <- c(
+  "season","gp","gs","minutes","mpg","pts","ppg","reb","rpg","ast","apg",
+  "stl","spg","blk","bpg","tov","topg","pf","fgm","fga","fg_pct",
+  "two_pm","two_pa","two_pt_pct","three_pm","three_pa","three_pt_pct",
+  "ftm","fta","ft_pct","oreb","dreb","efg_pct","ts_pct","ast_to",
+  "two_pa_pg","three_pa_pg","fta_pg","two_attempt_share",
+  "three_attempt_share"
+)
+
+character_stat_columns <- c(
+  "season_label","athlete_id","player_name","team_id","team_name",
+  "position","jersey","headshot"
+)
+
+coerce_stat_schema <- function(df) {
+  for (nm in intersect(numeric_stat_columns, names(df))) {
+    df[[nm]] <- suppressWarnings(as.numeric(df[[nm]]))
+  }
+
+  for (nm in intersect(character_stat_columns, names(df))) {
+    df[[nm]] <- as.character(df[[nm]])
+  }
+
+  df
+}
+
 derive_candidate_season <- function() {
   today <- Sys.Date()
   y <- as.integer(format(today, "%Y"))
@@ -377,13 +403,11 @@ existing <- tibble()
 if (file.exists(DATA_FILE)) {
   existing <- read_csv(
     DATA_FILE,
-    col_types = cols(.default = col_character()),
     show_col_types = FALSE
   ) %>%
+    coerce_stat_schema() %>%
     mutate(
-      season = suppressWarnings(as.integer(season)),
-      athlete_id = as.character(athlete_id),
-      team_id = as.character(team_id)
+      season = suppressWarnings(as.integer(season))
     ) %>%
     filter(
       !is.na(season),
@@ -439,9 +463,9 @@ active_stats <- build_season_stats(
 )
 
 combined <- bind_rows(
-  existing %>% filter(season != active_season),
-  historical_additions,
-  active_stats
+  existing %>% filter(season != active_season) %>% coerce_stat_schema(),
+  historical_additions %>% coerce_stat_schema(),
+  active_stats %>% coerce_stat_schema()
 ) %>%
   mutate(
     season = as.integer(season),
