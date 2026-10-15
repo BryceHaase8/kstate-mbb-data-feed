@@ -13,75 +13,74 @@ It intentionally contains **no private Portal information**:
 
 The public JSON contains ordinary NCAA Division I men's basketball factual data keyed by ESPN athlete ID.
 
-## Files
-
-```text
-scripts/daily_update.R
-scripts/build_public_factual_json.R
-data/current_player_season_stats.csv
-public/portal_factual_data.json
-.github/workflows/daily-update.yml
-```
-
-## Live JSON
-
-The Portal can read the current factual feed directly from the repository:
+## Live feed
 
 ```text
 https://raw.githubusercontent.com/BryceHaase8/kstate-mbb-data-feed/main/public/portal_factual_data.json
 ```
 
-No GitHub Pages setup is required.
+The current feed preserves the full canonical history beginning with:
 
-## What the scheduled job does
+- 2022-23
+- 2023-24
+- 2024-25
+- 2025-26
 
-Every morning at **6:17 AM America/Chicago**:
+Current verified build:
+- 20,303 player-season rows
+- 10,476 unique ESPN athlete IDs
+- 5,019 players in 2025-26
 
-1. Determine the likely current NCAA season.
-2. Pull that season's `hoopR` ESPN player-box data.
-3. Get ESPN's Division I team universe.
-4. Remove non-D-I team rows.
-5. Recalculate clean player-season basic stats.
-6. Write `data/current_player_season_stats.csv`.
-7. Write `public/portal_factual_data.json`.
-8. Commit those refreshed factual files back to this repository only when they changed.
+## Daily update design
 
-The scheduled workflow follows Central Time/DST.
+The repository does **not** redownload every historical season each morning.
 
-The workflow also runs when the updater scripts or workflow definition change, which lets us test infrastructure changes without touching the Portal.
+On the first multi-season run, the workflow bootstrapped missing historical seasons once and stored them in:
 
-## Season behavior
+```text
+data/current_player_season_stats.csv
+```
 
-Without an override, `daily_update.R` calculates the likely NCAA ending year:
-- Jul–Dec 2026 → 2027
-- Jan–Jun 2027 → 2027
+The filename is retained for compatibility even though it now stores multiple seasons.
 
-If that season has no player-box data yet, it falls back one year.
+On normal future runs:
 
-The production Portal is **not** connected yet. The separate Netlify test site should be used first.
+1. Determine the active NCAA season.
+2. Download/rebuild only the active season.
+3. Preserve all older stored seasons.
+4. Replace the active-season rows.
+5. Rebuild `public/portal_factual_data.json`.
+6. Commit the refreshed factual files only when they changed.
 
-## Public JSON contract
+When a new season begins, the prior season automatically becomes preserved history.
 
-Top level:
+## Public JSON shape
 
 ```json
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "generatedAt": "...",
-  "season": 2026,
-  "seasonLabel": "2025-26",
-  "playerCount": 5019,
-  "scope": "NCAA Division I men's basketball factual data only",
+  "latestSeason": 2026,
+  "seasonCount": 4,
+  "seasons": [2023, 2024, 2025, 2026],
+  "playerSeasonCount": 20303,
+  "playerCount": 10476,
   "players": {
-    "ESPN_ATHLETE_ID": { "...": "..." }
+    "ESPN_ATHLETE_ID": {
+      "espnAthleteId": "ESPN_ATHLETE_ID",
+      "latest": { "...": "most recent season record" },
+      "seasons": [
+        { "...": "season record" }
+      ]
+    }
   }
 }
 ```
 
-The Portal joins this feed to its private player records using ESPN athlete ID.
+The Portal joins this public feed to its private player records using ESPN athlete ID.
 
 ## Safety behavior
 
-The workflow does not touch Netlify or the Google Sheet.
+The GitHub workflow does not touch Netlify or the Google Sheet.
 
-If the remote feed is unavailable, the Portal test build is designed to fall back to its bundled factual data / existing production player fields.
+The Netlify Portal has a bundled factual snapshot as a fallback. If the remote feed is unavailable, staff data and the existing Portal remain usable.
