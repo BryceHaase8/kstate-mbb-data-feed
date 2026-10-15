@@ -1,0 +1,57 @@
+name: Preview ESPN research team context
+
+on:
+  push:
+    branches:
+      - research-stage2-espn-team-context
+    paths:
+      - ".github/workflows/research-context-preview.yml"
+      - "scripts/build_research_team_context.R"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  preview:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Checkout research branch
+        uses: actions/checkout@v6
+      - name: Set up R
+        uses: r-lib/actions/setup-r@v2
+      - name: Install R dependencies
+        uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          extra-packages: |
+            any::hoopR
+            any::dplyr
+            any::readr
+            any::jsonlite
+      - name: Build ESPN-only historical team context
+        run: Rscript scripts/build_research_team_context.R
+      - name: Inspect generated context
+        run: |
+          python - <<'PY'
+          import json, pathlib
+          path=pathlib.Path('public/research_team_context.json')
+          d=json.loads(path.read_text())
+          counts={y:len(v) for y,v in d['teams'].items()}
+          print('team counts',counts)
+          if len(counts)<4: raise SystemExit('need at least four seasons')
+          for y,count in counts.items():
+              if count<320: raise SystemExit(f'insufficient team coverage {y}: {count}')
+              conf=sum(bool(t.get('conference')) for t in d['teams'][y].values())
+              ranks=sum(isinstance(t.get('rank'),int) for t in d['teams'][y].values())
+              print(y,'conference matches',conf,'ranked teams',ranks)
+              if conf<200 or ranks<200: raise SystemExit(f'insufficient season metadata coverage {y}')
+          PY
+      - name: Commit preview context to research branch
+        run: |
+          git add public/research_team_context.json
+          if git diff --cached --quiet; then exit 0; fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Preview verified ESPN research team context"
+          git push
