@@ -519,6 +519,5 @@ cat("Active season refreshed:", active_season, "\n")
 cat("Preserved seasons:", paste(sort(unique(combined$season)), collapse = ", "), "\n")
 cat("Player-season rows:", nrow(combined), "\n")
 
-# Build separately versioned public research team context; do not risk the player factual feed.
-tryCatch(source(file.path("scripts", "build_research_team_context.R")),
-         error = function(e) message("Research team context refresh failed: ", conditionMessage(e)))
+# Historical Research team ranks are bundled from staff-supplied final Torvik CSVs
+# and refreshed once per offseason. No team rankings are computed by this daily job.

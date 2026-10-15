@@ -56,11 +56,8 @@ jobs:
 
       - name: Commit refreshed factual data
         run: |
-          # Stage first: git diff alone cannot detect a newly created context file.
+          # Only ESPN player factual data is refreshed each day.
           git add data/current_player_season_stats.csv public/portal_factual_data.json
-          if test -f public/research_team_context.json; then
-            git add public/research_team_context.json
-          fi
           if git diff --cached --quiet; then
             echo "No factual-data changes to commit."
             exit 0

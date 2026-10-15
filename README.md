@@ -84,3 +84,13 @@ The Portal joins this public feed to its private player records using ESPN athle
 The GitHub workflow does not touch Netlify or the Google Sheet.
 
 The Netlify Portal has a bundled factual snapshot as a fallback. If the remote feed is unavailable, staff data and the existing Portal remain usable.
+
+
+## Research team rankings (annual)
+
+The staff Research interface uses final-season Bart Torvik team ranks and season-specific
+conferences supplied by staff CSV exports and bundled privately with the Netlify Research
+build. The rankings are refreshed manually **once per offseason**; they are **not**
+collected, recomputed, or redistributed by this public daily GitHub workflow.
+The former ESPN-derived `public/research_team_context.json` is retained as a legacy
+file only and is no longer refreshed or used by the updated Research page.
