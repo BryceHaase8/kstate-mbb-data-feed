@@ -20,9 +20,18 @@ scripts/daily_update.R
 scripts/build_public_factual_json.R
 data/current_player_season_stats.csv
 public/portal_factual_data.json
-public/index.html
 .github/workflows/daily-update.yml
 ```
+
+## Live JSON
+
+The Portal can read the current factual feed directly from the repository:
+
+```text
+https://raw.githubusercontent.com/BryceHaase8/kstate-mbb-data-feed/main/public/portal_factual_data.json
+```
+
+No GitHub Pages setup is required.
 
 ## What the scheduled job does
 
@@ -33,30 +42,13 @@ Every morning at **6:17 AM America/Chicago**:
 3. Get ESPN's Division I team universe.
 4. Remove non-D-I team rows.
 5. Recalculate clean player-season basic stats.
-6. Write `public/portal_factual_data.json`.
-7. Publish the `public/` folder to GitHub Pages.
+6. Write `data/current_player_season_stats.csv`.
+7. Write `public/portal_factual_data.json`.
+8. Commit those refreshed factual files back to this repository only when they changed.
 
-GitHub scheduled workflows can use an IANA timezone, so the schedule follows Central Time/DST.
+The scheduled workflow follows Central Time/DST.
 
-## First setup
-
-1. Create a **public** GitHub repository.
-2. Upload the contents of this folder to the repository root.
-3. In GitHub, open **Settings → Pages**.
-4. Under **Build and deployment → Source**, choose **GitHub Actions**.
-5. Open **Actions → Update basketball factual feed**.
-6. Choose **Run workflow**.
-7. For the first test, enter `2026` as the optional season override.
-8. Wait for both the `build` and `deploy` jobs to finish successfully.
-9. Open the GitHub Pages URL shown by the deployment.
-
-The JSON URL will be:
-
-```text
-https://YOUR-GITHUB-USERNAME.github.io/YOUR-REPOSITORY-NAME/portal_factual_data.json
-```
-
-Do not point the production Portal at the URL yet. Use the separate Netlify test site first.
+The workflow also runs when the updater scripts or workflow definition change, which lets us test infrastructure changes without touching the Portal.
 
 ## Season behavior
 
@@ -66,7 +58,7 @@ Without an override, `daily_update.R` calculates the likely NCAA ending year:
 
 If that season has no player-box data yet, it falls back one year.
 
-Once 2026–27 games begin appearing in hoopR, the automatic job will begin publishing 2027 data without needing a site redeploy.
+The production Portal is **not** connected yet. The separate Netlify test site should be used first.
 
 ## Public JSON contract
 
@@ -90,6 +82,6 @@ The Portal joins this feed to its private player records using ESPN athlete ID.
 
 ## Safety behavior
 
-The script does not touch Netlify or the Google Sheet.
+The workflow does not touch Netlify or the Google Sheet.
 
 If the remote feed is unavailable, the Portal test build is designed to fall back to its bundled factual data / existing production player fields.
