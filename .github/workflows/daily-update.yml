@@ -65,4 +65,8 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add data/current_player_season_stats.csv public/portal_factual_data.json
           git commit -m "Daily basketball factual data update"
+
+          # Another repository edit could land while this job is running.
+          # Rebase onto the latest main before pushing the generated files.
+          git pull --rebase origin main
           git push
