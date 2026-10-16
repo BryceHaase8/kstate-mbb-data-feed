@@ -1,4 +1,4 @@
-name: Research RAPM independent full-season validation
+name: Research RAPM official-minute-gated full-season refit
 # Schema-normalized full-season official starter/minute validation
 on:
   push:
