@@ -1,0 +1,768 @@
+game_id,athlete_id,team_id,player_name,team_name,starter,did_not_play,minutes
+401804832,4703415,55,Marcus Fitzgerald Jr.,Jacksonville State Gamecocks,TRUE,FALSE,13
+401804832,4709991,55,Aitor Anabitarte,Jacksonville State Gamecocks,TRUE,FALSE,1
+401804832,5060718,55,Jaye Nash,Jacksonville State Gamecocks,FALSE,FALSE,28
+401804832,5105645,55,Iaroslav Niagu,Jacksonville State Gamecocks,FALSE,FALSE,18
+401804832,5106456,55,Jamar Franklin,Jacksonville State Gamecocks,FALSE,FALSE,6
+401804832,5107805,55,Thomas Tut,Jacksonville State Gamecocks,FALSE,TRUE,NA
+401804832,5108777,55,Toby Nnadozie,Jacksonville State Gamecocks,FALSE,TRUE,NA
+401804832,5177521,55,AC Bryant,Jacksonville State Gamecocks,TRUE,FALSE,35
+401804832,5196348,55,Bencao Vungo,Jacksonville State Gamecocks,FALSE,TRUE,NA
+401804832,5240082,55,Mostapha El Moutaouakkil,Jacksonville State Gamecocks,TRUE,FALSE,33
+401804832,5242122,55,Aidan Driggers,Jacksonville State Gamecocks,FALSE,TRUE,NA
+401804832,5312340,55,Jacoby Hill,Jacksonville State Gamecocks,TRUE,FALSE,39
+401804832,5312341,55,Jordan Vick,Jacksonville State Gamecocks,FALSE,TRUE,NA
+401804832,5312342,55,Emondrek Erkins-Ford,Jacksonville State Gamecocks,FALSE,FALSE,27
+401804832,5312343,55,Connor Loy,Jacksonville State Gamecocks,FALSE,TRUE,NA
+401804832,4703009,98,Ryan Myers,Western Kentucky Hilltoppers,TRUE,FALSE,18
+401804832,4897301,98,Terrion Murdix,Western Kentucky Hilltoppers,FALSE,TRUE,NA
+401804832,5105587,98,Grant Newell,Western Kentucky Hilltoppers,TRUE,FALSE,32
+401804832,5105826,98,Blaise Keita,Western Kentucky Hilltoppers,FALSE,FALSE,10
+401804832,5106643,98,Bryant Selebangue,Western Kentucky Hilltoppers,FALSE,TRUE,NA
+401804832,5107700,98,Cam Haffner,Western Kentucky Hilltoppers,FALSE,FALSE,19
+401804832,5176572,98,Leeroy Odiahi,Western Kentucky Hilltoppers,FALSE,FALSE,12
+401804832,5176778,98,Jack Edelen,Western Kentucky Hilltoppers,FALSE,FALSE,15
+401804832,5176780,98,Teagan Moore,Western Kentucky Hilltoppers,TRUE,FALSE,32
+401804832,5177297,98,Louie Semona,Western Kentucky Hilltoppers,FALSE,TRUE,NA
+401804832,5238209,98,Noah Boyde,Western Kentucky Hilltoppers,TRUE,FALSE,4
+401804832,5242615,98,Kade Unseld,Western Kentucky Hilltoppers,FALSE,FALSE,7
+401804832,5242616,98,Cade Stinnett,Western Kentucky Hilltoppers,FALSE,TRUE,NA
+401804832,5313163,98,LJ Hackman,Western Kentucky Hilltoppers,TRUE,FALSE,20
+401804832,5313164,98,Armelo Boone,Western Kentucky Hilltoppers,FALSE,FALSE,31
+401804832,5313165,98,Lawson Rice,Western Kentucky Hilltoppers,FALSE,TRUE,NA
+401804898,4897978,166,Elijah Elliott,New Mexico State Aggies,TRUE,FALSE,32
+401804898,5105877,166,Anthony Wrzeszcz,New Mexico State Aggies,FALSE,FALSE,15
+401804898,5106697,166,Kyrese Mullen,New Mexico State Aggies,TRUE,FALSE,22
+401804898,5107453,166,Jayland Randall,New Mexico State Aggies,FALSE,FALSE,22
+401804898,5175054,166,Cyr Malonga,New Mexico State Aggies,FALSE,FALSE,7
+401804898,5176298,166,Julius Mims,New Mexico State Aggies,TRUE,FALSE,31
+401804898,5176709,166,Christian Villegas,New Mexico State Aggies,FALSE,TRUE,NA
+401804898,5180743,166,Chris Terrell,New Mexico State Aggies,FALSE,FALSE,13
+401804898,5240272,166,Augustine Ekwe,New Mexico State Aggies,FALSE,TRUE,NA
+401804898,5241655,166,Teysean Eaglestaff,New Mexico State Aggies,FALSE,TRUE,NA
+401804898,5241846,166,Jemel Jones,New Mexico State Aggies,TRUE,FALSE,33
+401804898,5242601,166,Gabe Pickens,New Mexico State Aggies,FALSE,FALSE,4
+401804898,5242603,166,Jae'Coby Osborne,New Mexico State Aggies,TRUE,FALSE,21
+401804898,5314526,166,Omarr Smith,New Mexico State Aggies,FALSE,TRUE,NA
+401804898,5314527,166,Amarco Doyle,New Mexico State Aggies,FALSE,TRUE,NA
+401804898,4719433,2229,Julian Mackey,Florida International Panthers,FALSE,FALSE,23
+401804898,5105799,2229,Amarion Nimmers,Florida International Panthers,FALSE,TRUE,NA
+401804898,5107262,2229,Kennedy Brown,Florida International Panthers,FALSE,FALSE,1
+401804898,5175759,2229,Corey Stephenson,Florida International Panthers,TRUE,FALSE,33
+401804898,5176648,2229,Hamed Olayinka,Florida International Panthers,TRUE,FALSE,22
+401804898,5177688,2229,Renato Ruiz,Florida International Panthers,FALSE,TRUE,NA
+401804898,5220980,2229,Aydan Clinton,Florida International Panthers,FALSE,TRUE,NA
+401804898,5240265,2229,Michael Kelvin II,Florida International Panthers,FALSE,TRUE,NA
+401804898,5241745,2229,Brit Harris,Florida International Panthers,FALSE,FALSE,13
+401804898,5242116,2229,Ashton Williamson,Florida International Panthers,TRUE,FALSE,24
+401804898,5242119,2229,Ibrahim Olajuwon,Florida International Panthers,FALSE,FALSE,14
+401804898,5242602,2229,Zawdie Jackson,Florida International Panthers,TRUE,FALSE,30
+401804898,5312336,2229,Thiago Sucatzky,Florida International Panthers,FALSE,FALSE,11
+401804898,5312337,2229,Gvidas Gicevicius,Florida International Panthers,FALSE,TRUE,NA
+401804898,5312338,2229,Eric Dibami,Florida International Panthers,TRUE,FALSE,29
+401804898,5323975,2229,Jorge Santos,Florida International Panthers,FALSE,TRUE,NA
+401804942,4592702,2335,Isaiah Ihnen,Liberty Flames,FALSE,TRUE,NA
+401804942,4700859,2335,Josh Smith,Liberty Flames,FALSE,FALSE,13
+401804942,4703572,2335,Kaden Metheny,Liberty Flames,TRUE,FALSE,35
+401804942,4897412,2335,Zander Yates,Liberty Flames,FALSE,FALSE,3
+401804942,5107069,2335,Zach Cleveland,Liberty Flames,TRUE,FALSE,33
+401804942,5107070,2335,Colin Porter,Liberty Flames,TRUE,FALSE,34
+401804942,5107071,2335,JC Shirer Jr.,Liberty Flames,FALSE,FALSE,1
+401804942,5119095,2335,JJ Harper,Liberty Flames,TRUE,FALSE,27
+401804942,5238192,2335,Ryan Jones Jr.,Liberty Flames,FALSE,FALSE,2
+401804942,5242130,2335,Brett Decker Jr.,Liberty Flames,TRUE,FALSE,34
+401804942,5254331,2335,TJ Drain,Liberty Flames,FALSE,TRUE,NA
+401804942,5254332,2335,Zander Carter,Liberty Flames,FALSE,FALSE,14
+401804942,5254335,2335,Drew Grimes,Liberty Flames,FALSE,FALSE,2
+401804942,5313663,2335,Torr Sorensen,Liberty Flames,FALSE,FALSE,2
+401804942,5313665,2335,Brady Kester,Liberty Flames,FALSE,TRUE,NA
+401804942,4703009,98,Ryan Myers,Western Kentucky Hilltoppers,FALSE,FALSE,19
+401804942,4897301,98,Terrion Murdix,Western Kentucky Hilltoppers,TRUE,FALSE,34
+401804942,5105587,98,Grant Newell,Western Kentucky Hilltoppers,TRUE,FALSE,32
+401804942,5105826,98,Blaise Keita,Western Kentucky Hilltoppers,TRUE,FALSE,16
+401804942,5106643,98,Bryant Selebangue,Western Kentucky Hilltoppers,FALSE,TRUE,NA
+401804942,5107700,98,Cam Haffner,Western Kentucky Hilltoppers,FALSE,TRUE,NA
+401804942,5176572,98,Leeroy Odiahi,Western Kentucky Hilltoppers,FALSE,FALSE,5
+401804942,5176778,98,Jack Edelen,Western Kentucky Hilltoppers,FALSE,FALSE,1
+401804942,5176780,98,Teagan Moore,Western Kentucky Hilltoppers,TRUE,FALSE,31
+401804942,5177297,98,Louie Semona,Western Kentucky Hilltoppers,FALSE,TRUE,NA
+401804942,5238209,98,Noah Boyde,Western Kentucky Hilltoppers,FALSE,FALSE,2
+401804942,5242615,98,Kade Unseld,Western Kentucky Hilltoppers,FALSE,TRUE,NA
+401804942,5242616,98,Cade Stinnett,Western Kentucky Hilltoppers,FALSE,FALSE,3
+401804942,5313163,98,LJ Hackman,Western Kentucky Hilltoppers,TRUE,FALSE,32
+401804942,5313164,98,Armelo Boone,Western Kentucky Hilltoppers,FALSE,FALSE,25
+401804942,5313165,98,Lawson Rice,Western Kentucky Hilltoppers,FALSE,TRUE,NA
+401805168,4432201,253,Isaiah Cottrell,Southern Utah Thunderbirds,TRUE,FALSE,26
+401805168,4433271,253,Chuks Isitua,Southern Utah Thunderbirds,FALSE,TRUE,NA
+401805168,4897439,253,Logan Stephens,Southern Utah Thunderbirds,FALSE,FALSE,7
+401805168,5105463,253,Tanner Hayhurst,Southern Utah Thunderbirds,TRUE,FALSE,29
+401805168,5179285,253,Zach Bell,Southern Utah Thunderbirds,FALSE,TRUE,NA
+401805168,5241350,253,Lorenzo Abellar,Southern Utah Thunderbirds,FALSE,FALSE,4
+401805168,5241351,253,Langston Binns,Southern Utah Thunderbirds,FALSE,TRUE,NA
+401805168,5241352,253,Kai Burdick,Southern Utah Thunderbirds,FALSE,FALSE,7
+401805168,5241777,253,Dylan Jones,Southern Utah Thunderbirds,TRUE,FALSE,24
+401805168,5242946,253,Jaiden Feroah,Southern Utah Thunderbirds,TRUE,FALSE,33
+401805168,5243271,253,Jalen Lee,Southern Utah Thunderbirds,FALSE,FALSE,23
+401805168,5314849,253,Elijah Duval,Southern Utah Thunderbirds,TRUE,FALSE,29
+401805168,5314850,253,Zeplin Kidd,Southern Utah Thunderbirds,FALSE,TRUE,NA
+401805168,5314851,253,Juok Riak,Southern Utah Thunderbirds,FALSE,TRUE,NA
+401805168,5314852,253,Brayden Johnson,Southern Utah Thunderbirds,FALSE,TRUE,NA
+401805168,5314853,253,Cale Barclay,Southern Utah Thunderbirds,FALSE,FALSE,18
+401805168,4591258,2856,Monty Bowser,California Baptist Lancers,FALSE,TRUE,NA
+401805168,4702158,2856,Martel Williams,California Baptist Lancers,FALSE,TRUE,NA
+401805168,4897936,2856,Jayden Jackson,California Baptist Lancers,TRUE,FALSE,33
+401805168,5175014,2856,Thomas Ndong,California Baptist Lancers,TRUE,FALSE,18
+401805168,5178207,2856,Dominique Daniels Jr.,California Baptist Lancers,TRUE,FALSE,38
+401805168,5178211,2856,Jonathan Griman,California Baptist Lancers,TRUE,FALSE,25
+401805168,5241322,2856,Jalen Dollar,California Baptist Lancers,FALSE,TRUE,NA
+401805168,5241323,2856,Devon Malcolm,California Baptist Lancers,FALSE,FALSE,12
+401805168,5241324,2856,Mouhamadou Dioum,California Baptist Lancers,FALSE,TRUE,NA
+401805168,5241326,2856,Bradey Henige,California Baptist Lancers,FALSE,FALSE,22
+401805168,5314829,2856,Chase Mayo Harmon,California Baptist Lancers,FALSE,TRUE,NA
+401805168,5314830,2856,Miles Daniels,California Baptist Lancers,FALSE,FALSE,16
+401805168,5314831,2856,Rene D'Amelio,California Baptist Lancers,FALSE,FALSE,9
+401805168,5314832,2856,Jordan Muller,California Baptist Lancers,TRUE,FALSE,27
+401805168,5314833,2856,OJ Blankson,California Baptist Lancers,FALSE,TRUE,NA
+401805168,5314834,2856,Nate Garcia,California Baptist Lancers,FALSE,TRUE,NA
+401805206,4432741,2627,Dior Johnson,Tarleton State Texans,FALSE,FALSE,30
+401805206,4705373,2627,Freddy Hicks,Tarleton State Texans,FALSE,FALSE,24
+401805206,4896462,2627,Cam McDowell,Tarleton State Texans,FALSE,TRUE,NA
+401805206,5144089,2627,Leroy Kelly IV,Tarleton State Texans,FALSE,TRUE,NA
+401805206,5176664,2627,Kade Douglas,Tarleton State Texans,FALSE,FALSE,15
+401805206,5176786,2627,Joseph Martinez,Tarleton State Texans,FALSE,TRUE,NA
+401805206,5177252,2627,Ocypher Owens,Tarleton State Texans,TRUE,FALSE,30
+401805206,5241436,2627,Jordan Mizell,Tarleton State Texans,TRUE,FALSE,33
+401805206,5241437,2627,Malek Archie,Tarleton State Texans,FALSE,TRUE,NA
+401805206,5241442,2627,Chris Mpaka,Tarleton State Texans,FALSE,TRUE,NA
+401805206,5241443,2627,Roy Marom,Tarleton State Texans,FALSE,TRUE,NA
+401805206,5241444,2627,Andy Sigiscar,Tarleton State Texans,TRUE,FALSE,10
+401805206,5250204,2627,Matyas Vrabel,Tarleton State Texans,FALSE,FALSE,2
+401805206,5314856,2627,AJ Dent Jr.,Tarleton State Texans,FALSE,TRUE,NA
+401805206,5314857,2627,Cameron Thomas,Tarleton State Texans,FALSE,FALSE,2
+401805206,5314858,2627,DJ Dormu,Tarleton State Texans,TRUE,FALSE,24
+401805206,5314859,2627,Kaia Isaac,Tarleton State Texans,TRUE,FALSE,24
+401805206,5314860,2627,Damion Porter Jr.,Tarleton State Texans,FALSE,FALSE,6
+401805206,5314861,2627,Jaden Jinks,Tarleton State Texans,FALSE,TRUE,NA
+401805206,4432398,3084,Noah Taitz,Utah Valley Wolverines,FALSE,TRUE,NA
+401805206,4838703,3084,Tyler Hendricks,Utah Valley Wolverines,TRUE,FALSE,36
+401805206,4873202,3084,Isaac Davis,Utah Valley Wolverines,TRUE,FALSE,23
+401805206,5105468,3084,Trevan Leonhardt,Utah Valley Wolverines,TRUE,FALSE,34
+401805206,5105495,3084,Braden Housley,Utah Valley Wolverines,TRUE,FALSE,32
+401805206,5107161,3084,Hayden Welling,Utah Valley Wolverines,FALSE,FALSE,9
+401805206,5176399,3084,Sherman Weatherspoon IV,Utah Valley Wolverines,FALSE,FALSE,22
+401805206,5176632,3084,Jackson Holcombe,Utah Valley Wolverines,TRUE,FALSE,30
+401805206,5240506,3084,Joul Karram,Utah Valley Wolverines,FALSE,TRUE,NA
+401805206,5241377,3084,Tyler Medaris,Utah Valley Wolverines,FALSE,TRUE,NA
+401805206,5241382,3084,Tyler Weaver,Utah Valley Wolverines,FALSE,TRUE,NA
+401805206,5243016,3084,AJ Dixon,Utah Valley Wolverines,FALSE,TRUE,NA
+401805206,5314811,3084,Jaxson Roberts,Utah Valley Wolverines,FALSE,TRUE,NA
+401805206,5314812,3084,AJ Riggs,Utah Valley Wolverines,FALSE,TRUE,NA
+401805206,5314813,3084,Isaac Hawkins,Utah Valley Wolverines,FALSE,FALSE,14
+401806377,4683134,344,Quincy Ballard,Mississippi State Bulldogs,FALSE,FALSE,27
+401806377,4685688,344,Gai Chol,Mississippi State Bulldogs,FALSE,TRUE,NA
+401806377,4873112,344,Dellquan Warren,Mississippi State Bulldogs,FALSE,TRUE,NA
+401806377,4873130,344,Amier Ali,Mississippi State Bulldogs,FALSE,TRUE,NA
+401806377,4895740,344,Josh Hubbard,Mississippi State Bulldogs,TRUE,FALSE,33
+401806377,5101824,344,Cameren Paul,Mississippi State Bulldogs,FALSE,TRUE,NA
+401806377,5101830,344,Tee Bartlett,Mississippi State Bulldogs,FALSE,TRUE,NA
+401806377,5105487,344,Brandon Walker,Mississippi State Bulldogs,TRUE,FALSE,17
+401806377,5105540,344,Shawn Jones Jr.,Mississippi State Bulldogs,FALSE,FALSE,32
+401806377,5105791,344,Jayden Epps,Mississippi State Bulldogs,TRUE,FALSE,30
+401806377,5107364,344,Achor Achor,Mississippi State Bulldogs,FALSE,FALSE,9
+401806377,5142708,344,King Grace,Mississippi State Bulldogs,FALSE,TRUE,NA
+401806377,5220874,344,Jamarion Davis-Fleming,Mississippi State Bulldogs,TRUE,FALSE,26
+401806377,5240392,344,Ja'Borri McGhee,Mississippi State Bulldogs,TRUE,FALSE,21
+401806377,5311740,344,Sergej Macura,Mississippi State Bulldogs,FALSE,FALSE,5
+401806377,4683757,59,Kowacie Reeves Jr.,Georgia Tech Yellow Jackets,TRUE,FALSE,34
+401806377,4888733,59,Chas Kelley III,Georgia Tech Yellow Jackets,FALSE,FALSE,4
+401806377,5060730,59,Jaeden Mustaf,Georgia Tech Yellow Jackets,TRUE,FALSE,18
+401806377,5061592,59,Peyton Marshall,Georgia Tech Yellow Jackets,FALSE,FALSE,10
+401806377,5101784,59,Akai Fleming,Georgia Tech Yellow Jackets,TRUE,FALSE,26
+401806377,5105607,59,Kam Craft,Georgia Tech Yellow Jackets,FALSE,FALSE,15
+401806377,5106284,59,Lamar Washington,Georgia Tech Yellow Jackets,FALSE,FALSE,27
+401806377,5142356,59,Baye Ndongo,Georgia Tech Yellow Jackets,TRUE,FALSE,22
+401806377,5144109,59,Brandon Stores Jr.,Georgia Tech Yellow Jackets,FALSE,TRUE,NA
+401806377,5172343,59,Cole Kirouac,Georgia Tech Yellow Jackets,FALSE,TRUE,NA
+401806377,5238167,59,Dyllan Thompson,Georgia Tech Yellow Jackets,FALSE,TRUE,NA
+401806377,5248298,59,Eric Chatfield Jr.,Georgia Tech Yellow Jackets,FALSE,FALSE,18
+401806377,5258494,59,Mouhamed Sylla,Georgia Tech Yellow Jackets,TRUE,FALSE,26
+401806377,5311960,59,Davi Remagen,Georgia Tech Yellow Jackets,FALSE,TRUE,NA
+401806453,4897987,2197,Andre Washington,Eastern Illinois Panthers,TRUE,FALSE,19
+401806453,4898343,2197,Kooper Jacobi,Eastern Illinois Panthers,TRUE,FALSE,32
+401806453,4901611,2197,Nazareth Fisher,Eastern Illinois Panthers,TRUE,FALSE,14
+401806453,5107814,2197,JT Elder,Eastern Illinois Panthers,FALSE,TRUE,NA
+401806453,5177610,2197,Kyle Layton,Eastern Illinois Panthers,FALSE,TRUE,NA
+401806453,5177742,2197,Malik Olafioye,Eastern Illinois Panthers,FALSE,FALSE,9
+401806453,5242420,2197,Zion Fruster,Eastern Illinois Panthers,TRUE,FALSE,33
+401806453,5242423,2197,Terry McMorris,Eastern Illinois Panthers,FALSE,FALSE,21
+401806453,5311579,2197,Markus Blackwell,Eastern Illinois Panthers,FALSE,TRUE,NA
+401806453,5311580,2197,Meechie White,Eastern Illinois Panthers,TRUE,FALSE,34
+401806453,5311581,2197,Prince Johnson,Eastern Illinois Panthers,FALSE,FALSE,12
+401806453,5311582,2197,Preston Turner,Eastern Illinois Panthers,FALSE,FALSE,26
+401806453,5311583,2197,Andrew Austin,Eastern Illinois Panthers,FALSE,TRUE,NA
+401806453,5311584,2197,Shane Sims,Eastern Illinois Panthers,FALSE,TRUE,NA
+401806453,4897051,2413,Anouar Mellouk,Morehead State Eagles,TRUE,FALSE,32
+401806453,5107477,2413,Davion Cunningham,Morehead State Eagles,FALSE,FALSE,30
+401806453,5108070,2413,Jacob Wilson,Morehead State Eagles,FALSE,TRUE,NA
+401806453,5144120,2413,Kameren Wright,Morehead State Eagles,FALSE,TRUE,NA
+401806453,5177360,2413,George Marshall,Morehead State Eagles,TRUE,FALSE,36
+401806453,5239660,2413,Tyonne Farrell,Morehead State Eagles,TRUE,FALSE,11
+401806453,5240034,2413,Tamaury Releford,Morehead State Eagles,FALSE,FALSE,20
+401806453,5241383,2413,Josiah LeGree,Morehead State Eagles,FALSE,FALSE,12
+401806453,5242552,2413,Jace Winkleman,Morehead State Eagles,FALSE,TRUE,NA
+401806453,5247158,2413,Chase Dawson,Morehead State Eagles,TRUE,FALSE,28
+401806453,5314326,2413,Jon Carroll,Morehead State Eagles,TRUE,FALSE,19
+401806453,5314327,2413,Vince Dawson III,Morehead State Eagles,FALSE,FALSE,12
+401806453,5314328,2413,Jarvis Wright,Morehead State Eagles,FALSE,TRUE,NA
+401806453,5314329,2413,Jaden Priester,Morehead State Eagles,FALSE,TRUE,NA
+401806453,5314330,2413,Clayton Parker,Morehead State Eagles,FALSE,TRUE,NA
+401806503,4897987,2197,Andre Washington,Eastern Illinois Panthers,FALSE,TRUE,NA
+401806503,4898343,2197,Kooper Jacobi,Eastern Illinois Panthers,TRUE,FALSE,36
+401806503,4901611,2197,Nazareth Fisher,Eastern Illinois Panthers,TRUE,FALSE,20
+401806503,5107814,2197,JT Elder,Eastern Illinois Panthers,FALSE,TRUE,NA
+401806503,5177610,2197,Kyle Layton,Eastern Illinois Panthers,FALSE,TRUE,NA
+401806503,5177742,2197,Malik Olafioye,Eastern Illinois Panthers,FALSE,TRUE,NA
+401806503,5242420,2197,Zion Fruster,Eastern Illinois Panthers,TRUE,FALSE,36
+401806503,5242423,2197,Terry McMorris,Eastern Illinois Panthers,TRUE,FALSE,38
+401806503,5311579,2197,Markus Blackwell,Eastern Illinois Panthers,FALSE,FALSE,19
+401806503,5311580,2197,Meechie White,Eastern Illinois Panthers,TRUE,FALSE,27
+401806503,5311581,2197,Prince Johnson,Eastern Illinois Panthers,FALSE,FALSE,19
+401806503,5311582,2197,Preston Turner,Eastern Illinois Panthers,FALSE,FALSE,5
+401806503,5311583,2197,Andrew Austin,Eastern Illinois Panthers,FALSE,TRUE,NA
+401806503,5311584,2197,Shane Sims,Eastern Illinois Panthers,FALSE,TRUE,NA
+401806503,4873146,2815,Jadis Jones,Lindenwood Lions,TRUE,FALSE,38
+401806503,4897163,2815,Milos Nenadic,Lindenwood Lions,TRUE,FALSE,27
+401806503,5107221,2815,Jalen Bouknight,Lindenwood Lions,FALSE,TRUE,NA
+401806503,5108826,2815,Robert Lewis,Lindenwood Lions,FALSE,FALSE,5
+401806503,5176213,2815,Mekhi Cooper,Lindenwood Lions,TRUE,FALSE,35
+401806503,5177346,2815,Jaylon McDaniel,Lindenwood Lions,FALSE,TRUE,NA
+401806503,5177350,2815,Jeremiah Talton,Lindenwood Lions,FALSE,TRUE,NA
+401806503,5241311,2815,Dontrez Williams,Lindenwood Lions,TRUE,FALSE,31
+401806503,5242437,2815,Anias Futrell,Lindenwood Lions,TRUE,FALSE,39
+401806503,5242439,2815,Clayton Jackson,Lindenwood Lions,FALSE,FALSE,17
+401806503,5314288,2815,Tidiane d'Almeida,Lindenwood Lions,FALSE,TRUE,NA
+401806503,5314289,2815,William Campbell,Lindenwood Lions,FALSE,TRUE,NA
+401806503,5314290,2815,Daniel Kwon,Lindenwood Lions,FALSE,TRUE,NA
+401806503,5314291,2815,Kevin Anthony,Lindenwood Lions,FALSE,FALSE,8
+401806503,5314292,2815,Todd Bieg,Lindenwood Lions,FALSE,TRUE,NA
+401807689,4898223,2511,Gus Larson,Queens University Royals,FALSE,FALSE,10
+401807689,5107088,2511,Chris Ashby,Queens University Royals,TRUE,FALSE,31
+401807689,5144110,2511,Jordan Watford,Queens University Royals,FALSE,FALSE,19
+401807689,5176643,2511,Nasir Mann,Queens University Royals,TRUE,FALSE,20
+401807689,5176801,2511,Avantae Parker,Queens University Royals,TRUE,FALSE,17
+401807689,5177217,2511,Carson Schwieger,Queens University Royals,TRUE,FALSE,31
+401807689,5196932,2511,Isaiah Henry,Queens University Royals,FALSE,FALSE,3
+401807689,5240005,2511,Maban Jabriel,Queens University Royals,FALSE,FALSE,26
+401807689,5240006,2511,Yoav Berman,Queens University Royals,TRUE,FALSE,36
+401807689,5240007,2511,Jacob Brandly,Queens University Royals,FALSE,TRUE,NA
+401807689,5240008,2511,Colby Christiansen,Queens University Royals,FALSE,TRUE,NA
+401807689,5314489,2511,Danzelle Bullock Coles,Queens University Royals,FALSE,TRUE,NA
+401807689,5314490,2511,Reid Celestin,Queens University Royals,FALSE,TRUE,NA
+401807689,5314491,2511,Kam Clark,Queens University Royals,FALSE,FALSE,7
+401807689,5314492,2511,Jimma James,Queens University Royals,FALSE,TRUE,NA
+401807689,5314493,2511,Tyler Crider,Queens University Royals,FALSE,TRUE,NA
+401807689,5314494,2511,Saif-Allah Zatari,Queens University Royals,FALSE,TRUE,NA
+401807689,5314495,2511,Seamus Wilson,Queens University Royals,FALSE,TRUE,NA
+401807689,5314496,2511,Matthew Walter,Queens University Royals,FALSE,TRUE,NA
+401807689,4575837,526,J.R. Konieczny,Florida Gulf Coast Eagles,TRUE,FALSE,26
+401807689,4711274,526,George Washington III,Florida Gulf Coast Eagles,FALSE,TRUE,NA
+401807689,4895738,526,Rahmir Barno,Florida Gulf Coast Eagles,TRUE,FALSE,31
+401807689,4897069,526,Brandon Dwyer,Florida Gulf Coast Eagles,FALSE,TRUE,NA
+401807689,4897479,526,Michael Duax,Florida Gulf Coast Eagles,TRUE,FALSE,22
+401807689,5105971,526,Rory Stewart,Florida Gulf Coast Eagles,FALSE,FALSE,20
+401807689,5236221,526,Jordan Ellerbee,Florida Gulf Coast Eagles,FALSE,FALSE,27
+401807689,5239790,526,Jack Reddick,Florida Gulf Coast Eagles,FALSE,FALSE,12
+401807689,5239791,526,Darren Williams,Florida Gulf Coast Eagles,TRUE,FALSE,22
+401807689,5239792,526,BB Washington,Florida Gulf Coast Eagles,FALSE,TRUE,NA
+401807689,5239793,526,Tristen Guillouette,Florida Gulf Coast Eagles,FALSE,FALSE,11
+401807689,5246065,526,Evan Barlow,Florida Gulf Coast Eagles,FALSE,TRUE,NA
+401807689,5313659,526,Gabe Tanner,Florida Gulf Coast Eagles,FALSE,TRUE,NA
+401807689,5313660,526,Matt McCarthy,Florida Gulf Coast Eagles,FALSE,FALSE,1
+401807689,5313661,526,Chase Konieczny,Florida Gulf Coast Eagles,FALSE,TRUE,NA
+401807689,5313662,526,Isaiah Malone,Florida Gulf Coast Eagles,TRUE,FALSE,28
+401807724,4712848,2110,Javion Guy-King,Central Arkansas Bears,TRUE,FALSE,25
+401807724,4897018,2110,Camren Hunter,Central Arkansas Bears,TRUE,FALSE,30
+401807724,4897558,2110,Rashad Bolden,Central Arkansas Bears,FALSE,TRUE,NA
+401807724,5111680,2110,Rylie Marshall,Central Arkansas Bears,FALSE,TRUE,NA
+401807724,5239777,2110,Tyler Lee,Central Arkansas Bears,FALSE,FALSE,3
+401807724,5239778,2110,Owen Derhmann,Central Arkansas Bears,FALSE,FALSE,1
+401807724,5239780,2110,Ty Robinson,Central Arkansas Bears,TRUE,FALSE,25
+401807724,5239781,2110,Ethan Thomas,Central Arkansas Bears,FALSE,TRUE,NA
+401807724,5239782,2110,Cole McCormick,Central Arkansas Bears,FALSE,FALSE,19
+401807724,5247935,2110,Parker Applegate,Central Arkansas Bears,FALSE,FALSE,7
+401807724,5312919,2110,Truman Byrne,Central Arkansas Bears,FALSE,FALSE,14
+401807724,5312920,2110,J.C. Shulman,Central Arkansas Bears,FALSE,FALSE,2
+401807724,5312921,2110,R.J. Newton,Central Arkansas Bears,FALSE,TRUE,NA
+401807724,5312922,2110,Harry Beauchamp,Central Arkansas Bears,FALSE,FALSE,17
+401807724,5312924,2110,Chris Mason,Central Arkansas Bears,FALSE,TRUE,NA
+401807724,5312925,2110,Malchiah Marable,Central Arkansas Bears,TRUE,FALSE,26
+401807724,5312926,2110,Luke Moore,Central Arkansas Bears,TRUE,FALSE,31
+401807724,4709454,2453,Dallas Howell,North Alabama Lions,TRUE,FALSE,40
+401807724,5105533,2453,Corneilous Williams,North Alabama Lions,TRUE,FALSE,36
+401807724,5176200,2453,Canin Jefferson,North Alabama Lions,FALSE,TRUE,NA
+401807724,5176204,2453,Jamal Albritton,North Alabama Lions,FALSE,FALSE,6
+401807724,5239797,2453,Donte Bacchus,North Alabama Lions,TRUE,FALSE,38
+401807724,5239798,2453,Kevin de Kovachich,North Alabama Lions,TRUE,FALSE,39
+401807724,5239800,2453,King Walker,North Alabama Lions,FALSE,FALSE,6
+401807724,5239801,2453,Israel Jenrette,North Alabama Lions,FALSE,TRUE,NA
+401807724,5239802,2453,Mitchell Chaffee,North Alabama Lions,FALSE,TRUE,NA
+401807724,5239803,2453,DarKaun King,North Alabama Lions,FALSE,TRUE,NA
+401807724,5314348,2453,Tank Washington,North Alabama Lions,FALSE,TRUE,NA
+401807724,5314349,2453,Braylon Patton,North Alabama Lions,TRUE,FALSE,35
+401807724,5314350,2453,Kedar Bodie,North Alabama Lions,FALSE,TRUE,NA
+401807724,5314351,2453,Cortez Graham-Howard,North Alabama Lions,FALSE,TRUE,NA
+401807762,4683768,294,Chris Lockett Jr.,Jacksonville Dolphins,TRUE,FALSE,29
+401807762,4845388,294,Jaylen Jones,Jacksonville Dolphins,TRUE,FALSE,27
+401807762,5108085,294,Jason Thirdkill Jr.,Jacksonville Dolphins,TRUE,FALSE,37
+401807762,5122260,294,Jaylen Jordon,Jacksonville Dolphins,FALSE,FALSE,14
+401807762,5176296,294,Allen Udemadu,Jacksonville Dolphins,FALSE,TRUE,NA
+401807762,5179284,294,Tito Deng,Jacksonville Dolphins,FALSE,TRUE,NA
+401807762,5179287,294,Donovan Rivers,Jacksonville Dolphins,TRUE,FALSE,14
+401807762,5243204,294,Chris Arias,Jacksonville Dolphins,FALSE,FALSE,11
+401807762,5243205,294,Anakin Brown,Jacksonville Dolphins,FALSE,TRUE,NA
+401807762,5243206,294,Lamont Jackson,Jacksonville Dolphins,FALSE,TRUE,NA
+401807762,5243207,294,Simon Wheeler,Jacksonville Dolphins,FALSE,TRUE,NA
+401807762,5243210,294,Enrico Borio,Jacksonville Dolphins,FALSE,FALSE,3
+401807762,5313674,294,Hayden Wood,Jacksonville Dolphins,TRUE,FALSE,35
+401807762,5313675,294,Michael Harper Jr.,Jacksonville Dolphins,FALSE,TRUE,NA
+401807762,5313676,294,Roman Loux,Jacksonville Dolphins,FALSE,TRUE,NA
+401807762,5313677,294,Charles Caporaso,Jacksonville Dolphins,FALSE,FALSE,12
+401807762,5313678,294,Evan Sterck,Jacksonville Dolphins,FALSE,FALSE,18
+401807762,5174799,56,Matar Diop,Stetson Hatters,FALSE,FALSE,7
+401807762,5176799,56,Collin Kuhl,Stetson Hatters,TRUE,FALSE,34
+401807762,5177676,56,Isaac Jones,Stetson Hatters,FALSE,TRUE,NA
+401807762,5177677,56,Alex Doyle,Stetson Hatters,FALSE,FALSE,9
+401807762,5177678,56,Finley Sheridan,Stetson Hatters,TRUE,FALSE,32
+401807762,5238231,56,Janusz Ratowski,Stetson Hatters,FALSE,FALSE,2
+401807762,5240016,56,Jamie Phillips Jr.,Stetson Hatters,FALSE,TRUE,NA
+401807762,5240018,56,Daniel Macgregor,Stetson Hatters,FALSE,FALSE,11
+401807762,5240020,56,Ben Gladieux,Stetson Hatters,FALSE,TRUE,NA
+401807762,5314558,56,Ethan Copeland,Stetson Hatters,TRUE,FALSE,36
+401807762,5314559,56,Calvin Sirmans III,Stetson Hatters,TRUE,FALSE,30
+401807762,5314560,56,Miller McGowan,Stetson Hatters,FALSE,TRUE,NA
+401807762,5314561,56,J.R. Leonard,Stetson Hatters,FALSE,TRUE,NA
+401807762,5314562,56,Jake Johnson,Stetson Hatters,TRUE,FALSE,39
+401807762,5314563,56,Sean Morgan,Stetson Hatters,FALSE,TRUE,NA
+401808173,4433340,2579,Myles Stute,South Carolina Gamecocks,TRUE,FALSE,28
+401808173,4683763,2579,Jordan Butler,South Carolina Gamecocks,FALSE,TRUE,NA
+401808173,4710770,2579,Meechie Johnson,South Carolina Gamecocks,TRUE,FALSE,34
+401808173,4869784,2579,Cam Scott,South Carolina Gamecocks,FALSE,TRUE,NA
+401808173,4896884,2579,Kobe Knox,South Carolina Gamecocks,TRUE,FALSE,25
+401808173,5101774,2579,Eli Ellis,South Carolina Gamecocks,FALSE,FALSE,30
+401808173,5101846,2579,EJ Walker,South Carolina Gamecocks,FALSE,FALSE,9
+401808173,5105549,2579,Eli Sparkman,South Carolina Gamecocks,FALSE,FALSE,2
+401808173,5105875,2579,Mike Sharavjamts,South Carolina Gamecocks,TRUE,FALSE,29
+401808173,5105978,2579,Christ Essandoko,South Carolina Gamecocks,FALSE,FALSE,5
+401808173,5112189,2579,Nordin Kapic,South Carolina Gamecocks,FALSE,FALSE,6
+401808173,5173589,2579,Hayden Assemian,South Carolina Gamecocks,FALSE,FALSE,13
+401808173,5174555,2579,Elijah Strong,South Carolina Gamecocks,TRUE,FALSE,19
+401808173,5254178,2579,Grant Polk,South Carolina Gamecocks,FALSE,TRUE,NA
+401808173,5311524,2579,Abu Yarmah,South Carolina Gamecocks,FALSE,TRUE,NA
+401808173,4683777,8,D.J. Wagner,Arkansas Razorbacks,TRUE,FALSE,21
+401808173,4698719,8,Trevon Brazile,Arkansas Razorbacks,TRUE,FALSE,31
+401808173,4703887,8,Nick Pringle,Arkansas Razorbacks,TRUE,FALSE,23
+401808173,4869777,8,Karter Knox,Arkansas Razorbacks,FALSE,FALSE,18
+401808173,5041951,8,Meleek Thomas,Arkansas Razorbacks,FALSE,FALSE,26
+401808173,5060732,8,Billy Richmond III,Arkansas Razorbacks,TRUE,FALSE,26
+401808173,5101797,8,Isaiah Sealy,Arkansas Razorbacks,FALSE,FALSE,2
+401808173,5105546,8,Malique Ewin,Arkansas Razorbacks,FALSE,FALSE,15
+401808173,5142620,8,Darius Acuff Jr.,Arkansas Razorbacks,TRUE,FALSE,30
+401808173,5144085,8,Amere Brown,Arkansas Razorbacks,FALSE,FALSE,2
+401808173,5238194,8,Jaden Karuletwa,Arkansas Razorbacks,FALSE,FALSE,2
+401808173,5238196,8,Ayden Kelley,Arkansas Razorbacks,FALSE,FALSE,2
+401808173,5258495,8,Paulo Semedo,Arkansas Razorbacks,FALSE,TRUE,NA
+401808173,5281348,8,Karim Rtail,Arkansas Razorbacks,FALSE,TRUE,NA
+401808173,5311500,8,Elmir Džafic,Arkansas Razorbacks,FALSE,FALSE,2
+401808211,4432196,142,Jayden Stone,Missouri Tigers,TRUE,FALSE,33
+401808211,4432515,142,Jacob Crews,Missouri Tigers,FALSE,FALSE,20
+401808211,4433285,142,Mark Mitchell Jr.,Missouri Tigers,TRUE,FALSE,36
+401808211,4684798,142,Jevon Porter,Missouri Tigers,FALSE,TRUE,NA
+401808211,4711270,142,Sebastian Mack,Missouri Tigers,FALSE,TRUE,NA
+401808211,5037881,142,Trent Pierce,Missouri Tigers,TRUE,FALSE,30
+401808211,5041957,142,Aaron Rowe,Missouri Tigers,FALSE,TRUE,NA
+401808211,5054085,142,Anthony Robinson II,Missouri Tigers,FALSE,FALSE,23
+401808211,5105537,142,Shawn Phillips Jr.,Missouri Tigers,TRUE,FALSE,16
+401808211,5106269,142,Luke Northweather,Missouri Tigers,FALSE,TRUE,NA
+401808211,5144151,142,Nicholas Randall,Missouri Tigers,FALSE,FALSE,5
+401808211,5144166,142,T.O. Barrett,Missouri Tigers,TRUE,FALSE,30
+401808211,5169569,142,Trent Burns,Missouri Tigers,FALSE,FALSE,4
+401808211,5238218,142,Annor Boateng,Missouri Tigers,FALSE,FALSE,3
+401808211,4683134,344,Quincy Ballard,Mississippi State Bulldogs,TRUE,FALSE,16
+401808211,4685688,344,Gai Chol,Mississippi State Bulldogs,FALSE,TRUE,NA
+401808211,4873112,344,Dellquan Warren,Mississippi State Bulldogs,FALSE,TRUE,NA
+401808211,4873130,344,Amier Ali,Mississippi State Bulldogs,FALSE,TRUE,NA
+401808211,4895740,344,Josh Hubbard,Mississippi State Bulldogs,TRUE,FALSE,32
+401808211,5101824,344,Cameren Paul,Mississippi State Bulldogs,FALSE,TRUE,NA
+401808211,5101830,344,Tee Bartlett,Mississippi State Bulldogs,FALSE,TRUE,NA
+401808211,5105487,344,Brandon Walker,Mississippi State Bulldogs,FALSE,TRUE,NA
+401808211,5105540,344,Shawn Jones Jr.,Mississippi State Bulldogs,TRUE,FALSE,15
+401808211,5105791,344,Jayden Epps,Mississippi State Bulldogs,FALSE,FALSE,29
+401808211,5107364,344,Achor Achor,Mississippi State Bulldogs,TRUE,FALSE,15
+401808211,5142708,344,King Grace,Mississippi State Bulldogs,FALSE,FALSE,19
+401808211,5220874,344,Jamarion Davis-Fleming,Mississippi State Bulldogs,FALSE,FALSE,29
+401808211,5240392,344,Ja'Borri McGhee,Mississippi State Bulldogs,TRUE,FALSE,24
+401808211,5311740,344,Sergej Macura,Mississippi State Bulldogs,FALSE,FALSE,21
+401808251,4432243,251,Tramon Mark,Texas Longhorns,TRUE,FALSE,20
+401808251,4683785,251,Simeon Wilcher,Texas Longhorns,FALSE,FALSE,22
+401808251,4848625,251,Dailyn Swain,Texas Longhorns,TRUE,FALSE,38
+401808251,4897052,251,Lassina Traore,Texas Longhorns,FALSE,TRUE,NA
+401808251,4897760,251,Cole Bott,Texas Longhorns,FALSE,TRUE,NA
+401808251,5105486,251,Chendall Weaver,Texas Longhorns,FALSE,FALSE,30
+401808251,5105624,251,Jordan Pope,Texas Longhorns,TRUE,FALSE,34
+401808251,5105855,251,Camden Heide,Texas Longhorns,TRUE,FALSE,16
+401808251,5149079,251,John Clark,Texas Longhorns,FALSE,TRUE,NA
+401808251,5149083,251,Nic Codie,Texas Longhorns,FALSE,FALSE,14
+401808251,5176687,251,Brandon Taylor,Texas Longhorns,FALSE,TRUE,NA
+401808251,5191718,251,Anthon McDermott,Texas Longhorns,FALSE,TRUE,NA
+401808251,5239838,251,Matas Vokietaitis,Texas Longhorns,TRUE,FALSE,26
+401808251,5311528,251,Declan Duru Jr.,Texas Longhorns,FALSE,TRUE,NA
+401808251,5311529,251,Lewis Obiorah,Texas Longhorns,FALSE,TRUE,NA
+401808251,4711402,61,Jordan Ross,Georgia Bulldogs,FALSE,FALSE,24
+401808251,4895794,61,Dylan James,Georgia Bulldogs,FALSE,FALSE,11
+401808251,5105530,61,Brandon Klatsky,Georgia Bulldogs,FALSE,TRUE,NA
+401808251,5105532,61,Jaden Newell,Georgia Bulldogs,FALSE,TRUE,NA
+401808251,5107490,61,Justin Bailey,Georgia Bulldogs,FALSE,TRUE,NA
+401808251,5142622,61,Jake Wilkins,Georgia Bulldogs,FALSE,FALSE,8
+401808251,5144145,61,Jackson McVey,Georgia Bulldogs,FALSE,TRUE,NA
+401808251,5144153,61,Kareem Stagg,Georgia Bulldogs,TRUE,FALSE,19
+401808251,5165276,61,Jeremiah Wilkinson,Georgia Bulldogs,FALSE,FALSE,25
+401808251,5174661,61,Blue Cain,Georgia Bulldogs,TRUE,FALSE,32
+401808251,5174664,61,Markel Jennings,Georgia Bulldogs,FALSE,TRUE,NA
+401808251,5176681,61,Marcus Millender,Georgia Bulldogs,TRUE,FALSE,25
+401808251,5238203,61,Somtochukwu Cyril,Georgia Bulldogs,TRUE,FALSE,23
+401808251,5238204,61,Justin Abson,Georgia Bulldogs,FALSE,FALSE,6
+401808251,5243212,61,Kanon Catchings,Georgia Bulldogs,TRUE,FALSE,27
+401808464,4898348,304,Gus Etchison,Idaho State Bengals,FALSE,FALSE,10
+401808464,5107151,304,Quin Patterson,Idaho State Bengals,FALSE,FALSE,8
+401808464,5176319,304,Jaedyn Brown,Idaho State Bengals,FALSE,TRUE,NA
+401808464,5176324,304,Evan Otten,Idaho State Bengals,TRUE,FALSE,15
+401808464,5241282,304,Cheikh Sow,Idaho State Bengals,FALSE,FALSE,10
+401808464,5241283,304,Connor Hollenbeck,Idaho State Bengals,TRUE,FALSE,34
+401808464,5241286,304,Blake Daberkow,Idaho State Bengals,FALSE,FALSE,11
+401808464,5241308,304,Lachlan Brewer,Idaho State Bengals,TRUE,FALSE,20
+401808464,5313166,304,Jamison Guerra,Idaho State Bengals,TRUE,FALSE,30
+401808464,5313167,304,Landen Birley,Idaho State Bengals,FALSE,FALSE,10
+401808464,5313168,304,Trey Arland,Idaho State Bengals,FALSE,TRUE,NA
+401808464,5313170,304,Martin Kheil,Idaho State Bengals,TRUE,FALSE,24
+401808464,5313171,304,Louis Bond,Idaho State Bengals,FALSE,FALSE,8
+401808464,5313172,304,Kasen Carpenter,Idaho State Bengals,FALSE,FALSE,2
+401808464,5313173,304,Caleb Van De Griend,Idaho State Bengals,FALSE,FALSE,18
+401808464,4684146,331,Tyler Powell,Eastern Washington Eagles,TRUE,FALSE,14
+401808464,4708534,331,Johnny Radford,Eastern Washington Eagles,FALSE,FALSE,13
+401808464,4906817,331,Andrew Cook,Eastern Washington Eagles,FALSE,TRUE,NA
+401808464,5107191,331,Maddox Monson,Eastern Washington Eagles,FALSE,FALSE,2
+401808464,5107196,331,Shaumba Ngoyi,Eastern Washington Eagles,FALSE,FALSE,1
+401808464,5175374,331,Emmett Marquardt,Eastern Washington Eagles,FALSE,FALSE,14
+401808464,5176321,331,Kiree Huie,Eastern Washington Eagles,TRUE,FALSE,28
+401808464,5176412,331,Isaiah Moses,Eastern Washington Eagles,TRUE,FALSE,31
+401808464,5241162,331,Angelo Winkel,Eastern Washington Eagles,FALSE,TRUE,NA
+401808464,5241164,331,Elijah Thomas,Eastern Washington Eagles,FALSE,FALSE,11
+401808464,5241269,331,Jojo Anderson,Eastern Washington Eagles,FALSE,FALSE,28
+401808464,5313110,331,Cole Scherer,Eastern Washington Eagles,TRUE,FALSE,7
+401808464,5313111,331,Straton Rogers,Eastern Washington Eagles,FALSE,FALSE,20
+401808464,5313112,331,Alton Hamilton IV,Eastern Washington Eagles,TRUE,FALSE,31
+401808464,5313113,331,Alan Gballou,Eastern Washington Eagles,FALSE,TRUE,NA
+401808497,4685648,149,Courtney Anderson Jr.,Montana Grizzlies,FALSE,TRUE,NA
+401808497,4702042,149,Te'Jon Sawyer,Montana Grizzlies,TRUE,FALSE,20
+401808497,5060727,149,Tyler Thompson,Montana Grizzlies,TRUE,FALSE,35
+401808497,5101624,149,Brooklyn Hicks,Montana Grizzlies,FALSE,FALSE,17
+401808497,5105819,149,Kadyn Betts,Montana Grizzlies,FALSE,TRUE,NA
+401808497,5106313,149,Tyler Isaak,Montana Grizzlies,FALSE,FALSE,8
+401808497,5106752,149,Amari Jedkins,Montana Grizzlies,FALSE,FALSE,10
+401808497,5177694,149,Money Williams,Montana Grizzlies,TRUE,FALSE,36
+401808497,5177695,149,Chase Henderson,Montana Grizzlies,FALSE,TRUE,NA
+401808497,5177698,149,Connor Dick,Montana Grizzlies,FALSE,FALSE,3
+401808497,5315595,149,Trae Taylor,Montana Grizzlies,FALSE,FALSE,8
+401808497,5315596,149,Grant Kepley,Montana Grizzlies,TRUE,FALSE,36
+401808497,5315597,149,Luke Moxon,Montana Grizzlies,FALSE,TRUE,NA
+401808497,5315598,149,Kenyon Aguino,Montana Grizzlies,TRUE,FALSE,27
+401808497,4898348,304,Gus Etchison,Idaho State Bengals,FALSE,FALSE,27
+401808497,5107151,304,Quin Patterson,Idaho State Bengals,FALSE,TRUE,NA
+401808497,5176319,304,Jaedyn Brown,Idaho State Bengals,FALSE,TRUE,NA
+401808497,5176324,304,Evan Otten,Idaho State Bengals,TRUE,FALSE,11
+401808497,5241282,304,Cheikh Sow,Idaho State Bengals,FALSE,FALSE,21
+401808497,5241283,304,Connor Hollenbeck,Idaho State Bengals,TRUE,FALSE,21
+401808497,5241286,304,Blake Daberkow,Idaho State Bengals,FALSE,FALSE,22
+401808497,5241308,304,Lachlan Brewer,Idaho State Bengals,TRUE,FALSE,30
+401808497,5313166,304,Jamison Guerra,Idaho State Bengals,TRUE,FALSE,13
+401808497,5313167,304,Landen Birley,Idaho State Bengals,FALSE,TRUE,NA
+401808497,5313168,304,Trey Arland,Idaho State Bengals,FALSE,TRUE,NA
+401808497,5313170,304,Martin Kheil,Idaho State Bengals,TRUE,FALSE,23
+401808497,5313171,304,Louis Bond,Idaho State Bengals,FALSE,FALSE,26
+401808497,5313172,304,Kasen Carpenter,Idaho State Bengals,FALSE,TRUE,NA
+401808497,5313173,304,Caleb Van De Griend,Idaho State Bengals,FALSE,FALSE,6
+401808535,4683786,16,Mikey Williams,Sacramento State Hornets,FALSE,TRUE,NA
+401808535,4684156,16,Shaqir O'Neal,Sacramento State Hornets,TRUE,FALSE,25
+401808535,4711296,16,Brandon Gardner,Sacramento State Hornets,FALSE,TRUE,NA
+401808535,4712865,16,Jeremiah Nyarko,Sacramento State Hornets,FALSE,TRUE,NA
+401808535,5119013,16,Davis Ambuehl,Sacramento State Hornets,FALSE,TRUE,NA
+401808535,5174976,16,Jayden Teat,Sacramento State Hornets,FALSE,FALSE,5
+401808535,5175391,16,Arman Madi,Sacramento State Hornets,FALSE,FALSE,29
+401808535,5177722,16,Prophet Johnson,Sacramento State Hornets,TRUE,FALSE,38
+401808535,5240356,16,Taj Glover,Sacramento State Hornets,TRUE,FALSE,21
+401808535,5241260,16,Jeremiah Cherry,Sacramento State Hornets,FALSE,TRUE,NA
+401808535,5241384,16,Jahni Summers,Sacramento State Hornets,TRUE,FALSE,36
+401808535,5313274,16,Romari Robinson,Sacramento State Hornets,FALSE,FALSE,17
+401808535,5313275,16,Zach Anderson,Sacramento State Hornets,FALSE,TRUE,NA
+401808535,5313276,16,Isaiah Bronson,Sacramento State Hornets,FALSE,TRUE,NA
+401808535,5313277,16,Mark Lavrenov,Sacramento State Hornets,TRUE,FALSE,29
+401808535,4897944,2458,Zach Bloch,Northern Colorado Bears,TRUE,FALSE,36
+401808535,5107217,2458,Chancellor White,Northern Colorado Bears,FALSE,TRUE,NA
+401808535,5107514,2458,Ibu Yamazaki,Northern Colorado Bears,TRUE,FALSE,28
+401808535,5107858,2458,Brock Wisne,Northern Colorado Bears,TRUE,FALSE,34
+401808535,5175417,2458,Egan Shields,Northern Colorado Bears,FALSE,FALSE,12
+401808535,5176255,2458,William Humer,Northern Colorado Bears,FALSE,TRUE,NA
+401808535,5176300,2458,Quinn Denker,Northern Colorado Bears,TRUE,FALSE,37
+401808535,5176494,2458,Vincent Delano,Northern Colorado Bears,FALSE,FALSE,15
+401808535,5241298,2458,Walker Asp,Northern Colorado Bears,FALSE,TRUE,NA
+401808535,5241299,2458,Ariik Mawien,Northern Colorado Bears,FALSE,FALSE,6
+401808535,5241300,2458,Hunter Caldwell,Northern Colorado Bears,FALSE,TRUE,NA
+401808535,5241653,2458,Ring Nyeri,Northern Colorado Bears,TRUE,FALSE,32
+401808535,5313251,2458,Kaden Ericksen,Northern Colorado Bears,FALSE,TRUE,NA
+401808535,5313252,2458,Steven Ramirez Jr.,Northern Colorado Bears,FALSE,TRUE,NA
+401808535,5313253,2458,Tanner Braketa,Northern Colorado Bears,FALSE,TRUE,NA
+401808535,5313254,2458,Will Dixion III,Northern Colorado Bears,FALSE,TRUE,NA
+401808607,4700841,2026,Kasen Jennings,App State Mountaineers,TRUE,FALSE,35
+401808607,5108925,2026,Alonzo Dodd,App State Mountaineers,TRUE,FALSE,35
+401808607,5176754,2026,Luke Wilson,App State Mountaineers,TRUE,FALSE,32
+401808607,5176759,2026,Luke Ledford,App State Mountaineers,FALSE,TRUE,NA
+401808607,5176798,2026,Eren Banks,App State Mountaineers,FALSE,TRUE,NA
+401808607,5177526,2026,Chad Moodie,App State Mountaineers,FALSE,FALSE,9
+401808607,5239579,2026,Jason Clarke Jr.,App State Mountaineers,FALSE,FALSE,15
+401808607,5239584,2026,Cameron O'Kelley,App State Mountaineers,FALSE,TRUE,NA
+401808607,5239586,2026,Andrin Njock,App State Mountaineers,FALSE,FALSE,5
+401808607,5239587,2026,Michael Marcus Jr.,App State Mountaineers,TRUE,FALSE,34
+401808607,5312351,2026,KJ Vasser,App State Mountaineers,FALSE,TRUE,NA
+401808607,5312352,2026,Jacari Brim,App State Mountaineers,FALSE,FALSE,5
+401808607,5312353,2026,Ted Neal,App State Mountaineers,FALSE,TRUE,NA
+401808607,5312354,2026,Tre McKinnon,App State Mountaineers,FALSE,TRUE,NA
+401808607,5312355,2026,Jalen Tot,App State Mountaineers,TRUE,FALSE,30
+401808607,5312356,2026,Grant Clayton,App State Mountaineers,FALSE,TRUE,NA
+401808607,4698718,324,Joshua Beadle,Coastal Carolina Chanticleers,TRUE,FALSE,38
+401808607,4701246,324,Andre Mulibea,Coastal Carolina Chanticleers,FALSE,TRUE,NA
+401808607,4898257,324,Jerry Ngopot,Coastal Carolina Chanticleers,FALSE,FALSE,3
+401808607,5107346,324,Rasheed Jones,Coastal Carolina Chanticleers,TRUE,FALSE,38
+401808607,5108908,324,Reggie Hill,Coastal Carolina Chanticleers,TRUE,FALSE,21
+401808607,5118041,324,Connor Martin,Coastal Carolina Chanticleers,FALSE,TRUE,NA
+401808607,5172339,324,DaJohn Craig,Coastal Carolina Chanticleers,FALSE,FALSE,11
+401808607,5176792,324,Braeden MacVicar,Coastal Carolina Chanticleers,FALSE,FALSE,16
+401808607,5177247,324,AJ Dancler,Coastal Carolina Chanticleers,TRUE,FALSE,29
+401808607,5184709,324,Nadjrick Peat,Coastal Carolina Chanticleers,TRUE,FALSE,21
+401808607,5239867,324,Jackson Keil,Coastal Carolina Chanticleers,FALSE,TRUE,NA
+401808607,5239868,324,Charles Dunlap,Coastal Carolina Chanticleers,FALSE,TRUE,NA
+401808607,5312425,324,Tristan Thompson,Coastal Carolina Chanticleers,FALSE,FALSE,4
+401808607,5312426,324,Devin Brown,Coastal Carolina Chanticleers,FALSE,TRUE,NA
+401808607,5312427,324,Derrick Green,Coastal Carolina Chanticleers,FALSE,FALSE,19
+401808638,4684158,256,Ike Cornish,James Madison Dukes,FALSE,FALSE,15
+401808638,4684746,256,Justin Taylor,James Madison Dukes,FALSE,FALSE,3
+401808638,4685664,256,Justin McBride,James Madison Dukes,TRUE,FALSE,24
+401808638,5105279,256,Paul Lewis,James Madison Dukes,FALSE,TRUE,NA
+401808638,5176669,256,Cliff Davis,James Madison Dukes,TRUE,FALSE,25
+401808638,5177286,256,Eli Wilborn,James Madison Dukes,FALSE,FALSE,5
+401808638,5177352,256,Bradley Douglas,James Madison Dukes,FALSE,FALSE,26
+401808638,5177359,256,Eddie Ricks III,James Madison Dukes,FALSE,FALSE,21
+401808638,5241759,256,Paul Jones III,James Madison Dukes,FALSE,FALSE,3
+401808638,5252289,256,Kose Egbule,James Madison Dukes,TRUE,FALSE,14
+401808638,5313093,256,Christian Brown,James Madison Dukes,FALSE,FALSE,17
+401808638,5313094,256,Chance Lundy,James Madison Dukes,FALSE,TRUE,NA
+401808638,5313096,256,Preston Fowler,James Madison Dukes,TRUE,FALSE,29
+401808638,5313097,256,Josh Stephen,James Madison Dukes,FALSE,TRUE,NA
+401808638,5313098,256,Gabe Newhof,James Madison Dukes,TRUE,FALSE,18
+401808638,4703205,326,Kyndall Davis,Texas State Bobcats,TRUE,FALSE,11
+401808638,4896371,326,Makai Willis,Texas State Bobcats,FALSE,FALSE,5
+401808638,5105485,326,Isaiah Barganier,Texas State Bobcats,FALSE,TRUE,NA
+401808638,5105563,326,Jaelyn Lee,Texas State Bobcats,FALSE,FALSE,7
+401808638,5108069,326,Jalen Bolden,Texas State Bobcats,FALSE,FALSE,19
+401808638,5174858,326,Franck Emmou,Texas State Bobcats,FALSE,FALSE,12
+401808638,5176728,326,Kaden Gumbs,Texas State Bobcats,TRUE,FALSE,40
+401808638,5177655,326,Tay Knox,Texas State Bobcats,TRUE,FALSE,9
+401808638,5183926,326,Cameron Simpson,Texas State Bobcats,FALSE,TRUE,NA
+401808638,5240685,326,Mark Drone,Texas State Bobcats,TRUE,FALSE,38
+401808638,5313358,326,DJ Hall,Texas State Bobcats,TRUE,FALSE,34
+401808638,5313359,326,Ky Pernell,Texas State Bobcats,FALSE,TRUE,NA
+401808638,5313360,326,Robert Fields,Texas State Bobcats,FALSE,FALSE,25
+401808638,5313361,326,Dimp Pernell,Texas State Bobcats,FALSE,TRUE,NA
+401808638,5313362,326,Deke Thompson,Texas State Bobcats,FALSE,TRUE,NA
+401808676,5105539,2433,MJ Russell,UL Monroe Warhawks,TRUE,FALSE,29
+401808676,5106632,2433,Lavell Brodnex,UL Monroe Warhawks,TRUE,FALSE,30
+401808676,5174978,2433,Ayomide Bamisile,UL Monroe Warhawks,TRUE,FALSE,8
+401808676,5176750,2433,Ajay Tew,UL Monroe Warhawks,FALSE,TRUE,NA
+401808676,5177603,2433,Brentay Noel,UL Monroe Warhawks,FALSE,TRUE,NA
+401808676,5183838,2433,Cam Campbell,UL Monroe Warhawks,FALSE,TRUE,NA
+401808676,5240757,2433,Micah Caster,UL Monroe Warhawks,FALSE,FALSE,17
+401808676,5240758,2433,Renars Sondors,UL Monroe Warhawks,FALSE,FALSE,31
+401808676,5313379,2433,Dylan Diaz,UL Monroe Warhawks,TRUE,FALSE,22
+401808676,5313380,2433,Przemek Hartman,UL Monroe Warhawks,FALSE,FALSE,2
+401808676,5313381,2433,Krystian Lewis,UL Monroe Warhawks,TRUE,FALSE,36
+401808676,5313382,2433,Alex Molofeev,UL Monroe Warhawks,FALSE,FALSE,22
+401808676,5313383,2433,Wiggy Ball,UL Monroe Warhawks,FALSE,FALSE,3
+401808676,5313384,2433,Alex Huguet Carrasco,UL Monroe Warhawks,FALSE,TRUE,NA
+401808676,5323985,2433,Brady Craig,UL Monroe Warhawks,FALSE,TRUE,NA
+401808676,4897957,2653,Theo Seng,Troy Trojans,FALSE,TRUE,NA
+401808676,5113386,2653,Corbin Green,Troy Trojans,FALSE,FALSE,3
+401808676,5176731,2653,Kerrington Kiel,Troy Trojans,FALSE,FALSE,19
+401808676,5176732,2653,Thomas Dowd,Troy Trojans,TRUE,FALSE,39
+401808676,5176735,2653,Jerrell Bellamy,Troy Trojans,TRUE,FALSE,24
+401808676,5176736,2653,Victor Valdes,Troy Trojans,TRUE,FALSE,23
+401808676,5176738,2653,Kameryn Mitchell,Troy Trojans,FALSE,TRUE,NA
+401808676,5240745,2653,Cooper Campbell,Troy Trojans,TRUE,FALSE,37
+401808676,5240746,2653,Cobi Campbell,Troy Trojans,TRUE,FALSE,31
+401808676,5240748,2653,Evan Griffin,Troy Trojans,FALSE,FALSE,9
+401808676,5240749,2653,Austin Cross,Troy Trojans,FALSE,FALSE,15
+401808676,5313364,2653,Emmanuel Clarton,Troy Trojans,FALSE,TRUE,NA
+401808676,5313365,2653,Javen Colbert,Troy Trojans,FALSE,TRUE,NA
+401808676,5313366,2653,Javier Gilgeous-Glasgow,Troy Trojans,FALSE,TRUE,NA
+401808676,5313367,2653,Hikaru Awata,Troy Trojans,FALSE,TRUE,NA
+401808710,4691165,2277,Demari Williams,Houston Christian Huskies,TRUE,FALSE,21
+401808710,4838718,2277,Ahjany Lee,Houston Christian Huskies,FALSE,TRUE,NA
+401808710,5107282,2277,Elijah Brooks,Houston Christian Huskies,FALSE,TRUE,NA
+401808710,5116961,2277,Bryson Monroe,Houston Christian Huskies,FALSE,TRUE,NA
+401808710,5176325,2277,Trent Johnson,Houston Christian Huskies,FALSE,FALSE,30
+401808710,5176766,2277,Obadiah Curtis,Houston Christian Huskies,FALSE,TRUE,NA
+401808710,5176950,2277,Mambourou Mara,Houston Christian Huskies,TRUE,FALSE,30
+401808710,5241376,2277,Kylin Green,Houston Christian Huskies,TRUE,FALSE,22
+401808710,5242556,2277,D'Aundre Samuels,Houston Christian Huskies,TRUE,FALSE,34
+401808710,5243123,2277,Demarco Bethea,Houston Christian Huskies,TRUE,FALSE,28
+401808710,5313498,2277,Ryan Bartley,Houston Christian Huskies,FALSE,FALSE,23
+401808710,5313499,2277,Will Wilson,Houston Christian Huskies,FALSE,TRUE,NA
+401808710,5313500,2277,Nehikhare Igiehon,Houston Christian Huskies,FALSE,FALSE,12
+401808710,5313501,2277,Caleb Gaston,Houston Christian Huskies,FALSE,TRUE,NA
+401808710,5313502,2277,Brennen Byrd,Houston Christian Huskies,FALSE,TRUE,NA
+401808710,4431815,2837,Gianni Hunt,East Texas A&M Lions,TRUE,FALSE,35
+401808710,4702889,2837,Josh Taylor,East Texas A&M Lions,FALSE,FALSE,12
+401808710,4708219,2837,Tay Mosher,East Texas A&M Lions,TRUE,FALSE,13
+401808710,4897854,2837,Michael Folarin,East Texas A&M Lions,FALSE,FALSE,9
+401808710,5107219,2837,Vinny Sigona,East Texas A&M Lions,FALSE,TRUE,NA
+401808710,5119094,2837,Kollin Tolbert,East Texas A&M Lions,FALSE,TRUE,NA
+401808710,5176553,2837,London Fields,East Texas A&M Lions,FALSE,FALSE,14
+401808710,5176688,2837,Evan Phelps,East Texas A&M Lions,FALSE,FALSE,10
+401808710,5241435,2837,Ronnie Harrison,East Texas A&M Lions,TRUE,FALSE,38
+401808710,5243119,2837,Mykol Sanchez-Vega,East Texas A&M Lions,FALSE,TRUE,NA
+401808710,5243120,2837,Chris Adlam,East Texas A&M Lions,FALSE,TRUE,NA
+401808710,5250755,2837,Damian Garcia,East Texas A&M Lions,TRUE,FALSE,38
+401808710,5313492,2837,Kamren Robinson,East Texas A&M Lions,FALSE,TRUE,NA
+401808710,5313493,2837,Noah Pagotto,East Texas A&M Lions,TRUE,FALSE,25
+401808710,5313494,2837,Parker Whisenhunt,East Texas A&M Lions,FALSE,TRUE,NA
+401808710,5313495,2837,Alex McCray,East Texas A&M Lions,FALSE,FALSE,6
+401808896,4848628,2443,MJ Thomas,New Orleans Privateers,TRUE,FALSE,31
+401808896,5108082,2443,Jakevion Buckley,New Orleans Privateers,TRUE,FALSE,38
+401808896,5108809,2443,Coleton Benson,New Orleans Privateers,TRUE,FALSE,36
+401808896,5115621,2443,Grant Kemp,New Orleans Privateers,FALSE,TRUE,NA
+401808896,5174289,2443,William Patterson,New Orleans Privateers,FALSE,TRUE,NA
+401808896,5174617,2443,Mathok Majok,New Orleans Privateers,FALSE,TRUE,NA
+401808896,5175360,2443,Churchill Abass,New Orleans Privateers,FALSE,FALSE,33
+401808896,5313574,2443,Irish Coquia,New Orleans Privateers,FALSE,FALSE,16
+401808896,5313575,2443,TJ Cope,New Orleans Privateers,FALSE,FALSE,20
+401808896,5313576,2443,Eze Nwakamma,New Orleans Privateers,FALSE,TRUE,NA
+401808896,5313577,2443,Vieux Sanneh,New Orleans Privateers,FALSE,TRUE,NA
+401808896,5313578,2443,Jamal Chretien II,New Orleans Privateers,FALSE,TRUE,NA
+401808896,5313579,2443,Kedrick Osby,New Orleans Privateers,FALSE,FALSE,5
+401808896,5313580,2443,Enzo Boudouma,New Orleans Privateers,TRUE,FALSE,17
+401808896,5313581,2443,Panagiotis Pagonis,New Orleans Privateers,TRUE,FALSE,29
+401808896,4683134,344,Quincy Ballard,Mississippi State Bulldogs,TRUE,FALSE,26
+401808896,4685688,344,Gai Chol,Mississippi State Bulldogs,FALSE,TRUE,NA
+401808896,4873112,344,Dellquan Warren,Mississippi State Bulldogs,FALSE,FALSE,9
+401808896,4873130,344,Amier Ali,Mississippi State Bulldogs,FALSE,FALSE,22
+401808896,4895740,344,Josh Hubbard,Mississippi State Bulldogs,TRUE,FALSE,41
+401808896,5101824,344,Cameren Paul,Mississippi State Bulldogs,FALSE,TRUE,NA
+401808896,5101830,344,Tee Bartlett,Mississippi State Bulldogs,FALSE,TRUE,NA
+401808896,5105487,344,Brandon Walker,Mississippi State Bulldogs,FALSE,FALSE,11
+401808896,5105540,344,Shawn Jones Jr.,Mississippi State Bulldogs,TRUE,FALSE,34
+401808896,5105791,344,Jayden Epps,Mississippi State Bulldogs,FALSE,TRUE,NA
+401808896,5107364,344,Achor Achor,Mississippi State Bulldogs,TRUE,FALSE,8
+401808896,5142708,344,King Grace,Mississippi State Bulldogs,FALSE,FALSE,5
+401808896,5220874,344,Jamarion Davis-Fleming,Mississippi State Bulldogs,FALSE,FALSE,31
+401808896,5240392,344,Ja'Borri McGhee,Mississippi State Bulldogs,TRUE,FALSE,38
+401808896,5311740,344,Sergej Macura,Mississippi State Bulldogs,FALSE,TRUE,NA
+401808933,4897337,2447,Trae English,Nicholls Colonels,TRUE,FALSE,29
+401808933,4897548,2447,Zee Hamoda,Nicholls Colonels,TRUE,FALSE,28
+401808933,5105625,2447,Nick Krass,Nicholls Colonels,TRUE,FALSE,8
+401808933,5105975,2447,Christian Winborne,Nicholls Colonels,FALSE,FALSE,18
+401808933,5107701,2447,Sincere Malone,Nicholls Colonels,TRUE,FALSE,38
+401808933,5116500,2447,Grant Sanders,Nicholls Colonels,FALSE,FALSE,29
+401808933,5176646,2447,Jaylen Searles,Nicholls Colonels,FALSE,FALSE,13
+401808933,5177699,2447,Jalin Rice,Nicholls Colonels,FALSE,FALSE,15
+401808933,5190869,2447,Domanic Betancourt,Nicholls Colonels,FALSE,TRUE,NA
+401808933,5238199,2447,Kevin Pazmino,Nicholls Colonels,FALSE,TRUE,NA
+401808933,5239815,2447,Chaydon Stone,Nicholls Colonels,FALSE,TRUE,NA
+401808933,5313590,2447,Jordan Matthews,Nicholls Colonels,FALSE,TRUE,NA
+401808933,5313591,2447,Zaiden Cross,Nicholls Colonels,FALSE,TRUE,NA
+401808933,5313592,2447,Jalik Dunkley,Nicholls Colonels,TRUE,FALSE,22
+401808933,5106865,2545,Isaiah Gaines,SE Louisiana Lions,TRUE,FALSE,12
+401808933,5107520,2545,Jalen Forrest,SE Louisiana Lions,FALSE,TRUE,NA
+401808933,5108048,2545,Ubong-Abasi Etim,SE Louisiana Lions,FALSE,FALSE,7
+401808933,5124659,2545,Ahmed Essahaty,SE Louisiana Lions,FALSE,FALSE,21
+401808933,5176390,2545,Ethan Pickett,SE Louisiana Lions,FALSE,FALSE,12
+401808933,5176658,2545,CJ Booker,SE Louisiana Lions,TRUE,FALSE,26
+401808933,5240393,2545,Makhi Myles,SE Louisiana Lions,TRUE,FALSE,31
+401808933,5240906,2545,Seth Jones,SE Louisiana Lions,FALSE,TRUE,NA
+401808933,5243102,2545,Jeremy Elyzee,SE Louisiana Lions,TRUE,FALSE,30
+401808933,5243104,2545,Kyle Edison,SE Louisiana Lions,FALSE,TRUE,NA
+401808933,5243105,2545,Jaiden Lawrence,SE Louisiana Lions,TRUE,FALSE,21
+401808933,5314564,2545,Peter Hemschemeier,SE Louisiana Lions,FALSE,FALSE,16
+401808933,5314565,2545,Cody Al-Naziat,SE Louisiana Lions,FALSE,TRUE,NA
+401808933,5314566,2545,Amir Chaney,SE Louisiana Lions,FALSE,TRUE,NA
+401808933,5314567,2545,Garrett Shoemaker,SE Louisiana Lions,FALSE,FALSE,24
+401808976,5106641,2320,B.B. Knight,Lamar Cardinals,FALSE,FALSE,3
+401808976,5108080,2320,Cody Pennebaker,Lamar Cardinals,TRUE,FALSE,26
+401808976,5116468,2320,Andrew Holifield,Lamar Cardinals,TRUE,FALSE,29
+401808976,5123799,2320,Janko Bulajic,Lamar Cardinals,FALSE,FALSE,16
+401808976,5176636,2320,Jayden Barrs,Lamar Cardinals,FALSE,TRUE,NA
+401808976,5176637,2320,Errol White,Lamar Cardinals,TRUE,FALSE,27
+401808976,5242573,2320,Braden East,Lamar Cardinals,TRUE,FALSE,24
+401808976,5242574,2320,Jayden Gambrell,Lamar Cardinals,FALSE,FALSE,10
+401808976,5313553,2320,Quinton Sanders,Lamar Cardinals,FALSE,TRUE,NA
+401808976,5313554,2320,King-Njhsanni Wilhite,Lamar Cardinals,FALSE,FALSE,20
+401808976,5313555,2320,Eian Lowe,Lamar Cardinals,FALSE,FALSE,20
+401808976,5313556,2320,Christian Thomas,Lamar Cardinals,FALSE,TRUE,NA
+401808976,5313557,2320,Spencer Ezewiro,Lamar Cardinals,FALSE,TRUE,NA
+401808976,5313558,2320,Rob Lee Jr.,Lamar Cardinals,TRUE,FALSE,25
+401808976,5313559,2320,Izuchukwu Emelife,Lamar Cardinals,FALSE,TRUE,NA
+401808976,4711900,292,Jalen Ricks,UT Rio Grande Valley Vaqueros,FALSE,FALSE,4
+401808976,5106750,292,Zae Blake,UT Rio Grande Valley Vaqueros,TRUE,FALSE,24
+401808976,5108718,292,Marvin McGhee III,UT Rio Grande Valley Vaqueros,TRUE,FALSE,31
+401808976,5114447,292,Marshal Destremau,UT Rio Grande Valley Vaqueros,FALSE,TRUE,NA
+401808976,5174620,292,Always Wright,UT Rio Grande Valley Vaqueros,TRUE,FALSE,29
+401808976,5176333,292,Koree Cotton,UT Rio Grande Valley Vaqueros,TRUE,FALSE,32
+401808976,5176685,292,Kwo Agwa,UT Rio Grande Valley Vaqueros,FALSE,FALSE,17
+401808976,5179289,292,Kye Dickson,UT Rio Grande Valley Vaqueros,FALSE,TRUE,NA
+401808976,5182458,292,Mustafo Vanjov,UT Rio Grande Valley Vaqueros,FALSE,TRUE,NA
+401808976,5243136,292,Jaylen Washington,UT Rio Grande Valley Vaqueros,FALSE,FALSE,13
+401808976,5314732,292,Demarris Winters,UT Rio Grande Valley Vaqueros,FALSE,FALSE,2
+401808976,5314733,292,Dane Christensen,UT Rio Grande Valley Vaqueros,FALSE,FALSE,4
+401808976,5314734,292,Julien Gomez,UT Rio Grande Valley Vaqueros,FALSE,FALSE,21
+401808976,5314735,292,Luis Ramirez,UT Rio Grande Valley Vaqueros,FALSE,TRUE,NA
+401808976,5314736,292,Filip Brankovic,UT Rio Grande Valley Vaqueros,TRUE,FALSE,23
+401809103,4706262,2239,Jaden Henderson,Cal State Fullerton Titans,FALSE,FALSE,17
+401809103,4910887,2239,Landon Seaman,Cal State Fullerton Titans,TRUE,FALSE,23
+401809103,5144135,2239,Bryce Cofield,Cal State Fullerton Titans,TRUE,FALSE,26
+401809103,5175404,2239,Bailey Nunn,Cal State Fullerton Titans,FALSE,FALSE,16
+401809103,5175763,2239,Kendrick De Luna,Cal State Fullerton Titans,FALSE,FALSE,17
+401809103,5176246,2239,Jefferson De La Cruz Monegro,Cal State Fullerton Titans,TRUE,FALSE,31
+401809103,5180837,2239,Joshua Ward,Cal State Fullerton Titans,TRUE,FALSE,34
+401809103,5241870,2239,Kidus Tilahun,Cal State Fullerton Titans,FALSE,TRUE,NA
+401809103,5312311,2239,Davis White,Cal State Fullerton Titans,FALSE,TRUE,NA
+401809103,5312312,2239,KJ Garris,Cal State Fullerton Titans,FALSE,FALSE,5
+401809103,5312314,2239,Yesan Warren,Cal State Fullerton Titans,FALSE,TRUE,NA
+401809103,5312315,2239,Christian Williams,Cal State Fullerton Titans,TRUE,FALSE,31
+401809103,5312316,2239,Karan Kolappa,Cal State Fullerton Titans,FALSE,TRUE,NA
+401809103,5312317,2239,Cam Smith,Cal State Fullerton Titans,FALSE,TRUE,NA
+401809103,5312318,2239,Nicholas Khatchikian,Cal State Fullerton Titans,FALSE,TRUE,NA
+401809103,5312319,2239,Matthew Quinlan,Cal State Fullerton Titans,FALSE,TRUE,NA
+401809103,5312320,2239,Ben Winker,Cal State Fullerton Titans,FALSE,TRUE,NA
+401809103,5105426,28,Bol Dengdit,UC San Diego Tritons,TRUE,FALSE,22
+401809103,5106867,28,Leo Beath,UC San Diego Tritons,TRUE,FALSE,33
+401809103,5107149,28,Cade Pendleton,UC San Diego Tritons,FALSE,TRUE,NA
+401809103,5176372,28,Tom Beattie,UC San Diego Tritons,TRUE,FALSE,29
+401809103,5176421,28,Jasen Brooks,UC San Diego Tritons,FALSE,TRUE,NA
+401809103,5176423,28,Aidan Burke,UC San Diego Tritons,FALSE,FALSE,12
+401809103,5176424,28,Yaqub Mir,UC San Diego Tritons,FALSE,TRUE,NA
+401809103,5241073,28,Dimitrije Vukicevic,UC San Diego Tritons,FALSE,FALSE,2
+401809103,5241292,28,Trap Johnson,UC San Diego Tritons,FALSE,TRUE,NA
+401809103,5241959,28,Ryder Elisaldez,UC San Diego Tritons,FALSE,TRUE,NA
+401809103,5241960,28,Christopher Cox,UC San Diego Tritons,FALSE,TRUE,NA
+401809103,5243026,28,Tyson Dunn,UC San Diego Tritons,FALSE,TRUE,NA
+401809103,5243038,28,Alex Chaikin,UC San Diego Tritons,TRUE,FALSE,30
+401809103,5313048,28,Hudson Mayes,UC San Diego Tritons,TRUE,FALSE,28
+401809103,5313049,28,Emanuel Prospere II,UC San Diego Tritons,FALSE,FALSE,21
+401809103,5313050,28,Jaden Vance,UC San Diego Tritons,FALSE,FALSE,23
