@@ -1,5 +1,5 @@
 name: Research RAPM independent full-season validation
-# Diagnostic rerun: inspect hoopR raw PBP schema before QA
+# Schema-normalized full-season official starter/minute validation
 on:
   push:
     branches: [rapm-fullseason-2026-validation]
