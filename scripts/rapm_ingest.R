@@ -13,8 +13,17 @@ box <- load_safe(hoopR::load_mbb_player_box)
 # Normalize raw hoopR MBB columns to the previously validated internal PBP schema.
 # The upstream source stores "type_text", "clock_minutes/clock_seconds"
 # and "participants_0_athlete_id"; our lineup engine expects normalized names.
-if (!"event_type" %in% names(pbp) && "type_text" %in% names(pbp))
-  pbp$event_type <- as.character(pbp$type_text)
+if (!"event_type" %in% names(pbp) && "type_text" %in% names(pbp)) {
+  raw_type <- as.character(pbp$type_text)
+  pbp$event_type <- dplyr::case_when(
+    grepl("Shot$",raw_type) ~ "2PT Shot",
+    grepl("Rebound$",raw_type) ~ "Rebound",
+    grepl("Turnover$",raw_type) ~ "Turnover",
+    grepl("Foul$",raw_type) ~ "Foul",
+    grepl("TimeOut$",raw_type) ~ "Timeout",
+    TRUE ~ raw_type
+  )
+}
 if (!"seconds_remaining_period" %in% names(pbp)) {
   if (all(c("clock_minutes","clock_seconds") %in% names(pbp))) {
     pbp$seconds_remaining_period <-
