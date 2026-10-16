@@ -32,13 +32,14 @@ jobs:
         run: python -m pip install numpy pandas scipy scikit-learn
       - name: Reconstruct season data from hoopR with official ESPN game box
         run: Rscript scripts/rapm_ingest.R
-      - name: Audit all lineup minutes against official game box
-        run: python scripts/rapm_official_minute_audit.py
-      - name: Commit isolated QA outputs only
+      - name: Refit experimental RAPM on independently verified lineups
         run: |
-          git add research_qa/rapm_fullseason_official_lineup_summary.json research_qa/rapm_fullseason_official_lineup_games.csv
+          OPENBLAS_NUM_THREADS=1 python scripts/rapm_official_model_v1.py --season 2026 --output research_qa/rapm_official_model_2026.json --audit research_qa/rapm_official_model_2026_audit.json
+      - name: Commit isolated research outputs only
+        run: |
+          git add research_qa/rapm_official_model_2026.json research_qa/rapm_official_model_2026_audit.json
           if git diff --cached --quiet; then exit 0; fi
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git commit -m 'Research only: independent full-season lineup QA'
+          git commit -m 'Research only: full-season official-minute-gated RAPM refit'
           git push
