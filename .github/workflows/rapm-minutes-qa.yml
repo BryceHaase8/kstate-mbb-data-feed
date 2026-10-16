@@ -1,0 +1,37 @@
+name: Isolated RAPM official minutes audit
+on:
+  push:
+    branches:
+      - rapm-lineup-minute-audit-2026
+    paths:
+      - ".github/workflows/rapm-minutes-qa.yml"
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  minutes:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Checkout audit branch
+        uses: actions/checkout@v6
+      - name: Setup R
+        uses: r-lib/actions/setup-r@v2
+      - name: Install minimal R packages
+        uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          extra-packages: |
+            any::hoopR
+            any::dplyr
+            any::readr
+            any::tibble
+      - name: Read official game-level box scores
+        run: Rscript scripts/rapm_box_qa_sample.R
+      - name: Commit audit-only CSV
+        run: |
+          git add research_qa/espn_player_box_25_games.csv
+          if git diff --cached --quiet; then exit 0; fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "RAPM audit: sample official ESPN game box minutes"
+          git push
