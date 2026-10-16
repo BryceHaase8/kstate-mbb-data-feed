@@ -16,6 +16,8 @@ if (!nrow(pbp) || !nrow(box)) {
   message("No completed season data yet. Leaving any prior successful RAPM publish untouched.")
   quit(save="no",status=0)
 }
+message("Raw PBP schema: ",paste(names(pbp),collapse=", "))
+message("PBP first row: ",paste(capture.output(print(pbp[1,])),collapse=" "))
 missing_pbp <- setdiff(need_pbp,names(pbp)); missing_box <- setdiff(need_box,names(box))
 if (length(missing_pbp) || length(missing_box)) stop(paste("Required columns missing: PBP",paste(missing_pbp,collapse=","),"box",paste(missing_box,collapse=",")))
 optional_pbp <- c("season","sequence_number","shot_made")
