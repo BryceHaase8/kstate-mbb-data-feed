@@ -10,14 +10,37 @@ dir.create("rapm_input",showWarnings=FALSE)
 load_safe <- function(fn) tryCatch(fn(seasons=season),error=function(e){message("hoopR no data: ",conditionMessage(e));tibble()})
 pbp <- load_safe(hoopR::load_mbb_pbp)
 box <- load_safe(hoopR::load_mbb_player_box)
+# Normalize raw hoopR MBB columns to the previously validated internal PBP schema.
+# The upstream source stores "type_text", "clock_minutes/clock_seconds"
+# and "participants_0_athlete_id"; our lineup engine expects normalized names.
+if (!"event_type" %in% names(pbp) && "type_text" %in% names(pbp))
+  pbp$event_type <- as.character(pbp$type_text)
+if (!"seconds_remaining_period" %in% names(pbp)) {
+  if (all(c("clock_minutes","clock_seconds") %in% names(pbp))) {
+    pbp$seconds_remaining_period <-
+      suppressWarnings(as.numeric(pbp$clock_minutes))*60 +
+      suppressWarnings(as.numeric(pbp$clock_seconds))
+  } else if ("start_quarter_seconds_remaining" %in% names(pbp)) {
+    pbp$seconds_remaining_period <-
+      suppressWarnings(as.numeric(pbp$start_quarter_seconds_remaining))
+  }
+}
+if (!"athlete_id_1" %in% names(pbp) &&
+    "participants_0_athlete_id" %in% names(pbp))
+  pbp$athlete_id_1 <- as.character(pbp$participants_0_athlete_id)
+# Shot outcome in raw ESPN PBP can be derived without assuming every shot
+# with a missing flag was made.
+if (!"shot_made" %in% names(pbp))
+  pbp$shot_made <- ifelse(as.character(pbp$event_type)=="2PT Shot",
+                         grepl(" makes | made ",paste0(" ",tolower(as.character(pbp$text))," ")),
+                         NA)
+
 need_pbp <- c("game_id","period_number","seconds_remaining_period","home_team_id","away_team_id", "team_id", "event_type","text","home_score","away_score","athlete_id_1")
 need_box <- c("game_id","team_id","athlete_id","starter","minutes")
 if (!nrow(pbp) || !nrow(box)) {
   message("No completed season data yet. Leaving any prior successful RAPM publish untouched.")
   quit(save="no",status=0)
 }
-message("Raw PBP schema: ",paste(names(pbp),collapse=", "))
-message("PBP first row: ",paste(capture.output(print(pbp[1,])),collapse=" "))
 missing_pbp <- setdiff(need_pbp,names(pbp)); missing_box <- setdiff(need_box,names(box))
 if (length(missing_pbp) || length(missing_box)) stop(paste("Required columns missing: PBP",paste(missing_pbp,collapse=","),"box",paste(missing_box,collapse=",")))
 optional_pbp <- c("season","sequence_number","shot_made")
