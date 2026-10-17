@@ -131,6 +131,7 @@ def build(args):
     stats["rank"]=np.nan
     eligible=stats[stats.impactRankEligible].sort_values("impactV3",ascending=False)
     stats.loc[eligible.index,"rank"]=np.arange(1,len(eligible)+1)
+    eligible=stats.loc[eligible.index].copy()
     cols=["rank","athlete_id","player_name","team_name","team_id","gp","mpg","ppg","rpg","apg",
       "estimatedBPM","v1_total","luck_total","torvik_luck_total",
       "verifiedCleanPossessionExposure","estimatedVerifiedCoverage","rapmWeight","rapmResidual",
