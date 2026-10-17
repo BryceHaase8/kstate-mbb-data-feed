@@ -1,0 +1,234 @@
+{
+  "model": "RESEARCH_ONLY_V3_NOT_FOR_PORTAL",
+  "season": 2026,
+  "playerPool": 5019,
+  "eligiblePlayers": 2215,
+  "playersWithLuckRAPM": 4838,
+  "highExposureFitPlayers": 2051,
+  "rapmReferenceIntercept": -0.29034,
+  "rapmReferenceSlope": 0.32102,
+  "medianAbsRapmContribution": 0.0604,
+  "p95AbsRapmContribution": 0.3547,
+  "maxAbsRapmContribution": 0.9182,
+  "top100LowExposure": 0,
+  "top100Head": [
+    {
+      "name": "Aday Mara",
+      "school": "Michigan Wolverines",
+      "impact": 15.46,
+      "bpm": 15.36,
+      "rapm": 5.29
+    },
+    {
+      "name": "Yaxel Lendeborg",
+      "school": "Michigan Wolverines",
+      "impact": 15.13,
+      "bpm": 14.65,
+      "rapm": 7.25
+    },
+    {
+      "name": "Cameron Boozer",
+      "school": "Duke Blue Devils",
+      "impact": 14.58,
+      "bpm": 14.14,
+      "rapm": 6.88
+    },
+    {
+      "name": "Allen Graves",
+      "school": "Santa Clara Broncos",
+      "impact": 14.58,
+      "bpm": 14.9,
+      "rapm": 1.97
+    },
+    {
+      "name": "Ugonna Onyenso",
+      "school": "Virginia Cavaliers",
+      "impact": 13.83,
+      "bpm": 14.27,
+      "rapm": -0.74
+    },
+    {
+      "name": "Zuby Ejiofor",
+      "school": "St. John's Red Storm",
+      "impact": 13.25,
+      "bpm": 13.04,
+      "rapm": 5.1
+    },
+    {
+      "name": "Oscar Cluff",
+      "school": "Purdue Boilermakers",
+      "impact": 12.2,
+      "bpm": 11.99,
+      "rapm": 4.91
+    },
+    {
+      "name": "Maliq Brown",
+      "school": "Duke Blue Devils",
+      "impact": 11.96,
+      "bpm": 12.03,
+      "rapm": 3.04
+    },
+    {
+      "name": "Tarris Reed Jr.",
+      "school": "UConn Huskies",
+      "impact": 11.21,
+      "bpm": 11.06,
+      "rapm": 4.2
+    },
+    {
+      "name": "Joshua Jefferson",
+      "school": "Iowa State Cyclones",
+      "impact": 10.7,
+      "bpm": 10.08,
+      "rapm": 6.75
+    },
+    {
+      "name": "Motiejus Krivas",
+      "school": "Arizona Wildcats",
+      "impact": 10.69,
+      "bpm": 10.25,
+      "rapm": 5.79
+    },
+    {
+      "name": "Morez Johnson Jr.",
+      "school": "Michigan Wolverines",
+      "impact": 10.64,
+      "bpm": 10.41,
+      "rapm": 4.49
+    },
+    {
+      "name": "Jackson Holcombe",
+      "school": "Utah Valley Wolverines",
+      "impact": 10.53,
+      "bpm": 10.37,
+      "rapm": 4.09
+    },
+    {
+      "name": "Trevon Brazile",
+      "school": "Arkansas Razorbacks",
+      "impact": 10.48,
+      "bpm": 10.23,
+      "rapm": 4.6
+    },
+    {
+      "name": "Tyler Tanner",
+      "school": "Vanderbilt Commodores",
+      "impact": 10.42,
+      "bpm": 10.15,
+      "rapm": 4.6
+    },
+    {
+      "name": "Kyle Evans",
+      "school": "UC Irvine Anteaters",
+      "impact": 10.41,
+      "bpm": 10.79,
+      "rapm": 0.2
+    },
+    {
+      "name": "Izaiyah Nelson",
+      "school": "South Florida Bulls",
+      "impact": 10.15,
+      "bpm": 10.04,
+      "rapm": 3.95
+    },
+    {
+      "name": "Rafael Castro",
+      "school": "George Washington Revolutionaries",
+      "impact": 10.1,
+      "bpm": 10.37,
+      "rapm": 0.29
+    },
+    {
+      "name": "Jerald Colonel",
+      "school": "Stephen F. Austin Lumberjacks",
+      "impact": 9.97,
+      "bpm": 10.1,
+      "rapm": 2.05
+    },
+    {
+      "name": "Dillon Mitchell",
+      "school": "St. John's Red Storm",
+      "impact": 9.89,
+      "bpm": 9.53,
+      "rapm": 4.9
+    },
+    {
+      "name": "Aiden Sherrell",
+      "school": "Alabama Crimson Tide",
+      "impact": 9.87,
+      "bpm": 10.04,
+      "rapm": 1.78
+    },
+    {
+      "name": "Kashie Natt",
+      "school": "Sam Houston Bearkats",
+      "impact": 9.81,
+      "bpm": 9.82,
+      "rapm": 2.76
+    },
+    {
+      "name": "Somtochukwu Cyril",
+      "school": "Georgia Bulldogs",
+      "impact": 9.73,
+      "bpm": 9.76,
+      "rapm": 2.53
+    },
+    {
+      "name": "Sananda Fru",
+      "school": "Louisville Cardinals",
+      "impact": 9.65,
+      "bpm": 9.67,
+      "rapm": 2.67
+    },
+    {
+      "name": "Mohamed Wague",
+      "school": "Oklahoma Sooners",
+      "impact": 9.58,
+      "bpm": 9.6,
+      "rapm": 2.68
+    },
+    {
+      "name": "Brayden Burries",
+      "school": "Arizona Wildcats",
+      "impact": 9.58,
+      "bpm": 9.17,
+      "rapm": 5.1
+    },
+    {
+      "name": "Evan Mahaffey",
+      "school": "Akron Zips",
+      "impact": 9.56,
+      "bpm": 9.64,
+      "rapm": 2.13
+    },
+    {
+      "name": "Aidan Kehoe",
+      "school": "Navy Midshipmen",
+      "impact": 9.46,
+      "bpm": 9.7,
+      "rapm": 1.03
+    },
+    {
+      "name": "Flory Bidunga",
+      "school": "Kansas Jayhawks",
+      "impact": 9.45,
+      "bpm": 9.12,
+      "rapm": 4.82
+    },
+    {
+      "name": "Owen Aquino",
+      "school": "High Point Panthers",
+      "impact": 9.31,
+      "bpm": 9.31,
+      "rapm": 2.64
+    }
+  ],
+  "warnings": [
+    "Box-only BPM is calibrated against historical Torvik BPM: this is metric-reproduction validation, NOT predictive recruiting validation.",
+    "Luck RAPM uses 2025-26 other-games shooter rates; must switch to strictly past-games priors for live updates.",
+    "RAPM V2 official-minute sample has about 57 percent coverage; estimated individual coverage is heuristic.",
+    "No Torvik team-strength offset. Team/individual impact identification remains a research issue.",
+    "RAPM residual weight is provisional, not optimized on future season outcomes.",
+    "Do not merge into main or publish to Portal."
+  ]
+}
