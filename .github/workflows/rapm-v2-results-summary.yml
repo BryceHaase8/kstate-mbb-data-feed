@@ -1,4 +1,5 @@
 name: Research RAPM V2 result diagnostics
+# Recompute small diagnostics from verified full-season V2 output.
 on:
   push:
     branches: [rapm-v2-torvik-luck-2026-research]
