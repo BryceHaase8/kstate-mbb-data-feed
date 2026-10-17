@@ -135,6 +135,7 @@ def build(args):
     stats["rank"]=stats["rank"].astype("Int64")
     eligible["rank"]=eligible["rank"].astype("Int64")
     baselineTop100=stats.loc[stats.impactRankEligible].sort_values("estimatedBPM",ascending=False).head(100)
+    oldV2Top100LikeForLike=stats.loc[stats.impactRankEligible & stats.torvik_luck_total.notna()].sort_values("torvik_luck_total",ascending=False).head(100)
     cols=["rank","athlete_id","player_name","team_name","team_id","gp","mpg","ppg","rpg","apg",
       "estimatedBPM","v1_total","luck_total","torvik_luck_total",
       "verifiedCleanPossessionExposure","estimatedVerifiedCoverage","rapmWeight","rapmResidual",
@@ -157,6 +158,7 @@ def build(args):
       "p95AbsRapmContribution":round(float(np.quantile(abs(impact),.95)),4),
       "maxAbsRapmContribution":round(float(max(abs(impact))),4),
       "top100LowExposure":int((eligible.head(100).verifiedCleanPossessionExposure<500).sum()),
+      "oldV2Top100RestrictedNames":oldV2Top100LikeForLike.player_name.tolist(),
       "baselineTop100Names":baselineTop100.player_name.tolist(),
       "v3Top100Names":eligible.head(100).player_name.tolist(),
       "top100Head":[{"name":r.player_name,"school":r.team_name,"impact":round(float(r.impactV3),2),
