@@ -63,7 +63,7 @@ def run_one(gid,df,index,luck_rates=None):
             begin_lineup=lineups(stints,start_time)
             pts=0;la_delta=0.;n3=nft=0;flags=set();shot_pending=False;saw_event=True;ft_seq=None
         def finish(reason,t):
-            nonlocal owner,start_time,begin_lineup,pts,flags,shot_pending,saw_event,ft_seq,count
+            nonlocal owner,start_time,begin_lineup,pts,flags,shot_pending,saw_event,ft_seq,count,la_delta,n3,nft
             if owner is None:return
             count+=1
             if begin_lineup is None:flags.add('lineup_missing')
