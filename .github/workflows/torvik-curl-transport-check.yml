@@ -1,0 +1,22 @@
+name: Torvik curl transport diagnostic (research only)
+on:
+  push:
+    branches: [torvik-daily-json-research-2026]
+    paths: [.github/workflows/torvik-curl-transport-check.yml]
+permissions:
+  contents: read
+jobs:
+  curl_check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - name: Make one ordinary curl bulk JSON request
+        run: |
+          code=$(curl --silent --show-error --location --max-time 15 --output /tmp/torvik_response.bin \
+            --write-out '%{http_code}' \
+            --user-agent 'Mozilla/5.0 (compatible; KStateMBBResearch/1.0; single bulk-data request)' \
+            -H 'Accept: application/json' \
+            'https://barttorvik.com/2027_team_results.json')
+          echo "HTTP status: $code"
+          echo "Response bytes: $(wc -c </tmp/torvik_response.bin)"
+          echo "First 100 characters: $(head -c 100 /tmp/torvik_response.bin)"
