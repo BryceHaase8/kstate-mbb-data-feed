@@ -1,0 +1,46 @@
+name: Validate received Torvik team ratings (research only)
+on:
+  push:
+    branches: [torvik-daily-json-research-2026]
+    paths:
+      - research_qa/torvik_received_2027.json
+      - scripts/validate_torvik_received.py
+      - tests/test_torvik_received.py
+      - .github/workflows/torvik-receive-validate.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: torvik-validation-research
+  cancel-in-progress: false
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Run offline contract and ESPN-ID matching tests
+        run: python tests/test_torvik_received.py
+      - name: Validate incoming Google Apps Script file when present
+        shell: bash
+        run: |
+          if [ -s research_qa/torvik_received_2027.json ]; then
+            python scripts/validate_torvik_received.py
+          else
+            echo 'No Google feed yet; integration passed offline tests.'
+          fi
+      - name: Commit new validated research snapshot only
+        run: |
+          if [ ! -s research_qa/torvik_team_strength_2027_validated.json ]; then
+            echo 'Waiting for first Google push; no snapshot to commit.'
+            exit 0
+          fi
+          git add research_qa/torvik_team_strength_2027_validated.json research_qa/torvik_team_strength_2027_received_qa.json
+          if git diff --cached --quiet; then exit 0; fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'Research: validate Google-delivered Torvik team-strength ratings'
+          git push
