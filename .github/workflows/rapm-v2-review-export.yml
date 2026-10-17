@@ -1,0 +1,42 @@
+name: Export and check RAPM V2 player comparisons (research only)
+on:
+  push:
+    branches: [rapm-v2-torvik-luck-2026-research]
+    paths: [.github/workflows/rapm-v2-review-export.yml, scripts/rapm_v2_export_csv.py]
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: rapm-v2-review-export
+  cancel-in-progress: false
+jobs:
+  review_export:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.11'
+      - name: Produce player-by-player all-variant comparison CSV
+        run: python scripts/rapm_v2_export_csv.py
+      - name: Verify high-exposure and unique ESPN player IDs
+        run: |
+          python - <<'PY'
+          import csv
+          p='research_qa/rapm_v2_player_comparison_2026.csv'
+          with open(p,newline='') as f:rows=list(csv.DictReader(f))
+          assert len(rows)==4838,len(rows)
+          assert len({r['espnAthleteId'] for r in rows})==len(rows)
+          assert sum(r['above1000Exposures']=='1' for r in rows)==2051
+          assert all(r['v1_total'] and r['luck_total'] and r['torvik_total'] and r['torvik_luck_total'] for r in rows)
+          print('Validated review export',len(rows),'players')
+          PY
+      - name: Commit research review table only
+        run: |
+          git add research_qa/rapm_v2_player_comparison_2026.csv
+          if git diff --cached --quiet; then exit 0; fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'Research only: store RAPM V2 all-variant player comparison'
+          git push
