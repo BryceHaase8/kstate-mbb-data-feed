@@ -36,6 +36,7 @@ jobs:
         run: |
           python -m py_compile scripts/rapm_v2_official_comparison.py scripts/rapm_possessions_v2.py
           python scripts/decode_torvik_2026.py
+          python tests/test_rapm_v2_luck.py
       - name: Reconstruct 2025-26 ESPN PBP and official player minutes
         run: Rscript scripts/rapm_ingest.R
       - name: Four-model comparison on identical official-minute-gated possessions
@@ -48,4 +49,5 @@ jobs:
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git commit -m 'Research RAPM V2: four full-season official-minute comparisons'
-          git push
+          git pull --rebase origin rapm-v2-torvik-luck-2026-research
+          git push origin HEAD:rapm-v2-torvik-luck-2026-research
