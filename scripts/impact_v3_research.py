@@ -132,6 +132,9 @@ def build(args):
     eligible=stats[stats.impactRankEligible].sort_values("impactV3",ascending=False)
     stats.loc[eligible.index,"rank"]=np.arange(1,len(eligible)+1)
     eligible=stats.loc[eligible.index].copy()
+    stats["rank"]=stats["rank"].astype("Int64")
+    eligible["rank"]=eligible["rank"].astype("Int64")
+    baselineTop100=stats.loc[stats.impactRankEligible].sort_values("estimatedBPM",ascending=False).head(100)
     cols=["rank","athlete_id","player_name","team_name","team_id","gp","mpg","ppg","rpg","apg",
       "estimatedBPM","v1_total","luck_total","torvik_luck_total",
       "verifiedCleanPossessionExposure","estimatedVerifiedCoverage","rapmWeight","rapmResidual",
@@ -154,6 +157,8 @@ def build(args):
       "p95AbsRapmContribution":round(float(np.quantile(abs(impact),.95)),4),
       "maxAbsRapmContribution":round(float(max(abs(impact))),4),
       "top100LowExposure":int((eligible.head(100).verifiedCleanPossessionExposure<500).sum()),
+      "baselineTop100Names":baselineTop100.player_name.tolist(),
+      "v3Top100Names":eligible.head(100).player_name.tolist(),
       "top100Head":[{"name":r.player_name,"school":r.team_name,"impact":round(float(r.impactV3),2),
         "bpm":round(float(r.estimatedBPM),2),"rapm":None if pd.isna(r.luck_total) else round(float(r.luck_total),2)}
         for r in eligible.head(30).itertuples()],
