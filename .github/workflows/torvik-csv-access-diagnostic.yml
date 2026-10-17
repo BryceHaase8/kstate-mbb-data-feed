@@ -1,0 +1,33 @@
+name: Diagnose published Torvik CSV accessibility (one request)
+on:
+  push:
+    branches: [torvik-daily-json-research-2026]
+    paths: [.github/workflows/torvik-csv-access-diagnostic.yml]
+permissions:
+  contents: read
+jobs:
+  diagnose:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - name: Test the documented bulk CSV endpoint once without saving data
+        shell: bash
+        run: |
+          python - <<'PY'
+          import urllib.request,urllib.error
+          u="https://barttorvik.com/2027_team_results.csv"
+          q=urllib.request.Request(u,headers={
+            "Accept":"text/csv",
+            "User-Agent":"KState-MBB-Research/1.0 (single documented bulk-data access check)"})
+          try:
+            with urllib.request.urlopen(q,timeout=15) as r:
+              print("HTTP status:",r.status)
+              print("Content-Type:",r.headers.get("Content-Type","missing"))
+              print("First bytes:",repr(r.read(220)))
+          except urllib.error.HTTPError as e:
+            print("HTTP status:",e.code)
+            print("Content-Type:",e.headers.get("Content-Type","missing"))
+            print("Server:",e.headers.get("Server","missing"))
+            print("Rate-limit or retry header:",e.headers.get("Retry-After","missing"))
+            print("Response excerpt:",repr(e.read(250)))
+          PY
