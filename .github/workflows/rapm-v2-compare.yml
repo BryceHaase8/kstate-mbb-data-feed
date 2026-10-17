@@ -1,4 +1,4 @@
-name: 2026 Official-Minute RAPM V2: baseline vs Torvik vs luck
+name: '2026 Official-Minute RAPM V2 - baseline vs Torvik vs luck'
 on:
   push:
     branches: [rapm-v2-torvik-luck-2026-research]
