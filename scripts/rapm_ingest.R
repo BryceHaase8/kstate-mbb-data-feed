@@ -52,7 +52,7 @@ if (!nrow(pbp) || !nrow(box)) {
 }
 missing_pbp <- setdiff(need_pbp,names(pbp)); missing_box <- setdiff(need_box,names(box))
 if (length(missing_pbp) || length(missing_box)) stop(paste("Required columns missing: PBP",paste(missing_pbp,collapse=","),"box",paste(missing_box,collapse=",")))
-optional_pbp <- c("season","sequence_number","shot_made")
+optional_pbp <- c("season","sequence_number","shot_made","shot_value","score_value")
 for (n in optional_pbp) if (!n %in% names(pbp)) pbp[[n]] <- NA
 pbp <- pbp %>% mutate(game_id=as.character(game_id), across(any_of(c("home_team_id","away_team_id","team_id","athlete_id_1")),as.character),
   period_number=as.integer(period_number),seconds_remaining_period=as.numeric(seconds_remaining_period),
