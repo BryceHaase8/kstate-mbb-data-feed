@@ -1,0 +1,31 @@
+name: Diagnose Torvik documented client compatibility (research only)
+on:
+  push:
+    branches: [torvik-daily-json-research-2026]
+    paths: [.github/workflows/torvik-client-compatibility.yml]
+permissions:
+  contents: read
+jobs:
+  diagnose:
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - name: Test official bulk files with browser-compatible identified HTTP client
+        shell: bash
+        run: |
+          python - <<'PY'
+          from urllib.request import Request,urlopen
+          from urllib.error import HTTPError,URLError
+          ua="Mozilla/5.0 (compatible; KStateMBBResearch/1.0; published bulk data, one daily request)"
+          for ext in ("json","csv"):
+              url=f"https://barttorvik.com/2027_team_results.{ext}"
+              req=Request(url,headers={"User-Agent":ua,"Accept":"application/json,text/csv,*/*"})
+              try:
+                  with urlopen(req,timeout=18) as res:
+                      head=res.read(128)
+                      print(ext, "status",res.status,"type",res.headers.get("Content-Type"),"sample",repr(head[:110]))
+              except HTTPError as e:
+                  print(ext,"status",e.code,"server",e.headers.get("Server"),"type",e.headers.get("Content-Type"),
+                        "retry-after",e.headers.get("Retry-After"),"response",repr(e.read(150)))
+              except URLError as e:print(ext,"network_error",str(e.reason))
+          PY
