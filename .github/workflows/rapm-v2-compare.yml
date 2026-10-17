@@ -1,0 +1,50 @@
+name: 2026 Official-Minute RAPM V2: baseline vs Torvik vs luck
+on:
+  push:
+    branches: [rapm-v2-torvik-luck-2026-research]
+    paths: [.github/workflows/rapm-v2-compare.yml]
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: rapm-v2-research-fullseason
+  cancel-in-progress: true
+jobs:
+  compare:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    env:
+      TARGET_SEASON: '2026'
+      OPENBLAS_NUM_THREADS: '1'
+      OMP_NUM_THREADS: '1'
+    steps:
+      - uses: actions/checkout@v6
+      - uses: r-lib/actions/setup-r@v2
+      - uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          extra-packages: |
+            any::hoopR
+            any::dplyr
+            any::readr
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install Python model dependencies
+        run: python -m pip install numpy pandas scipy scikit-learn
+      - name: Verify research source and Python syntax before any download
+        run: |
+          python -m py_compile scripts/rapm_v2_official_comparison.py scripts/rapm_possessions_v2.py
+          python scripts/decode_torvik_2026.py
+      - name: Reconstruct 2025-26 ESPN PBP and official player minutes
+        run: Rscript scripts/rapm_ingest.R
+      - name: Four-model comparison on identical official-minute-gated possessions
+        run: |
+          python scripts/rapm_v2_official_comparison.py --season 2026 --output research_qa/rapm_v2_model_2026.json --audit research_qa/rapm_v2_model_2026_audit.json
+      - name: Commit research outputs only
+        run: |
+          git add research_qa/rapm_v2_model_2026.json research_qa/rapm_v2_model_2026_audit.json
+          if git diff --cached --quiet; then echo 'No changes'; exit 0; fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'Research RAPM V2: four full-season official-minute comparisons'
+          git push
