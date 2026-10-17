@@ -1,0 +1,68 @@
+name: Torvik bulk-data resilience checks (research only)
+on:
+  push:
+    branches: [torvik-daily-json-research-2026]
+    paths:
+      - scripts/torvik_bulk_daily.py
+      - tests/test_torvik_bulk_resilience.py
+      - .github/workflows/torvik-bulk-resilience.yml
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: 'test_only is offline; live_once makes one Torvik request, only on this research branch'
+        type: choice
+        required: true
+        default: test_only
+        options: [test_only, live_once]
+permissions:
+  contents: write
+jobs:
+  offline_tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Run fixture-based tests (no remote requests)
+        run: python tests/test_torvik_bulk_resilience.py
+  live_once:
+    if: github.event_name == 'workflow_dispatch' && inputs.mode == 'live_once'
+    needs: offline_tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Download and validate a single Torvik 2027 bulk snapshot
+        id: source
+        continue-on-error: true
+        run: python scripts/torvik_bulk_daily.py --season 2027
+      - name: Report access and fallback health
+        if: always()
+        shell: bash
+        run: |
+          echo '### Torvik source diagnostic (research only)' >> "$GITHUB_STEP_SUMMARY"
+          if [ -f research_qa/torvik_team_strength_2027_status.json ]; then
+            cat research_qa/torvik_team_strength_2027_status.json >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo 'No status output; process may have crashed.' >> "$GITHUB_STEP_SUMMARY"
+          fi
+      - name: Preserve validated research snapshot only on successful refresh
+        if: steps.source.outcome == 'success'
+        run: |
+          test -s research_qa/torvik_team_strength_2027.json || exit 0
+          git add research_qa/torvik_team_strength_2027.json research_qa/torvik_team_strength_2027_status.json
+          if git diff --cached --quiet; then exit 0; fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'Research: save validated 2027 Torvik team-strength snapshot'
+          git push
+      - name: Fail clearly if no validated snapshot can be used
+        if: steps.source.outcome != 'success'
+        run: |
+          echo 'Torvik currently unreachable from the hosted runner; no research snapshot replaced.' >&2
+          exit 1
