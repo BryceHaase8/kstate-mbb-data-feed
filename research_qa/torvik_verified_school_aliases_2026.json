@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "verifiedFrom": "2026 historical Bart Torvik to ESPN school-ID mapping; reused only when the same Torvik school name appears",
+  "seasonMatched": 2026,
+  "schoolAliases": {
+    "Florida": "57",
+    "Kansas": "2305",
+    "Texas A&M": "245",
+    "N.C. State": "152",
+    "Mississippi": "145",
+    "California": "25",
+    "South Carolina": "2579",
+    "Penn": "219",
+    "FIU": "2229",
+    "Sam Houston St.": "2534",
+    "Cal Baptist": "2856",
+    "Texas A&M Corpus Chris": "357",
+    "IU Indy": "85",
+    "Southeastern Louisiana": "2545",
+    "Appalachian St.": "2026",
+    "LIU": "112358",
+    "Albany": "399",
+    "Nicholls St.": "2447",
+    "Nebraska Omaha": "2437",
+    "UMKC": "140",
+    "Louisiana Monroe": "2433",
+    "Tennessee Martin": "2630",
+    "Loyola MD": "2352",
+    "USC Upstate": "2908",
+    "Grambling St.": "2755"
+  }
+}
