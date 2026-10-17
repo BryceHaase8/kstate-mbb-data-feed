@@ -8,27 +8,8 @@ Never substitute the 2027 preseason feed for historical ratings.
 import base64,csv,io,zlib
 from pathlib import Path
 src=Path("research_qa/torvik_team_strength_2026.zlib.base64").read_text().strip()
-def decode_candidate(candidate):
-    return zlib.decompress(base64.b64decode(candidate + "="*((-len(candidate))%4))).decode()
-try:
-    raw=decode_candidate(src)
-except (ValueError, zlib.error):
-    # One source character was lost in text transfer, recover it ONLY when
-    # the original zlib checksum validates the entire 365-school payload.
-    alphabet="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"
-    raw=None
-    for i in range(len(src)+1):
-        for ch in alphabet:
-            try:
-                candidate=decode_candidate(src[:i]+ch+src[i:])
-                if len(candidate.split(";"))==365:
-                    raw=candidate
-                    print("Restored single-character source transfer at offset",i,"char",ch)
-                    break
-            except (ValueError,zlib.error):
-                pass
-        if raw is not None:break
-    if raw is None:raise RuntimeError("Cannot integrity-recover historical Torvik source")
+raw=zlib.decompress(base64.b64decode(src,validate=True)).decode()
+
 rows=[]
 for part in raw.split(";"):
     tid,oe,de=part.split(",")
