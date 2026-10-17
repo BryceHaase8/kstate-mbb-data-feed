@@ -1,0 +1,18 @@
+name: Verify historical Torvik lookup integrity (research only)
+on:
+  push:
+    branches: [rapm-v2-torvik-luck-2026-research]
+    paths: [.github/workflows/rapm-v2-torvik-fixture-check.yml]
+permissions:
+  contents: read
+jobs:
+  fixture:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Restore checksum-verified 2026 Torvik lookup, validate 365 ESPN IDs
+        run: python scripts/decode_torvik_2026.py
