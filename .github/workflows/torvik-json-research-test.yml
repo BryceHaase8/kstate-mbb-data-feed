@@ -1,0 +1,27 @@
+name: Validate Torvik published JSON team strength (research only)
+on:
+  push:
+    branches: [torvik-daily-json-research-2026]
+    paths: [.github/workflows/torvik-json-research-test.yml]
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Fetch one season team-results JSON and validate schema and ESPN mapping
+        run: python scripts/torvik_team_strength_json.py --season 2027
+      - name: Save research-only snapshot and match audit
+        run: |
+          git add research_qa/torvik_team_strength_2027.json research_qa/torvik_team_strength_2027_qa.json
+          if git diff --cached --quiet; then exit 0; fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'Research only: validate 2027 Torvik JSON and ESPN crosswalk'
+          git push
