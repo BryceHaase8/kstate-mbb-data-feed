@@ -1,0 +1,36 @@
+name: Research RAPM V2 result diagnostics
+on:
+  push:
+    branches: [rapm-v2-torvik-luck-2026-research]
+    paths:
+      - research_qa/rapm_v2_model_2026.json
+      - .github/workflows/rapm-v2-results-summary.yml
+permissions:
+  contents: write
+jobs:
+  summary:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install diagnostics dependency
+        run: pip install numpy
+      - name: Calculate exposure-aware comparisons if the full refit exists
+        run: |
+          if [ -s research_qa/rapm_v2_model_2026.json ]; then
+            python scripts/rapm_v2_summarize.py
+          else
+            echo 'Waiting for full refit output.'
+          fi
+      - name: Commit concise research diagnostics only
+        run: |
+          test -s research_qa/rapm_v2_diagnostic_summary.json || exit 0
+          git add research_qa/rapm_v2_diagnostic_summary.json
+          git diff --cached --quiet && exit 0
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'Research: exposure-aware RAPM V2 summary and named spotchecks'
+          git push
