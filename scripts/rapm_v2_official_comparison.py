@@ -96,7 +96,7 @@ def main():
                 made=str(e.get('shot_made','')).lower()=='true' or ' makes ' in (' '+str(e.get('text','')).lower()+' ')
             else:
                 kind='ft'
-                made=bool(__import__('re').search(r'\\bmakes?\\b|\\bmade\\b',str(e.get('text','')),__import__('re').I))
+                made=(' makes ' in (' '+str(e.get('text','')).lower()+' ') or ' made ' in (' '+str(e.get('text','')).lower()+' '))
             gid=e['game_id'];global_counts[(kind,shooter,'n')]+=1
             game_counts[(gid,kind,shooter,'n')]+=1
             if made:
