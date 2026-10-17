@@ -58,6 +58,24 @@ def run(source,context,output,qa):
     data=json.loads(Path(source).read_text())
     rows,stage=validate(data)
     mapped,unmatched,ambiguous,year=espn_crosswalk(rows,str(context),2027)
+    # Apply ONLY historically verified exact Torvik-school-name -> ESPN-ID pairs.
+    # This resolves schools such as FIU, NC State, UMKC, and cases where one
+    # nickname is a prefix of multiple universities (Florida, Kansas).
+    alias_path = Path('research_qa/torvik_verified_school_aliases_2026.json')
+    if alias_path.is_file():
+        historical = json.loads(alias_path.read_text())['schoolAliases']
+        directory = json.loads(Path(context).read_text())['teams'][str(year)]
+        teams_by_name = {r['torvikTeam']:r for r in rows}
+        for name, eid in historical.items():
+            if name not in teams_by_name or str(eid) not in directory:
+                continue  # School absent this year or not yet in ESPN directory.
+            teams_by_name[name]['espnTeamId'] = str(eid)
+        ids=[r['espnTeamId'] for r in rows if r['espnTeamId']]
+        if len(ids)!=len(set(ids)):
+            raise ValueError('ESPN team-ID collision after applying verified school aliases')
+        mapped=len(ids)
+        unmatched=[r['torvikTeam'] for r in rows if not r['espnTeamId']]
+        ambiguous=[x for x in ambiguous if x.get('team') in unmatched]
     if mapped < len(rows)*0.95:
         raise ValueError('Unsafe team-ID match rate %s/%s'%(mapped,len(rows)))
     doc={'schemaVersion':3,'season':2027,'source':'Bart Torvik published team-results CSV via Google Apps Script',
