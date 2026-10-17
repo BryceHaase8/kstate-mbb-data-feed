@@ -1,0 +1,21 @@
+name: Torvik historical season accessibility (one request)
+on:
+  push:
+    branches: [torvik-daily-json-research-2026]
+    paths: [.github/workflows/torvik-historical-access-check.yml]
+permissions:
+  contents: read
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - name: Check whether last season's published JSON is reachable from GitHub
+        run: |
+          http=$(curl --silent --show-error --location --max-time 15 \
+            --user-agent 'Mozilla/5.0 (compatible; KStateMBBAnalytics/1.0; single published bulk-data check)' \
+            --output /tmp/torvik2026.dat --write-out '%{http_code}' \
+            'https://barttorvik.com/2026_team_results.json')
+          echo "Last-season bulk JSON status: $http"
+          echo "Response size: $(wc -c </tmp/torvik2026.dat)"
+          if [ "$http" != '200' ]; then echo "No payload archived."; fi
