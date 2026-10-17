@@ -1,0 +1,24 @@
+name: Check Torvik bulk JSON from alternate hosted runners
+on:
+  push:
+    branches: [torvik-daily-json-research-2026]
+    paths: [.github/workflows/torvik-alternate-runner-check.yml]
+permissions:
+  contents: read
+jobs:
+  check:
+    strategy:
+      fail-fast: false
+      matrix:
+        runner: [windows-latest, macos-latest]
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 3
+    steps:
+      - name: Check one bulk JSON download on this runner
+        shell: bash
+        run: |
+          code=$(curl -sS -L --max-time 18 -o torvik_result.txt -w '%{http_code}' 'https://barttorvik.com/2027_team_results.json')
+          echo "RUNNER=${{ matrix.runner }} HTTP=$code BYTES=$(wc -c < torvik_result.txt)"
+          if [ "$code" = '200' ]; then
+            python -c "import json; x=json.load(open('torvik_result.txt')); print('VALID_JSON_TEAMS',len(x),'FIELDS',len(x[0]))"
+          fi
