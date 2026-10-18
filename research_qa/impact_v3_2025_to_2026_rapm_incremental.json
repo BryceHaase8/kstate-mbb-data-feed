@@ -1,0 +1,17 @@
+{
+  "status": "INSUFFICIENT_2025_RAPM_COVERAGE_NOT_VALID_PREDICTIVE_TEST",
+  "seasonSource": 2025,
+  "seasonTarget": 2026,
+  "label": "Attempted historical RAPM source failed the coverage gate.",
+  "cleanPossessions": 54096,
+  "gamesUsed": 592,
+  "minuteCoverage": 0.0816,
+  "excludedReasons": {
+    "no_valid_periods": 4180,
+    "insufficient_clean_possessions": 849,
+    "score_gap": 36,
+    "official_minutes_mismatch": 100,
+    "possession_count_gap": 8
+  },
+  "note": "No 2025 RAPM incremental prediction claim is permitted until data coverage and lineup matching are repaired."
+}
