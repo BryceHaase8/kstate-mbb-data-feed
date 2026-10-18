@@ -2,7 +2,7 @@ name: 'Research: 2025 RAPM forecast to 2026'
 on:
   push:
     branches: [impact-v3-nextseason-2025-rapm-validation]
-    paths: ['.github/workflows/impact-v3-prior-season-rapm.yml']
+    paths: ['.github/workflows/impact-v3-prior-season-rapm.yml', 'scripts/rapm_2025_luck_backtest.py', 'scripts/impact_v3_2025_to_2026_rapm_check.py']
   workflow_dispatch:
 permissions:
   contents: write
