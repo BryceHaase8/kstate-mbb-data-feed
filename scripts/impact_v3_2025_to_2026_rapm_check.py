@@ -43,6 +43,7 @@ def main():
           "gamesUsed":model["gamesAccepted"],
           "minuteCoverage":model.get("verifiedMinuteCoverageInFit"),
           "excludedReasons":audit.get("exclusionReasons",{}),
+          "periodIssueCounts":audit.get("periodIssueCounts",{}),
           "note":"No 2025 RAPM incremental prediction claim is permitted until data coverage and lineup matching are repaired."
         }
         p=Path("research_qa/impact_v3_2025_to_2026_rapm_incremental.json")
