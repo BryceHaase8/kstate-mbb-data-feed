@@ -111,7 +111,7 @@ def main():
     missing=BOX_REQUIRED-set(box.columns)
     if missing:raise ValueError('Missing box columns: '+str(sorted(missing)))
     bb={gid:g for gid,g in box.groupby('game_id',sort=False)}
-    included=[];results=[];reasons=collections.Counter();poss_totals=collections.Counter()
+    included=[];results=[];reasons=collections.Counter();poss_totals=collections.Counter();period_issue_counts=collections.Counter()
     n=0
     skipped_missing_torvik=0
     with open(a.pbp,encoding='utf-8-sig',newline='') as f:
@@ -125,6 +125,10 @@ def main():
             b=bb[gid]
             official=get_team_starters(b)
             outcome=audit_game(records,official_first_half=official)
+            for period in outcome['results']:
+                if not period['ok']:
+                    for reason in (period.get('reason') or 'unknown').split(';'):
+                        if reason: period_issue_counts[reason]+=1
             good=[period for period in outcome['results'] if period['ok']]
             entry={'game_id':gid,'status':'excluded','reason':'','possessions':0,
                    'periodsTotal':outcome['periods'],'periodsValid':len(good),
@@ -196,7 +200,7 @@ def main():
         'totalPossiblePlayerMinutes':round(possible_min),
         'cleanPossessionsUsed':len(included),
         'cleanShareInAccepted':round(len(included)/clean_candidates,4) if clean_candidates else 0,
-        'exclusionReasons':dict(reasons),'gameDetails':results,
+        'exclusionReasons':dict(reasons),'periodIssueCounts':dict(period_issue_counts),'gameDetails':results,
         'note':'Requires full ESPN game official-minute reconciliation or partial-period minute upper bound. Never publish ratings to the Portal.'}
     output=Path(a.output);audit=Path(a.audit)
     output.parent.mkdir(parents=True,exist_ok=True);audit.parent.mkdir(parents=True,exist_ok=True)
