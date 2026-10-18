@@ -1,0 +1,22 @@
+{
+  "status": "HISTORICAL_2025_RAPM_NOT_VALID_FOR_FORECAST",
+  "extractedFromWorkflowJob": "https://github.com/BryceHaase8/kstate-mbb-data-feed/actions/runs/39128597010",
+  "auditSeason": 2025,
+  "gamesIncluded": 592,
+  "cleanPossessions": 54096,
+  "officialMinuteCoverage": 0.0816,
+  "gameExclusions": {
+    "no_valid_periods": 4180,
+    "insufficient_clean_possessions": 849,
+    "score_gap": 36,
+    "official_minutes_mismatch": 100,
+    "possession_count_gap": 8
+  },
+  "periodIssueOccurrences": {
+    "invalid_seed_size": 8697,
+    "event_involving_player_off_reconstructed_court": 4622,
+    "lineup_not_exactly_five_players": 1305
+  },
+  "interpretation": "Counts are failing-period issue occurrences, NOT distinct games; one period can have more than one issue. More exact team/time subkeys were grouped by prefix. Historical 2025 lineup starter seeds and on-court reconstruction fail too often to use coefficients as portable player-impact signal.",
+  "nextSteps": "Audit seed algorithm by period and team, substitution parsing, official starter data and event timing; reconstruct with independent official minute and lineup tests. Keep 2025 RAPM weight zero in any next-season predictive comparison until quality gate is passed."
+}
