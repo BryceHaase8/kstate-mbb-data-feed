@@ -17,12 +17,31 @@ IDENTITY=("season","athlete_id")
 def _num(df,key):
     return pd.to_numeric(df[key],errors="coerce").fillna(0)
 
-def score_new_season(raw,coefficients,season,prior_ratings=None):
+def score_new_season(raw,coefficients,season,prior_ratings=None,roster=None):
     if "season" not in raw.columns or "athlete_id" not in raw.columns:
         raise ValueError("season and ESPN athlete_id required")
     df=raw.loc[pd.to_numeric(raw["season"],errors="coerce")==season].copy()
+    if roster is not None:
+        # Roster presence is not synonymous with 1+ games played.
+        # The roster input must come from OUR collector (never external RAPM).
+        for required in ("athlete_id","player_name","team_id"):
+            if required not in roster.columns:
+                raise ValueError("Own roster missing field: "+required)
+        r=roster.copy()
+        r["athlete_id"]=r.athlete_id.fillna("").astype(str).str.strip()
+        if r.athlete_id.duplicated().any():
+            raise ValueError("Duplicate roster ESPN athlete IDs")
+        missing_ids=r[~r.athlete_id.isin(df.athlete_id.astype(str))].copy()
+        if len(missing_ids):
+            missing_ids["season"]=season
+            # No observed box score => zero counts only as an input placeholder.
+            # We never infer zero ABILITY from that zero observation.
+            for col in df.columns:
+                if col not in missing_ids:
+                    missing_ids[col]=np.nan
+            df=pd.concat([df,missing_ids[df.columns]],ignore_index=True)
     if df.empty:
-        raise ValueError("No current-season ESPN players; refuse to publish")
+        raise ValueError("No season players or roster identities; refuse to publish")
     df["athlete_id"]=df["athlete_id"].fillna("").astype(str).str.strip()
     if df["athlete_id"].eq("").any() or df["athlete_id"].str.lower().eq("nan").any():
         raise ValueError("Missing ESPN athlete id; do not infer identity from name")
