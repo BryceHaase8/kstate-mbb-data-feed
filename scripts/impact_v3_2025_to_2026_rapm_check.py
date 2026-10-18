@@ -33,7 +33,22 @@ def main():
     eligible=(gp_old>=15)&(mpg_old>=10)&(gp_new>=10)&(mpg_new>=10)
     model=json.loads(Path("research_qa/rapm_2025_luck_model.json").read_text())
     assert model["season"]==2025
-    assert model["cleanPossessions"]>=200000
+    if model["cleanPossessions"]<200000:
+        audit=json.loads(Path("research_qa/rapm_2025_luck_audit.json").read_text())
+        report={
+          "status":"INSUFFICIENT_2025_RAPM_COVERAGE_NOT_VALID_PREDICTIVE_TEST",
+          "seasonSource":2025,"seasonTarget":2026,
+          "label":"Attempted historical RAPM source failed the coverage gate.",
+          "cleanPossessions":model["cleanPossessions"],
+          "gamesUsed":model["gamesAccepted"],
+          "minuteCoverage":model.get("verifiedMinuteCoverageInFit"),
+          "excludedReasons":audit.get("exclusionReasons",{}),
+          "note":"No 2025 RAPM incremental prediction claim is permitted until data coverage and lineup matching are repaired."
+        }
+        p=Path("research_qa/impact_v3_2025_to_2026_rapm_incremental.json")
+        p.write_text(json.dumps(report,indent=2)+"\n")
+        print(json.dumps(report,indent=2))
+        return
     rr=pd.DataFrame(model["variants"]["luckAdjusted"])
     rr["espnAthleteId"]=rr.espnAthleteId.astype(str)
     assert rr.espnAthleteId.is_unique
