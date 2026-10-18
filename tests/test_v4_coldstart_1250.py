@@ -27,4 +27,10 @@ else:raise AssertionError("Duplicate ESPN ID accepted")
 try:score_new_season(df,p,2028)
 except ValueError:pass
 else:raise AssertionError("Missing season accepted")
-print("PASS 1,250 unique new-player cold starts; 400 unscored, 400 provisional, 450 established; fail-closed IDs, no RAPM/network")
+roster=pd.DataFrame([dict(athlete_id=f"NEW_{i+1:05d}",player_name=f"Rookie {i}",team_id="123") for i in range(1500)])
+with_roster=score_new_season(df,p,2027,roster=roster)
+assert len(with_roster)==1500
+assert (with_roster.rating_status=="unscored").sum()==650
+assert with_roster.loc[with_roster.athlete_id=="NEW_01500","boxBPM_raw"].isna().all()
+assert with_roster.athlete_id.is_unique
+print("PASS 1,250 box-score newcomers + 250 roster-only newcomers; unscored identities remain visible; no network or external RAPM")
