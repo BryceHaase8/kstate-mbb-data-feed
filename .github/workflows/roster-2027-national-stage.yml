@@ -29,10 +29,12 @@ jobs:
             any::purrr
       - name: Stage 365 current-season NCAA rosters and match to historical archive
         run: Rscript scripts/stage_2027_roster_universe.R
+      - name: Recompute 2027–28 eligibility estimates after refreshing full roster bios
+        run: Rscript scripts/stage_2027_eligibility_estimates.R
       - name: Store standalone research roster preview (not production)
         if: always()
         run: |
-          git add research_data/staged/current_roster_2027* research_qa/roster_integration/all_team_2027_readiness.csv research_qa/roster_integration/roster_2027_stage_qa.json
+          git add research_data/staged/current_roster_2027* research_qa/roster_integration/all_team_2027_readiness.csv research_qa/roster_integration/roster_2027_stage_qa.json research_qa/roster_integration/eligibility_estimates_2027_28_qa.json
           if git diff --cached --quiet; then exit 0; fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
