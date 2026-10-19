@@ -1,0 +1,12 @@
+{
+  "season": 2021,
+  "player_game_rows": 83064,
+  "unique_games": 4285,
+  "unique_teams": 347,
+  "unique_athletes": 5020,
+  "season_rows": 5020,
+  "game_log_size_bytes": 2449344,
+  "season_file_size_bytes": 555747,
+  "source": "hoopR ESPN player-game box with production D1 and season-stat aggregator",
+  "no_roster_only_claim": true
+}

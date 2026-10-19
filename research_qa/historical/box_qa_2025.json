@@ -1,0 +1,12 @@
+{
+  "season": 2025,
+  "player_game_rows": 120616,
+  "unique_games": 6290,
+  "unique_teams": 364,
+  "unique_athletes": 5119,
+  "season_rows": 5119,
+  "game_log_size_bytes": 3630276,
+  "season_file_size_bytes": 620676,
+  "source": "hoopR ESPN player-game box with production D1 and season-stat aggregator",
+  "no_roster_only_claim": true
+}

@@ -1,0 +1,12 @@
+{
+  "season": 2026,
+  "player_game_rows": 120412,
+  "unique_games": 6300,
+  "unique_teams": 365,
+  "unique_athletes": 5019,
+  "season_rows": 5019,
+  "game_log_size_bytes": 3640551,
+  "season_file_size_bytes": 618227,
+  "source": "hoopR ESPN player-game box with production D1 and season-stat aggregator",
+  "no_roster_only_claim": true
+}

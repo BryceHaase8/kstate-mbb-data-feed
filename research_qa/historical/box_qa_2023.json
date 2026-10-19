@@ -1,0 +1,12 @@
+{
+  "season": 2023,
+  "player_game_rows": 118870,
+  "unique_games": 6221,
+  "unique_teams": 363,
+  "unique_athletes": 5102,
+  "season_rows": 5102,
+  "game_log_size_bytes": 3548540,
+  "season_file_size_bytes": 609840,
+  "source": "hoopR ESPN player-game box with production D1 and season-stat aggregator",
+  "no_roster_only_claim": true
+}

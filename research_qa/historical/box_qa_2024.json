@@ -1,0 +1,12 @@
+{
+  "season": 2024,
+  "player_game_rows": 119332,
+  "unique_games": 6241,
+  "unique_teams": 362,
+  "unique_athletes": 5063,
+  "season_rows": 5063,
+  "game_log_size_bytes": 3576685,
+  "season_file_size_bytes": 611928,
+  "source": "hoopR ESPN player-game box with production D1 and season-stat aggregator",
+  "no_roster_only_claim": true
+}

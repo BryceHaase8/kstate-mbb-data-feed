@@ -1,0 +1,40 @@
+{
+  "season": 2024,
+  "source": "hoopR::espn_mbb_pbp(game_id) collecting ESPN event fields",
+  "intended_games": 24,
+  "successful_games": 23,
+  "failed_games": [
+    "401582121"
+  ],
+  "event_rows": 7606,
+  "pbp_file_bytes": 140573,
+  "sampled_game_ids": [
+    "401574207",
+    "401574587",
+    "401582121",
+    "401600072",
+    "401598991",
+    "401600296",
+    "401594348",
+    "401587220",
+    "401574840",
+    "401581705",
+    "401603407",
+    "401603417",
+    "401581748",
+    "401589392",
+    "401581681",
+    "401603454",
+    "401587310",
+    "401600388",
+    "401587960",
+    "401604802",
+    "401581757",
+    "401606751",
+    "401625556",
+    "401638645"
+  ],
+  "sample_scope": "stratified-in-time deterministic D1-vs-D1 sample only; NOT league-wide PBP",
+  "verified_five_man_lineup_games": 0,
+  "trained_rapm": false
+}

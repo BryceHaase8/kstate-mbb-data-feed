@@ -1,0 +1,30 @@
+{
+  "season": 2020,
+  "source": "hoopR::espn_mbb_pbp(game_id) collecting ESPN event fields",
+  "intended_games": 16,
+  "successful_games": 16,
+  "failed_games": [],
+  "event_rows": 5046,
+  "pbp_file_bytes": 93867,
+  "sampled_game_ids": [
+    "401166015",
+    "401166065",
+    "401173670",
+    "401171803",
+    "401173557",
+    "401175570",
+    "401171695",
+    "401175067",
+    "401166297",
+    "401170255",
+    "401170994",
+    "401173772",
+    "401175547",
+    "401169488",
+    "401176237",
+    "401211660"
+  ],
+  "sample_scope": "stratified-in-time deterministic D1-vs-D1 sample only; NOT league-wide PBP",
+  "verified_five_man_lineup_games": 0,
+  "trained_rapm": false
+}

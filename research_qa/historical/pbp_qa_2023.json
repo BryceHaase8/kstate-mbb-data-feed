@@ -1,0 +1,40 @@
+{
+  "season": 2023,
+  "source": "hoopR::espn_mbb_pbp(game_id) collecting ESPN event fields",
+  "intended_games": 24,
+  "successful_games": 23,
+  "failed_games": [
+    "401479737"
+  ],
+  "event_rows": 7640,
+  "pbp_file_bytes": 140574,
+  "sampled_game_ids": [
+    "401482889",
+    "401493492",
+    "401479942",
+    "401486683",
+    "401491879",
+    "401469979",
+    "401487634",
+    "401483168",
+    "401494609",
+    "401470997",
+    "401490322",
+    "401479737",
+    "401490340",
+    "401469782",
+    "401469578",
+    "401490457",
+    "401482847",
+    "401490378",
+    "401481133",
+    "401492240",
+    "401470172",
+    "401490462",
+    "401514406",
+    "401522202"
+  ],
+  "sample_scope": "stratified-in-time deterministic D1-vs-D1 sample only; NOT league-wide PBP",
+  "verified_five_man_lineup_games": 0,
+  "trained_rapm": false
+}
