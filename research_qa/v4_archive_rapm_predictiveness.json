@@ -1,0 +1,29 @@
+{
+  "status": "INSUFFICIENT_ARCHIVE_CROSSWALK_COVERAGE",
+  "byYear": {
+    "2023": {
+      "sourceESPN": 5046,
+      "externalRows": 4942,
+      "uniqueNameMatchesAndSchoolVerified": 7,
+      "uniqueNameMatchButSchoolMismatch": 5039,
+      "returnersMatchedAndEligible": 5
+    },
+    "2024": {
+      "sourceESPN": 4989,
+      "externalRows": 4919,
+      "uniqueNameMatchesAndSchoolVerified": 6,
+      "uniqueNameMatchButSchoolMismatch": 4983,
+      "returnersMatchedAndEligible": 1
+    },
+    "2025": {
+      "sourceESPN": 5063,
+      "externalRows": 4960,
+      "uniqueNameMatchesAndSchoolVerified": 4,
+      "uniqueNameMatchButSchoolMismatch": 5059,
+      "returnersMatchedAndEligible": 0
+    }
+  },
+  "trainCount": 6,
+  "testCount": 0,
+  "notice": "No predictive claim; identity join too sparse. Add explicit NCAA-ESPN ID bridge rather than fuzzy matching."
+}
