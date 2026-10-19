@@ -1,0 +1,46 @@
+name: Research QA — verify historical archive against current feed
+on:
+  push:
+    branches:
+      - historical-2020-2026-box-gamelogs-pbp-research
+    paths:
+      - ".github/workflows/historical-archive-verify.yml"
+      - "scripts/verify_historical_backfill.R"
+permissions:
+  contents: write
+concurrency:
+  group: research-historical-archive-verify
+  cancel-in-progress: false
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v6
+      - uses: r-lib/actions/setup-r@v2
+      - uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          extra-packages: |
+            any::dplyr
+            any::readr
+            any::jsonlite
+            any::tibble
+      - name: Audit all seven archived season totals and player-game keys
+        run: |
+          Rscript scripts/verify_historical_backfill.R
+      - name: Store research-only QA report even if reconciliation fails
+        if: always()
+        run: |
+          if [ ! -f research_qa/historical/verification_2020_2026.json ]; then
+            echo "Verification output not produced"
+            exit 0
+          fi
+          git add research_qa/historical/verification_2020_2026.json
+          if git diff --cached --quiet; then
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "QA: reconcile seven-season historical game logs with player totals and main feed"
+          git pull --rebase origin historical-2020-2026-box-gamelogs-pbp-research
+          git push origin HEAD:historical-2020-2026-box-gamelogs-pbp-research
