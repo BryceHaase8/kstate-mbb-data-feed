@@ -1,0 +1,27 @@
+{
+  "status": "PASS",
+  "canonical_archive_seasons": [
+    2020,
+    2021,
+    2022,
+    2023,
+    2024,
+    2025,
+    2026
+  ],
+  "canonical_archive_player_seasons": 35209,
+  "added_to_canonical_archive": 14906,
+  "unchanged_old_player_rows": 20303,
+  "public_feed_seasons": [
+    2023,
+    2024,
+    2025,
+    2026
+  ],
+  "public_feed_player_seasons": 20303,
+  "public_feed_unique_players": 10476,
+  "public_feed_schema_version": 2,
+  "public_feed_unchanged_in_scope": true,
+  "no_2027_roster_in_main": true,
+  "promotion_pending_staff_review": true
+}
