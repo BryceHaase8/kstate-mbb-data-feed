@@ -1,0 +1,22 @@
+{
+  "status": "PASS",
+  "roster_players": 5456,
+  "target_season": "2027-28",
+  "source_2027_roster": true,
+  "all_players_estimated": true,
+  "estimate_counts_0_to_4": {
+    "0": 408,
+    "1": 758,
+    "2": 924,
+    "3": 1326,
+    "4": 2040
+  },
+  "no_di_history": 2040,
+  "no_di_history_estimate_four": 2040,
+  "with_earliest_DI_stats": 3416,
+  "user_eligibility_overrides_remain_authoritative": true,
+  "no_eligibility_unknown_in_payload": true,
+  "no_staff_data_changed": true,
+  "estimate_is_not_NCAA_certification": true,
+  "roster_json_bytes": 3021180
+}
