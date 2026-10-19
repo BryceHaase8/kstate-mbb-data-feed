@@ -1,0 +1,41 @@
+name: Research-only — stage all ESPN 2027 rosters after history QA
+on:
+  push:
+    branches:
+      - staging-seven-year-history-2027-roster-identity
+    paths:
+      - ".github/workflows/roster-2027-national-stage.yml"
+      - "scripts/stage_2027_roster_universe.R"
+permissions:
+  contents: write
+concurrency:
+  group: stage-2027-rosters-research
+  cancel-in-progress: false
+jobs:
+  stage:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v6
+      - uses: r-lib/actions/setup-r@v2
+      - uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          extra-packages: |
+            any::hoopR
+            any::dplyr
+            any::readr
+            any::jsonlite
+            any::tibble
+            any::purrr
+      - name: Stage 365 current-season NCAA rosters and match to historical archive
+        run: Rscript scripts/stage_2027_roster_universe.R
+      - name: Store standalone research roster preview (not production)
+        if: always()
+        run: |
+          git add research_data/staged/current_roster_2027* research_qa/roster_integration/all_team_2027_readiness.csv research_qa/roster_integration/roster_2027_stage_qa.json
+          if git diff --cached --quiet; then exit 0; fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Research: stage 2027 NCAA roster universe by ESPN IDs, with QA flags"
+          git pull --rebase origin staging-seven-year-history-2027-roster-identity
+          git push origin HEAD:staging-seven-year-history-2027-roster-identity
