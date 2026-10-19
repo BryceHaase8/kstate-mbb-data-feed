@@ -132,6 +132,27 @@ def main():
             scores[name]=model.predict(features(test,cols))
         true=test.outcome.to_numpy(float);p0=scores["boxContext"];p1=scores["boxContextPlusArchivedRAPM"]
         absdiff=np.abs(true-p0)-np.abs(true-p1)
+        # Assess whether the national-average result hides transfer-specific value.
+        masks={
+          "stayedSchool":(test.changedSchool.to_numpy(int)==0),
+          "changedSchool":(test.changedSchool.to_numpy(int)==1),
+          "upTransferFromOutsideTop100ToTop80":(
+            (test.changedSchool.to_numpy(int)==1)&
+            (test.originRank.to_numpy(float)>100)&
+            (test.destPriorRank.to_numpy(float)<=80)),
+          "originOutsideTop175":(test.originRank.to_numpy(float)>175)
+        }
+        subgroups={}
+        for label,mask in masks.items():
+            if mask.sum()<30:
+                subgroups[label]={"n":int(mask.sum()),"status":"TOO_FEW_FOR_CONCLUSION"}
+                continue
+            subgroups[label]={
+              "n":int(mask.sum()),
+              "boxContextMAE":round(float(mean_absolute_error(true[mask],p0[mask])),4),
+              "withRapmMAE":round(float(mean_absolute_error(true[mask],p1[mask])),4),
+              "deltaMAE":round(float(absdiff[mask].mean()),4)
+            }
         rng=np.random.default_rng(1618)
         means=np.array([absdiff[rng.integers(0,len(absdiff),len(absdiff))].mean() for _ in range(1000)])
         report={"status":"RESEARCH_BACKTEST_COMPLETED_NOT_PRODUCTION",
@@ -144,6 +165,7 @@ def main():
           "withArchiveRapmMAE":round(float(mean_absolute_error(true,p1)),4),
           "deltaMAE_positive_means_RAPM_helped":round(float(absdiff.mean()),4),
           "deltaMAE_bootstrap95":[round(float(z),4) for z in np.quantile(means,[.025,.975])],
+          "subgroups":subgroups,
           "baselineSpearman":round(float(spearmanr(true,p0).statistic),4),
           "withRapmSpearman":round(float(spearmanr(true,p1).statistic),4),
           "warnings":["Only rotation survivors included; no roster survival test.",
