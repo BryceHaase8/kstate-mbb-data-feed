@@ -1,0 +1,22 @@
+{
+  "result": "PASS",
+  "staging_only": true,
+  "archived_seasons": [
+    2020,
+    2021,
+    2022,
+    2023,
+    2024,
+    2025,
+    2026
+  ],
+  "player_seasons": 35209,
+  "preexisting_player_seasons": 20303,
+  "added_player_seasons": 14906,
+  "existing_2023_2026_identical": true,
+  "unique_espn_athlete_ids": 15199,
+  "roster_only_players_not_fabricated": true,
+  "data_size_bytes": 4768029,
+  "public_homepage_json_unchanged": true,
+  "recommendation": "Do not publish expanded public JSON until frontend performance is tested."
+}

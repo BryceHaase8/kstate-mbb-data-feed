@@ -1,0 +1,172 @@
+{
+  "date": "2026-10-19",
+  "source": "hoopR ESPN site and core-v2",
+  "teams": {
+    "Kansas State": {
+      "team_name": "Kansas State Wildcats",
+      "team_id": "2306",
+      "season_roster_members": 14,
+      "site_bio_rows": 14,
+      "matched_ids": 14,
+      "match_coverage": 1,
+      "site_columns": [
+        "athlete_id",
+        "full_name",
+        "jersey",
+        "position_abbrev",
+        "position_name",
+        "height",
+        "weight",
+        "age",
+        "birth_date",
+        "birth_place",
+        "headshot",
+        "link_web",
+        "status",
+        "team_id",
+        "season"
+      ],
+      "names_sample": [
+        "Isaiah Abraham",
+        "Jaylen Alexander",
+        "Matt Gilhool",
+        "Devin Hutcherson",
+        "Andrej Kostic",
+        "Dez Lindsay"
+      ]
+    },
+    "Montana Grizzlies": {
+      "team_name": "Montana Grizzlies",
+      "team_id": "149",
+      "season_roster_members": 14,
+      "site_bio_rows": 14,
+      "matched_ids": 14,
+      "match_coverage": 1,
+      "site_columns": [
+        "athlete_id",
+        "full_name",
+        "jersey",
+        "position_abbrev",
+        "position_name",
+        "height",
+        "weight",
+        "age",
+        "birth_date",
+        "birth_place",
+        "headshot",
+        "link_web",
+        "status",
+        "team_id",
+        "season"
+      ],
+      "names_sample": [
+        "Kenyon Aguino",
+        "Courtney Anderson Jr.",
+        "Noah Bendinger",
+        "Jalen Brown",
+        "Semaj Carter",
+        "Connor Dick"
+      ]
+    },
+    "Cal State Northridge": {
+      "team_name": "Cal State Northridge Matadors",
+      "team_id": "2463",
+      "season_roster_members": 16,
+      "site_bio_rows": 16,
+      "matched_ids": 16,
+      "match_coverage": 1,
+      "site_columns": [
+        "athlete_id",
+        "full_name",
+        "jersey",
+        "position_abbrev",
+        "position_name",
+        "height",
+        "weight",
+        "age",
+        "birth_date",
+        "birth_place",
+        "headshot",
+        "link_web",
+        "status",
+        "team_id",
+        "season"
+      ],
+      "names_sample": [
+        "Mikah Ballew",
+        "Jalen Barbee",
+        "Daniel Culberson",
+        "Omer Dahan",
+        "Josiah Davis",
+        "Keziah Ekissi"
+      ]
+    },
+    "North Dakota State": {
+      "team_name": "North Dakota State Bison",
+      "team_id": "2449",
+      "season_roster_members": 16,
+      "site_bio_rows": 16,
+      "matched_ids": 16,
+      "match_coverage": 1,
+      "site_columns": [
+        "athlete_id",
+        "full_name",
+        "jersey",
+        "position_abbrev",
+        "position_name",
+        "height",
+        "weight",
+        "age",
+        "birth_date",
+        "birth_place",
+        "headshot",
+        "link_web",
+        "status",
+        "team_id",
+        "season"
+      ],
+      "names_sample": [
+        "Melvin Bell Jr.",
+        "Amir Danforth",
+        "Rob Diaz III",
+        "Jaziah Harper",
+        "Max Iversen",
+        "Oliver Junker"
+      ]
+    },
+    "McNeese": {
+      "team_name": "McNeese Cowboys",
+      "team_id": "2377",
+      "season_roster_members": 12,
+      "site_bio_rows": 12,
+      "matched_ids": 12,
+      "match_coverage": 1,
+      "site_columns": [
+        "athlete_id",
+        "full_name",
+        "jersey",
+        "position_abbrev",
+        "position_name",
+        "height",
+        "weight",
+        "age",
+        "birth_date",
+        "birth_place",
+        "headshot",
+        "link_web",
+        "status",
+        "team_id",
+        "season"
+      ],
+      "names_sample": [
+        "Kaleb Brewer",
+        "T'Johnn Brown",
+        "Carl Cherenfant",
+        "Jerrell Colbert",
+        "Javohn Garcia",
+        "Larry Johnson"
+      ]
+    }
+  },
+  "warning": "Season-specific core-v2 membership required. Site-v2 bios are never sufficient by themselves for team membership."
+}
