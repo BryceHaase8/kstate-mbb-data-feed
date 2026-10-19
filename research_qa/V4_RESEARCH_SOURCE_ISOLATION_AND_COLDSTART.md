@@ -27,6 +27,7 @@ LIVE/DURING-SEASON MODEL INPUT:
 - 2026 target is a frozen *next-season ESPN-derived estimated BPM proxy*. This is NOT true Torvik BPM, and not on-court true impact.
 - Holdout MAE: baseline 2.0338; plus archived RAPM 2.0324. Difference **+0.0014** BPM; bootstrap 95% interval **[-0.0017, +0.0046]** overlaps zero. Spearman 0.5583 vs 0.5590.
 - Conclusion: No demonstrated incremental predictive value from this particular historical RAPM addition. This is not evidence RAPM is universally useless; strongly confounded by lineup reconstructors' bias, observed-player selection and target measurement.
+- Split held-out result: **stayed school** 672 athletes, incremental MAE **-0.0016** (slightly worse); **changed school** 653, incremental **+0.0045**; **up-transfers** from origin outside Top 100 to established Top 80 destination: 104 players, incremental **+0.0049**; weak-origin outside Top 175: 679, incremental **+0.0002**. None of these extremely small changes is actionable without confidence intervals and repeated holdouts.
 - No production RAPM weights changed.
 
 ## New player and roster-only contracts
