@@ -34,6 +34,17 @@ jobs:
               -o ".historical_only_archive/ncaa_mbb_rapm_${yr}.csv.gz"
             gzip -t ".historical_only_archive/ncaa_mbb_rapm_${yr}.csv.gz"
           done
+      - name: Inspect crosswalk field examples (diagnostic, archived research only)
+        run: |
+          python - <<'PY'
+          import pandas as pd
+          a=pd.read_csv('.historical_only_archive/ncaa_mbb_rapm_2025.csv.gz')
+          b=pd.read_csv('data/current_player_season_stats.csv',low_memory=False)
+          b=b[b.season==2025]
+          print('ARCHIVE RAPM COLUMNS',a.columns.tolist())
+          print('ARCHIVE RAPM SAMPLE',a[['player','team','estimand']].head(10).to_dict('records'))
+          print('ESPN SAMPLE',b[['player_name','team_name']].head(10).to_dict('records'))
+          PY
       - name: Strict out-of-time 2025 to 2026 RAPM incremental comparison
         run: |
           python scripts/v4_archive_rapm_ablation.py --input-dir .historical_only_archive
