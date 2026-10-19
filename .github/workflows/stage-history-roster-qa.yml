@@ -1,0 +1,40 @@
+name: Staging QA — seven year history and ESPN roster bio
+on:
+  push:
+    branches:
+      - staging-seven-year-history-2027-roster-identity
+    paths:
+      - ".github/workflows/stage-history-roster-qa.yml"
+      - "scripts/stage_historical_history.R"
+      - "scripts/roster_bio_probe.R"
+permissions:
+  contents: write
+jobs:
+  pilot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v6
+      - uses: r-lib/actions/setup-r@v2
+      - uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          extra-packages: |
+            any::hoopR
+            any::dplyr
+            any::readr
+            any::jsonlite
+            any::tibble
+      - name: Validate stage seven seasons without touching production
+        run: Rscript scripts/stage_historical_history.R
+      - name: Check season roster membership to current roster bios
+        run: Rscript scripts/roster_bio_probe.R
+      - name: Save research-only QA and staged historical archive
+        if: always()
+        run: |
+          git add research_data/staged research_qa/roster_integration
+          if git diff --cached --quiet; then exit 0; fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Stage seven-year archive and ESPN roster bio identity QA"
+          git pull --rebase origin staging-seven-year-history-2027-roster-identity
+          git push origin HEAD:staging-seven-year-history-2027-roster-identity
