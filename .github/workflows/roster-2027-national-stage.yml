@@ -1,4 +1,4 @@
-name: Research-only — stage all ESPN 2027 rosters after history QA
+name: Research-only — stage all ESPN 2027 rosters and bio birthplaces
 on:
   push:
     branches:
