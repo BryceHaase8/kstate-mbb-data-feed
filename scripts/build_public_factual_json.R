@@ -66,7 +66,11 @@ stats <- stats %>%
   filter(
     !is.na(athlete_id),
     athlete_id != "",
-    !is.na(season_num)
+    !is.na(season_num),
+    # The archive preserves seasons since 2020, but the Portal's existing
+    # all-in-one public feed deliberately starts in 2023 for performance.
+    # Older historical seasons will be fetched separately on demand.
+    season_num >= 2023L
   ) %>%
   arrange(athlete_id, season_num) %>%
   distinct(season_num, athlete_id, .keep_all = TRUE)
