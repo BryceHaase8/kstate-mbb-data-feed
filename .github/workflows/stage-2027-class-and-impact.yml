@@ -1,0 +1,44 @@
+name: Research — 2027 roster class and full-sample 2026 Impact
+on:
+  push:
+    branches: [staging-seven-year-history-2027-roster-identity]
+    paths:
+      - "scripts/collect_roster_class_2027.py"
+      - "scripts/stage_impact_v3_all_samples.py"
+      - ".github/workflows/stage-2027-class-and-impact.yml"
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  stage-classes:
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v6
+      - name: Collect actual ESPN 2027 class evidence
+        run: python scripts/collect_roster_class_2027.py
+      - name: Commit class data to staging branch only
+        run: |
+          git add research_data/staged/roster_2027_class_evidence.json
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git diff --cached --quiet && exit 0
+          git commit -m "Research: ESPN 2027 class evidence keyed by athlete/team"
+          git pull --rebase origin staging-seven-year-history-2027-roster-identity
+          git push origin HEAD:staging-seven-year-history-2027-roster-identity
+  stage-all-impact:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v6
+      - name: Publish all measurable V3 impact samples, separate ranking flag
+        run: python scripts/stage_impact_v3_all_samples.py
+      - name: Commit Impact asset to staging branch only
+        run: |
+          git add research_data/staged/impact_v3_2026_all_ready.json
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git diff --cached --quiet && exit 0
+          git commit -m "Research: full sample V3 Impact dataset"
+          git pull --rebase origin staging-seven-year-history-2027-roster-identity
+          git push origin HEAD:staging-seven-year-history-2027-roster-identity
