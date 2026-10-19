@@ -1,0 +1,53 @@
+name: Research only — 2019–2026 ESPN historical data backfill
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - historical-2020-2026-box-gamelogs-pbp-research
+    paths:
+      - ".github/workflows/historical-2020-2026-backfill.yml"
+      - "scripts/historical_backfill.R"
+permissions:
+  contents: write
+concurrency:
+  group: historical-2020-2026-backfill-research
+  cancel-in-progress: false
+jobs:
+  research-backfill:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    env:
+      BACKFILL_MODE: all
+      BACKFILL_PILOT: "1"
+      BACKFILL_FIRST_SEASON: "2020"
+      BACKFILL_LAST_SEASON: "2026"
+    steps:
+      - name: Checkout research branch only
+        uses: actions/checkout@v6
+      - name: Set up R
+        uses: r-lib/actions/setup-r@v2
+      - name: Install hoopR and data tooling
+        uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          extra-packages: |
+            any::hoopR
+            any::dplyr
+            any::readr
+            any::purrr
+            any::tibble
+            any::stringr
+            any::jsonlite
+      - name: Backfill ESPN factual game logs, season totals and selected play events
+        run: Rscript scripts/historical_backfill.R
+      - name: Preserve only research backfill results
+        run: |
+          git add research_data/historical research_qa/historical
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if git diff --cached --quiet; then
+            echo "No new research results"
+            exit 0
+          fi
+          git commit -m "Research: archive ESPN historical season, game logs, and selected raw play events"
+          git pull --rebase origin historical-2020-2026-box-gamelogs-pbp-research
+          git push origin HEAD:historical-2020-2026-box-gamelogs-pbp-research
