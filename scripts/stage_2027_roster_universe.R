@@ -102,6 +102,7 @@ for(i in seq_len(nrow(teams))){
    height=clean_char(members,"height",ncur),
    weight=clean_char(members,"weight",ncur),
    headshot=clean_char(members,"headshot",ncur),
+   birth_place=clean_char(members,"birth_place",ncur),
    biography_verified=members$athlete_id %in% b$athlete_id,
    team_readiness_status=strict_status
   )
@@ -129,7 +130,7 @@ members<-members %>%left_join(history_lookup,by="athlete_id",relationship="many-
         roster_source="ESPN_season_roster_core_v2_and_site_v2_bio"
  )%>%
  select(roster_season,athlete_id,name,team_id,team_name,
-        position,jersey,height,weight,headshot,
+        position,jersey,height,weight,headshot,birth_place,
         has_historical_box_stats,last_season_with_stats,
         previous_stat_team,identity_status,team_readiness_status,
         eligible_years_override_status,roster_source)
@@ -151,6 +152,7 @@ roster_json<-list(
        position=r$position[[1]],jersey=r$jersey[[1]],
        height=r$height[[1]],weight=r$weight[[1]],
        headshot=r$headshot[[1]],
+       birthPlace=r$birth_place[[1]],
        rosterSeason=season,
        historicalBoxStats=r$has_historical_box_stats[[1]],
        identityStatus=r$identity_status[[1]],
