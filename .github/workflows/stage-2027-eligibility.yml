@@ -1,0 +1,35 @@
+name: Research stage — 2027-28 eligibility estimate for every ESPN roster player
+on:
+  push:
+    branches:
+      - staging-seven-year-history-2027-roster-identity
+    paths:
+      - ".github/workflows/stage-2027-eligibility.yml"
+      - "scripts/stage_2027_eligibility_estimates.R"
+permissions:
+  contents: write
+jobs:
+  estimate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v6
+      - uses: r-lib/actions/setup-r@v2
+      - uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          extra-packages: |
+            any::dplyr
+            any::readr
+            any::jsonlite
+      - name: Estimate every current roster player without overriding staff values
+        run: Rscript scripts/stage_2027_eligibility_estimates.R
+      - name: Store candidate estimates only on staging branch
+        if: success()
+        run: |
+          git add research_data/staged/current_roster_2027_candidate.json research_data/staged/current_roster_2027_identity_estimated.csv research_qa/roster_integration/eligibility_estimates_2027_28_qa.json
+          if git diff --cached --quiet; then exit 0; fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Stage every 2027 roster player's editable 2027-28 eligibility estimate"
+          git pull --rebase origin staging-seven-year-history-2027-roster-identity
+          git push origin HEAD:staging-seven-year-history-2027-roster-identity
