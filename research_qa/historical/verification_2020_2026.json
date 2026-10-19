@@ -1,0 +1,152 @@
+{
+  "validated_at": "2026-10-19T12:27:46Z",
+  "all_seven_seasons_archived": true,
+  "years": {
+    "2020": {
+      "year": 2020,
+      "player_seasons": 4796,
+      "player_game_rows": 109685,
+      "games": 5766,
+      "d1_teams": 353,
+      "duplicate_game_player_keys": 0,
+      "duplicate_season_player_keys": 0,
+      "season_totals_disagree_with_archived_logs": 0,
+      "production_comparison": {},
+      "pbp_selected_archive": {
+        "event_rows": 5046,
+        "n_games": 16,
+        "missing_event_text": 0
+      }
+    },
+    "2021": {
+      "year": 2021,
+      "player_seasons": 5020,
+      "player_game_rows": 83064,
+      "games": 4285,
+      "d1_teams": 347,
+      "duplicate_game_player_keys": 0,
+      "duplicate_season_player_keys": 0,
+      "season_totals_disagree_with_archived_logs": 0,
+      "production_comparison": {},
+      "pbp_selected_archive": {
+        "event_rows": 5314,
+        "n_games": 16,
+        "missing_event_text": 0
+      }
+    },
+    "2022": {
+      "year": 2022,
+      "player_seasons": 5090,
+      "player_game_rows": 114125,
+      "games": 5965,
+      "d1_teams": 358,
+      "duplicate_game_player_keys": 0,
+      "duplicate_season_player_keys": 0,
+      "season_totals_disagree_with_archived_logs": 0,
+      "production_comparison": {},
+      "pbp_selected_archive": {
+        "event_rows": 5232,
+        "n_games": 16,
+        "missing_event_text": 0
+      }
+    },
+    "2023": {
+      "year": 2023,
+      "player_seasons": 5102,
+      "player_game_rows": 118870,
+      "games": 6221,
+      "d1_teams": 363,
+      "duplicate_game_player_keys": 0,
+      "duplicate_season_player_keys": 0,
+      "season_totals_disagree_with_archived_logs": 0,
+      "production_comparison": {
+        "main_player_seasons": 5102,
+        "matched_athlete_ids": 5102,
+        "archived_player_seasons": 5102,
+        "stat_changed_on_matched": 0,
+        "changed_share_if_matched": 0,
+        "dropped_main_athletes": 0,
+        "newly_archived_athletes": 0
+      },
+      "pbp_selected_archive": {
+        "event_rows": 7640,
+        "n_games": 23,
+        "missing_event_text": 0
+      }
+    },
+    "2024": {
+      "year": 2024,
+      "player_seasons": 5063,
+      "player_game_rows": 119332,
+      "games": 6241,
+      "d1_teams": 362,
+      "duplicate_game_player_keys": 0,
+      "duplicate_season_player_keys": 0,
+      "season_totals_disagree_with_archived_logs": 0,
+      "production_comparison": {
+        "main_player_seasons": 5063,
+        "matched_athlete_ids": 5063,
+        "archived_player_seasons": 5063,
+        "stat_changed_on_matched": 0,
+        "changed_share_if_matched": 0,
+        "dropped_main_athletes": 0,
+        "newly_archived_athletes": 0
+      },
+      "pbp_selected_archive": {
+        "event_rows": 7606,
+        "n_games": 23,
+        "missing_event_text": 3
+      }
+    },
+    "2025": {
+      "year": 2025,
+      "player_seasons": 5119,
+      "player_game_rows": 120616,
+      "games": 6290,
+      "d1_teams": 364,
+      "duplicate_game_player_keys": 0,
+      "duplicate_season_player_keys": 0,
+      "season_totals_disagree_with_archived_logs": 0,
+      "production_comparison": {
+        "main_player_seasons": 5119,
+        "matched_athlete_ids": 5119,
+        "archived_player_seasons": 5119,
+        "stat_changed_on_matched": 0,
+        "changed_share_if_matched": 0,
+        "dropped_main_athletes": 0,
+        "newly_archived_athletes": 0
+      },
+      "pbp_selected_archive": {
+        "event_rows": 14124,
+        "n_games": 40,
+        "missing_event_text": 11
+      }
+    },
+    "2026": {
+      "year": 2026,
+      "player_seasons": 5019,
+      "player_game_rows": 120412,
+      "games": 6300,
+      "d1_teams": 365,
+      "duplicate_game_player_keys": 0,
+      "duplicate_season_player_keys": 0,
+      "season_totals_disagree_with_archived_logs": 0,
+      "production_comparison": {
+        "main_player_seasons": 5019,
+        "matched_athlete_ids": 5019,
+        "archived_player_seasons": 5019,
+        "stat_changed_on_matched": 0,
+        "changed_share_if_matched": 0,
+        "dropped_main_athletes": 0,
+        "newly_archived_athletes": 0
+      },
+      "pbp_selected_archive": {
+        "event_rows": 18601,
+        "n_games": 40,
+        "missing_event_text": 0
+      }
+    }
+  },
+  "fatal_issues": [],
+  "interpretation": "Research-only data QA; differences from main do not overwrite production. PBP event presence is not lineup/RAPM validation."
+}
