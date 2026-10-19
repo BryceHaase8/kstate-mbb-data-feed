@@ -28,7 +28,9 @@ library(tibble)
 library(jsonlite)
 
 DATA_FILE <- file.path("data", "current_player_season_stats.csv")
-FIRST_SEASON <- 2023L
+# All 2019–20 onward player-season rows are canonical historical history.
+# Keep old seasons even when only the current season is refreshed each morning.
+FIRST_SEASON <- 2020L
 
 season_label <- function(year) {
   paste0(year - 1, "-", substr(as.character(year), 3, 4))
