@@ -6,6 +6,7 @@ on:
     paths:
       - ".github/workflows/stage-website-compact-assets.yml"
       - "scripts/stage_website_compact_assets.py"
+      - "scripts/build_historical_on_demand.py"
 permissions:
   contents: write
 jobs:
@@ -18,9 +19,11 @@ jobs:
           fetch-depth: 1
       - name: Convert validated research files to compact factual browser assets
         run: python scripts/stage_website_compact_assets.py
+      - name: Stage 2020–22 ESPN box history in per-athlete shards
+        run: python scripts/build_historical_on_demand.py
       - name: Commit compact public research data on staging branch only
         run: |
-          git add research_data/staged/roster_2027_site_compact.json research_data/staged/roster_2027_zero_fallback.json research_data/staged/impact_v3_2026_site.json research_data/staged/roster_2027_fast_ready.json research_data/staged/roster_2027_zero_fast_ready.json research_data/staged/roster_2027_site_compact_ready.json research_data/staged/roster_2027_zero_fallback_ready.json
+          git add research_data/staged/roster_2027_site_compact.json research_data/staged/roster_2027_zero_fallback.json research_data/staged/impact_v3_2026_site.json research_data/staged/roster_2027_fast_ready.json research_data/staged/roster_2027_zero_fast_ready.json research_data/staged/roster_2027_site_compact_ready.json research_data/staged/roster_2027_zero_fallback_ready.json research_data/staged/history_shards/
           if git diff --cached --quiet; then exit 0; fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
