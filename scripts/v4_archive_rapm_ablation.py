@@ -37,7 +37,7 @@ def team_agrees(a,b):
     a,b=norm(a),norm(b)
     if not a or not b:return False
     # Whole short conference ambiguous aliases are never force-matched.
-    return a==b or (len(a)>=5 and b.startswith(a)) or (len(b)>=5 and a.startswith(b))
+    return a==b or (len(a)>=4 and b.startswith(a)) or (len(b)>=4 and a.startswith(b))
 
 def _numeric(s):
     return pd.to_numeric(s,errors="coerce").fillna(0)
