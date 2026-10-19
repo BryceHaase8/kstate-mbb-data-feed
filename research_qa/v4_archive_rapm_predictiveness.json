@@ -1,29 +1,52 @@
 {
-  "status": "INSUFFICIENT_ARCHIVE_CROSSWALK_COVERAGE",
-  "byYear": {
+  "status": "RESEARCH_BACKTEST_COMPLETED_NOT_PRODUCTION",
+  "estimand": "league-wide archived NCAA RAPM; source-season only",
+  "sourceYears": [
+    2023,
+    2024,
+    2025
+  ],
+  "targetHoldoutSeason": 2026,
+  "target": "2026 ESPN derived box BPM proxy, not 2026 independent Torvik BPM",
+  "matches": {
     "2023": {
       "sourceESPN": 5046,
       "externalRows": 4942,
-      "uniqueNameMatchesAndSchoolVerified": 7,
-      "uniqueNameMatchButSchoolMismatch": 5039,
-      "returnersMatchedAndEligible": 5
+      "uniqueNameMatchesAndSchoolVerified": 3933,
+      "uniqueNameMatchButSchoolMismatch": 1113,
+      "returnersMatchedAndEligible": 1482
     },
     "2024": {
       "sourceESPN": 4989,
       "externalRows": 4919,
-      "uniqueNameMatchesAndSchoolVerified": 6,
-      "uniqueNameMatchButSchoolMismatch": 4983,
-      "returnersMatchedAndEligible": 1
+      "uniqueNameMatchesAndSchoolVerified": 3907,
+      "uniqueNameMatchButSchoolMismatch": 1082,
+      "returnersMatchedAndEligible": 1473
     },
     "2025": {
       "sourceESPN": 5063,
       "externalRows": 4960,
-      "uniqueNameMatchesAndSchoolVerified": 4,
-      "uniqueNameMatchButSchoolMismatch": 5059,
-      "returnersMatchedAndEligible": 0
+      "uniqueNameMatchesAndSchoolVerified": 3959,
+      "uniqueNameMatchButSchoolMismatch": 1104,
+      "returnersMatchedAndEligible": 1325
     }
   },
-  "trainCount": 6,
-  "testCount": 0,
-  "notice": "No predictive claim; identity join too sparse. Add explicit NCAA-ESPN ID bridge rather than fuzzy matching."
+  "trainCount": 2955,
+  "testCount": 1325,
+  "model": "StandardScaler + Ridge(alpha=100) trained 2023->24 and 2024->25",
+  "baselineMAE": 2.0338,
+  "withArchiveRapmMAE": 2.0324,
+  "deltaMAE_positive_means_RAPM_helped": 0.0014,
+  "deltaMAE_bootstrap95": [
+    -0.0017,
+    0.0046
+  ],
+  "baselineSpearman": 0.5583,
+  "withRapmSpearman": 0.559,
+  "warnings": [
+    "Only rotation survivors included; no roster survival test.",
+    "External RAPM is an offline historical benchmark, never used in the live model.",
+    "Team aliases must agree; unmatched identities excluded.",
+    "One-season holdout is directional; repeat across other years and independent labels."
+  ]
 }
