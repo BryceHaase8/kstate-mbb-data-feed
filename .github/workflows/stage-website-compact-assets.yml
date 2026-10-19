@@ -20,7 +20,7 @@ jobs:
         run: python scripts/stage_website_compact_assets.py
       - name: Commit compact public research data on staging branch only
         run: |
-          git add research_data/staged/roster_2027_site_compact.json research_data/staged/roster_2027_zero_fallback.json research_data/staged/impact_v3_2026_site.json
+          git add research_data/staged/roster_2027_site_compact.json research_data/staged/roster_2027_zero_fallback.json research_data/staged/impact_v3_2026_site.json research_data/staged/roster_2027_fast_ready.json research_data/staged/roster_2027_zero_fast_ready.json research_data/staged/roster_2027_site_compact_ready.json research_data/staged/roster_2027_zero_fallback_ready.json
           if git diff --cached --quiet; then exit 0; fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
