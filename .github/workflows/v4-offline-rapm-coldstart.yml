@@ -2,7 +2,7 @@ name: "V4 research: archive RAPM plus newcomer safety"
 on:
   push:
     branches: [v4-research-historical-rapm-coldstart-2026]
-    paths: ['.github/workflows/v4-offline-rapm-coldstart.yml']
+    paths: ['.github/workflows/v4-offline-rapm-coldstart.yml', 'scripts/v4_archive_rapm_ablation.py', 'scripts/v4_coldstart_contract.py', 'tests/test_v4_coldstart_1250.py', 'tests/test_v4_archive_identity.py']
   workflow_dispatch:
 permissions:
   contents: write
