@@ -41,6 +41,32 @@
     -0.0017,
     0.0046
   ],
+  "subgroups": {
+    "stayedSchool": {
+      "n": 672,
+      "boxContextMAE": 1.9719,
+      "withRapmMAE": 1.9734,
+      "deltaMAE": -0.0016
+    },
+    "changedSchool": {
+      "n": 653,
+      "boxContextMAE": 2.0976,
+      "withRapmMAE": 2.093,
+      "deltaMAE": 0.0045
+    },
+    "upTransferFromOutsideTop100ToTop80": {
+      "n": 104,
+      "boxContextMAE": 2.0117,
+      "withRapmMAE": 2.0068,
+      "deltaMAE": 0.0049
+    },
+    "originOutsideTop175": {
+      "n": 679,
+      "boxContextMAE": 2.0427,
+      "withRapmMAE": 2.0426,
+      "deltaMAE": 0.0002
+    }
+  },
   "baselineSpearman": 0.5583,
   "withRapmSpearman": 0.559,
   "warnings": [
