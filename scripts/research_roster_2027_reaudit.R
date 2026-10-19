@@ -78,8 +78,8 @@ rows <- lapply(seq_len(nrow(teams)),function(i){
 audit<-bind_rows(rows)%>%arrange(team_name)
 membership<-bind_rows(lapply(seq_len(nrow(teams)),function(i){
   bind_rows(
-    tibble(season=2026,team_id=teams$team_id[i],team_name=teams$team_name[i],athlete_id=old[[i]]$ids),
-    tibble(season=2027,team_id=teams$team_id[i],team_name=teams$team_name[i],athlete_id=new[[i]]$ids)
+    tibble(season=rep(2026,length(old[[i]]$ids)),team_id=rep(teams$team_id[i],length(old[[i]]$ids)),team_name=rep(teams$team_name[i],length(old[[i]]$ids)),athlete_id=old[[i]]$ids),
+    tibble(season=rep(2027,length(new[[i]]$ids)),team_id=rep(teams$team_id[i],length(new[[i]]$ids)),team_name=rep(teams$team_name[i],length(new[[i]]$ids)),athlete_id=new[[i]]$ids)
   )
 }))
 write_csv(audit,file.path(outdir,"team_roster_status_20261018.csv"))
