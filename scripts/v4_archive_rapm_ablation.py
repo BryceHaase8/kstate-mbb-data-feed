@@ -26,7 +26,9 @@ def norm(s):
 def ncaaplayer_name(s):
     s=str(s)
     if "." in s:
-        last,first=s.split(".",1)
+        # VERIFIED against 2025 archive rows: 'THOMAS.HAUGH' is FIRST.LAST.
+        # Published 'LAST.FIRST' wording does not match the observed release.
+        first,last=s.split(".",1)
         return norm(first+last)
     if "," in s:
         last,first=s.split(",",1)
