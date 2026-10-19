@@ -18,7 +18,7 @@ jobs:
     timeout-minutes: 90
     env:
       BACKFILL_MODE: all
-      BACKFILL_PILOT: "1"
+      BACKFILL_PILOT: "0"
       BACKFILL_FIRST_SEASON: "2020"
       BACKFILL_LAST_SEASON: "2026"
     steps:
