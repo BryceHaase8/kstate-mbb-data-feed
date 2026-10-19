@@ -1,0 +1,43 @@
+{
+  "backfill_mode": "all",
+  "pilot": true,
+  "years": [
+    2022
+  ],
+  "manifest_date_utc": "2026-10-19T12:18:57Z",
+  "box": {
+    "2022": {
+      "season": 2022,
+      "player_game_rows": 114125,
+      "unique_games": 5965,
+      "unique_teams": 358,
+      "unique_athletes": 5090,
+      "season_rows": 5090,
+      "game_log_size_bytes": 3394113,
+      "season_file_size_bytes": 607698,
+      "source": "hoopR ESPN player-game box with production D1 and season-stat aggregator",
+      "no_roster_only_claim": true
+    }
+  },
+  "pbp": {
+    "2022": {
+      "season": 2022,
+      "source": "hoopR::espn_mbb_pbp(game_id) collecting ESPN event fields",
+      "intended_games": 3,
+      "successful_games": 3,
+      "failed_games": [],
+      "event_rows": 921,
+      "pbp_file_bytes": 17871,
+      "sampled_game_ids": [
+        "401364990",
+        "401365670",
+        "401408636"
+      ],
+      "sample_scope": "stratified-in-time deterministic D1-vs-D1 sample only; NOT league-wide PBP",
+      "verified_five_man_lineup_games": 0,
+      "trained_rapm": false
+    }
+  },
+  "production_modified": false,
+  "interpretation": ["All box scores and game logs backed by hoopR ESPN player box archive.", "PBP selected games are event-level facts, NOT official on-court lineups.", "No reconstructed RAPM is produced, no third-party derived lineups trusted.", "Raw selected PBP excluded from Portal data feed.", "All work confined to research branch."]
+}

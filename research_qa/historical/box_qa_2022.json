@@ -1,0 +1,12 @@
+{
+  "season": 2022,
+  "player_game_rows": 114125,
+  "unique_games": 5965,
+  "unique_teams": 358,
+  "unique_athletes": 5090,
+  "season_rows": 5090,
+  "game_log_size_bytes": 3394113,
+  "season_file_size_bytes": 607698,
+  "source": "hoopR ESPN player-game box with production D1 and season-stat aggregator",
+  "no_roster_only_claim": true
+}
