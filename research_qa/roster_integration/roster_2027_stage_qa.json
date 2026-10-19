@@ -1,0 +1,22 @@
+{
+  "season": 2027,
+  "total_d1_teams": 365,
+  "current_roster_ids": 5456,
+  "unique_athlete_ids": 5456,
+  "new_to_2019_2026_box_archive": 2040,
+  "existing_history_matches": 3416,
+  "missing_name": 0,
+  "missing_espn_bio": 1,
+  "no_new_id_teams": 30,
+  "updated_candidate_teams": 331,
+  "short_roster_teams": 3,
+  "fetch_issue_teams": 0,
+  "min_roster_n": 7,
+  "max_roster_n": 29,
+  "roster_candidate_json_bytes": 1992253,
+  "import_ready": false,
+  "staff_eligibility_protected": true,
+  "no_fabricated_game_stats": true,
+  "no_fabricated_eligibility": true,
+  "not_published_to_main": true
+}
