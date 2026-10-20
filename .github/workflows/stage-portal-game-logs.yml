@@ -1,0 +1,47 @@
+name: Research — publish lazy Portal game logs
+on:
+  push:
+    branches:
+      - portal-game-logs-lazy-shards-2026-research
+    paths:
+      - "scripts/build_portal_game_log_shards.py"
+      - ".github/workflows/stage-portal-game-logs.yml"
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v6
+      - name: Verify source and generate 128 lazy shards
+        run: python scripts/build_portal_game_log_shards.py
+      - name: Validate expected archive count and independent athlete lookup
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          folder=Path('research_data/staged/portal_game_logs')
+          m=json.loads((folder/'manifest.json').read_text())
+          assert m['files']==128 and m['totalPlayerGames']>700000
+          count=0
+          for i in range(128):
+              doc=json.loads((folder/f'games_{i:03d}.json').read_text())
+              assert doc['shard']==i and doc['modulo']==128 and len(doc['fields'])==25
+              for pid,rows in doc['players'].items():
+                  assert int(pid)%128==i
+                  assert all(len(row)==25 for row in rows)
+                  count+=len(rows)
+          assert count==m['totalPlayerGames'],(count,m['totalPlayerGames'])
+          print(f'PASSED: {count} real games, 128 shards, exact athlete ID joins')
+          PY
+      - name: Save research data to staging branch
+        run: |
+          git add research_data/staged/portal_game_logs
+          if git diff --cached --quiet; then exit 0; fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Research assets: 7 years of lazy ESPN player game logs"
+          git pull --rebase origin portal-game-logs-lazy-shards-2026-research
+          git push origin HEAD:portal-game-logs-lazy-shards-2026-research
