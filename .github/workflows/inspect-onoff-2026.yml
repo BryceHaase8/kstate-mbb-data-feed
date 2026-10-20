@@ -1,0 +1,21 @@
+name: Research - 2025-26 PBP onoff schema
+on:
+  push:
+    branches: [portal-onoff-2026-research]
+    paths:
+      - "scripts/inspect_2026_onoff_pbp.py"
+      - ".github/workflows/inspect-onoff-2026.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+      - run: python -m pip install pandas pyarrow
+      - run: python scripts/inspect_2026_onoff_pbp.py
