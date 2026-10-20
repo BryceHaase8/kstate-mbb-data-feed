@@ -8,7 +8,7 @@ on:
         required: false
         type: string
   schedule:
-    - cron: "17 6,14,23 * * *"
+    - cron: "0 2,5,12 * * *"
       timezone: "America/Chicago"
   push:
     branches:
