@@ -38,7 +38,7 @@ for row in season:
 for row in game_logs:
     ident=(str(row.get("game_id") or ""),str(row.get("team_id") or ""))
     v=boxByGame[ident]
-    for k in ("oreb","dreb"):v[k]+=n(row,k) or 0
+    for key,source in (("oreb","offensive_rebounds"),("dreb","defensive_rebounds")):\n        v[key]+=n(row,source) if n(row,source) is not None else (n(row,key) or 0)
 # Same-game actual opponents rather than summing all games of an opponent.
 oppRebounds=defaultdict(lambda:defaultdict(float))
 for shard in range(64):
@@ -53,6 +53,12 @@ for shard in range(64):
             if opp is None:continue
             oppRebounds[tid]["oreb"]+=opp["oreb"]
             oppRebounds[tid]["dreb"]+=opp["dreb"]
+currentBio={}
+for athlete in json.loads((ROOT/"staged/roster_2027_fast_ready.json").read_text())["players"]:
+    currentBio[str(athlete[0])]=str(athlete[4] or "")
+def heightInches(value):
+    match=re.search(r"(\d+)'\s*(\d+)",str(value))
+    return 12*int(match.group(1))+int(match.group(2)) if match else None
 shots=defaultdict(Counter)
 for shard in range(128):
     doc=json.loads((ROOT/"staged/portal_shots_2026"/f"shots_{shard:03d}.json").read_text())
@@ -76,6 +82,13 @@ def infer_pos(row):
     if p in ("C","CENTER"):return "5"
     if "G" in p and "F" not in p:return "1" if ast30>=3.6 else "2"
     if "C" in p:return "5"
+    # ESPN lists many centers as F. Use athlete bio height plus demonstrated
+    # interior activity to separate 4/5 without a third-party role model.
+    bio=currentBio.get(str(row.get("athlete_id") or ""))
+    if bio and p=="F":
+        h=heightInches(bio)
+        if h is not None and h>=82 and reb30>=7:return "5"
+
     if "F" in p:return "4" if reb30>=6.8 else "3"
     return "1" if ast30>=3.8 else "4" if reb30>=7.5 else "2"
 rows=[]
