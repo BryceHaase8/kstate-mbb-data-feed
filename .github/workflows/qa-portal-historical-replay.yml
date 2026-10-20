@@ -20,6 +20,12 @@ jobs:
         run: python -m py_compile scripts/qa_replay_historical_games.py scripts/qa_portal_identity_2027.py
       - name: Actual archived 2025-26 game replay
         run: python scripts/qa_replay_historical_games.py 2026
+      - name: Second-year independent replay (2023-24)
+        run: |
+          python scripts/qa_replay_historical_games.py 2024
+          mv research_qa/historical/replay_2026_qa.json research_qa/historical/replay_2024_qa.json
+      - name: Final-year replay for 2025-26 evidence artifact
+        run: python scripts/qa_replay_historical_games.py 2026
       - name: Full-roster ESPN ID/class/history audit
         run: python scripts/qa_portal_identity_2027.py
       - name: Archive QA evidence without modifying published data
@@ -27,6 +33,7 @@ jobs:
         with:
           name: portal-historical-replay-qa
           path: |
+            research_qa/historical/replay_2024_qa.json
             research_qa/historical/replay_2026_qa.json
             research_qa/roster_integration/current_identity_crosswalk_qa.json
           if-no-files-found: error
