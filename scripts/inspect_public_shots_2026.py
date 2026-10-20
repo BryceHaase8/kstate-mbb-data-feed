@@ -10,7 +10,7 @@ print("COUNTS",json.dumps({"rows":len(d),"columns":list(d.columns)}))
 for col in ("coordinate_x","coordinate_y","coordinate_x_raw","coordinate_y_raw","type_text","score_value","scoring_play","team_id","athlete_id_1","athlete_id_2","season"):
     if col not in d.columns:continue
     x=d[col]
-    if pd.api.types.is_numeric_dtype(x):
+    if pd.api.types.is_numeric_dtype(x) and not pd.api.types.is_bool_dtype(x):
         print("METRIC",col,json.dumps({"nonnull":int(x.notna().sum()),"min":float(x.min()),"max":float(x.max()),"p01":float(x.quantile(.01)),"p50":float(x.quantile(.5)),"p99":float(x.quantile(.99))}))
     else:print("METRIC",col,json.dumps(x.value_counts(dropna=False).head(12).astype(int).to_dict(),default=str))
 fields=["type_text","score_value","scoring_play","coordinate_x","coordinate_y","coordinate_x_raw","coordinate_y_raw","athlete_id_1","athlete_id_2","team_id","game_id"]
