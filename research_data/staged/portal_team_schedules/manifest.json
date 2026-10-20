@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "modulo": 64,
+  "shards": 64,
+  "seasons": [
+    2020,
+    2021,
+    2022,
+    2023,
+    2024,
+    2025,
+    2026
+  ],
+  "teamGamesBySeason": {
+    "2020": 11094,
+    "2021": 8229,
+    "2022": 11440,
+    "2023": 11936,
+    "2024": 11965,
+    "2025": 12053,
+    "2026": 12052
+  },
+  "totalTeamGames": 78769,
+  "definition": "All archived played team-games, keyed by exact season and ESPN team ID; DNP is derived when a player appeared for the team that season but has no matching appearance for a team game.",
+  "caution": "Season-team membership is based on recorded games, not confirmed roster status on each historical date."
+}
