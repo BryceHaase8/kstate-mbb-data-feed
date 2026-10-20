@@ -148,7 +148,11 @@ for ix,(gid,g) in enumerate(groups,1):
     gid=ident(gid)
     home=ident(g.iloc[0]['home_team_id']);away=ident(g.iloc[0]['away_team_id'])
     if (gid,home) not in box or (gid,away) not in box:qa['missing_box']+=1;continue
-    g=g.sort_values(['period_number','sequence_number'])
+    # ESPN's global sequence_number may not be chronological within a game.
+    # Order by period and descending displayed clock first; use sequence only
+    # for events sharing an identical timestamp (including substitutions).
+    g=g.assign(_clock_sort=g['clock_display_value'].map(clock))
+    g=g.sort_values(['period_number','_clock_sort','sequence_number'],ascending=[True,False,True],kind='stable')
     events=g.to_dict('records')
     periods=defaultdict(list)
     for i,e in enumerate(events):periods[int(e['period_number'])].append(i)
