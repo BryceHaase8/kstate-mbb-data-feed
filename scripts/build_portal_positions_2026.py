@@ -108,7 +108,7 @@ for athlete in roster:
     pid=str(athlete[0])
     if pid not in profiles:continue
     profile=profiles[pid]
-    hm=re.search(r"(\d+)'\\s*(\d+)",str(athlete[4]))
+    hm=re.search(r"(\d+)'\s*(\d+)",str(athlete[4]))
     wm=re.search(r"(\d+)",str(athlete[5]))
     profile['height']=int(hm.group(1))*12+int(hm.group(2)) if hm else None
     profile['weight']=int(wm.group(1)) if wm else None
