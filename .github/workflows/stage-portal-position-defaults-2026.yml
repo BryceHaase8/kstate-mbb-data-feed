@@ -1,0 +1,40 @@
+name: Research — publish compact player position defaults
+on:
+  push:
+    branches: [portal-v724-position-defaults-research]
+    paths:
+      - "scripts/stage_portal_position_defaults_2026.py"
+      - ".github/workflows/stage-portal-position-defaults-2026.yml"
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  stage:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v6
+      - name: Produce model defaults from verified lineup fractions
+        run: python scripts/stage_portal_position_defaults_2026.py
+      - name: Validate 1-5 assignments and source identities
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          d=Path('research_data/staged/portal_positions_2026')
+          j=json.loads((d/'position_defaults_2026.json').read_text())
+          assert j['schemaVersion']==1 and len(j['byESPNId'])>3000
+          for aid,(first,second,m,cov) in j['byESPNId'].items():
+              assert aid.isdigit() and first in '12345' and second in ('','1','2','3','4','5')
+              assert first!=second and m>=60 and .5<=cov<=1.05
+          print('PASS',len(j['byESPNId']),'validated model defaults')
+          PY
+      - name: Commit research output only
+        run: |
+          git add research_data/staged/portal_positions_2026/position_defaults_2026.json research_data/staged/portal_positions_2026/position_defaults_2026.js
+          git diff --cached --quiet && exit 0
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Research assets: compact 2026 position defaults for Portal"
+          git pull --rebase origin portal-v724-position-defaults-research
+          git push origin HEAD:portal-v724-position-defaults-research
