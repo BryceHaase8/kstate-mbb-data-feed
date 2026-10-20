@@ -1,0 +1,23 @@
+name: Research - 2025-26 PBP lineup source inspection
+on:
+  push:
+    branches: [portal-v717-onoff-research-2026]
+    paths:
+      - "scripts/inspect_onoff_pbp_2026.py"
+      - ".github/workflows/inspect-onoff-2026.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.11'
+      - name: Install parquet tooling
+        run: python -m pip install pandas pyarrow
+      - name: Inspect full source and ESPN substitutions
+        run: python scripts/inspect_onoff_pbp_2026.py
