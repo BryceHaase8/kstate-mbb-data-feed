@@ -14,5 +14,5 @@ for name in ['type_text','event_type','type_id','home_away','team_id','athlete_i
     print('FIELD',name,'null',int(x.isna().sum()),'values',json.dumps(x.astype(str).value_counts(dropna=False).head(22).to_dict()))
 subs=d[d.type_text.astype(str).str.contains('Substitution',case=False,na=False)]
 print('SUBSTITUTIONS',len(subs))
-print('SUBSAMPLES',json.dumps(subs[['game_id','team_id','athlete_id_1','athlete_id_2','type_text','text','period_number','seconds_remaining_period']].head(20).fillna('').astype(str).to_dict('records')))
+print('SUBSAMPLES',json.dumps(subs[['game_id','team_id','athlete_id_1','athlete_id_2','type_text','text','period_number','end_period_seconds_remaining']].head(20).fillna('').astype(str).to_dict('records')))
 print('GAME SAMPLE',json.dumps(d[d.game_id==d.game_id.dropna().iloc[50]][[k for k in ['game_id','period_number','clock_display_value','type_text','event_type','team_id','athlete_id_1','athlete_id_2','text','home_score','away_score'] if k in d]].head(25).fillna('').astype(str).to_dict('records')))
