@@ -38,7 +38,8 @@ for row in season:
 for row in game_logs:
     ident=(str(row.get("game_id") or ""),str(row.get("team_id") or ""))
     v=boxByGame[ident]
-    for key,source in (("oreb","offensive_rebounds"),("dreb","defensive_rebounds")):\n        v[key]+=n(row,source) if n(row,source) is not None else (n(row,key) or 0)
+    for key,source in (("oreb","offensive_rebounds"),("dreb","defensive_rebounds")):
+        v[key]+=n(row,source) if n(row,source) is not None else (n(row,key) or 0)
 # Same-game actual opponents rather than summing all games of an opponent.
 oppRebounds=defaultdict(lambda:defaultdict(float))
 for shard in range(64):
