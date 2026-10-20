@@ -8,7 +8,7 @@ on:
         required: false
         type: string
   schedule:
-    - cron: "17 6 * * *"
+    - cron: "17 6,14,23 * * *"
       timezone: "America/Chicago"
   push:
     branches:
@@ -22,7 +22,7 @@ permissions:
 
 concurrency:
   group: basketball-factual-feed
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   update:
@@ -65,7 +65,7 @@ jobs:
 
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git commit -m "Daily basketball factual data update"
+          git commit -m "Basketball factual data update"
 
           # Another repository edit could land while this job is running.
           # Rebase onto the latest main before pushing the generated files.
