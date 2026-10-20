@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "seasons": [
+    2020,
+    2021,
+    2022,
+    2023,
+    2024,
+    2025,
+    2026
+  ],
+  "source": "Archived ESPN Division I player-game box scores, research QA",
+  "modulo": 128,
+  "totalPlayerGames": 786104,
+  "playerGamesByYear": {
+    "2020": 109685,
+    "2021": 83064,
+    "2022": 114125,
+    "2023": 118870,
+    "2024": 119332,
+    "2025": 120616,
+    "2026": 120412
+  },
+  "uniquePlayers": 15199,
+  "files": 128
+}
