@@ -1,0 +1,17 @@
+name: Research - 2026 ESPN box starters
+on:
+  push:
+    branches: [portal-onoff-2026-research]
+    paths:
+      - scripts/qa_onoff_starters.py
+      - .github/workflows/qa-onoff-starters-2026.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v6
+      - run: python scripts/qa_onoff_starters.py
