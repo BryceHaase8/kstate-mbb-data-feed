@@ -111,7 +111,7 @@ def run_game(g, group):
         if not any(any(x) for x in state.values()):return
         for t in teams:
             other=t1 if t==t0 else t0
-            if len(lineups[t])!=5 or len(lineups[other])!=5:raise ValueError("invalid_five")
+            if len(lineups[t])!=5 or len(lineups[other])!=5:return
             for pid,p in roster[t].items():
                 if p["mins"]<=0 and pid not in starting[t]:continue
                 cell=shadow[(t,pid)]
@@ -123,8 +123,9 @@ def run_game(g, group):
         elapsed=last-clock
         if elapsed < -1 or elapsed>1200:raise ValueError("clock_order")
         if elapsed>0:
-            for t in teams:
-                for pid in lineups[t]:minutes[t][pid]+=elapsed/60
+            if all(len(lineups[t])==5 for t in teams):
+                for t in teams:
+                    for pid in lineups[t]:minutes[t][pid]+=elapsed/60
         last=clock
     prev_sub_clock=None
     in_sub=False
@@ -142,7 +143,6 @@ def run_game(g, group):
                 current_period=period;last=1200;in_sub=False;prev_sub_clock=None
             typ=str(row[C["type_text"]] or "")
             if in_sub and (typ!="Substitution" or clock!=prev_sub_clock):
-                if any(len(lineups[t])!=5 for t in teams):return "unbalanced_sub_group"
                 in_sub=False
             elapse(clock)
             team=sid(row[C["team_id"]])
@@ -163,11 +163,10 @@ def run_game(g, group):
             if team not in teams:continue
             st=event_stats(row)
             if st is not None:
-                if len(lineups[t0])!=5 or len(lineups[t1])!=5:return "not_five_at_event"
-                add(state[team],st)
-                add(count[team],st)
-                saw_event=True
-        if in_sub and any(len(lineups[t])!=5 for t in teams):return "unbalanced_final_sub"
+                if len(lineups[t0])==5 and len(lineups[t1])==5:
+                    add(state[team],st)
+                    add(count[team],st)
+                    saw_event=True
         flush();elapse(0)
     except ValueError as e:return str(e)
     if not saw_event:return "no_events"
