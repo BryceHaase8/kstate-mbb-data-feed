@@ -1,0 +1,49 @@
+name: Research — stage team schedules for Portal DNP context
+on:
+  push:
+    branches:
+      - portal-game-logs-team-schedule-2026-research
+    paths:
+      - "scripts/build_portal_team_schedules.py"
+      - ".github/workflows/stage-portal-team-schedules.yml"
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  schedules:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v6
+      - name: Build historical per-team schedule context
+        run: python scripts/build_portal_team_schedules.py
+      - name: Independently audit schedule identities and team-game counts
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          base=Path("research_data/staged/portal_team_schedules")
+          manifest=json.loads((base/"manifest.json").read_text())
+          assert manifest["shards"]==64 and manifest["totalTeamGames"]>70000
+          counted=0
+          for i in range(64):
+              j=json.loads((base/f"teams_{i:02d}.json").read_text())
+              assert len(j["fields"])==9 and j["shard"]==i
+              for season_team,rows in j["teams"].items():
+                  season,tid=season_team.split(":")
+                  assert int(tid)%64==i
+                  assert len({r[1] for r in rows})==len(rows),season_team
+                  assert all(int(r[0])==int(season) and str(r[3])==tid for r in rows)
+                  counted+=len(rows)
+          assert counted==manifest["totalTeamGames"],(counted,manifest)
+          print(f"PASS: {counted} exact team-game schedules from ESPN archives")
+          PY
+      - name: Commit research schedules only
+        run: |
+          git add research_data/staged/portal_team_schedules
+          if git diff --cached --quiet; then exit 0; fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Research assets: historical team schedules for Portal DNP context"
+          git pull --rebase origin portal-game-logs-team-schedule-2026-research
+          git push origin HEAD:portal-game-logs-team-schedule-2026-research
