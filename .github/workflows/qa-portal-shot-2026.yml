@@ -1,0 +1,23 @@
+name: Research — 2025-26 shot vs box FGA audit
+on:
+  push:
+    branches: [portal-shot-charts-2026-research]
+    paths:
+      - "scripts/qa_public_shots_2026.py"
+      - ".github/workflows/qa-portal-shot-2026.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  reconcile:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v6
+      - name: Reconcile real archived games and 128 shot shards
+        run: python scripts/qa_public_shots_2026.py
+      - name: Retain source audit without changing production
+        uses: actions/upload-artifact@v4
+        with:
+          name: 2026-shot-to-box-reconciliation
+          path: research_qa/shot_charts/box_vs_shot_2026.json
