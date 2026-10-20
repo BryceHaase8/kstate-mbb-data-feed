@@ -19,7 +19,8 @@ jobs:
         with:
           use-public-rspm: false
       - name: Parse R collector without fetching data
-        run: Rscript -e "invisible(parse(file='scripts/daily_update.R')); cat('R collector syntax: PASS\\n')"
+        run: |
+          Rscript -e "invisible(parse(file='scripts/daily_update.R')); cat('R collector syntax OK')"
       - name: Static guards audit
         run: |
           python - <<'PY'
