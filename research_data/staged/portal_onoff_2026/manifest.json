@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "season": 2026,
+  "label": "2025-26",
+  "modulo": 128,
+  "source": "Public ESPN 2025-26 PBP, substitution-inferred per-player stints audited vs ESPN box minutes",
+  "method": "Independent player-state ON/OFF, NOT full five-player lineup reconstruction; no RAPM adjustment",
+  "events": 2657236,
+  "gamesInSource": 5740,
+  "gamesVerified": 1214,
+  "verifiedPlayerGames": 23652,
+  "playersWithVerifiedGameSplits": 4494,
+  "failedPlayerGameReasons": {
+    "nonmonotonic_clock": 87487,
+    "sub_state_conflict": 297,
+    "actor_off_court": 1477,
+    "ambiguous_period": 13,
+    "minutes_disagreement": 6,
+    "bad_clock": 18
+  },
+  "availability": "Only games for which individual minutes pass QA",
+  "limitation": "Sample coverage differs by player; descriptive, not causal or schedule-adjusted"
+}
