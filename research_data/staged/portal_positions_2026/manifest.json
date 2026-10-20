@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "season": 2026,
+  "seasonLabel": "2025-26",
+  "modulo": 128,
+  "gamesInSource": 5740,
+  "gamesWithVerifiedLineups": 5726,
+  "teamsGamesVerified": 11397,
+  "verifiedTeamMinutes": 431996.7,
+  "verifiedLineupIntervals": 2491592,
+  "playersWithRoleTime": 4512,
+  "source": "ESPN archived PBP substitution order and 2025-26 box minutes; ESPN season stats; ESPN roster height/weight where available",
+  "method": "Assign exactly one 1/2/3/4/5 to each box-verified five-player stint using size/production; not measured tracking positions",
+  "qa": {
+    "actor_off_court": 1282,
+    "not_exactly_five": 181116,
+    "minutes_disagreement": 67,
+    "ambiguous_period": 43,
+    "sub_state_conflict": 392,
+    "bad_clock": 18,
+    "bad_time_interval": 1,
+    "playersOverBox": 65
+  },
+  "minimumDisplayMinutes": 10,
+  "warnings": "Some lineups/periods unverified. Coverage is assigned role minutes divided by full ESPN player season minutes; role shares are shares of verified lineup time only."
+}
