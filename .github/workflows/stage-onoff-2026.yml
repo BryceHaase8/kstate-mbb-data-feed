@@ -1,0 +1,55 @@
+name: Research — validate player on/off PBP 2025-26
+on:
+  push:
+    branches: [portal-onoff-2026-research]
+    paths:
+      - "scripts/build_onoff_2026.py"
+      - ".github/workflows/stage-onoff-2026.yml"
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  onoff:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+      - name: Install parquet dependencies
+        run: python -m pip install pandas pyarrow
+      - name: Validate historical subset and lineup decisions
+        run: python scripts/build_onoff_2026.py 300
+      - name: Build full 2025-26 verified on/off
+        run: python scripts/build_onoff_2026.py
+      - name: Check output schemas and independent player-ID routing
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import json
+          folder=Path('research_data/staged/portal_onoff_2026')
+          m=json.loads((folder/'manifest.json').read_text())
+          assert m['schemaVersion']==1 and m['validatedGames']>=2000
+          n=0
+          for i in range(128):
+              x=json.loads((folder/f'onoff_{i:03d}.json').read_text())
+              assert x['shard']==i and x['fields']==m['fields']
+              for pid,teams in x['players'].items():
+                  assert int(pid)%128==i
+                  for t in teams:
+                      assert t['games']<=t['gamesAvailable']
+                      assert all(len(t[k])==len(m['fields']) for k in ('onO','offO','onD','offD'))
+                  n+=1
+          assert n==m['players']
+          print(f'PASS onoff: {n} player IDs, {m["validatedGames"]} reliable team-games')
+          PY
+      - name: Commit research artifacts only
+        run: |
+          git add research_data/staged/portal_onoff_2026
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git diff --cached --quiet && exit 0
+          git commit -m "Research: verified full-season 2025-26 5-man on/off feed"
+          git pull --rebase origin portal-onoff-2026-research
+          git push origin HEAD:portal-onoff-2026-research
