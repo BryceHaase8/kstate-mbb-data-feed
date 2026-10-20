@@ -116,7 +116,8 @@ print('BOX_RECONCILIATION',{'boxFGA':round(boxTotal),'shotFGA':counts['mappedFga
 complete=coverage>=.96 and len(seen_teams)>=355 and len(seen_games)>=4800 and athletes>=4000
 manifest={'schemaVersion':1,'season':2026,'seasonLabel':'2025-26','modulo':128,'available':True,'complete':complete,
           'source':'Published SportsDataverse ESPN shots_2026.parquet; exact D-I matchup and player ID',
-          'teams':names,'peers':peers,'peerShotDiet':diets,\n          'playerCoverageFlags':coverageWarnings,
+          'teams':names,'peers':peers,'peerShotDiet':diets,
+          'playerCoverageFlags':coverageWarnings,
           'metrics':{'nationalSourceFG':len(d),'d1FGA':counts['d1Fga'],'mappedFGA':counts['mappedFga'],'mappedCoverage':round(coverage,4),'boxFGA':round(boxTotal),'boxReconcileRatio':round(reconcileRatio,5),'playersFlaggedForShotCount':len(coverageWarnings),'games':len(seen_games),'teams':len(seen_teams),'athletes':athletes}}
 (out/'manifest.json').write_text(json.dumps(manifest,indent=2))
 assert sum(len(v) for sh in shards for v in sh.values())==counts['mappedFga']
