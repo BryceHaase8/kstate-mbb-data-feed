@@ -88,7 +88,7 @@ def infer_pos(row):
     bio=currentBio.get(str(row.get("athlete_id") or ""))
     if bio and p=="F":
         h=heightInches(bio)
-        if h is not None and h>=82 and reb30>=7:return "5"
+        if h is not None and reb30>=7 and (h>=82 or (h>=80 and (div(n(row,"blk"),mn,30) or 0)>=1.5)):return "5"
 
     if "F" in p:return "4" if reb30>=6.8 else "3"
     return "1" if ast30>=3.8 else "4" if reb30>=7.5 else "2"
@@ -133,6 +133,12 @@ for row in season:
      "orebPct":orebPct,"drebPct":drebPct,
      "stocks30":div((n(row,"stl") or 0)+(n(row,"blk") or 0),mins,30),
      "fta30":div(fta,mins,30),"fga30":div(fga,mins,30)}
+    # Invalid percentage estimates come from sparse/event-incomplete samples.
+    # Never place >100% or negative values into coach-facing percentile pools.
+    for rateKey in ("usage","astPct","tovPct","orebPct","drebPct","twoPct","threePct","ftPct","efg","threeRate"):
+        val=metrics.get(rateKey)
+        if val is not None and not (0<=val<=100):
+            metrics[rateKey]=None
     pos=infer_pos(row)
     arr=[str(row.get("player_name") or ""),str(row.get("team_name") or ""),pos,int(gp),round(mins,2),
          [finite(metrics[k]) for k in METRICS],
