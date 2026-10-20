@@ -378,20 +378,21 @@ cat("Candidate season:", candidate, "(", season_label(candidate), ")\n")
 active_player_box <- try_load_player_box(candidate)
 active_season <- candidate
 
-if (nrow(active_player_box) == 0 && target_override == "") {
-  active_season <- candidate - 1L
-  cat(
-    "No rows yet. Falling back to:",
-    active_season,
-    "(",
-    season_label(active_season),
-    ")\n"
-  )
-  active_player_box <- try_load_player_box(active_season)
-}
-
 if (nrow(active_player_box) == 0) {
-  stop("No player-box rows available. Existing public feed should remain unchanged.")
+  # The upstream archive for a future season may not yet exist (404).
+  # Rebuilding LAST season on every scheduled run wastes time and can
+  # unexpectedly rewrite a completed season. Never fall back silently.
+  if (target_override != "") {
+    stop("Requested season has no player-box data: ", candidate)
+  }
+  season_window_start <- as.Date(sprintf("%d-11-01", candidate - 1L))
+  if (Sys.Date() >= season_window_start) {
+    stop("CURRENT_SEASON_SOURCE_UNAVAILABLE: ", candidate,
+         " box scores missing during the active season; keeping last good feed.")
+  }
+  cat("PRESEASON_NO_SOURCE: ", candidate,
+      " archive unavailable; old published feed left untouched.\n")
+  quit(save = "no", status = 0L)
 }
 
 # ------------------------------------------------------------
@@ -475,6 +476,34 @@ combined <- bind_rows(
   filter(season >= FIRST_SEASON) %>%
   arrange(season, athlete_id) %>%
   distinct(season, athlete_id, .keep_all = TRUE)
+
+# ------------------------------------------------------------
+# Active season anti-regression validation
+# ------------------------------------------------------------
+# ESPN corrections can occasionally reduce an individual stat. Large losses
+# are not a normal update: a partial provider export should never wipe scores.
+previous_active <- existing %>% filter(season == active_season)
+if (nrow(previous_active) > 0) {
+  gone <- setdiff(as.character(previous_active$athlete_id),
+                  as.character(active_stats$athlete_id))
+  if (length(gone) > max(5L, ceiling(nrow(previous_active) * 0.005))) {
+    stop("ACTIVE_SEASON_COVERAGE_REGRESSION: ",
+         length(gone), " known player IDs missing from refreshed season.")
+  }
+  prev_totals <- previous_active %>%
+    select(athlete_id, previous_gp = gp,
+           previous_minutes = minutes, previous_pts = pts)
+  compare <- inner_join(prev_totals,
+                        active_stats %>% select(athlete_id, gp, minutes, pts),
+                        by = "athlete_id")
+  lost_games <- sum(compare$gp + 1 < compare$previous_gp, na.rm=TRUE)
+  lost_points <- sum(compare$pts + 4 < compare$previous_pts, na.rm=TRUE)
+  if (lost_games > max(3L, ceiling(nrow(compare) * 0.002)) ||
+      lost_points > max(3L, ceiling(nrow(compare) * 0.002))) {
+    stop("ACTIVE_SEASON_STAT_REGRESSION: too many player records lost ",
+         "prior games or points; refusing partial source.")
+  }
+}
 
 # ------------------------------------------------------------
 # Safety audit
