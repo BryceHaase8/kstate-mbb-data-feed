@@ -1,0 +1,32 @@
+name: Research only - Portal historical replay and national identity QA
+on:
+  push:
+    branches:
+      - portal-historical-replay-qa-2026
+    paths:
+      - "scripts/qa_replay_historical_games.py"
+      - "scripts/qa_portal_identity_2027.py"
+      - ".github/workflows/qa-portal-historical-replay.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  offline-replay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v6
+      - name: Compile replay and identity audit scripts
+        run: python -m py_compile scripts/qa_replay_historical_games.py scripts/qa_portal_identity_2027.py
+      - name: Actual archived 2025-26 game replay
+        run: python scripts/qa_replay_historical_games.py 2026
+      - name: Full-roster ESPN ID/class/history audit
+        run: python scripts/qa_portal_identity_2027.py
+      - name: Archive QA evidence without modifying published data
+        uses: actions/upload-artifact@v4
+        with:
+          name: portal-historical-replay-qa
+          path: |
+            research_qa/historical/replay_2026_qa.json
+            research_qa/roster_integration/current_identity_crosswalk_qa.json
+          if-no-files-found: error
