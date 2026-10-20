@@ -17,6 +17,8 @@ FIELDS=["season","gameId","date","teamId","opponentTeamId","opponent","homeAway"
 all_team_games={}
 games_to_teams=defaultdict(dict)
 ambiguous=[]
+team_ids_by_season_name={}
+ambiguous_names=set()
 def txt(v):return str(v or "").strip()
 def number(v):
     try:
@@ -32,6 +34,12 @@ for year in range(2020,2027):
             team=txt(row["team_id"])
             pid=txt(row["athlete_id"])
             if not game or not team or not pid:raise ValueError("Missing game/team/player identity")
+            team_name=txt(row.get("team_name"))
+            if team_name:
+                name_key=f"{year}:{team_name}"
+                if name_key in team_ids_by_season_name and team_ids_by_season_name[name_key]!=team:
+                    ambiguous_names.add(name_key)
+                else:team_ids_by_season_name[name_key]=team
             key=(year,game,team)
             rec=[year,game,txt(row.get("game_date")),team,txt(row.get("opponent_team_id")),txt(row.get("opponent_team")),txt(row.get("home_away")),
                  number(row.get("team_score")),number(row.get("opponent_score"))]
@@ -67,6 +75,8 @@ for i,schedule in enumerate(sets):
     (OUT/f"teams_{i:02d}.json").write_text(json.dumps({"schemaVersion":1,"modulo":MOD,"shard":i,"fields":FIELDS,"teams":schedule},separators=(",",":"),ensure_ascii=False))
 manifest={"schemaVersion":1,"modulo":MOD,"shards":MOD,"seasons":list(range(2020,2027)),
           "teamGamesBySeason":dict(season_count),"totalTeamGames":sum(season_count.values()),
+          "teamIdBySeasonName":{k:v for k,v in team_ids_by_season_name.items() if k not in ambiguous_names},
+          "ambiguousSchoolNames":sorted(ambiguous_names),
           "definition":"All archived played team-games, keyed by exact season and ESPN team ID; DNP is derived when a player appeared for the team that season but has no matching appearance for a team game.",
           "caution":"Season-team membership is based on recorded games, not confirmed roster status on each historical date."}
 (OUT/"manifest.json").write_text(json.dumps(manifest,indent=2))
