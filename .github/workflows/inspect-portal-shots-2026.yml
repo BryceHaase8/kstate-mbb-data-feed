@@ -1,0 +1,23 @@
+name: Research — inspect 2025-26 public shot archive
+on:
+  push:
+    branches: [portal-shot-charts-2026-research]
+    paths:
+      - "scripts/inspect_public_shots_2026.py"
+      - ".github/workflows/inspect-portal-shots-2026.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+      - name: Install parquet reader
+        run: python -m pip install pyarrow pandas
+      - name: Inspect published national shots and raw coordinates
+        run: python scripts/inspect_public_shots_2026.py
