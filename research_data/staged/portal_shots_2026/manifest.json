@@ -455,11 +455,951 @@
       "3PT": 30.42
     }
   },
+  "playerCoverageFlags": {
+    "5311928": {
+      "shotFGA": 283,
+      "boxFGA": 277,
+      "difference": 6
+    },
+    "4683629": {
+      "shotFGA": 305,
+      "boxFGA": 318,
+      "difference": -13
+    },
+    "4684268": {
+      "shotFGA": 444,
+      "boxFGA": 454,
+      "difference": -10
+    },
+    "4685671": {
+      "shotFGA": 125,
+      "boxFGA": 131,
+      "difference": -6
+    },
+    "5103631": {
+      "shotFGA": 247,
+      "boxFGA": 259,
+      "difference": -12
+    },
+    "5196919": {
+      "shotFGA": 88,
+      "boxFGA": 93,
+      "difference": -5
+    },
+    "4683860": {
+      "shotFGA": 307,
+      "boxFGA": 314,
+      "difference": -7
+    },
+    "4684799": {
+      "shotFGA": 258,
+      "boxFGA": 265,
+      "difference": -7
+    },
+    "4873151": {
+      "shotFGA": 307,
+      "boxFGA": 319,
+      "difference": -12
+    },
+    "4937074": {
+      "shotFGA": 389,
+      "boxFGA": 401,
+      "difference": -12
+    },
+    "5105816": {
+      "shotFGA": 207,
+      "boxFGA": 216,
+      "difference": -9
+    },
+    "5106059": {
+      "shotFGA": 96,
+      "boxFGA": 100,
+      "difference": -4
+    },
+    "5174958": {
+      "shotFGA": 42,
+      "boxFGA": 46,
+      "difference": -4
+    },
+    "5196877": {
+      "shotFGA": 242,
+      "boxFGA": 250,
+      "difference": -8
+    },
+    "4894452": {
+      "shotFGA": 310,
+      "boxFGA": 305,
+      "difference": 5
+    },
+    "5142609": {
+      "shotFGA": 543,
+      "boxFGA": 527,
+      "difference": 16
+    },
+    "5176758": {
+      "shotFGA": 295,
+      "boxFGA": 284,
+      "difference": 11
+    },
+    "5106750": {
+      "shotFGA": 132,
+      "boxFGA": 128,
+      "difference": 4
+    },
+    "5174620": {
+      "shotFGA": 95,
+      "boxFGA": 90,
+      "difference": 5
+    },
+    "5176333": {
+      "shotFGA": 319,
+      "boxFGA": 311,
+      "difference": 8
+    },
+    "5314736": {
+      "shotFGA": 313,
+      "boxFGA": 306,
+      "difference": 7
+    },
+    "4685654": {
+      "shotFGA": 229,
+      "boxFGA": 238,
+      "difference": -9
+    },
+    "5060709": {
+      "shotFGA": 478,
+      "boxFGA": 488,
+      "difference": -10
+    },
+    "5105462": {
+      "shotFGA": 299,
+      "boxFGA": 305,
+      "difference": -6
+    },
+    "5105647": {
+      "shotFGA": 113,
+      "boxFGA": 128,
+      "difference": -15
+    },
+    "5142718": {
+      "shotFGA": 589,
+      "boxFGA": 604,
+      "difference": -15
+    },
+    "4903216": {
+      "shotFGA": 401,
+      "boxFGA": 417,
+      "difference": -16
+    },
+    "5060685": {
+      "shotFGA": 265,
+      "boxFGA": 271,
+      "difference": -6
+    },
+    "5177114": {
+      "shotFGA": 249,
+      "boxFGA": 254,
+      "difference": -5
+    },
+    "5177233": {
+      "shotFGA": 477,
+      "boxFGA": 492,
+      "difference": -15
+    },
+    "5311935": {
+      "shotFGA": 133,
+      "boxFGA": 138,
+      "difference": -5
+    },
+    "5311937": {
+      "shotFGA": 88,
+      "boxFGA": 92,
+      "difference": -4
+    },
+    "5105678": {
+      "shotFGA": 117,
+      "boxFGA": 121,
+      "difference": -4
+    },
+    "5176065": {
+      "shotFGA": 271,
+      "boxFGA": 283,
+      "difference": -12
+    },
+    "5176067": {
+      "shotFGA": 367,
+      "boxFGA": 385,
+      "difference": -18
+    },
+    "5243035": {
+      "shotFGA": 381,
+      "boxFGA": 392,
+      "difference": -11
+    },
+    "5323979": {
+      "shotFGA": 192,
+      "boxFGA": 197,
+      "difference": -5
+    },
+    "5242414": {
+      "shotFGA": 63,
+      "boxFGA": 70,
+      "difference": -7
+    },
+    "5247448": {
+      "shotFGA": 182,
+      "boxFGA": 188,
+      "difference": -6
+    },
+    "5317314": {
+      "shotFGA": 323,
+      "boxFGA": 330,
+      "difference": -7
+    },
+    "5317320": {
+      "shotFGA": 167,
+      "boxFGA": 173,
+      "difference": -6
+    },
+    "5060703": {
+      "shotFGA": 250,
+      "boxFGA": 267,
+      "difference": -17
+    },
+    "5175146": {
+      "shotFGA": 200,
+      "boxFGA": 207,
+      "difference": -7
+    },
+    "5177126": {
+      "shotFGA": 309,
+      "boxFGA": 317,
+      "difference": -8
+    },
+    "5313879": {
+      "shotFGA": 195,
+      "boxFGA": 209,
+      "difference": -14
+    },
+    "5313880": {
+      "shotFGA": 278,
+      "boxFGA": 290,
+      "difference": -12
+    },
+    "5060708": {
+      "shotFGA": 366,
+      "boxFGA": 359,
+      "difference": 7
+    },
+    "5109790": {
+      "shotFGA": 243,
+      "boxFGA": 238,
+      "difference": 5
+    },
+    "4898210": {
+      "shotFGA": 249,
+      "boxFGA": 242,
+      "difference": 7
+    },
+    "5105821": {
+      "shotFGA": 414,
+      "boxFGA": 406,
+      "difference": 8
+    },
+    "5107860": {
+      "shotFGA": 135,
+      "boxFGA": 130,
+      "difference": 5
+    },
+    "5107895": {
+      "shotFGA": 207,
+      "boxFGA": 198,
+      "difference": 9
+    },
+    "5176662": {
+      "shotFGA": 343,
+      "boxFGA": 335,
+      "difference": 8
+    },
+    "5108789": {
+      "shotFGA": 213,
+      "boxFGA": 232,
+      "difference": -19
+    },
+    "5116155": {
+      "shotFGA": 110,
+      "boxFGA": 114,
+      "difference": -4
+    },
+    "5239560": {
+      "shotFGA": 256,
+      "boxFGA": 260,
+      "difference": -4
+    },
+    "5241663": {
+      "shotFGA": 146,
+      "boxFGA": 151,
+      "difference": -5
+    },
+    "5313258": {
+      "shotFGA": 129,
+      "boxFGA": 140,
+      "difference": -11
+    },
+    "5313260": {
+      "shotFGA": 281,
+      "boxFGA": 289,
+      "difference": -8
+    },
+    "5313263": {
+      "shotFGA": 251,
+      "boxFGA": 259,
+      "difference": -8
+    },
+    "5189001": {
+      "shotFGA": 415,
+      "boxFGA": 429,
+      "difference": -14
+    },
+    "5240641": {
+      "shotFGA": 305,
+      "boxFGA": 312,
+      "difference": -7
+    },
+    "5313202": {
+      "shotFGA": 114,
+      "boxFGA": 120,
+      "difference": -6
+    },
+    "5313205": {
+      "shotFGA": 72,
+      "boxFGA": 77,
+      "difference": -5
+    },
+    "5313206": {
+      "shotFGA": 366,
+      "boxFGA": 383,
+      "difference": -17
+    },
+    "4702158": {
+      "shotFGA": 365,
+      "boxFGA": 379,
+      "difference": -14
+    },
+    "5178207": {
+      "shotFGA": 587,
+      "boxFGA": 600,
+      "difference": -13
+    },
+    "5241323": {
+      "shotFGA": 144,
+      "boxFGA": 150,
+      "difference": -6
+    },
+    "5241326": {
+      "shotFGA": 124,
+      "boxFGA": 129,
+      "difference": -5
+    },
+    "5314832": {
+      "shotFGA": 132,
+      "boxFGA": 141,
+      "difference": -9
+    },
+    "4684293": {
+      "shotFGA": 173,
+      "boxFGA": 182,
+      "difference": -9
+    },
+    "4897175": {
+      "shotFGA": 301,
+      "boxFGA": 307,
+      "difference": -6
+    },
+    "5105593": {
+      "shotFGA": 254,
+      "boxFGA": 269,
+      "difference": -15
+    },
+    "5107408": {
+      "shotFGA": 184,
+      "boxFGA": 190,
+      "difference": -6
+    },
+    "5177530": {
+      "shotFGA": 140,
+      "boxFGA": 151,
+      "difference": -11
+    },
+    "4683680": {
+      "shotFGA": 325,
+      "boxFGA": 334,
+      "difference": -9
+    },
+    "5101806": {
+      "shotFGA": 130,
+      "boxFGA": 137,
+      "difference": -7
+    },
+    "5105531": {
+      "shotFGA": 206,
+      "boxFGA": 213,
+      "difference": -7
+    },
+    "5105982": {
+      "shotFGA": 265,
+      "boxFGA": 272,
+      "difference": -7
+    },
+    "5175704": {
+      "shotFGA": 209,
+      "boxFGA": 221,
+      "difference": -12
+    },
+    "5176795": {
+      "shotFGA": 295,
+      "boxFGA": 313,
+      "difference": -18
+    },
+    "5312079": {
+      "shotFGA": 206,
+      "boxFGA": 212,
+      "difference": -6
+    },
+    "4596711": {
+      "shotFGA": 191,
+      "boxFGA": 195,
+      "difference": -4
+    },
+    "4683755": {
+      "shotFGA": 137,
+      "boxFGA": 143,
+      "difference": -6
+    },
+    "5113534": {
+      "shotFGA": 407,
+      "boxFGA": 432,
+      "difference": -25
+    },
+    "5239783": {
+      "shotFGA": 201,
+      "boxFGA": 206,
+      "difference": -5
+    },
+    "5240511": {
+      "shotFGA": 142,
+      "boxFGA": 146,
+      "difference": -4
+    },
+    "5313873": {
+      "shotFGA": 259,
+      "boxFGA": 271,
+      "difference": -12
+    },
+    "4703837": {
+      "shotFGA": 333,
+      "boxFGA": 344,
+      "difference": -11
+    },
+    "5106288": {
+      "shotFGA": 164,
+      "boxFGA": 178,
+      "difference": -14
+    },
+    "5108891": {
+      "shotFGA": 140,
+      "boxFGA": 145,
+      "difference": -5
+    },
+    "5111629": {
+      "shotFGA": 70,
+      "boxFGA": 76,
+      "difference": -6
+    },
+    "5177275": {
+      "shotFGA": 348,
+      "boxFGA": 357,
+      "difference": -9
+    },
+    "5238170": {
+      "shotFGA": 129,
+      "boxFGA": 134,
+      "difference": -5
+    },
+    "5239637": {
+      "shotFGA": 237,
+      "boxFGA": 243,
+      "difference": -6
+    },
+    "4593815": {
+      "shotFGA": 331,
+      "boxFGA": 339,
+      "difference": -8
+    },
+    "4683146": {
+      "shotFGA": 175,
+      "boxFGA": 179,
+      "difference": -4
+    },
+    "4683682": {
+      "shotFGA": 247,
+      "boxFGA": 254,
+      "difference": -7
+    },
+    "4896862": {
+      "shotFGA": 168,
+      "boxFGA": 173,
+      "difference": -5
+    },
+    "5105412": {
+      "shotFGA": 31,
+      "boxFGA": 35,
+      "difference": -4
+    },
+    "5106285": {
+      "shotFGA": 236,
+      "boxFGA": 244,
+      "difference": -8
+    },
+    "5107078": {
+      "shotFGA": 153,
+      "boxFGA": 162,
+      "difference": -9
+    },
+    "5176153": {
+      "shotFGA": 253,
+      "boxFGA": 261,
+      "difference": -8
+    },
+    "5176160": {
+      "shotFGA": 101,
+      "boxFGA": 107,
+      "difference": -6
+    },
+    "5311530": {
+      "shotFGA": 245,
+      "boxFGA": 253,
+      "difference": -8
+    },
+    "4897467": {
+      "shotFGA": 377,
+      "boxFGA": 393,
+      "difference": -16
+    },
+    "5175026": {
+      "shotFGA": 63,
+      "boxFGA": 72,
+      "difference": -9
+    },
+    "5176672": {
+      "shotFGA": 153,
+      "boxFGA": 159,
+      "difference": -6
+    },
+    "5243089": {
+      "shotFGA": 127,
+      "boxFGA": 132,
+      "difference": -5
+    },
+    "5243093": {
+      "shotFGA": 115,
+      "boxFGA": 127,
+      "difference": -12
+    },
+    "4897365": {
+      "shotFGA": 442,
+      "boxFGA": 426,
+      "difference": 16
+    },
+    "5106864": {
+      "shotFGA": 310,
+      "boxFGA": 305,
+      "difference": 5
+    },
+    "5107843": {
+      "shotFGA": 75,
+      "boxFGA": 79,
+      "difference": -4
+    },
+    "5242999": {
+      "shotFGA": 291,
+      "boxFGA": 304,
+      "difference": -13
+    },
+    "5243002": {
+      "shotFGA": 146,
+      "boxFGA": 151,
+      "difference": -5
+    },
+    "5243004": {
+      "shotFGA": 178,
+      "boxFGA": 183,
+      "difference": -5
+    },
+    "5243012": {
+      "shotFGA": 161,
+      "boxFGA": 172,
+      "difference": -11
+    },
+    "5314375": {
+      "shotFGA": 57,
+      "boxFGA": 62,
+      "difference": -5
+    },
+    "5314376": {
+      "shotFGA": 130,
+      "boxFGA": 134,
+      "difference": -4
+    },
+    "5314377": {
+      "shotFGA": 293,
+      "boxFGA": 300,
+      "difference": -7
+    },
+    "5239757": {
+      "shotFGA": 128,
+      "boxFGA": 124,
+      "difference": 4
+    },
+    "5239762": {
+      "shotFGA": 139,
+      "boxFGA": 147,
+      "difference": -8
+    },
+    "4873147": {
+      "shotFGA": 165,
+      "boxFGA": 161,
+      "difference": 4
+    },
+    "5061584": {
+      "shotFGA": 131,
+      "boxFGA": 126,
+      "difference": 5
+    },
+    "5107804": {
+      "shotFGA": 286,
+      "boxFGA": 278,
+      "difference": 8
+    },
+    "5176241": {
+      "shotFGA": 259,
+      "boxFGA": 253,
+      "difference": 6
+    },
+    "5176243": {
+      "shotFGA": 120,
+      "boxFGA": 116,
+      "difference": 4
+    },
+    "5313924": {
+      "shotFGA": 151,
+      "boxFGA": 140,
+      "difference": 11
+    },
+    "5075230": {
+      "shotFGA": 143,
+      "boxFGA": 147,
+      "difference": -4
+    },
+    "4711838": {
+      "shotFGA": 305,
+      "boxFGA": 319,
+      "difference": -14
+    },
+    "5107877": {
+      "shotFGA": 103,
+      "boxFGA": 107,
+      "difference": -4
+    },
+    "5243390": {
+      "shotFGA": 323,
+      "boxFGA": 331,
+      "difference": -8
+    },
+    "4683134": {
+      "shotFGA": 143,
+      "boxFGA": 147,
+      "difference": -4
+    },
+    "4895740": {
+      "shotFGA": 544,
+      "boxFGA": 562,
+      "difference": -18
+    },
+    "5105791": {
+      "shotFGA": 346,
+      "boxFGA": 361,
+      "difference": -15
+    },
+    "5240392": {
+      "shotFGA": 207,
+      "boxFGA": 223,
+      "difference": -16
+    },
+    "4873093": {
+      "shotFGA": 159,
+      "boxFGA": 181,
+      "difference": -22
+    },
+    "4895795": {
+      "shotFGA": 244,
+      "boxFGA": 254,
+      "difference": -10
+    },
+    "4897898": {
+      "shotFGA": 141,
+      "boxFGA": 145,
+      "difference": -4
+    },
+    "5061596": {
+      "shotFGA": 100,
+      "boxFGA": 105,
+      "difference": -5
+    },
+    "5105785": {
+      "shotFGA": 377,
+      "boxFGA": 390,
+      "difference": -13
+    },
+    "5106715": {
+      "shotFGA": 155,
+      "boxFGA": 160,
+      "difference": -5
+    },
+    "5107264": {
+      "shotFGA": 295,
+      "boxFGA": 304,
+      "difference": -9
+    },
+    "4903264": {
+      "shotFGA": 364,
+      "boxFGA": 371,
+      "difference": -7
+    },
+    "4700968": {
+      "shotFGA": 265,
+      "boxFGA": 279,
+      "difference": -14
+    },
+    "5112187": {
+      "shotFGA": 163,
+      "boxFGA": 168,
+      "difference": -5
+    },
+    "5176741": {
+      "shotFGA": 66,
+      "boxFGA": 72,
+      "difference": -6
+    },
+    "5239582": {
+      "shotFGA": 276,
+      "boxFGA": 294,
+      "difference": -18
+    },
+    "5259011": {
+      "shotFGA": 117,
+      "boxFGA": 121,
+      "difference": -4
+    },
+    "5314746": {
+      "shotFGA": 232,
+      "boxFGA": 236,
+      "difference": -4
+    },
+    "4703833": {
+      "shotFGA": 276,
+      "boxFGA": 281,
+      "difference": -5
+    },
+    "5262456": {
+      "shotFGA": 115,
+      "boxFGA": 119,
+      "difference": -4
+    },
+    "5105890": {
+      "shotFGA": 112,
+      "boxFGA": 117,
+      "difference": -5
+    },
+    "5178210": {
+      "shotFGA": 357,
+      "boxFGA": 366,
+      "difference": -9
+    },
+    "5241411": {
+      "shotFGA": 337,
+      "boxFGA": 346,
+      "difference": -9
+    },
+    "5313566": {
+      "shotFGA": 303,
+      "boxFGA": 308,
+      "difference": -5
+    },
+    "5176402": {
+      "shotFGA": 135,
+      "boxFGA": 131,
+      "difference": 4
+    },
+    "4897973": {
+      "shotFGA": 178,
+      "boxFGA": 187,
+      "difference": -9
+    },
+    "5106620": {
+      "shotFGA": 261,
+      "boxFGA": 272,
+      "difference": -11
+    },
+    "5107189": {
+      "shotFGA": 133,
+      "boxFGA": 142,
+      "difference": -9
+    },
+    "5242407": {
+      "shotFGA": 325,
+      "boxFGA": 332,
+      "difference": -7
+    },
+    "5242410": {
+      "shotFGA": 42,
+      "boxFGA": 46,
+      "difference": -4
+    },
+    "5315083": {
+      "shotFGA": 102,
+      "boxFGA": 107,
+      "difference": -5
+    },
+    "5315084": {
+      "shotFGA": 333,
+      "boxFGA": 346,
+      "difference": -13
+    },
+    "5105580": {
+      "shotFGA": 247,
+      "boxFGA": 253,
+      "difference": -6
+    },
+    "5176342": {
+      "shotFGA": 185,
+      "boxFGA": 193,
+      "difference": -8
+    },
+    "5317316": {
+      "shotFGA": 150,
+      "boxFGA": 158,
+      "difference": -8
+    },
+    "5113390": {
+      "shotFGA": 298,
+      "boxFGA": 290,
+      "difference": 8
+    },
+    "5144092": {
+      "shotFGA": 128,
+      "boxFGA": 121,
+      "difference": 7
+    },
+    "5176733": {
+      "shotFGA": 120,
+      "boxFGA": 114,
+      "difference": 6
+    },
+    "5241424": {
+      "shotFGA": 301,
+      "boxFGA": 296,
+      "difference": 5
+    },
+    "5241428": {
+      "shotFGA": 87,
+      "boxFGA": 80,
+      "difference": 7
+    },
+    "5313927": {
+      "shotFGA": 329,
+      "boxFGA": 321,
+      "difference": 8
+    },
+    "5151855": {
+      "shotFGA": 161,
+      "boxFGA": 172,
+      "difference": -11
+    },
+    "4897978": {
+      "shotFGA": 215,
+      "boxFGA": 221,
+      "difference": -6
+    },
+    "5105877": {
+      "shotFGA": 178,
+      "boxFGA": 186,
+      "difference": -8
+    },
+    "5107453": {
+      "shotFGA": 218,
+      "boxFGA": 223,
+      "difference": -5
+    },
+    "5175054": {
+      "shotFGA": 26,
+      "boxFGA": 32,
+      "difference": -6
+    },
+    "5176298": {
+      "shotFGA": 200,
+      "boxFGA": 213,
+      "difference": -13
+    },
+    "5241846": {
+      "shotFGA": 392,
+      "boxFGA": 405,
+      "difference": -13
+    },
+    "5242603": {
+      "shotFGA": 125,
+      "boxFGA": 129,
+      "difference": -4
+    },
+    "5176734": {
+      "shotFGA": 112,
+      "boxFGA": 118,
+      "difference": -6
+    },
+    "4433596": {
+      "shotFGA": 222,
+      "boxFGA": 213,
+      "difference": 9
+    },
+    "5314831": {
+      "shotFGA": 29,
+      "boxFGA": 34,
+      "difference": -5
+    },
+    "5242982": {
+      "shotFGA": 86,
+      "boxFGA": 93,
+      "difference": -7
+    },
+    "5314342": {
+      "shotFGA": 182,
+      "boxFGA": 193,
+      "difference": -11
+    },
+    "5332491": {
+      "shotFGA": 81,
+      "boxFGA": 85,
+      "difference": -4
+    }
+  },
   "metrics": {
     "nationalSourceFG": 738247,
     "d1FGA": 669414,
     "mappedFGA": 669414,
     "mappedCoverage": 1.0,
+    "boxFGA": 670622,
+    "boxReconcileRatio": 0.9982,
+    "playersFlaggedForShotCount": 187,
     "games": 5740,
     "teams": 365,
     "athletes": 4818
