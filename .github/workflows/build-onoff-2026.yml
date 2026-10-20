@@ -1,0 +1,52 @@
+name: Research - strict 2025-26 ON/OFF lineup QA
+on:
+  push:
+    branches: [portal-v717-onoff-research-2026]
+    paths:
+      - "scripts/build_portal_onoff_2026.py"
+      - ".github/workflows/build-onoff-2026.yml"
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.11'
+      - name: Install parquet tooling
+        run: python -m pip install pandas pyarrow
+      - name: Build strict source lineup QA and athlete ON/OFF splits
+        run: python scripts/build_portal_onoff_2026.py
+      - name: Verify schema and all 128 exact athlete-ID shards
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          root=Path('research_data/staged/portal_onoff_2026')
+          m=json.loads((root/'manifest.json').read_text())
+          assert m['schemaVersion']==1 and m['season']==2026
+          n=0
+          for i in range(128):
+              j=json.loads((root/f'onoff_{i:03d}.json').read_text())
+              assert j['shard']==i and j['modulo']==128
+              for pid,r in j['players'].items():
+                  assert int(pid)%128==i
+                  assert r['games']>=1
+                  assert all(r[s]['minutes']>=0 for s in ('on','off'))
+                  n+=1
+          assert n==m['playersWithVerifiedGameSplits']
+          print('VALIDATED',n,'ESPN player IDs, strict lineup QA, no fabricated samples')
+          PY
+      - name: Commit research assets only
+        run: |
+          git add research_data/staged/portal_onoff_2026
+          if git diff --cached --quiet; then exit 0; fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Research: lineup-verified 2025-26 ESPN player ON/OFF sample"
+          git pull --rebase origin portal-v717-onoff-research-2026
+          git push origin HEAD:portal-v717-onoff-research-2026
