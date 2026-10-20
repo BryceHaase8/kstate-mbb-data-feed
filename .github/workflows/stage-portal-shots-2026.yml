@@ -1,0 +1,50 @@
+name: Research - national 2025-26 player shot charts
+on:
+  push:
+    branches: [portal-shot-charts-2026-research]
+    paths:
+      - "scripts/stage_public_shots_2026.py"
+      - ".github/workflows/stage-portal-shots-2026.yml"
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  shots:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+      - name: Install parquet data reader
+        run: python -m pip install pandas pyarrow
+      - name: Build shots in staged research data only
+        run: python scripts/stage_public_shots_2026.py
+      - name: Validate every shard and national record count
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import json
+          d=Path('research_data/staged/portal_shots_2026')
+          m=json.loads((d/'manifest.json').read_text())
+          total=0
+          for i in range(128):
+              doc=json.loads((d/f'shots_{i:03d}.json').read_text())
+              assert doc['shard']==i and doc['modulo']==128
+              for aid,shots in doc['players'].items():
+                  assert int(aid)%128==i
+                  assert all(len(r)==9 and r[3] in (2,3) and r[4] in (0,1) for r in shots)
+                  total+=len(shots)
+          assert total==m['metrics']['mappedFGA'],(total,m['metrics'])
+          print('PASS: 128 athlete-indexed shot files; validated FGA',total)
+          PY
+      - name: Save source and QA to research branch only
+        run: |
+          git add research_data/staged/portal_shots_2026
+          if git diff --cached --quiet; then exit 0; fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Research: full 2025-26 ESPN shot-location shards, verified"
+          git pull --rebase origin portal-shot-charts-2026-research
+          git push origin HEAD:portal-shot-charts-2026-research
