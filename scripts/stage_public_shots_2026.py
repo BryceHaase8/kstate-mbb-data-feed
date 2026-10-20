@@ -91,11 +91,33 @@ for i,sh in enumerate(shards):
     for events in sh.values():events.sort(key=lambda r:(r[0],r[5],r[6]))
     doc={'schemaVersion':1,'season':2026,'shard':i,'modulo':128,'fields':['gameId','teamId','opponentId','shotValue','made','courtX','courtY','assistId','zone'],'players':sh}
     (out/f'shots_{i:03d}.json').write_text(json.dumps(doc,separators=(',',':')))
+# Independent field-goal reconciliation against the archived player-game box.
+# Flag meaningful mismatches by ESPN ID rather than silently changing shots.
+boxFGA=Counter(); shotFGA=Counter()
+with gzip.open('research_data/historical/game_logs/player_game_logs_2026.csv.gz','rt',encoding='utf8') as handle:
+    for r in csv.DictReader(handle):
+        if (str(r['game_id']),str(r['team_id'])) not in opps:continue
+        aid=str(r['athlete_id'])
+        boxFGA[aid]+=float(r.get('fga') or 0)
+for sh in shards:
+    for aid,events in sh.items():shotFGA[aid]+=len(events)
+boxTotal=sum(boxFGA.values())
+reconcileRatio=counts['mappedFga']/max(boxTotal,1)
+assert .97<reconcileRatio<1.03,('national box vs PBP mismatch',reconcileRatio)
+coverageWarnings={}
+for aid,expected in boxFGA.items():
+    if expected < 30:continue
+    observed=shotFGA.get(aid,0)
+    diff=observed-expected
+    if abs(diff)>max(3,expected*.015):
+        coverageWarnings[aid]={'shotFGA':observed,'boxFGA':round(expected),'difference':round(diff)}
+print('BOX_RECONCILIATION',{'boxFGA':round(boxTotal),'shotFGA':counts['mappedFga'],'ratio':round(reconcileRatio,5),'flaggedPlayers':len(coverageWarnings)})
+
 complete=coverage>=.96 and len(seen_teams)>=355 and len(seen_games)>=4800 and athletes>=4000
 manifest={'schemaVersion':1,'season':2026,'seasonLabel':'2025-26','modulo':128,'available':True,'complete':complete,
           'source':'Published SportsDataverse ESPN shots_2026.parquet; exact D-I matchup and player ID',
-          'teams':names,'peers':peers,'peerShotDiet':diets,
-          'metrics':{'nationalSourceFG':len(d),'d1FGA':counts['d1Fga'],'mappedFGA':counts['mappedFga'],'mappedCoverage':round(coverage,4),'games':len(seen_games),'teams':len(seen_teams),'athletes':athletes}}
+          'teams':names,'peers':peers,'peerShotDiet':diets,\n          'playerCoverageFlags':coverageWarnings,
+          'metrics':{'nationalSourceFG':len(d),'d1FGA':counts['d1Fga'],'mappedFGA':counts['mappedFga'],'mappedCoverage':round(coverage,4),'boxFGA':round(boxTotal),'boxReconcileRatio':round(reconcileRatio,5),'playersFlaggedForShotCount':len(coverageWarnings),'games':len(seen_games),'teams':len(seen_teams),'athletes':athletes}}
 (out/'manifest.json').write_text(json.dumps(manifest,indent=2))
 assert sum(len(v) for sh in shards for v in sh.values())==counts['mappedFga']
 print('RESULT',json.dumps({'complete':complete,'metrics':manifest['metrics'],'peerGroups':list(peers)}))
