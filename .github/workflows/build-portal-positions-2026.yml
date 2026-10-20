@@ -1,0 +1,55 @@
+name: Research - verified 2025-26 5-player position shares
+on:
+  push:
+    branches: [portal-v723-lineup-positions-research]
+    paths:
+      - "scripts/build_portal_positions_2026.py"
+      - ".github/workflows/build-portal-positions-2026.yml"
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  positions:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.11'
+      - name: Install ESPN PBP parquet tools
+        run: python -m pip install pandas pyarrow
+      - name: Build verified 5-player role estimates
+        run: python -u scripts/build_portal_positions_2026.py
+      - name: Audit player roles and season minutes
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          root=Path('research_data/staged/portal_positions_2026')
+          m=json.loads((root/'manifest.json').read_text())
+          assert m['schemaVersion']==1 and m['season']==2026
+          n=0
+          for i in range(128):
+              j=json.loads((root/f'positions_{i:03d}.json').read_text())
+              assert j['shard']==i and j['modulo']==128
+              for pid,record in j['players'].items():
+                  assert int(pid)%128==i and len(record)==5
+                  a,verified,total,games,biometric=record
+                  assert len(a)==5 and all(v>=0 for v in a)
+                  assert abs(sum(a)-verified)<0.1
+                  assert verified<=total+min(12,.03*total)
+                  assert 0<=biometric<=1
+                  n+=1
+          assert n==m['playersWithRoleTime']
+          print('PASS',n,'players with 5-position shares and exact box-minute coverage')
+          PY
+      - name: Stage verified research files only
+        run: |
+          git add research_data/staged/portal_positions_2026
+          git diff --cached --quiet && exit 0
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Research: verified 2025-26 five-player lineup position shares"
+          git pull --rebase origin portal-v723-lineup-positions-research
+          git push origin HEAD:portal-v723-lineup-positions-research
