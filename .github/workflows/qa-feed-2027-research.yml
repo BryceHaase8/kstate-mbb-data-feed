@@ -1,0 +1,35 @@
+name: Research-only 2027 feed safety QA
+on:
+  push:
+    branches:
+      - portal-feed-refresh-safety-2026-research
+    paths:
+      - "scripts/daily_update.R"
+      - ".github/workflows/qa-feed-2027-research.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  syntax-and-safety:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v6
+      - uses: r-lib/actions/setup-r@v2
+        with:
+          use-public-rspm: false
+      - name: Parse R collector without fetching data
+        run: Rscript -e "invisible(parse(file='scripts/daily_update.R')); cat('R collector syntax: PASS\\n')"
+      - name: Static guards audit
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          src=Path("scripts/daily_update.R").read_text()
+          assert 'PRESEASON_NO_SOURCE:' in src
+          assert 'CURRENT_SEASON_SOURCE_UNAVAILABLE:' in src
+          assert 'ACTIVE_SEASON_COVERAGE_REGRESSION:' in src
+          assert 'ACTIVE_SEASON_STAT_REGRESSION:' in src
+          assert 'active_season <- candidate - 1L' not in src
+          assert 'quit(save = "no", status = 0L)' in src
+          print('Safety guards: PASS; no live feed update executed')
+          PY
