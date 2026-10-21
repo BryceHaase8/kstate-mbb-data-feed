@@ -1,0 +1,59 @@
+name: Research — refresh verified ESPN 2027 rosters and classes
+on:
+  push:
+    branches: [staging-seven-year-history-2027-roster-identity]
+    paths: [".github/workflows/roster-refresh-20261021.yml"]
+permissions:
+  contents: write
+concurrency:
+  group: roster-refresh-20261021
+  cancel-in-progress: false
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    steps:
+      - uses: actions/checkout@v6
+      - uses: r-lib/actions/setup-r@v2
+      - uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          extra-packages: |
+            any::hoopR
+            any::dplyr
+            any::readr
+            any::jsonlite
+            any::tibble
+            any::purrr
+      - name: Stage 365 ESPN 2027 season-specific rosters with exact athlete IDs
+        run: Rscript scripts/stage_2027_roster_universe.R
+      - name: Fetch independent successful October 21 roster audit
+        run: |
+          git fetch --depth=1 origin research-2027-espn-roster-reaudit-20261018
+          git show FETCH_HEAD:research_qa/espn_roster_2027/season_roster_ids_20261021.csv > /tmp/espn_roster_ids_20261021.csv
+      - name: Prepare ID-safe compact input for ESPN roster-class refresh
+        run: python scripts/refresh_2027_roster_eligibility_20261021.py --pre
+      - name: Refresh ESPN roster classes by exact athlete and team ID
+        run: python scripts/collect_roster_class_2027.py
+      - name: Build final class-informed roster, eligibility estimates and compact assets
+        run: python scripts/refresh_2027_roster_eligibility_20261021.py --final
+      - name: Commit research assets only after all checks pass
+        run: |
+          git add research_data/staged/current_roster_2027_candidate.json \
+                  research_data/staged/current_roster_2027_identity.csv \
+                  research_data/staged/current_roster_2027_identity_estimated.csv \
+                  research_data/staged/roster_2027_fast_ready.json \
+                  research_data/staged/roster_2027_site_compact.json \
+                  research_data/staged/roster_2027_site_compact_ready.json \
+                  research_data/staged/roster_2027_zero_fast_ready.json \
+                  research_data/staged/roster_2027_zero_fallback.json \
+                  research_data/staged/roster_2027_zero_fallback_ready.json \
+                  research_data/staged/roster_2027_class_evidence.json \
+                  research_qa/roster_integration/all_team_2027_readiness.csv \
+                  research_qa/roster_integration/roster_2027_stage_qa.json \
+                  research_qa/roster_integration/roster_2027_refreshed_class_estimates_qa.json
+          if git diff --cached --quiet; then echo 'No changes'; exit 0; fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'Research: refresh all 2027 ESPN roster memberships and class-based eligibility estimates'
+          git pull --rebase origin staging-seven-year-history-2027-roster-identity
+          git push origin HEAD:staging-seven-year-history-2027-roster-identity
