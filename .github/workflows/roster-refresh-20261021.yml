@@ -1,5 +1,5 @@
 name: Research — refresh verified ESPN 2027 rosters and classes
-# Rebuild 2027-28 next-season eligibility from current 2026-27 ESPN classes.
+# Rebuild 2027-28 eligibility under the NCAA five-year/age-based framework; audit first DI cohorts.
 on:
   push:
     branches: [staging-seven-year-history-2027-roster-identity]
