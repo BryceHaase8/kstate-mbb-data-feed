@@ -4,23 +4,149 @@
   "rosterMembers": 5541,
   "uniqueIds": 5541,
   "teams": 365,
-  "classified": 5520,
+  "classified": 5518,
   "auditOct21Memberships": 5541,
   "missingFromStage": 0,
   "newSinceAudit": 0,
   "methodCounts": {
-    "class": 5520,
-    "no_evidence_fallback": 20,
-    "first_seen_fallback": 1
+    "class": 5155,
+    "history_lowered_class": 895,
+    "older_cohort": 364,
+    "no_evidence_fallback": 22
   },
   "eligibilityCounts": {
-    "0": 1607,
-    "1": 1272,
-    "2": 1249,
-    "3": 1413,
-    "4": 0
+    "0": 364,
+    "1": 1247,
+    "2": 2160,
+    "3": 381,
+    "4": 1389
   },
   "staffOverridesRemainAuthoritative": true,
   "officialEligibilityCertification": false,
-  "nilImpactStaffSheetsUntouched": true
+  "nilImpactStaffSheetsUntouched": true,
+  "kstatePreview": [
+    {
+      "name": "Isaiah Abraham",
+      "espnAthleteId": "5093403",
+      "class": "JR",
+      "earliestDIBox": 2025,
+      "years": 2,
+      "basis": "ESPN_2027_CLASS_FIVE_YEAR_PROXY_JR"
+    },
+    {
+      "name": "Jaylen Alexander",
+      "espnAthleteId": "5457338",
+      "class": "FR",
+      "earliestDIBox": null,
+      "years": 4,
+      "basis": "ESPN_2027_CLASS_FIVE_YEAR_PROXY_FR"
+    },
+    {
+      "name": "Matt Gilhool",
+      "espnAthleteId": "5311511",
+      "class": "SO",
+      "earliestDIBox": null,
+      "years": 3,
+      "basis": "ESPN_2027_CLASS_FIVE_YEAR_PROXY_SO"
+    },
+    {
+      "name": "Devin Hutcherson",
+      "espnAthleteId": "5457339",
+      "class": "FR",
+      "earliestDIBox": null,
+      "years": 4,
+      "basis": "ESPN_2027_CLASS_FIVE_YEAR_PROXY_FR"
+    },
+    {
+      "name": "Andrej Kostic",
+      "espnAthleteId": "5311923",
+      "class": "SO",
+      "earliestDIBox": 2026,
+      "years": 2,
+      "basis": "FIRST_DI_BOX_UPPER_BOUND_WITH_ESPN_CLASS_SO"
+    },
+    {
+      "name": "Dez Lindsay",
+      "espnAthleteId": "5239600",
+      "class": "SR",
+      "earliestDIBox": 2026,
+      "years": 1,
+      "basis": "ESPN_2027_CLASS_FIVE_YEAR_PROXY_SR"
+    },
+    {
+      "name": "Timo Malovec",
+      "espnAthleteId": "5281366",
+      "class": "SR",
+      "earliestDIBox": 2026,
+      "years": 1,
+      "basis": "ESPN_2027_CLASS_FIVE_YEAR_PROXY_SR"
+    },
+    {
+      "name": "Pape N'Diaye",
+      "espnAthleteId": "5152658",
+      "class": "JR",
+      "earliestDIBox": 2025,
+      "years": 2,
+      "basis": "ESPN_2027_CLASS_FIVE_YEAR_PROXY_JR"
+    },
+    {
+      "name": "Brandon Rechsteiner",
+      "espnAthleteId": "5103590",
+      "class": "SR",
+      "earliestDIBox": 2024,
+      "years": 1,
+      "basis": "ESPN_2027_CLASS_FIVE_YEAR_PROXY_SR"
+    },
+    {
+      "name": "JT Rock",
+      "espnAthleteId": "5061598",
+      "class": "SR",
+      "earliestDIBox": 2025,
+      "years": 1,
+      "basis": "ESPN_2027_CLASS_FIVE_YEAR_PROXY_SR"
+    },
+    {
+      "name": "Jaden Schutt",
+      "espnAthleteId": "4712846",
+      "class": "SR",
+      "earliestDIBox": 2023,
+      "years": 0,
+      "basis": "FIRST_DI_BOX_2022_OR_EARLIER_COHORT_REVIEW"
+    },
+    {
+      "name": "Nash Stark",
+      "espnAthleteId": "5457340",
+      "class": "FR",
+      "earliestDIBox": null,
+      "years": 4,
+      "basis": "ESPN_2027_CLASS_FIVE_YEAR_PROXY_FR"
+    },
+    {
+      "name": "Brock Vice",
+      "espnAthleteId": "5175357",
+      "class": "SR",
+      "earliestDIBox": 2025,
+      "years": 1,
+      "basis": "ESPN_2027_CLASS_FIVE_YEAR_PROXY_SR"
+    },
+    {
+      "name": "Montana Wheeler",
+      "espnAthleteId": "5101794",
+      "class": "SO",
+      "earliestDIBox": 2026,
+      "years": 2,
+      "basis": "FIRST_DI_BOX_UPPER_BOUND_WITH_ESPN_CLASS_SO"
+    }
+  ],
+  "nationalZeroBasis": {
+    "ESPN_2027_CLASS_FIVE_YEAR_PROXY_JR": 0,
+    "FIRST_DI_BOX_UPPER_BOUND_WITH_ESPN_CLASS_FR": 0,
+    "ESPN_2027_CLASS_FIVE_YEAR_PROXY_SO": 0,
+    "ESPN_2027_CLASS_FIVE_YEAR_PROXY_FR": 0,
+    "ESPN_2027_CLASS_FIVE_YEAR_PROXY_SR": 0,
+    "NO_CLASS_OR_DI_HISTORY_FIVE_YEAR_PROVISIONAL": 0,
+    "FIRST_DI_BOX_2022_OR_EARLIER_COHORT_REVIEW": 364,
+    "FIRST_DI_BOX_UPPER_BOUND_WITH_ESPN_CLASS_SO": 0
+  },
+  "eligibilityCaveat": "ESPN class and first DI box year are provisional. Eligibility clock starts at earlier of first full-time enrollment or year after 19th birthday. Prior JUCO/international years are not observed in DI game stats. Player-specific staff verification overrides."
 }
