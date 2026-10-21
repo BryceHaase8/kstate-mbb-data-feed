@@ -8,6 +8,7 @@ suppressPackageStartupMessages({
   library(tibble);library(jsonlite)
 })
 outdir <- "research_qa/espn_roster_2027"
+audit_stamp <- format(Sys.Date(), "%Y%m%d")
 dir.create(outdir, recursive=TRUE,showWarnings=FALSE)
 
 cat("TEAM_UNIVERSE: querying ESPN 2027 D-I teams\n")
@@ -82,14 +83,15 @@ membership<-bind_rows(lapply(seq_len(nrow(teams)),function(i){
     tibble(season=rep(2027,length(new[[i]]$ids)),team_id=rep(teams$team_id[i],length(new[[i]]$ids)),team_name=rep(teams$team_name[i],length(new[[i]]$ids)),athlete_id=new[[i]]$ids)
   )
 }))
-write_csv(audit,file.path(outdir,"team_roster_status_20261018.csv"))
-write_csv(membership,file.path(outdir,"season_roster_ids_20261018.csv"))
+write_csv(audit,file.path(outdir,paste0("team_roster_status_", audit_stamp, ".csv")))
+write_csv(membership,file.path(outdir,paste0("season_roster_ids_", audit_stamp, ".csv")))
 readiness<-audit%>%filter(compared,old_fetch_status=="OK",new_fetch_status=="OK")
 updated <- readiness %>% filter(new_athlete_ids>0)
 summary<-list(
-  audit_date="2026-10-18",source="hoopR::espn_mbb_teams(year=2027); hoopR::espn_mbb_team_season_roster(season=2026,2027)",
+  audit_date=as.character(Sys.Date()),source="hoopR::espn_mbb_teams(year=2027); hoopR::espn_mbb_team_season_roster(season=2026,2027)",
   comparable_to_prior_oct13_metric=TRUE,
   prior_oct13=list(total=365,has_new_athlete_id=133,no_new_athlete_id=232),
+  prior_oct18=list(total=365,has_new_athlete_id=320,no_new_athlete_id=45),
   current=list(d1_teams=nrow(teams),successfully_compared=nrow(readiness),
     fetch_errors=sum(!audit$compared),
     missing_current=sum(audit$status=="MISSING_CURRENT_ROSTER"),
@@ -115,7 +117,7 @@ summary<-list(
     "Roster identities that were never active last year are not necessarily new Division-I freshmen.",
     "This job does not modify production main/Portal data, site, or model."
   ))
-write_json(summary,file.path(outdir,"national_summary_20261018.json"),pretty=TRUE,auto_unbox=TRUE)
+write_json(summary,file.path(outdir,paste0("national_summary_", audit_stamp, ".json")),pretty=TRUE,auto_unbox=TRUE)
 print(summary$current)
 cat("HIGHLIGHT TEAMS\n");print(audit%>%filter(grepl("Kansas State|Montana|Northridge|Wisconsin|Washington|Butler|Creighton|St. John",team_name,ignore.case=TRUE))%>%select(team_name,prior_2026,current_2027,returning,new_athlete_ids,status),n=30)
 if(nrow(readiness)<340) stop("Insufficient successful 2026/27 team comparisons: ",nrow(readiness))
