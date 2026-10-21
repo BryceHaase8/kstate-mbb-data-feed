@@ -31,9 +31,9 @@ if args.final:
     matched=sum(1 for p in people if str(p["espnAthleteId"]) in classes and classes[str(p["espnAthleteId"])][1]==str(p["teamId"]))
     assert matched>=int(len(people)*.90),(matched,len(people))
 else:matched=0
-# Preserve the site's existing FR=4, SO=3, JR=2, SR=1 planning convention,
+# Project 2027-28 seasons AFTER the 2026-27 ESPN roster class (FR=3, SO=2, JR=1, SR=0),
 # but don't force ANY athlete with previous games to 0. Staff override wins.
-class_years={"FR":4,"SO":3,"JR":2,"SR":1,"GR":0,"5TH":0,"RS-FR":3,"RS-SO":2,"RS-JR":1,"RS-SR":0}
+class_years={"FR":3,"SO":2,"JR":1,"SR":0,"GR":0,"5TH":0,"RS-FR":3,"RS-SO":2,"RS-JR":1,"RS-SR":0}
 counts=collections.Counter();methods=collections.Counter()
 for p in people:
     pid=str(p["espnAthleteId"]);tid=str(p["teamId"]);cls,ctid=classes.get(pid,("",""))
@@ -41,9 +41,9 @@ for p in people:
     if cls in class_years and ctid==tid:
         years=class_years[cls];basis="ESPN_2027_ROSTER_CLASS_"+cls;methods["class"]+=1
     elif old is not None:
-        years=max(0,min(4,4-(2027-old)));basis="EARLIEST_DI_BOX_SEASON_PROXY";methods["first_seen_fallback"]+=1
+        years=max(0,min(3,3-(2027-old)));basis="EARLIEST_DI_BOX_SEASON_PROXY";methods["first_seen_fallback"]+=1
     else:
-        years=4;basis="NO_CLASS_OR_DI_HISTORY_PROVISIONAL";methods["no_evidence_fallback"]+=1
+        years=3;basis="NO_CLASS_OR_DI_HISTORY_PROVISIONAL";methods["no_evidence_fallback"]+=1
     p.update(eligibilityEstimate=years,eligibilityTargetSeason="2027-28",eligibilityEstimateBasis=basis,eligibilityConfidence="PROVISIONAL_STAFF_EDITABLE")
     counts[years]+=1
 (R/"current_roster_2027_candidate.json").write_text(json.dumps(source,separators=(",",":"),ensure_ascii=False))
