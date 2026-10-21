@@ -40,7 +40,7 @@ for p in people:
     old=first.get(pid)
     # Under the NCAA 2026 age-based five-year period, a 2026-27 SR
     # is NOT presumed to have exhausted eligibility in spring 2027.
-    # Historical NCAA 2022-23 participation is evidence of an
+    # First D-I 2023-24 season (ending 2024) leaves a potential 2027-28 fifth year.\n    # Historical NCAA 2022-23 participation is evidence of an
     # established 2022 enrollment cohort with no 2027-28 fifth year.
     # D-I first-box data are NOT proof of initial college enrollment:
     # JUCO/D-II/international transfers may have started earlier.
@@ -49,12 +49,12 @@ for p in people:
     elif cls in class_years and ctid==tid:
         years=class_years[cls];basis="ESPN_2027_CLASS_FIVE_YEAR_PROXY_"+cls;methods["class"]+=1
         if old is not None and old >= 2024:
-            inferred=max(0,min(4,2028-old))
+            inferred=max(0,min(4,old-2023))
             if inferred < years:
                 years=inferred;basis="FIRST_DI_BOX_UPPER_BOUND_WITH_ESPN_CLASS_"+cls
                 methods["history_lowered_class"]+=1
     elif old is not None:
-        years=max(0,min(4,2028-old));basis="FIRST_OBSERVED_DI_BOX_FIVE_YEAR_PROXY";methods["first_seen_fallback"]+=1
+        years=max(0,min(4,old-2023));basis="FIRST_OBSERVED_DI_BOX_FIVE_YEAR_PROXY";methods["first_seen_fallback"]+=1
     else:
         years=4;basis="NO_CLASS_OR_DI_HISTORY_FIVE_YEAR_PROVISIONAL";methods["no_evidence_fallback"]+=1
     p.update(eligibilityEstimate=years,eligibilityTargetSeason="2027-28",eligibilityEstimateBasis=basis,eligibilityConfidence="PROVISIONAL_STAFF_EDITABLE")
