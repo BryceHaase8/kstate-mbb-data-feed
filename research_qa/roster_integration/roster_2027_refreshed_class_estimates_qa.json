@@ -4,22 +4,22 @@
   "rosterMembers": 5541,
   "uniqueIds": 5541,
   "teams": 365,
-  "classified": 5518,
+  "classified": 5520,
   "auditOct21Memberships": 5541,
   "missingFromStage": 0,
   "newSinceAudit": 0,
   "methodCounts": {
-    "class": 5155,
-    "history_lowered_class": 895,
+    "class": 5157,
     "older_cohort": 364,
-    "no_evidence_fallback": 22
+    "history_lowered_class": 153,
+    "no_evidence_fallback": 20
   },
   "eligibilityCounts": {
     "0": 364,
-    "1": 1247,
-    "2": 2160,
-    "3": 381,
-    "4": 1389
+    "1": 1332,
+    "2": 1231,
+    "3": 1226,
+    "4": 1388
   },
   "staffOverridesRemainAuthoritative": true,
   "officialEligibilityCertification": false,
@@ -62,8 +62,8 @@
       "espnAthleteId": "5311923",
       "class": "SO",
       "earliestDIBox": 2026,
-      "years": 2,
-      "basis": "FIRST_DI_BOX_UPPER_BOUND_WITH_ESPN_CLASS_SO"
+      "years": 3,
+      "basis": "ESPN_2027_CLASS_FIVE_YEAR_PROXY_SO"
     },
     {
       "name": "Dez Lindsay",
@@ -134,19 +134,20 @@
       "espnAthleteId": "5101794",
       "class": "SO",
       "earliestDIBox": 2026,
-      "years": 2,
-      "basis": "FIRST_DI_BOX_UPPER_BOUND_WITH_ESPN_CLASS_SO"
+      "years": 3,
+      "basis": "ESPN_2027_CLASS_FIVE_YEAR_PROXY_SO"
     }
   ],
   "nationalZeroBasis": {
     "ESPN_2027_CLASS_FIVE_YEAR_PROXY_JR": 0,
     "FIRST_DI_BOX_UPPER_BOUND_WITH_ESPN_CLASS_FR": 0,
-    "ESPN_2027_CLASS_FIVE_YEAR_PROXY_SO": 0,
-    "ESPN_2027_CLASS_FIVE_YEAR_PROXY_FR": 0,
+    "FIRST_DI_BOX_UPPER_BOUND_WITH_ESPN_CLASS_SO": 0,
     "ESPN_2027_CLASS_FIVE_YEAR_PROXY_SR": 0,
+    "ESPN_2027_CLASS_FIVE_YEAR_PROXY_FR": 0,
+    "FIRST_DI_BOX_UPPER_BOUND_WITH_ESPN_CLASS_JR": 0,
+    "ESPN_2027_CLASS_FIVE_YEAR_PROXY_SO": 0,
     "NO_CLASS_OR_DI_HISTORY_FIVE_YEAR_PROVISIONAL": 0,
-    "FIRST_DI_BOX_2022_OR_EARLIER_COHORT_REVIEW": 364,
-    "FIRST_DI_BOX_UPPER_BOUND_WITH_ESPN_CLASS_SO": 0
+    "FIRST_DI_BOX_2022_OR_EARLIER_COHORT_REVIEW": 364
   },
   "eligibilityCaveat": "ESPN class and first DI box year are provisional. Eligibility clock starts at earlier of first full-time enrollment or year after 19th birthday. Prior JUCO/international years are not observed in DI game stats. Player-specific staff verification overrides."
 }
