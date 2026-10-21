@@ -1,5 +1,5 @@
 name: Research — refresh verified ESPN 2027 rosters and classes
-# Rebuild 2027-28 eligibility under the NCAA five-year/age-based framework; audit first DI cohorts.
+# Rebuild 2027-28 age-based five-year cohort estimates; correct 2024→1, 2025→2, 2026→3.
 on:
   push:
     branches: [staging-seven-year-history-2027-roster-identity]
