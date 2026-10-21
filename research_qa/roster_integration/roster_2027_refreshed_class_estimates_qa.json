@@ -4,21 +4,21 @@
   "rosterMembers": 5541,
   "uniqueIds": 5541,
   "teams": 365,
-  "classified": 5518,
+  "classified": 5520,
   "auditOct21Memberships": 5541,
   "missingFromStage": 0,
   "newSinceAudit": 0,
   "methodCounts": {
-    "class": 5518,
-    "no_evidence_fallback": 22,
+    "class": 5520,
+    "no_evidence_fallback": 20,
     "first_seen_fallback": 1
   },
   "eligibilityCounts": {
-    "0": 1,
-    "1": 1605,
-    "2": 1272,
-    "3": 1249,
-    "4": 1414
+    "0": 1607,
+    "1": 1272,
+    "2": 1249,
+    "3": 1413,
+    "4": 0
   },
   "staffOverridesRemainAuthoritative": true,
   "officialEligibilityCertification": false,
