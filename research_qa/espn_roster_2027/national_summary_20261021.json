@@ -1,0 +1,159 @@
+{
+  "audit_date": "2026-10-21",
+  "source": "hoopR::espn_mbb_teams(year=2027); hoopR::espn_mbb_team_season_roster(season=2026,2027)",
+  "comparable_to_prior_oct13_metric": true,
+  "prior_oct13": {
+    "total": 365,
+    "has_new_athlete_id": 133,
+    "no_new_athlete_id": 232
+  },
+  "prior_oct18": {
+    "total": 365,
+    "has_new_athlete_id": 320,
+    "no_new_athlete_id": 45
+  },
+  "current": {
+    "d1_teams": 365,
+    "successfully_compared": 365,
+    "fetch_errors": 0,
+    "missing_current": 0,
+    "has_new_athlete_id": 361,
+    "zero_new_athlete_id": 4,
+    "exact_same_athlete_ids": 0,
+    "with_five_or_more_new": 353,
+    "substantially_refreshed_signal": 353,
+    "total_new_id_memberships": 3644,
+    "current_2027_roster_memberships": 5541
+  },
+  "teams_to_inspect": [
+    [
+      {
+        "query": "Kansas State",
+        "school": "Kansas State Wildcats",
+        "previous": 15,
+        "current": 14,
+        "returners": 1,
+        "new": 13,
+        "status": "SUBSTANTIAL_REFRESH_SIGNAL"
+      }
+    ],
+    {
+      "query": "CSUN",
+      "found": false
+    },
+    [
+      {
+        "query": "Cal State Northridge",
+        "school": "Cal State Northridge Matadors",
+        "previous": 17,
+        "current": 16,
+        "returners": 5,
+        "new": 11,
+        "status": "SUBSTANTIAL_REFRESH_SIGNAL"
+      }
+    ],
+    [
+      {
+        "query": "Montana",
+        "school": "Montana Grizzlies",
+        "previous": 17,
+        "current": 14,
+        "returners": 5,
+        "new": 9,
+        "status": "SUBSTANTIAL_REFRESH_SIGNAL"
+      },
+      {
+        "query": "Montana",
+        "school": "Montana State Bobcats",
+        "previous": 15,
+        "current": 16,
+        "returners": 11,
+        "new": 5,
+        "status": "SUBSTANTIAL_REFRESH_SIGNAL"
+      }
+    ],
+    [
+      {
+        "query": "Wisconsin",
+        "school": "Wisconsin Badgers",
+        "previous": 15,
+        "current": 15,
+        "returners": 7,
+        "new": 8,
+        "status": "SUBSTANTIAL_REFRESH_SIGNAL"
+      }
+    ],
+    [
+      {
+        "query": "Washington",
+        "school": "Eastern Washington Eagles",
+        "previous": 15,
+        "current": 14,
+        "returners": 7,
+        "new": 7,
+        "status": "SUBSTANTIAL_REFRESH_SIGNAL"
+      },
+      {
+        "query": "Washington",
+        "school": "George Washington Revolutionaries",
+        "previous": 15,
+        "current": 16,
+        "returners": 3,
+        "new": 13,
+        "status": "SUBSTANTIAL_REFRESH_SIGNAL"
+      },
+      {
+        "query": "Washington",
+        "school": "Washington Huskies",
+        "previous": 18,
+        "current": 15,
+        "returners": 6,
+        "new": 9,
+        "status": "SUBSTANTIAL_REFRESH_SIGNAL"
+      },
+      {
+        "query": "Washington",
+        "school": "Washington State Cougars",
+        "previous": 15,
+        "current": 16,
+        "returners": 2,
+        "new": 14,
+        "status": "SUBSTANTIAL_REFRESH_SIGNAL"
+      }
+    ],
+    [
+      {
+        "query": "Butler",
+        "school": "Butler Bulldogs",
+        "previous": 16,
+        "current": 15,
+        "returners": 5,
+        "new": 10,
+        "status": "SUBSTANTIAL_REFRESH_SIGNAL"
+      }
+    ],
+    [
+      {
+        "query": "Creighton",
+        "school": "Creighton Bluejays",
+        "previous": 20,
+        "current": 15,
+        "returners": 6,
+        "new": 9,
+        "status": "SUBSTANTIAL_REFRESH_SIGNAL"
+      }
+    ],
+    [
+      {
+        "query": "St. John's",
+        "school": "St. John's Red Storm",
+        "previous": 22,
+        "current": 16,
+        "returners": 6,
+        "new": 10,
+        "status": "SUBSTANTIAL_REFRESH_SIGNAL"
+      }
+    ]
+  ],
+  "interpretation_warnings": ["One newly listed player means progress, not a complete official roster.", "Old ESPN season-roster data can be contaminated by historical alumni: compare athlete IDs cautiously; independently verify actual 2027 roster identity before any Portal import.", "Roster identities that were never active last year are not necessarily new Division-I freshmen.", "This job does not modify production main/Portal data, site, or model."]
+}
