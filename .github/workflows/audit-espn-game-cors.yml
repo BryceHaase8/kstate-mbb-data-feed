@@ -1,4 +1,5 @@
 name: 'Research - audit ESPN game scoreboard browser CORS'
+# Include 2026-02 month range coverage
 on:
   push:
     branches: [staging-seven-year-history-2027-roster-identity]
