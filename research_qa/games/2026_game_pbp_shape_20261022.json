@@ -1,0 +1,718 @@
+{
+  "generated_at": "2026-10-22T16:32:04.765025+00:00",
+  "games": {
+    "401825507": {
+      "keys": {
+        "boxscore": "object 2",
+        "format": "object 2",
+        "gameInfo": "object 3",
+        "leaders": "list 2",
+        "broadcasts": "list 0",
+        "pickcenter": "list 1",
+        "odds": "list 0",
+        "againstTheSpread": "list 2",
+        "news": "object 3",
+        "plays": "list 499",
+        "winprobability": "list 496",
+        "article": "object 27",
+        "videos": "list 0",
+        "header": "object 8",
+        "wallclockAvailable": "bool",
+        "meta": "object 8",
+        "standings": "object 4"
+      },
+      "plays_count": 499,
+      "first_plays": [
+        {
+          "id": "401825507118717535",
+          "sequenceNumber": "118717535",
+          "type": {
+            "id": "615",
+            "text": "Jumpball"
+          },
+          "text": "Start game",
+          "awayScore": 0,
+          "homeScore": 0,
+          "period": {
+            "number": 1,
+            "displayValue": "1st Half"
+          },
+          "clock": {
+            "displayValue": "20:00"
+          },
+          "scoringPlay": false,
+          "scoreValue": 0,
+          "wallclock": "2026-02-11T00:01:45Z",
+          "shootingPlay": false,
+          "coordinate": {
+            "x": 25,
+            "y": 0
+          },
+          "pointsAttempted": 0,
+          "shortDescription": "Jump Ball"
+        },
+        {
+          "id": "401825507118717536",
+          "sequenceNumber": "118717536",
+          "type": {
+            "id": "615",
+            "text": "Jumpball"
+          },
+          "text": "Jump Ball won by Purdue",
+          "awayScore": 0,
+          "homeScore": 0,
+          "period": {
+            "number": 1,
+            "displayValue": "1st Half"
+          },
+          "clock": {
+            "displayValue": "19:59"
+          },
+          "scoringPlay": false,
+          "scoreValue": 0,
+          "team": {
+            "id": "2509"
+          },
+          "participants": [
+            {
+              "athlete": {
+                "id": "5174973"
+              }
+            }
+          ],
+          "wallclock": "2026-02-11T00:01:46Z",
+          "shootingPlay": false,
+          "coordinate": {
+            "x": 25,
+            "y": 0
+          },
+          "pointsAttempted": 0,
+          "shortDescription": "Jump Ball"
+        },
+        {
+          "id": "401825507118717537",
+          "sequenceNumber": "118717537",
+          "type": {
+            "id": "615",
+            "text": "Jumpball"
+          },
+          "text": "Jump Ball lost by Nebraska",
+          "awayScore": 0,
+          "homeScore": 0,
+          "period": {
+            "number": 1,
+            "displayValue": "1st Half"
+          },
+          "clock": {
+            "displayValue": "19:59"
+          },
+          "scoringPlay": false,
+          "scoreValue": 0,
+          "team": {
+            "id": "158"
+          },
+          "participants": [
+            {
+              "athlete": {
+                "id": "4592677"
+              }
+            }
+          ],
+          "wallclock": "2026-02-11T00:01:46Z",
+          "shootingPlay": false,
+          "coordinate": {
+            "x": 25,
+            "y": 0
+          },
+          "pointsAttempted": 0,
+          "shortDescription": "Jump Ball"
+        },
+        {
+          "id": "401825507118717579",
+          "sequenceNumber": "118717579",
+          "type": {
+            "id": "558",
+            "text": "JumpShot"
+          },
+          "text": "Braden Smith misses 25-foot three point jumper",
+          "awayScore": 0,
+          "homeScore": 0,
+          "period": {
+            "number": 1,
+            "displayValue": "1st Half"
+          },
+          "clock": {
+            "displayValue": "19:38"
+          },
+          "scoringPlay": false,
+          "scoreValue": 3,
+          "team": {
+            "id": "2509"
+          },
+          "participants": [
+            {
+              "athlete": {
+                "id": "5105854"
+              }
+            }
+          ],
+          "wallclock": "2026-02-11T00:02:07Z",
+          "shootingPlay": true,
+          "coordinate": {
+            "x": 43,
+            "y": 16
+          },
+          "pointsAttempted": 3,
+          "shortDescription": "Missed 3PT"
+        }
+      ],
+      "last_plays": [
+        {
+          "id": "401825507118732288",
+          "sequenceNumber": "118732288",
+          "type": {
+            "id": "598",
+            "text": "Lost Ball Turnover"
+          },
+          "text": "Cale Jacobsen bad pass\nturnover",
+          "awayScore": 80,
+          "homeScore": 77,
+          "period": {
+            "number": 3,
+            "displayValue": "OT"
+          },
+          "clock": {
+            "displayValue": "0:03"
+          },
+          "scoringPlay": false,
+          "scoreValue": 0,
+          "team": {
+            "id": "158"
+          },
+          "participants": [
+            {
+              "athlete": {
+                "id": "5105827"
+              }
+            }
+          ],
+          "wallclock": "2026-02-11T02:21:11Z",
+          "shootingPlay": false,
+          "coordinate": {
+            "x": 26,
+            "y": 14
+          },
+          "pointsAttempted": 0,
+          "shortDescription": "Turnover"
+        },
+        {
+          "id": "401825507118732296",
+          "sequenceNumber": "118732296",
+          "type": {
+            "id": "412",
+            "text": "End Period"
+          },
+          "text": "End of 1st OT",
+          "awayScore": 80,
+          "homeScore": 77,
+          "period": {
+            "number": 3,
+            "displayValue": "OT"
+          },
+          "clock": {
+            "displayValue": "0:00"
+          },
+          "scoringPlay": false,
+          "scoreValue": 0,
+          "wallclock": "2026-02-11T02:21:14Z",
+          "shootingPlay": false,
+          "coordinate": {
+            "x": 25,
+            "y": 0
+          },
+          "pointsAttempted": 0,
+          "shortDescription": "End of 1st OT"
+        },
+        {
+          "id": "401825507118732460",
+          "sequenceNumber": "118732460",
+          "type": {
+            "id": "402",
+            "text": "End Game"
+          },
+          "text": "End of Game",
+          "awayScore": 80,
+          "homeScore": 77,
+          "period": {
+            "number": 3,
+            "displayValue": "OT"
+          },
+          "clock": {
+            "displayValue": "0:00"
+          },
+          "scoringPlay": false,
+          "scoreValue": 0,
+          "wallclock": "2026-02-11T02:23:31Z",
+          "shootingPlay": false,
+          "coordinate": {
+            "x": 25,
+            "y": 0
+          },
+          "pointsAttempted": 0,
+          "shortDescription": "End of Game"
+        }
+      ],
+      "event_fields": {
+        "id": 499,
+        "sequenceNumber": 499,
+        "type": 499,
+        "text": 499,
+        "awayScore": 499,
+        "homeScore": 499,
+        "period": 499,
+        "clock": 499,
+        "scoringPlay": 499,
+        "scoreValue": 499,
+        "wallclock": 499,
+        "shootingPlay": 499,
+        "coordinate": 499,
+        "pointsAttempted": 499,
+        "shortDescription": 499,
+        "team": 485,
+        "participants": 461
+      },
+      "shooting_play": {
+        "id": "401825507118717579",
+        "sequenceNumber": "118717579",
+        "type": {
+          "id": "558",
+          "text": "JumpShot"
+        },
+        "text": "Braden Smith misses 25-foot three point jumper",
+        "awayScore": 0,
+        "homeScore": 0,
+        "period": {
+          "number": 1,
+          "displayValue": "1st Half"
+        },
+        "clock": {
+          "displayValue": "19:38"
+        },
+        "scoringPlay": false,
+        "scoreValue": 3,
+        "team": {
+          "id": "2509"
+        },
+        "participants": [
+          {
+            "athlete": {
+              "id": "5105854"
+            }
+          }
+        ],
+        "wallclock": "2026-02-11T00:02:07Z",
+        "shootingPlay": true,
+        "coordinate": {
+          "x": 43,
+          "y": 16
+        },
+        "pointsAttempted": 3,
+        "shortDescription": "Missed 3PT"
+      },
+      "substitution_play": {
+        "id": "401825507118718770",
+        "sequenceNumber": "118718770",
+        "type": {
+          "id": "584",
+          "text": "Substitution"
+        },
+        "text": "Berke Buyuktuncel subbing out for Nebraska",
+        "awayScore": 14,
+        "homeScore": 1,
+        "period": {
+          "number": 1,
+          "displayValue": "1st Half"
+        },
+        "clock": {
+          "displayValue": "15:45"
+        },
+        "scoringPlay": false,
+        "scoreValue": 0,
+        "team": {
+          "id": "158"
+        },
+        "participants": [
+          {
+            "athlete": {
+              "id": "5174982"
+            }
+          }
+        ],
+        "wallclock": "2026-02-11T00:11:53Z",
+        "shootingPlay": false,
+        "coordinate": {
+          "x": 25,
+          "y": 0
+        },
+        "pointsAttempted": 0,
+        "shortDescription": "Substitution"
+      }
+    },
+    "401827153": {
+      "keys": {
+        "boxscore": "object 2",
+        "format": "object 2",
+        "gameInfo": "object 3",
+        "leaders": "list 2",
+        "broadcasts": "list 0",
+        "pickcenter": "list 0",
+        "odds": "list 0",
+        "againstTheSpread": "list 2",
+        "news": "object 3",
+        "winprobability": "list 584",
+        "plays": "list 586",
+        "videos": "list 0",
+        "header": "object 8",
+        "wallclockAvailable": "bool",
+        "meta": "object 9",
+        "standings": "object 4"
+      },
+      "plays_count": 586,
+      "first_plays": [
+        {
+          "id": "401827153114307946",
+          "sequenceNumber": "114307946",
+          "type": {
+            "id": "615",
+            "text": "Jumpball"
+          },
+          "text": "Start game",
+          "awayScore": 0,
+          "homeScore": 0,
+          "period": {
+            "number": 1,
+            "displayValue": "1st Half"
+          },
+          "clock": {
+            "displayValue": "20:00"
+          },
+          "scoringPlay": false,
+          "scoreValue": 0,
+          "wallclock": "2025-11-15T00:02:45Z",
+          "shootingPlay": false,
+          "coordinate": {
+            "x": 25,
+            "y": 0
+          },
+          "pointsAttempted": 0,
+          "shortDescription": "Jump Ball"
+        },
+        {
+          "id": "401827153114307947",
+          "sequenceNumber": "114307947",
+          "type": {
+            "id": "615",
+            "text": "Jumpball"
+          },
+          "text": "Jump Ball won by Alabama State",
+          "awayScore": 0,
+          "homeScore": 0,
+          "period": {
+            "number": 1,
+            "displayValue": "1st Half"
+          },
+          "clock": {
+            "displayValue": "19:58"
+          },
+          "scoringPlay": false,
+          "scoreValue": 0,
+          "team": {
+            "id": "2011"
+          },
+          "participants": [
+            {
+              "athlete": {
+                "id": "5242812"
+              }
+            }
+          ],
+          "wallclock": "2025-11-15T00:02:47Z",
+          "shootingPlay": false,
+          "coordinate": {
+            "x": 25,
+            "y": 0
+          },
+          "pointsAttempted": 0,
+          "shortDescription": "Jump Ball"
+        },
+        {
+          "id": "401827153114307948",
+          "sequenceNumber": "114307948",
+          "type": {
+            "id": "615",
+            "text": "Jumpball"
+          },
+          "text": "Jump Ball lost by Virginia Lynchburg",
+          "awayScore": 0,
+          "homeScore": 0,
+          "period": {
+            "number": 1,
+            "displayValue": "1st Half"
+          },
+          "clock": {
+            "displayValue": "19:58"
+          },
+          "scoringPlay": false,
+          "scoreValue": 0,
+          "team": {
+            "id": "3229"
+          },
+          "participants": [
+            {
+              "athlete": {
+                "id": "5323013"
+              }
+            }
+          ],
+          "wallclock": "2025-11-15T00:02:47Z",
+          "shootingPlay": false,
+          "coordinate": {
+            "x": 25,
+            "y": 0
+          },
+          "pointsAttempted": 0,
+          "shortDescription": "Jump Ball"
+        },
+        {
+          "id": "401827153114307954",
+          "sequenceNumber": "114307954",
+          "type": {
+            "id": "558",
+            "text": "JumpShot"
+          },
+          "text": "Micah Simpson made Jumper.",
+          "awayScore": 0,
+          "homeScore": 2,
+          "period": {
+            "number": 1,
+            "displayValue": "1st Half"
+          },
+          "clock": {
+            "displayValue": "19:50"
+          },
+          "scoringPlay": true,
+          "scoreValue": 2,
+          "team": {
+            "id": "2011"
+          },
+          "participants": [
+            {
+              "athlete": {
+                "id": "5242807"
+              }
+            }
+          ],
+          "wallclock": "2025-11-15T00:02:57Z",
+          "shootingPlay": true,
+          "coordinate": {
+            "x": 19,
+            "y": 6
+          },
+          "pointsAttempted": 2,
+          "shortDescription": "+2 Points"
+        }
+      ],
+      "last_plays": [
+        {
+          "id": "401827153114328302",
+          "sequenceNumber": "114328302",
+          "type": {
+            "id": "540",
+            "text": "MadeFreeThrow"
+          },
+          "text": "Filaun Paythress made Free Throw.",
+          "awayScore": 68,
+          "homeScore": 124,
+          "period": {
+            "number": 2,
+            "displayValue": "2nd Half"
+          },
+          "clock": {
+            "displayValue": "0:29"
+          },
+          "scoringPlay": true,
+          "scoreValue": 1,
+          "team": {
+            "id": "3229"
+          },
+          "participants": [
+            {
+              "athlete": {
+                "id": "5323010"
+              }
+            }
+          ],
+          "wallclock": "2025-11-15T01:54:04Z",
+          "shootingPlay": true,
+          "coordinate": {
+            "x": 25,
+            "y": 0
+          },
+          "pointsAttempted": 1,
+          "shortDescription": "+1 Point"
+        },
+        {
+          "id": "401827153114328384",
+          "sequenceNumber": "114328384",
+          "type": {
+            "id": "412",
+            "text": "End Period"
+          },
+          "text": "End of 2nd half",
+          "awayScore": 68,
+          "homeScore": 124,
+          "period": {
+            "number": 2,
+            "displayValue": "2nd Half"
+          },
+          "clock": {
+            "displayValue": "0:00"
+          },
+          "scoringPlay": false,
+          "scoreValue": 0,
+          "wallclock": "2025-11-15T01:54:40Z",
+          "shootingPlay": false,
+          "coordinate": {
+            "x": 25,
+            "y": 0
+          },
+          "pointsAttempted": 0,
+          "shortDescription": "End of 2nd"
+        },
+        {
+          "id": "401827153114328441",
+          "sequenceNumber": "114328441",
+          "type": {
+            "id": "402",
+            "text": "End Game"
+          },
+          "text": "End of Game",
+          "awayScore": 68,
+          "homeScore": 124,
+          "period": {
+            "number": 2,
+            "displayValue": "2nd Half"
+          },
+          "clock": {
+            "displayValue": "0:00"
+          },
+          "scoringPlay": false,
+          "scoreValue": 0,
+          "wallclock": "2025-11-15T01:55:12Z",
+          "shootingPlay": false,
+          "coordinate": {
+            "x": 25,
+            "y": 0
+          },
+          "pointsAttempted": 0,
+          "shortDescription": "End of Game"
+        }
+      ],
+      "event_fields": {
+        "id": 586,
+        "sequenceNumber": 586,
+        "type": 586,
+        "text": 586,
+        "awayScore": 586,
+        "homeScore": 586,
+        "period": 586,
+        "clock": 586,
+        "scoringPlay": 586,
+        "scoreValue": 586,
+        "wallclock": 586,
+        "shootingPlay": 586,
+        "coordinate": 586,
+        "pointsAttempted": 586,
+        "shortDescription": 586,
+        "team": 574,
+        "participants": 546
+      },
+      "shooting_play": {
+        "id": "401827153114307954",
+        "sequenceNumber": "114307954",
+        "type": {
+          "id": "558",
+          "text": "JumpShot"
+        },
+        "text": "Micah Simpson made Jumper.",
+        "awayScore": 0,
+        "homeScore": 2,
+        "period": {
+          "number": 1,
+          "displayValue": "1st Half"
+        },
+        "clock": {
+          "displayValue": "19:50"
+        },
+        "scoringPlay": true,
+        "scoreValue": 2,
+        "team": {
+          "id": "2011"
+        },
+        "participants": [
+          {
+            "athlete": {
+              "id": "5242807"
+            }
+          }
+        ],
+        "wallclock": "2025-11-15T00:02:57Z",
+        "shootingPlay": true,
+        "coordinate": {
+          "x": 19,
+          "y": 6
+        },
+        "pointsAttempted": 2,
+        "shortDescription": "+2 Points"
+      },
+      "substitution_play": {
+        "id": "401827153114308699",
+        "sequenceNumber": "114308699",
+        "type": {
+          "id": "584",
+          "text": "Substitution"
+        },
+        "text": "Derek Todd Jr. subbing out for Virginia Lynchburg",
+        "awayScore": 2,
+        "homeScore": 4,
+        "period": {
+          "number": 1,
+          "displayValue": "1st Half"
+        },
+        "clock": {
+          "displayValue": "17:29"
+        },
+        "scoringPlay": false,
+        "scoreValue": 0,
+        "team": {
+          "id": "3229"
+        },
+        "participants": [
+          {
+            "athlete": {
+              "id": "5323013"
+            }
+          }
+        ],
+        "wallclock": "2025-11-15T00:07:49Z",
+        "shootingPlay": false,
+        "coordinate": {
+          "x": 25,
+          "y": 0
+        },
+        "pointsAttempted": 0,
+        "shortDescription": "Substitution"
+      }
+    }
+  }
+}
