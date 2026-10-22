@@ -1,0 +1,72 @@
+{
+  "status": "PASS",
+  "ESPNIds": 10476,
+  "seasonCounts": {
+    "2023": 5102,
+    "2024": 5063,
+    "2025": 5119,
+    "2026": 5019
+  },
+  "rows": 20303,
+  "badRows": 0,
+  "unambiguous2026Names": 4964,
+  "ambiguous2026Names": 26,
+  "WilliamBerg_5105857": {
+    "2024": [
+      "2509",
+      2.6429,
+      1.8571,
+      0.0714,
+      3.9286,
+      0.75,
+      0.6955,
+      14,
+      "Will Berg",
+      "Purdue Boilermakers",
+      "C"
+    ],
+    "2025": [
+      "2509",
+      1.8182,
+      1.3182,
+      0.3182,
+      6.1818,
+      0.8421,
+      0.768,
+      22,
+      "Will Berg",
+      "Purdue Boilermakers",
+      "C"
+    ],
+    "2026": [
+      "2724",
+      8.8,
+      8.1429,
+      0.6571,
+      21.8857,
+      0.5591,
+      0.6165,
+      35,
+      "Will Berg",
+      "Wichita State Shockers",
+      "C"
+    ]
+  },
+  "DukeCameron_5210407": {},
+  "PortlandCameron_5314723": {
+    "2026": [
+      "2501",
+      10.6452,
+      4.6452,
+      0.9677,
+      23.9032,
+      0.5264,
+      0.5786,
+      31,
+      "Cameron Williams",
+      "Portland Pilots",
+      "F"
+    ]
+  },
+  "safety": "No player matches by name. This file is ESPN athlete-ID keyed only."
+}
