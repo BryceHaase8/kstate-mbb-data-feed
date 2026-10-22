@@ -1,0 +1,23 @@
+name: 'Research - full ESPN game-history identity coverage'
+on:
+  push:
+    branches: [staging-seven-year-history-2027-roster-identity]
+    paths: [.github/workflows/games-full-identity-history.yml]
+permissions:
+  contents: write
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 9
+    steps:
+      - uses: actions/checkout@v6
+      - run: python3 scripts/build_games_full_identity_history.py
+      - name: Publish audited ESPN-ID history on research branch only
+        run: |
+          git add research_data/staged/games_authoritative_history_2023_2026.json research_qa/games/games_espn_identity_history_qa.json
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git diff --cached --quiet && exit 0
+          git commit -m 'Research: complete 2023-26 ESPN-ID game history; identity QA'
+          git pull --rebase origin staging-seven-year-history-2027-roster-identity
+          git push origin HEAD:staging-seven-year-history-2027-roster-identity
