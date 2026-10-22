@@ -3,13 +3,13 @@
 # Same box-possession formulas as the portal Games tab; no staff/site writes.
 suppressPackageStartupMessages({library(hoopR);library(dplyr);library(jsonlite)})
 box<-as.data.frame(hoopR::load_mbb_team_box(seasons=2026))
-needed<-c("game_id","team_id","points","field_goals_made","field_goals_attempted",
+needed<-c("game_id","team_id","team_score","field_goals_made","field_goals_attempted",
 "three_point_field_goals_made","free_throws_attempted","offensive_rebounds",
 "defensive_rebounds","turnovers")
 missing<-setdiff(needed,names(box))
 if(length(missing))stop("Missing team-box fields: ",paste(missing,collapse=","),
 " || Got: ",paste(names(box),collapse=","))
-num<-c("points","field_goals_made","field_goals_attempted",
+num<-c("team_score","field_goals_made","field_goals_attempted",
  "three_point_field_goals_made","free_throws_attempted",
  "offensive_rebounds","defensive_rebounds","turnovers")
 box<-box%>%mutate(across(all_of(num), ~ suppressWarnings(as.numeric(.x))),
@@ -21,14 +21,14 @@ pairs<-box%>%count(game_id)%>%filter(n==2)%>%pull(game_id)
 x<-box%>%filter(game_id%in%pairs)%>%group_by(game_id)%>%
  mutate(opponent_dreb=rev(defensive_rebounds))%>%ungroup()%>%
  mutate(possessions=field_goals_attempted-offensive_rebounds+turnovers+0.44*free_throws_attempted,
-        ppp=points/possessions,
+        ppp=team_score/possessions,
         efg=(field_goals_made+0.5*three_point_field_goals_made)/field_goals_attempted,
         tovPct=turnovers/possessions,
         orebPct=offensive_rebounds/(offensive_rebounds+opponent_dreb),
         ftRate=free_throws_attempted/field_goals_attempted)
 x<-x%>%filter(is.finite(possessions),possessions>=35,possessions<=110,
              field_goals_attempted>=30,field_goals_attempted<=120,
-             points>=30,points<=200,field_goals_made<=field_goals_attempted,
+             team_score>=30,team_score<=200,field_goals_made<=field_goals_attempted,
              three_point_field_goals_made<=field_goals_made)
 fields<-c("ppp","efg","tovPct","orebPct","ftRate")
 qs<-list();ns<-list()
