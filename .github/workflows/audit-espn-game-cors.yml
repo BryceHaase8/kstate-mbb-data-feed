@@ -1,4 +1,4 @@
-name: Research: audit ESPN game scoreboard browser CORS
+name: 'Research - audit ESPN game scoreboard browser CORS'
 on:
   push:
     branches: [staging-seven-year-history-2027-roster-identity]
