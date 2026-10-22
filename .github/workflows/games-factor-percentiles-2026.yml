@@ -1,4 +1,5 @@
 name: 'Research - baseline game-level D1 factor percentiles'
+# Source column verified in hoopR 2026 team-box: team_score.
 on:
   push:
     branches: [staging-seven-year-history-2027-roster-identity]
