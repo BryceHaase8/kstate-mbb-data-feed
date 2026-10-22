@@ -1,0 +1,22 @@
+name: 'Research - audit ESPN game play-by-play for postgame analysis'
+on:
+  push:
+    branches: [staging-seven-year-history-2027-roster-identity]
+    paths: [.github/workflows/games-pbp-20261022.yml]
+permissions:
+  contents: write
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v6
+      - run: python3 scripts/audit_game_pbp_shape_20261022.py
+      - run: |
+          git add research_qa/games/2026_game_pbp_shape_20261022.json
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git diff --cached --quiet && exit 0
+          git commit -m 'Research: audit ESPN game PBP structure for postgame features'
+          git pull --rebase origin staging-seven-year-history-2027-roster-identity
+          git push origin HEAD:staging-seven-year-history-2027-roster-identity
