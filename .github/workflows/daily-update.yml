@@ -8,7 +8,11 @@ on:
         required: false
         type: string
   schedule:
-    - cron: "17 6 * * *"
+    # 2026-27 in-season: before practice and after morning game-feed updates.
+    - cron: "17 2,5,12 * 11,12,1,2,3,4 *"
+      timezone: "America/Chicago"
+    # Offseason: check once daily rather than spend unnecessary Actions minutes.
+    - cron: "17 6 * 5,6,7,8,9,10 *"
       timezone: "America/Chicago"
   push:
     branches:
@@ -54,10 +58,16 @@ jobs:
       - name: Build latest D-I factual feed
         run: Rscript scripts/daily_update.R
 
+      - name: Fail closed on incomplete season or historical data regression
+        run: python3 scripts/validate_factual_feed.py
+
       - name: Commit refreshed factual data
         run: |
           # Only ESPN player factual data is refreshed each day.
-          git add data/current_player_season_stats.csv public/portal_factual_data.json
+          git add data/current_player_season_stats.csv public/portal_factual_data.json public/portal_factual_qa.json
+          if [ -d public/portal_game_logs_2027 ]; then
+            git add public/portal_game_logs_2027/
+          fi
           if git diff --cached --quiet; then
             echo "No factual-data changes to commit."
             exit 0
