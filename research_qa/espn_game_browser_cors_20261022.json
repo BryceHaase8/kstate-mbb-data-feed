@@ -1,6 +1,6 @@
 {
   "url": "https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/scoreboard?dates=20260206&groups=50&limit=500",
-  "checked_at": "2026-10-22T12:10:20.835664+00:00",
+  "checked_at": "2026-10-22T12:40:47.846118+00:00",
   "origins": [
     {
       "origin": "https://portal-site-test.netlify.app",
@@ -26,5 +26,8 @@
       "event_count": 9,
       "byte_count": 169660
     }
-  ]
+  ],
+  "month_range": {
+    "error": "HTTP Error 400: Bad Request"
+  }
 }
