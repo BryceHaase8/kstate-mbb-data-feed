@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-10-22T00:42:51.005343+00:00",
+  "status": "PASS",
+  "currentDataSeason": 2026,
+  "currentDataStage": "2025_26_ARCHIVE",
+  "seasonPlayerCounts": {
+    "2023": 5102,
+    "2024": 5063,
+    "2025": 5119,
+    "2026": 5019
+  },
+  "playerSeasonCount": 20303,
+  "playerCount": 10476,
+  "currentSeasonTeamsWithGames": 365,
+  "modelGuard": {
+    "impactSeason": 2026,
+    "nilV4Season": 2026,
+    "percentileSeason": 2026,
+    "modelsRecomputed": false
+  },
+  "statsAreNotRosterMembership": true,
+  "historicalPreservation": "PASS",
+  "staffGoogleSheetsUntouched": true
+}
