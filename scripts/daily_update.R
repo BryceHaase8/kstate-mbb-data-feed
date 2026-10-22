@@ -521,3 +521,9 @@ cat("Player-season rows:", nrow(combined), "\n")
 
 # Historical Research team ranks are bundled from staff-supplied final Torvik CSVs
 # and refreshed once per offseason. No team rankings are computed by this daily job.
+
+# V7.34: refresh verified 2026-27 individual game records only when ESPN
+# supplies real box scores. Historical 2020-26 shards stay immutable.
+if (active_season == 2027L) {
+  source(file.path("scripts", "build_2027_game_logs.R"))
+}
