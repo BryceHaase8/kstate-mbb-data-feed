@@ -160,7 +160,7 @@ def verified_context(x,year,asof):
  if len(out)<300:raise ValueError('Insufficient ESPN-team identity coverage')
  return out
 
-def run(players_file,archived_context_file, current_context_file, asof,output, min_coverage=0.5, team_games_file=None):
+def run(players_file,archived_context_file, current_context_file, asof,output, min_coverage=0.5, team_games_file=None, preseason_anchor_file=None):
  # When publishable source is from the future, fail instead of constructing
  # fake historical checkpoints from full-season aggregates.
  asof=datetime.date.fromisoformat(asof).isoformat()
@@ -188,6 +188,16 @@ def run(players_file,archived_context_file, current_context_file, asof,output, m
   if int(raw.get('season') or 0)!=2027 or str(raw.get('asOf') or '')[:10]>asof:
    raise ValueError('Verified team-game counts have wrong season/date')
   games={str(k):int(v) for k,v in raw.get('teamGames',{}).items() if str(k).isdigit() and 0<=int(v)<=40}
+ # The immutable preseason reference is the authoritative prior. Recalculating
+ # last season's value from a subsequently expanded/corrected ESPN data feed
+ # would create artificial Stock Watch changes even before the new season.
+ frozen={}
+ if preseason_anchor_file:
+  anchor=json.loads(pathlib.Path(preseason_anchor_file).read_text())
+  if anchor.get('schemaVersion')!=1 or anchor.get('season')!=2027 or len(anchor.get('byESPNId') or {})<1000:
+   raise ValueError('Missing or incorrect immutable preseason anchor')
+  frozen={str(k):int(v) for k,v in anchor['byESPNId'].items()}
+  if any(v<FLOOR or v>20_000_000 for v in frozen.values()):raise ValueError('Invalid frozen baseline price')
  asset=joblib.load(MODEL);allrows={};stats={'2026_based':0,'older_season_based':0,'current_updated':0,'current_missing_context':0,'roster_without_prior':0,'no_prior_model':0,'current_without_2027':0}
  for athlete,entry in sorted((payload.get('players') or {}).items()):
   if not str(athlete).isdigit():continue
@@ -199,6 +209,12 @@ def run(players_file,archived_context_file, current_context_file, asof,output, m
    try:baseline=score_model(asset,candidate,[p for p in past if int(p['season'])<yr],yr,ctx)
    except Exception:continue
    prior=candidate;prior_season=yr;break
+  # Keep frozen first-season prices stable even when archived ESPN rows change.
+  if str(athlete) in frozen:
+   baseline=frozen[str(athlete)]
+   if prior is None:
+    # Archived statistical identity may be absent; keep the safe fallback.
+    prior_season=None
   current=get_player_season(entry,2027)
   if baseline is None:
    stats['roster_without_prior']+=1
@@ -248,11 +264,11 @@ def run(players_file,archived_context_file, current_context_file, asof,output, m
  dest.write_text(json.dumps(out,separators=(',',':'))+'\n')
  def sha(path):return hashlib.sha256(pathlib.Path(path).read_bytes()).hexdigest() if path else None
  manifest={'release':RELEASE,'asOf':asof,'count':len(allrows),'baseCoverage':coverage,'stats':stats,
-  'sha256':{'factual':sha(players_file),'historicalTeam':sha(archived_context_file),'currentTeam':sha(current_context_file),'teamGames':sha(team_games_file),'model':sha(MODEL)},
+  'sha256':{'factual':sha(players_file),'historicalTeam':sha(archived_context_file),'currentTeam':sha(current_context_file),'teamGames':sha(team_games_file),'model':sha(MODEL),'frozenPreseason':sha(preseason_anchor_file)},
   'safety':{'joins':'ESPN-ID only','liveStatsAsOfChecked':True,'currentTeamSeasonMatch':bool(current_context_file),'marketGroundTruthVerified':False,'liveSiteWrites':False}}
  (dest.parent/(dest.name+'.manifest.json')).write_text(json.dumps(manifest,indent=2)+'\n')
  return manifest
 
 if __name__=='__main__':
- ap=argparse.ArgumentParser();ap.add_argument('--factual',required=True);ap.add_argument('--archived-teams',required=True);ap.add_argument('--current-teams');ap.add_argument('--as-of',required=True);ap.add_argument('--output',required=True);ap.add_argument('--team-games');ap.add_argument('--min-coverage',type=float,default=.5)
- a=ap.parse_args();print(json.dumps(run(a.factual,a.archived_teams,a.current_teams,a.as_of,a.output,a.min_coverage,a.team_games),indent=2))
+ ap=argparse.ArgumentParser();ap.add_argument('--factual',required=True);ap.add_argument('--archived-teams',required=True);ap.add_argument('--current-teams');ap.add_argument('--preseason-anchor');ap.add_argument('--as-of',required=True);ap.add_argument('--output',required=True);ap.add_argument('--team-games');ap.add_argument('--min-coverage',type=float,default=.5)
+ a=ap.parse_args();print(json.dumps(run(a.factual,a.archived_teams,a.current_teams,a.as_of,a.output,a.min_coverage,a.team_games,a.preseason_anchor),indent=2))
