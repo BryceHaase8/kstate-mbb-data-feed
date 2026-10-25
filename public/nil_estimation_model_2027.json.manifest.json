@@ -1,28 +1,29 @@
 {
   "release": "nil-estimation-bayesian-v2-2026-10-24",
-  "asOf": "2026-10-24",
-  "count": 3051,
-  "baseCoverage": 1.0,
+  "asOf": "2026-10-25",
+  "count": 10457,
+  "baseCoverage": 0.9981863306605575,
   "stats": {
-    "2026_based": 3051,
-    "older_season_based": 0,
+    "2026_based": 5019,
+    "older_season_based": 5438,
     "current_updated": 0,
     "current_missing_context": 0,
-    "roster_without_prior": 0,
+    "roster_without_prior": 19,
     "no_prior_model": 0,
-    "current_without_2027": 3051
+    "current_without_2027": 10457
   },
   "sha256": {
-    "factual": "15f1341e6f213b0ff112f2f477b86ddade6a980cd5fae28bb0e30e9bb9870594",
+    "factual": "65456747e28e4bf2d7324cbeb963ff1b30174ae7d2ec53828c2aa3d7fec5ab37",
     "historicalTeam": "b15927171d62e48a8f175b96d6461dece650a946027accf856953bde5d44d77c",
-    "currentTeam": null,
+    "currentTeam": "02d6e3f1a1242e9037ab0d42e9012a27a1e76a55861e4f299d6f45bb10f8410d",
     "teamGames": null,
-    "model": "9f8072f47687f1bc6f13dc6c11a3c5375a3f817615b554c5d6ee7f07425b1cf3"
+    "model": "9f8072f47687f1bc6f13dc6c11a3c5375a3f817615b554c5d6ee7f07425b1cf3",
+    "frozenPreseason": "c59f2e712dc0154939a371d1fe4f8365ebd03aa90014f9103b2702510c67f252"
   },
   "safety": {
     "joins": "ESPN-ID only",
     "liveStatsAsOfChecked": true,
-    "currentTeamSeasonMatch": false,
+    "currentTeamSeasonMatch": true,
     "marketGroundTruthVerified": false,
     "liveSiteWrites": false
   }
