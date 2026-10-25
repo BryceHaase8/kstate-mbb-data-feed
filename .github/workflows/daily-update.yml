@@ -1,29 +1,25 @@
-name: Update basketball factual feed
+name: Update basketball factual feed + NIL Stock Watch
 
 on:
   workflow_dispatch:
     inputs:
       season:
-        description: "Optional NCAA ending year override (example: 2026 or 2027)"
+        description: "Optional NCAA ending year override (2026 or 2027)"
         required: false
         type: string
   schedule:
-    # 2026-27 in-season: before practice and after morning game-feed updates.
     - cron: "17 2,5,12 * 11,12,1,2,3,4 *"
       timezone: "America/Chicago"
-    # Offseason: check once daily rather than spend unnecessary Actions minutes.
     - cron: "17 6 * 5,6,7,8,9,10 *"
       timezone: "America/Chicago"
   push:
-    branches:
-      - main
+    branches: [main]
     paths:
       - "scripts/**"
       - ".github/workflows/daily-update.yml"
 
 permissions:
   contents: write
-
 concurrency:
   group: basketball-factual-feed
   cancel-in-progress: true
@@ -31,18 +27,15 @@ concurrency:
 jobs:
   update:
     runs-on: ubuntu-latest
-
+    timeout-minutes: 65
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       TARGET_SEASON: ${{ github.event.inputs.season }}
-
     steps:
       - name: Checkout
         uses: actions/checkout@v6
-
       - name: Set up R
         uses: r-lib/actions/setup-r@v2
-
       - name: Install R dependencies
         uses: r-lib/actions/setup-r-dependencies@v2
         with:
@@ -54,30 +47,60 @@ jobs:
             any::stringr
             any::tibble
             any::jsonlite
-
       - name: Build latest D-I factual feed
         run: Rscript scripts/daily_update.R
-
-      - name: Fail closed on incomplete season or historical data regression
+      - name: Fail closed on incomplete factual data
         run: python3 scripts/validate_factual_feed.py
-
-      - name: Commit refreshed factual data
+      - name: Check whether NIL model key is configured
+        id: nil_secret
+        env:
+          NIL_MODEL_KEY: ${{ secrets.NIL_MODEL_KEY }}
         run: |
-          # Only ESPN player factual data is refreshed each day.
+          if [ -n "$NIL_MODEL_KEY" ]; then
+            echo 'ready=true' >> "$GITHUB_OUTPUT"
+          else
+            echo 'ready=false' >> "$GITHUB_OUTPUT"
+          fi
+      # The entire optional NIL environment setup belongs inside the isolated
+      # continue-on-error step. A pip/setup failure must NEVER block ESPN commits.
+      - name: Calculate validated NIL and record Stock Watch
+        id: nil_refresh
+        continue-on-error: true
+        if: ${{ steps.nil_secret.outputs.ready == 'true' }}
+        env:
+          NIL_MODEL_KEY: ${{ secrets.NIL_MODEL_KEY }}
+        run: |
+          set -euo pipefail
+          python3 -m venv "$RUNNER_TEMP/nil-venv"
+          source "$RUNNER_TEMP/nil-venv/bin/activate"
+          python -m pip install -r scripts/nil_model/requirements-nil.txt
+          bash scripts/nil_model/refresh_nil.sh
+      - name: Flag a skipped NIL refresh without blocking ESPN
+        if: ${{ steps.nil_secret.outputs.ready == 'true' && steps.nil_refresh.outcome == 'failure' }}
+        run: |
+          echo '::warning:: NIL or Stock Watch update failed safety checks; previous model output retained, factual feed still publishes.'
+          echo 'NIL publisher failed safety checks. ESPN factual feed continues; check NIL scoring logs.' >> "$GITHUB_STEP_SUMMARY"
+      - name: Report NIL status if key not configured
+        if: ${{ steps.nil_secret.outputs.ready != 'true' }}
+        run: |
+          echo 'NIL model secret not set: factual feed will update; no new NIL snapshot is written.'
+          echo 'NIL auto-publishing inactive until NIL_MODEL_KEY is configured.' >> "$GITHUB_STEP_SUMMARY"
+      - name: Commit validated factual and NIL outputs together
+        run: |
+          set -euo pipefail
           git add data/current_player_season_stats.csv public/portal_factual_data.json public/portal_factual_qa.json
           if [ -d public/portal_game_logs_2027 ]; then
             git add public/portal_game_logs_2027/
           fi
+          if [ -f public/nil_estimation_model_2027.json ]; then
+            git add public/nil_estimation_model_2027.json public/nil_estimation_model_2027.json.manifest.json public/stock_watch/
+          fi
           if git diff --cached --quiet; then
-            echo "No factual-data changes to commit."
+            echo 'No new factual or NIL changes to commit.'
             exit 0
           fi
-
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git commit -m "Daily basketball factual data update"
-
-          # Another repository edit could land while this job is running.
-          # Rebase onto the latest main before pushing the generated files.
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'Daily validated basketball facts and NIL estimates'
           git pull --rebase origin main
-          git push
+          git push origin HEAD:main

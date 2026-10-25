@@ -1,0 +1,29 @@
+{
+  "release": "nil-estimation-bayesian-v2-2026-10-24",
+  "asOf": "2026-10-24",
+  "count": 3051,
+  "baseCoverage": 1.0,
+  "stats": {
+    "2026_based": 3051,
+    "older_season_based": 0,
+    "current_updated": 0,
+    "current_missing_context": 0,
+    "roster_without_prior": 0,
+    "no_prior_model": 0,
+    "current_without_2027": 3051
+  },
+  "sha256": {
+    "factual": "15f1341e6f213b0ff112f2f477b86ddade6a980cd5fae28bb0e30e9bb9870594",
+    "historicalTeam": "b15927171d62e48a8f175b96d6461dece650a946027accf856953bde5d44d77c",
+    "currentTeam": null,
+    "teamGames": null,
+    "model": "9f8072f47687f1bc6f13dc6c11a3c5375a3f817615b554c5d6ee7f07425b1cf3"
+  },
+  "safety": {
+    "joins": "ESPN-ID only",
+    "liveStatsAsOfChecked": true,
+    "currentTeamSeasonMatch": false,
+    "marketGroundTruthVerified": false,
+    "liveSiteWrites": false
+  }
+}
