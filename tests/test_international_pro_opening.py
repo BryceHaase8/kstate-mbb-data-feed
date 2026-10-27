@@ -7,7 +7,9 @@ def load(name):return json.loads((ROOT/name).read_text())
 class InternationalOpeningPriceTests(unittest.TestCase):
  def test_12_only_after_original_6057(self):
   old=load("preseason_2027_pre_international_20261027.json")
-  new=load("preseason_2027.json")
+  new=load("preseason_2027_before_top100_20261027.json")
+  final=load("preseason_2027.json")
+  second=load("international_top100_noncollege_2027_priors.json")
   reviewed=load("international_pro_2027_market_priors.json")
   manifest=load("manifest_2027.json")
   r=reviewed["byESPNId"]
@@ -29,7 +31,8 @@ class InternationalOpeningPriceTests(unittest.TestCase):
   self.assertEqual(manifest["baselinePlayerCount"],6057)
   self.assertFalse(manifest["dates"])
   self.assertFalse(manifest["months"])
-  self.assertEqual(manifest["baselineVersion"],new["baselineVersion"])
+  self.assertEqual(manifest["baselineVersion"],final["baselineVersion"])
+  self.assertEqual(final["byESPNId"],{**new["byESPNId"],**second["byESPNId"]})
   self.assertEqual(sum(r.values())-sum(reviewed["sourceBaselineByESPNId"].values()),24952100)
  def test_no_staff_background_in_public_price_inputs(self):
   reviewed=load("international_pro_2027_market_priors.json")

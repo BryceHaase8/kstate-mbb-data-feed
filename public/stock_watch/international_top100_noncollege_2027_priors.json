@@ -1,0 +1,193 @@
+{
+  "schemaVersion": 1,
+  "season": 2027,
+  "asOf": "2026-10-27",
+  "stage": "TOP100_INTERNATIONAL_NO_PRIOR_CBB_EVIDENCE_REVIEW",
+  "modelTarget": "open-market NIL transfer estimate, not verified compensation",
+  "sourceCategory": "non_college_international_preseason_basketball_evidence",
+  "count": 22,
+  "byESPNId": {
+    "5293244": 350000,
+    "5345015": 2600000,
+    "5351499": 2350000,
+    "5362459": 2050000,
+    "5369499": 1650000,
+    "5454824": 1650000,
+    "5454825": 750000,
+    "5454840": 2100000,
+    "5455248": 2200000,
+    "5455669": 650000,
+    "5455682": 600000,
+    "5455683": 350000,
+    "5455875": 1650000,
+    "5457348": 800000,
+    "5457349": 850000,
+    "5458318": 2050000,
+    "5458351": 850000,
+    "5459470": 1350000,
+    "5459489": 600000,
+    "5460823": 1450000,
+    "5460825": 1050000,
+    "5460827": 1100000
+  },
+  "sourceBaselineByESPNId": {
+    "5293244": 70000,
+    "5345015": 608900,
+    "5351499": 512700,
+    "5362459": 65300,
+    "5369499": 1041800,
+    "5454824": 518900,
+    "5454825": 206100,
+    "5454840": 528900,
+    "5455248": 378500,
+    "5455669": 518900,
+    "5455682": 65100,
+    "5455683": 65100,
+    "5455875": 378500,
+    "5457348": 206100,
+    "5457349": 63200,
+    "5458318": 50200,
+    "5458351": 512700,
+    "5459470": 60100,
+    "5459489": 68700,
+    "5460823": 63800,
+    "5460825": 63800,
+    "5460827": 63800
+  },
+  "sourceEvidenceByESPNId": {
+    "5293244": {
+      "source": "https://mgoblue.com/sports/mens-basketball/roster/marcus-mller/28533",
+      "confidence": "MEDIUM",
+      "tier": "SPAIN_FOURTH_TIER_YOUTH",
+      "summary": "15.9 PPG 6.9 RPG Tercera FEB fourth tier; Liga U youth"
+    },
+    "5345015": {
+      "source": "https://auburntigers.com/sports/mens-basketball/roster/player/narcisse-ngoy",
+      "confidence": "HIGH",
+      "tier": "FRANCE_PRO_B_MVP_DRAFT",
+      "summary": "9.9 PPG 11.8 RPG 2.8 BPG French Pro B MVP/DPOY; 2026 NBA draft No.57"
+    },
+    "5351499": {
+      "source": "https://d1xk4lz7u1u0yl.cloudfront.net/news/2026/06/23/auburn-officially-signs-mantas-rubstavicius-of-lithuania-1",
+      "confidence": "HIGH",
+      "tier": "LITHUANIA_LKL_EUROLEAGUE_PRO",
+      "summary": "7.8 PPG 2.5 RPG 1.8 APG for Zalgiris; previous 13.8 PPG Lietkabelis and NBL"
+    },
+    "5362459": {
+      "source": "https://villanova.com/sports/mens-basketball/roster/luigi-suigo/16298",
+      "confidence": "HIGH",
+      "tier": "ABA_STARTER_NBA_DRAFT",
+      "summary": "7.9 PPG 5.1 RPG 18.3 MPG in ABA league; NBA Draft Combine invite"
+    },
+    "5369499": {
+      "source": "https://uclabruins.com/sports/mens-basketball/roster/player/nikola-kusturica",
+      "confidence": "HIGH",
+      "tier": "ELITE_YOUTH_FIBA_MVP",
+      "summary": "24.6 PPG 6.9 RPG FIBA U17; Barcelona U22 13.5 PPG"
+    },
+    "5454824": {
+      "source": "https://floridagators.com/sports/mens-basketball/roster/domen-petrovic/18505",
+      "confidence": "HIGH",
+      "tier": "SLOVENIA_DOMESTIC_STARTER",
+      "summary": "16.3 PPG 6.8 RPG 3.6 APG GGD Sencur Slovenian league"
+    },
+    "5454825": {
+      "source": "https://floridagators.com/news/2026/4/27/mens-basketball-adds-butajevas",
+      "confidence": "MEDIUM",
+      "tier": "SPANISH_U22_ELITE_YOUTH",
+      "summary": "15.6 PPG 7.6 RPG Unicaja Malaga U22, 13.9 PPG U18 EuroBasket"
+    },
+    "5454840": {
+      "source": "https://ukathletics.com/sports/mbball/roster/player/ousmane-ndiaye/",
+      "confidence": "HIGH",
+      "tier": "ITALY_SERIE_A_STARTER",
+      "summary": "9.8 PPG 6.8 RPG in Italy top league in 28 games; Senegal senior national team"
+    },
+    "5455248": {
+      "source": "https://miamihurricanes.com/news/2026/07/1/miami-inks-egor-ryzhov",
+      "confidence": "HIGH",
+      "tier": "VTB_STARTER",
+      "summary": "11.7 PPG 5.9 RPG 41 games BC Enisey in VTB United League"
+    },
+    "5455669": {
+      "source": "https://arizonawildcats.com/sports/mens-basketball/roster/maksim-brnovic/19809",
+      "confidence": "MEDIUM",
+      "tier": "LITHUANIA_NKL_DEVELOPMENT",
+      "summary": "8.1 PPG 3.2 RPG Zalgiris-2 in Lithuania NKL (not senior EuroLeague)"
+    },
+    "5455682": {
+      "source": "https://byucougars.com/news/2026/07/08/dovydas-buika-signs-with-cougars",
+      "confidence": "MEDIUM",
+      "tier": "LITHUANIA_LKL_LOW_USAGE",
+      "summary": "3.4 PPG 1.8 RPG 1.5 APG 21 games Jonava LKL"
+    },
+    "5455683": {
+      "source": "https://byucougars.com/sports/mens-basketball/roster/player/petar-ostojic",
+      "confidence": "MEDIUM",
+      "tier": "SERBIA_U19_PROSPECT",
+      "summary": "10.1 PPG 6.9 RPG 1.0 BPG KK Dynamic U19; not top pro rotation"
+    },
+    "5455875": {
+      "source": "https://uconnhuskies.com/sports/mens-basketball/roster/egor-amosov/15833",
+      "confidence": "MEDIUM",
+      "tier": "VTB_AGE_ADJUSTED_PRO",
+      "summary": "5.9 PPG 3.5 RPG 23 VTB starts; Liga U 14.6 PPG MVP at Real Madrid"
+    },
+    "5457348": {
+      "source": "https://gofrogs.com/news/2026/6/9/mens-basketball-frogs-add-aizpurs-to-roster",
+      "confidence": "MEDIUM",
+      "tier": "ITALY_YOUTH_RECRUIT",
+      "summary": "33.6 PPG Italian U17, 18 PPG U18; senior pro value not demonstrated"
+    },
+    "5457349": {
+      "source": "https://gofrogs.com/sports/mens-basketball/roster/milos-sojic/18313",
+      "confidence": "MEDIUM",
+      "tier": "SERBIA_SECOND_LEAGUE_STARTER",
+      "summary": "18.6 PPG 11.8 RPG Serbian second league at KK Beko"
+    },
+    "5458318": {
+      "source": "https://gopsusports.com/sports/mens-basketball/roster/player/roko-prkacin",
+      "confidence": "HIGH",
+      "tier": "FRANCE_PRO_A_STARTER",
+      "summary": "10.0 PPG 4.3 RPG Nanterre French Pro A; Croatian senior national team"
+    },
+    "5458351": {
+      "source": "https://uclabruins.com/sports/mens-basketball/roster/player/gunars-grinvalds",
+      "confidence": "MEDIUM",
+      "tier": "REAL_MADRID_YOUTH_PROSPECT",
+      "summary": "12 PPG 5.3 RPG Adidas Next Gen with Real Madrid; only limited senior appearances"
+    },
+    "5459470": {
+      "source": "https://friars.com/news/2026/5/13/mens-basketball-adds-leonardo-marangon-to-the-2026-27-roster",
+      "confidence": "HIGH",
+      "tier": "ITALY_SERIE_A2_STARTER",
+      "summary": "9.8 PPG 4.1 RPG 1.6 APG 39.3% three 2025-26 Cividale Serie A2"
+    },
+    "5459489": {
+      "source": "https://redstormsports.com/sports/mens-basketball/roster/lazar-stojkovic/6436",
+      "confidence": "MEDIUM",
+      "tier": "SERBIA_DOMESTIC_LOW_USAGE",
+      "summary": "5.2 PPG 2.6 RPG Serbian KLS in 18 apps"
+    },
+    "5460823": {
+      "source": "https://goaztecs.com/sports/mens-basketball/roster/player/david-torresani",
+      "confidence": "HIGH",
+      "tier": "ITALY_SERIE_A_GUARD",
+      "summary": "7.0 PPG 1.7 APG in 18.1 MPG 2025-26 Treviso Italian Serie A"
+    },
+    "5460825": {
+      "source": "https://goaztecs.com/sports/mens-basketball/roster/player/luka-skoric",
+      "confidence": "MEDIUM",
+      "tier": "CROATIA_TOP_LEAGUE_ROTATION",
+      "summary": "5.8 PPG Cibona in 104 Croatia top league games; 5.4 PPG GKK Sibenik 65 games"
+    },
+    "5460827": {
+      "source": "https://goaztecs.com/sports/mens-basketball/roster/player/luca-vincini",
+      "confidence": "MEDIUM",
+      "tier": "ITALY_SERIE_A_ROTATION",
+      "summary": "5.4 PPG 3.3 RPG in 65 Italy Serie A games Dinamo Sassari"
+    }
+  },
+  "reviewBoard": "research_qa/international_top100_no_college_review_2027.json",
+  "doesNotModifyPreviouslyStaffAnchored12": true
+}

@@ -9,7 +9,9 @@ from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 ANCHOR=ROOT/'public/stock_watch/preseason_2027_original_6010_2026_10_27.json'
 PUBLISHED=ROOT/'public/stock_watch/preseason_2027_pre_international_20261027.json'
-CALIBRATED=ROOT/'public/stock_watch/preseason_2027.json'
+CALIBRATED=ROOT/'public/stock_watch/preseason_2027_before_top100_20261027.json'
+FINAL=ROOT/'public/stock_watch/preseason_2027.json'
+TOP22=ROOT/'public/stock_watch/international_top100_noncollege_2027_priors.json'
 PRO=ROOT/'public/stock_watch/international_pro_2027_market_priors.json'
 ADDENDUM=ROOT/'public/stock_watch/roster_2027_new_id_v4_proxy_addendum.json'
 STAGED=ROOT/'public/stock_watch/v4_preseason_2027_candidate.json'
@@ -62,6 +64,9 @@ class PreseasonIntegrationQA(unittest.TestCase):
         pro=json.loads(PRO.read_text())
         self.assertEqual(len(pro['byESPNId']),12)
         self.assertEqual(calibrated['byESPNId'],{**published['byESPNId'],**pro['byESPNId']})
+        final=json.loads(FINAL.read_text())
+        top22=json.loads(TOP22.read_text())
+        self.assertEqual(final['byESPNId'],{**calibrated['byESPNId'],**top22['byESPNId']})
         self.assertEqual(published['byESPNId'],{**previous['byESPNId'],**supplement['byESPNId']})
         self.assertEqual(supplement['methodByESPNId']['5281137'],'V4_TEAM_COHORT_PROXY_NO_STATS')
         self.assertEqual(sum(staged['byESPNId'][k]!=v for k,v in backup['byESPNId'].items()),3051)
