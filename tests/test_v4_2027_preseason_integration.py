@@ -40,7 +40,7 @@ class PreseasonIntegrationQA(unittest.TestCase):
         self.assertEqual(set(backup['byESPNId']),set(staged['byESPNId']))
         self.assertEqual(len(staged['byESPNId']),3051)
         self.assertEqual(set(previous['byESPNId']),set(staged['byESPNId']))
-        self.assertEqual(staged['baselineVersion'],'V4_VERIFIED_WITH_EXPLICIT_EXISTING_FALLBACKS_2026_10_27')
+        self.assertEqual(staged['baselineVersion'],'V4_FROZEN_SITE_V770_2026_10_27')
         self.assertEqual(sum(staged['byESPNId'][k]!=v for k,v in backup['byESPNId'].items()),3051)
         # These former fallback IDs are now reconciled against the site's own V4 prices.
         self.assertTrue(all(pid in staged['byESPNId'] for pid in FALLBACKS))
