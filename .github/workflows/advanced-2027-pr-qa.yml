@@ -1,0 +1,33 @@
+name: ESPN 2027 advanced PBP integration checks
+on:
+  push:
+    branches: [research-2027-shot-onoff-position-automation]
+  pull_request:
+    paths:
+      - "scripts/build_2027_advanced.py"
+      - "scripts/collect_2027_advanced.R"
+      - "scripts/daily_update.R"
+      - ".github/workflows/daily-update.yml"
+      - "tests/test_build_2027_advanced.py"
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 7
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+      - name: Validate synthetic ESPN shots, box minutes and 5-man intervals
+        run: |
+          python -m py_compile scripts/build_2027_advanced.py
+          python -m unittest discover -s tests -p 'test_build_2027_advanced.py' -v
+          python scripts/build_2027_advanced.py
+      - name: Confirm preseason has no fabricated 2027 advanced files
+        run: |
+          test ! -f public/portal_shots_2027/manifest.json
+          test ! -f public/portal_onoff_2027/manifest.json
+          test ! -f public/portal_positions_2027/manifest.json
+          echo 'Advanced-data readiness checks PASS; empty preseason remains empty.'
