@@ -40,7 +40,7 @@ def check(new,old,source,anchor=None,legacy=None,history=None,rookies=None,v4=No
   if (len(vrows)!=3052 or len(qrows)!=1420 or len(arows)!=4472 or
       a.get('playerCount')!=4472 or not set(brows).issubset(vrows) or
       set(vrows)&set(qrows) or set(arows)!=set(vrows)|set(qrows)):
-   raise ValueError('Frozen baseline did not retain exact 3051 V4 + 1420 verified freshman ESPN identities')
+   raise ValueError('Frozen baseline did not retain exact 3052 V4 + 1420 verified freshman ESPN identities')
   if any(arows[pid]!=price for part in (vrows,qrows) for pid,price in part.items()):
    raise ValueError('Full release anchor disagrees with its component originals')
   if (set(vrows)-set(brows)!={'5281366'} or vrows.get('5281366')!=791196):
@@ -56,7 +56,7 @@ def check(new,old,source,anchor=None,legacy=None,history=None,rookies=None,v4=No
   if int(f.get('latestSeason') or 0)>=2027 or current:
    raise ValueError('Migration requires a genuine preseason factual stage')
   if any(pid not in rows or rows[pid].get('preseason')!=expected or rows[pid].get('value')!=expected or rows[pid].get('status')!='PRESEASON_BASELINE' for pid,expected in arows.items()):
-   raise ValueError('Candidate does not publish the exact 3051 V4 frozen prices')
+   raise ValueError('Candidate does not publish the exact 3052 V4 frozen prices')
   if any(pid in older and older[pid].get('preseason')!=value for pid,value in brows.items()):
    raise ValueError('Original live NIL values do not agree with archived v2 anchors')
   ignored=set(arows)
