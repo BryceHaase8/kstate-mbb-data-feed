@@ -76,6 +76,27 @@ def run(source,context,output,qa):
         mapped=len(ids)
         unmatched=[r['torvikTeam'] for r in rows if not r['espnTeamId']]
         ambiguous=[x for x in ambiguous if x.get('team') in unmatched]
+    # 2026-27 ASUN newcomer West Florida was not a 2025-26 Division I
+    # team, so a historically derived 2026 ESPN crosswalk cannot resolve it.
+    # The exact 2027 team ID 2697 was independently verified against the
+    # season-specific ESPN team-roster API (15 athletes) and official ASUN
+    # membership announcement. Do not guess or fuzzy-join other new schools.
+    new_di_2027={'West Florida': '2697'}
+    schools={r['torvikTeam']:r for r in rows}
+    for name,eid in new_di_2027.items():
+        team=schools.get(name)
+        if team is None:continue
+        prior=team.get('espnTeamId')
+        if prior not in (None,str(eid)):
+            raise ValueError('Conflict in verified 2027 team-ID mapping for '+name)
+        if any(r is not team and str(r.get('espnTeamId'))==str(eid) for r in rows):
+            raise ValueError('Duplicate verified 2027 ESPN team ID '+str(eid))
+        team['espnTeamId']=str(eid)
+    all_ids=[str(r['espnTeamId']) for r in rows if r.get('espnTeamId')]
+    if len(all_ids)!=len(set(all_ids)):raise ValueError('Duplicate ESPN team ID after 2027 additions')
+    mapped=len(all_ids)
+    unmatched=[r['torvikTeam'] for r in rows if not r.get('espnTeamId')]
+    ambiguous=[x for x in ambiguous if x.get('team') in unmatched]
     if mapped < len(rows)*0.95:
         raise ValueError('Unsafe team-ID match rate %s/%s'%(mapped,len(rows)))
     doc={'schemaVersion':3,'season':2027,'source':'Bart Torvik published team-results CSV via Google Apps Script',
