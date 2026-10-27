@@ -6,11 +6,16 @@
   "dates": [],
   "months": [],
   "lastSourceGeneratedAt": null,
-  "baselineVersion": "V4_FROZEN_SITE_V771_3052_PLUS_FRESHMEN_2026_10_27",
-  "baselineMigration": "V4 3052 original values (3051 archived v2 identities + Timo Malovec ID 5281366) plus 1420 verified 2027 freshmen; no dated snapshots changed",
-  "baselinePlayerCount": 4472,
+  "baselineVersion": "V4_3052_HS_1420_ROSTER_EXISTING_1538_2026_10_27",
+  "baselineMigration": "2026-10-27 one-time frozen 6010 baseline; previous 3051-price v2 anchor preserved; no stock history",
+  "baselinePlayerCount": 6010,
   "baselineComposition": {
     "originalV4": 3052,
-    "freshman": 1420
+    "freshman": 1420,
+    "otherExisting": 1538,
+    "otherSplit": {
+      "legacyModel": 733,
+      "unmodeledProvisional": 805
+    }
   }
 }
