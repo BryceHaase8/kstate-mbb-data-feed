@@ -30,3 +30,6 @@
 5. Automate separate 2026–27 player shot, on/off and position feeds. The UI can load those paths but they currently are not populated by GitHub main.
 
 Do not merge a draft PR simply because unit tests passed; the last two runtime checks are release blockers for automatic NIL publication. The public branch includes modeled market prices only, not private asking prices, notes, staff evaluations or secret model artifacts.
+
+## Mandatory deployment order
+Deploy and verify the updated **V7.71 site before merging** the v3 GitHub price feed: V7.71 rejects old v2 and safely uses embedded V4 until v3 is published. V7.70 rejects v3 and can fall back to its old bundled v2 pricing; merging GitHub first could temporarily undo the intended V4 baseline on the live site. Do not merge before a green shadow refresh and test-site readback.
