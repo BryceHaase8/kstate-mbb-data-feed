@@ -526,4 +526,10 @@ cat("Player-season rows:", nrow(combined), "\n")
 # supplies real box scores. Historical 2020-26 shards stay immutable.
 if (active_season == 2027L) {
   source(file.path("scripts", "build_2027_game_logs.R"))
+  # The advanced PBP collector is separate from official ESPN season totals.
+  # Missing ESPN shot/substitution data NEVER blocks valid box-score updates.
+  tryCatch(
+    source(file.path("scripts", "collect_2027_advanced.R")),
+    error=function(e)message("Advanced 2027 ESPN collection deferred: ",conditionMessage(e))
+  )
 }
