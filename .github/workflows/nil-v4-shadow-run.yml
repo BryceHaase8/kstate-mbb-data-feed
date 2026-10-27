@@ -46,6 +46,11 @@ jobs:
           rows=out['byESPNId']
           assert out['policyVersion']==3
           assert len(rows)>=11000
+          baseline=json.loads(Path('public/stock_watch/preseason_2027.json').read_text())
+          assert baseline['playerCount']==4472
+          assert baseline['byESPNId']['5281366']==791196
+          assert rows['5281366']['preseason']==791196
+          assert len(json.loads(Path('public/stock_watch/v4_preseason_2027_candidate.json').read_text())['byESPNId'])==3052
           rookie=json.loads(Path('public/stock_watch/freshman_preseason_2027_candidate.json').read_text())['byESPNId']
           assert len(rookie)==1420
           assert all(id in rows and rows[id]['value']==price and rows[id]['preseason']==price and rows[id].get('anchorType')=='FRESHMAN_HS' for id,price in rookie.items())
