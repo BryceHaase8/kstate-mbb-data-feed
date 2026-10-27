@@ -6,7 +6,7 @@
   "dates": [],
   "months": [],
   "lastSourceGeneratedAt": null,
-  "baselineVersion": "V4_3052_HS_1420_ROSTER_EXISTING_1538_PLUS_47_ID_ADDENDUM_2026_10_27_INTL_PRO_12_REVIEWED_PRIORS_TOP100_NONCOLLEGE_22_RESEARCH",
+  "baselineVersion": "V4_3052_HS_1420_ROSTER_EXISTING_1538_PLUS_47_ID_ADDENDUM_2026_10_27_INTL_PRO_12_REVIEWED_PRIORS_TOP100_NONCOLLEGE_22_RESEARCH_STAFF_REVIEW_16",
   "baselineMigration": "2026-10-27 one-time frozen 6010 baseline; previous 3051-price v2 anchor preserved; no stock history; 47 append-only preseason roster identity additions; original 6010 unchanged",
   "baselinePlayerCount": 6057,
   "baselineComposition": {
@@ -38,5 +38,15 @@
     "updatedAt": "2026-10-27",
     "priceChangeType": "RESEARCH_RECALIBRATED_OPENING_NOT_STOCK_MOVEMENT",
     "reviewConfidence": "LOW_TO_MEDIUM_NOT_VERIFIED_MARKET_PAY"
+  },
+  "staffInternationalReview": {
+    "count": 16,
+    "file": "international_top100_staff_review_20271027.json",
+    "rollbackFile": "preseason_2027_before_staff_20261027.json",
+    "source": "Google Sheets user-price column, ESPN IDs only",
+    "priceChangeType": "STAFF_REVIEWED_OPENING_VALUATION_NOT_STOCK_MOVEMENT",
+    "extraQualification": "Imran Suljanovic previously enrolled college redshirt; no recorded college box stats",
+    "otherPlayersUnchanged": true,
+    "stockWatchStatus": "zero movement before 2026-27 games"
   }
 }
