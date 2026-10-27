@@ -11,6 +11,7 @@ ANCHOR=ROOT/'public/stock_watch/preseason_2027.json'
 STAGED=ROOT/'public/stock_watch/v4_preseason_2027_candidate.json'
 ARCHIVE=ROOT/'public/stock_watch/preseason_2027_legacy_2026_10_24.json'
 ROOKIES=ROOT/'public/stock_watch/freshman_preseason_2027_candidate.json'
+OTHERS=ROOT/'public/stock_watch/roster_other_preseason_2027_candidate.json'
 ENGINE=ROOT/'scripts/nil_model/nil_season_engine.py'
 COMPOSE=ROOT/'scripts/nil_model/compose_v4_2027_candidate.py'
 FALLBACKS=("4848644","4895795","5081348","5101798","5164560","5174319",
@@ -38,15 +39,17 @@ class PreseasonIntegrationQA(unittest.TestCase):
         backup=json.loads(ARCHIVE.read_text())
         staged=json.loads(STAGED.read_text())
         rookies=json.loads(ROOKIES.read_text())
+        others=json.loads(OTHERS.read_text())
         self.assertEqual(len(staged['byESPNId']),3052)
         self.assertEqual(len(rookies['byESPNId']),1420)
-        self.assertEqual(len(previous['byESPNId']),4472)
+        self.assertEqual(len(previous['byESPNId']),6010)
+        self.assertEqual(len(others['byESPNId']),1538)
         self.assertFalse(set(staged['byESPNId']) & set(rookies['byESPNId']))
-        self.assertEqual(set(previous['byESPNId']),set(staged['byESPNId']) | set(rookies['byESPNId']))
+        self.assertEqual(set(previous['byESPNId']),set(staged['byESPNId']) | set(rookies['byESPNId']) | set(others['byESPNId']))
         self.assertEqual(set(backup['byESPNId']),set(staged['byESPNId'])-{'5281366'})
-        for id,price in {**staged['byESPNId'],**rookies['byESPNId']}.items():
+        for id,price in {**staged['byESPNId'],**rookies['byESPNId'],**others['byESPNId']}.items():
             self.assertEqual(previous['byESPNId'][id],price,id)
-        self.assertEqual(previous['baselineVersion'],'V4_FROZEN_SITE_V771_3052_PLUS_FRESHMEN_2026_10_27')
+        self.assertEqual(previous['baselineVersion'],'V4_3052_HS_1420_ROSTER_EXISTING_1538_2026_10_27')
         self.assertEqual(sum(staged['byESPNId'][k]!=v for k,v in backup['byESPNId'].items()),3051)
         # These former fallback IDs are now reconciled against the site's own V4 prices.
         self.assertTrue(all(pid in staged['byESPNId'] for pid in FALLBACKS))
@@ -60,6 +63,8 @@ class PreseasonIntegrationQA(unittest.TestCase):
         self.assertEqual(staged['byESPNId']['5313432'],20000)
         self.assertEqual(rookies['byESPNId']['5142731'],3300000)
         self.assertEqual(rookies['byESPNId']['5144523'],1576600)
+        self.assertEqual(sum(x=='SITE_UNMODELED_PROVISIONAL_50000' for x in others['methodByESPNId'].values()),805)
+        self.assertEqual(sum(x=='LEGACY_MODEL_PRESEASON_PRESERVED' for x in others['methodByESPNId'].values()),733)
     def test_no_absolute_repricing_through_auxiliary_model(self):
         c={'math':math,'FLOOR':20000,'num':lambda x:float(x),'clamp':lambda x,a,b:max(a,min(b,x))}
         f=isolated_function(ENGINE,'relative_v4_update',c)
