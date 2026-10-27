@@ -227,17 +227,35 @@ def run(players_file,archived_context_file, current_context_file, asof,output, m
  if preseason_anchor_file:
   locked=json.loads(pathlib.Path(preseason_anchor_file).read_text())
   composition=locked.get('composition') or {}
+  # Compare legacy components against their ORIGINAL 6057 price snapshot,
+  # then validate any explicitly approved first-game-free opening rebase.
+  # A supervised opening correction is not in-season stock appreciation.
+  frozen_original=frozen
+  market_review={}
+  if composition.get('internationalProfessionalReviewed')==12:
+   original=json.loads((pathlib.Path(preseason_anchor_file).parent/'preseason_2027_pre_international_20261027.json').read_text())
+   approved=json.loads((pathlib.Path(preseason_anchor_file).parent/'international_pro_2027_market_priors.json').read_text())
+   market_review=approved.get('byESPNId') or {}
+   old_review=approved.get('sourceBaselineByESPNId') or {}
+   original_prices=original.get('byESPNId') or {}
+   if (original.get('season')!=2027 or original.get('playerCount')!=6057 or
+       len(frozen)!=6057 or len(market_review)!=12 or len(old_review)!=12 or
+       set(market_review)!=set(old_review) or
+       any(pid not in original_prices or original_prices[pid]!=old_review[pid] for pid in market_review) or
+       any(frozen.get(pid)!=(market_review[pid] if pid in market_review else price) for pid,price in original_prices.items())):
+    raise ValueError('Reviewed preseason prices changed identities or non-reviewed baseline values')
+   frozen_original=original_prices
   if composition.get('originalV4')==3052 and composition.get('originalRookie')==1420:
    rookie_data=json.loads((pathlib.Path(preseason_anchor_file).parent/'freshman_preseason_2027_candidate.json').read_text())
    rookie_ids=rookie_data.get('byESPNId') or {}
-   if len(rookie_ids)!=1420 or any(frozen.get(pid)!=amount for pid,amount in rookie_ids.items()):
+   if len(rookie_ids)!=1420 or any(frozen_original.get(pid)!=amount for pid,amount in rookie_ids.items()):
     raise ValueError('Frozen rookie baseline does not match independently verified site-derived rookie prices')
    anchor_meta={pid:'FRESHMAN_HS' for pid in rookie_ids}
    other=json.loads((pathlib.Path(preseason_anchor_file).parent/'roster_other_preseason_2027_candidate.json').read_text())
    other_ids=other.get('byESPNId') or {}
    sources=other.get('methodByESPNId') or {}
    if (composition.get('otherExisting')!=1538 or len(other_ids)!=1538 or
-       any(frozen.get(pid)!=price for pid,price in other_ids.items())):
+       any(frozen_original.get(pid)!=price for pid,price in other_ids.items())):
     raise ValueError('Frozen roster-only prices do not match their verified source')
    for pid,price in other_ids.items():
     provenance=sources.get(pid)
@@ -262,9 +280,11 @@ def run(players_file,archived_context_file, current_context_file, asof,output, m
       raise ValueError('2027 roster supplement identity overlap or completeness error')
      if (sum(k=='V4_HISTORICAL_AUXILIARY_FROZEN' for k in add_methods.values())!=9 or
          sum(k=='V4_TEAM_COHORT_PROXY_NO_STATS' for k in add_methods.values())!=38 or
-         any(frozen.get(pid)!=val for pid,val in additional.items())):
+         any(frozen_original.get(pid)!=val for pid,val in additional.items())):
       raise ValueError('2027 roster supplement price/method misattribution')
      anchor_meta.update(add_methods)
+   for pid in market_review:
+    anchor_meta[pid]='INTERNATIONAL_PRO_PRESEASON_REVIEWED'
  asset=joblib.load(MODEL);allrows={};stats={'2026_based':0,'rookie_frozen_without_box':0,'older_season_based':0,'current_updated':0,'current_missing_context':0,'roster_without_prior':0,'no_prior_model':0,'current_without_2027':0}
  for athlete,entry in sorted((payload.get('players') or {}).items()):
   if not str(athlete).isdigit():continue
@@ -336,7 +356,7 @@ def run(players_file,archived_context_file, current_context_file, asof,output, m
  # Stock Watch and the Player tab can use the same ESPN-ID reference.
  for pid,amount in frozen.items():
   if pid in allrows:continue
-  if anchor_meta.get(pid) not in ('FRESHMAN_HS','LEGACY_MODEL_PRESEASON_PRESERVED','SITE_UNMODELED_PROVISIONAL_50000','V4_HISTORICAL_AUXILIARY_FROZEN','V4_TEAM_COHORT_PROXY_NO_STATS'):
+  if anchor_meta.get(pid) not in ('FRESHMAN_HS','LEGACY_MODEL_PRESEASON_PRESERVED','SITE_UNMODELED_PROVISIONAL_50000','V4_HISTORICAL_AUXILIARY_FROZEN','V4_TEAM_COHORT_PROXY_NO_STATS','INTERNATIONAL_PRO_PRESEASON_REVIEWED'):
    # Non-freshman orphan identities must not be filled with invented games.
    raise ValueError('Frozen V4 ESPN ID absent from the verified factual feed: '+pid)
   allrows[pid]={'value':amount,'preseason':amount,'currentOnly':None,
