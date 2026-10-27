@@ -14,7 +14,10 @@ auditfile=Path("/tmp/espn_roster_ids_20261021.csv");assert auditfile.exists(),"I
 with auditfile.open() as f:reference={(str(r["team_id"]),str(r["athlete_id"])) for r in csv.DictReader(f) if str(r["season"])=="2027"}
 member={(str(p["teamId"]),str(p["espnAthleteId"])) for p in people}
 missing=reference-member;unexpected=member-reference
-assert len(reference)==5541 and len(missing)<=10 and len(unexpected)<=10,(len(member),len(missing),len(unexpected))
+# Keep exact Oct 21 reference as an audit baseline, but allow legitimate
+# preseason additions/departures rather than rejecting any change after 10 IDs.
+# Fail closed if changes exceed 200 in either direction (possible ESPN source drift).
+assert len(reference)==5541 and len(missing)<=200 and len(unexpected)<=200,(len(member),len(missing),len(unexpected))
 first={}
 with gzip.open(R/"player_seasons_2020_2026.csv.gz","rt") as f:
     for v in csv.DictReader(f):
