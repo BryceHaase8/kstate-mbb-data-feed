@@ -9,7 +9,7 @@ from validate_torvik_received import validate,run
 def sample(n=365):
     teams=[]
     for k in range(n):
-        name='Kansas St.' if k==9 else 'Mock University %d'%k
+        name='Kansas St.' if k==9 else 'West Florida' if k==10 else 'Mock University %d'%k
         teams.append({'team':name,'conf':'B12' if k==9 else 'MVC',
             'rank':k+1,'record':'0-0','adjOE':110.0,'adjDE':100.0,
             'barthag':0.7,'adjTempo':70.0})
@@ -38,13 +38,14 @@ with tempfile.TemporaryDirectory() as tmp:
     base=Path(tmp)
     context={'teams':{'2026':{}}}
     for i,team in enumerate(fixture['teams']):
-        eid='2306' if team['team']=='Kansas St.' else str(10000+i)
+        if team['team']=='West Florida':continue  # No 2025-26 D-I ESPN context
         context['teams']['2026'][eid]={'name':'Kansas State Wildcats' if eid=='2306' else team['team']+' Wildcats'}
     (base/'context.json').write_text(json.dumps(context))
     (base/'input.json').write_text(json.dumps(fixture))
     run(base/'input.json',base/'context.json',base/'result.json',base/'audit.json')
     output=json.loads((base/'result.json').read_text())
-    assert output['matchedESPNTeams']>=360
+    assert output['matchedESPNTeams']==365
     assert next(x for x in output['teams'] if x['torvikTeam']=='Kansas St.')['espnTeamId']=='2306'
+    assert next(x for x in output['teams'] if x['torvikTeam']=='West Florida')['espnTeamId']=='2697'
     assert output['ratingsStage']=='PRESEASON_PROJECTION'
 print('PASS: payload validation, corruption rejection, and Torvik-to-ESPN ID crosswalk')
