@@ -45,7 +45,11 @@ jobs:
           h=json.loads(Path('public/stock_watch/manifest_2027.json').read_text())
           rows=out['byESPNId']
           assert out['policyVersion']==3
-          assert len(rows)>=10000
+          assert len(rows)>=11000
+          rookie=json.loads(Path('public/stock_watch/freshman_preseason_2027_candidate.json').read_text())['byESPNId']
+          assert len(rookie)==1420
+          assert all(id in rows and rows[id]['value']==price and rows[id]['preseason']==price and rows[id].get('anchorType')=='FRESHMAN_HS' for id,price in rookie.items())
+          print('Verified',len(rookie),'frozen freshman prices for opening week')
           assert all(r['preseason']==json.loads(Path('public/stock_watch/preseason_2027.json').read_text())['byESPNId'][i] for i,r in rows.items() if i in json.loads(Path('public/stock_watch/preseason_2027.json').read_text())['byESPNId'])
           assert not h['dates'], 'Preseason must have no fabricated Stock Watch dates'
           assert sum(r['status']=='UPDATED' for r in rows.values())==0
@@ -109,6 +113,11 @@ jobs:
           history=json.loads((t/'stock_watch'/'manifest_2027.json').read_text())
           assert player['status']=='UPDATED' and player['games']==2 and player['weight']>0
           assert history['dates']==['2026-10-28']
+          rookies=json.loads(pathlib.Path('public/stock_watch/freshman_preseason_2027_candidate.json').read_text())['byESPNId']
+          month=json.loads((t/'stock_watch'/'2026-10.json').read_text())
+          assert len(rookies)==1420
+          assert all(month['byESPNId'][id]==[price] for id,price in rookies.items())
+          print('Simulated October 28 Stock Watch entry includes all 1420 rookies at original prices')
           assert player['preseason']==json.loads(pathlib.Path('public/stock_watch/preseason_2027.json').read_text())['byESPNId']['5176309']
           print('PASS simulated game-day: two verified-shaped ESPN appearances, player updated, one dated Stock Watch snapshot, V4 preseason unchanged')
           PY
