@@ -33,17 +33,19 @@ def check(new,old,source,anchor=None,legacy=None,history=None,rookies=None,v4=No
   a,b,h=load(anchor),load(legacy),load(history)
   q,v=load(rookies),load(v4)
   arows=a.get('byESPNId') or {};brows=b.get('byESPNId') or {}
-  if a.get('baselineVersion')!='V4_FROZEN_SITE_V770_PLUS_FRESHMEN_V771_2026_10_27' or a.get('season')!=2027:
+  if a.get('baselineVersion')!='V4_FROZEN_SITE_V771_3052_PLUS_FRESHMEN_2026_10_27' or a.get('season')!=2027:
    raise ValueError('Unverified V4 migration version')
   vrows=v.get('byESPNId') or {}
   qrows=q.get('byESPNId') or {}
-  if (len(vrows)!=3051 or len(qrows)!=1420 or len(arows)!=4471 or
-      a.get('playerCount')!=4471 or set(vrows)!=set(brows) or
+  if (len(vrows)!=3052 or len(qrows)!=1420 or len(arows)!=4472 or
+      a.get('playerCount')!=4472 or not set(brows).issubset(vrows) or
       set(vrows)&set(qrows) or set(arows)!=set(vrows)|set(qrows)):
    raise ValueError('Frozen baseline did not retain exact 3051 V4 + 1420 verified freshman ESPN identities')
   if any(arows[pid]!=price for part in (vrows,qrows) for pid,price in part.items()):
    raise ValueError('Full release anchor disagrees with its component originals')
-  if v.get('baselineVersion')!='V4_FROZEN_SITE_V770_2026_10_27' or q.get('baselineVersion')!='ROOKIE_HS_SITE_V771_ESPN_ID_2026_10_27':
+  if (set(vrows)-set(brows)!={'5281366'} or vrows.get('5281366')!=791196):
+   raise ValueError('K-State Timo Malovec original V4 ESPN identity was not preserved')
+  if v.get('baselineVersion')!='V4_FROZEN_SITE_V771_3052_2026_10_27' or q.get('baselineVersion')!='ROOKIE_HS_SITE_V771_ESPN_ID_2026_10_27':
    raise ValueError('Incorrect component baseline version')
   if b.get('asOf')!='2026-10-24' or b.get('playerCount')!=3051:
    raise ValueError('Archived legacy snapshot is not the original frozen feed')
