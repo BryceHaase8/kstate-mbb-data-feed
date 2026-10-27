@@ -1,0 +1,65 @@
+name: Publish universal 2027 NIL season updater
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - scripts/nil_model/cold_start.py
+permissions:
+  contents: write
+concurrency:
+  group: nil-2027-publishing
+  cancel-in-progress: false
+jobs:
+  season-ready:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      NIL_MODEL_KEY: ${{ secrets.NIL_MODEL_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Validate all historical, international, and universal weighting policies
+        run: |
+          set -euo pipefail
+          test -n "$NIL_MODEL_KEY"
+          python -m pip install -r scripts/nil_model/requirements-nil.txt
+          python -m compileall -q scripts/nil_model tests
+          python -m unittest discover -s tests -p 'test_v4_*.py'
+          python -m unittest discover -s tests -p 'test_international_*.py'
+          python -m unittest discover -s tests -p 'test_universal_season_2027.py'
+      - name: Re-score entire national feed with protected NIL model
+        run: bash scripts/nil_model/refresh_nil.sh
+      - name: Verify every player has same immutable preseason anchor
+        run: |
+          python - <<'PY'
+          import json,pathlib
+          root=pathlib.Path('public')
+          n=json.loads((root/'nil_estimation_model_2027.json').read_text())
+          a=json.loads((root/'stock_watch/preseason_2027.json').read_text())
+          m=json.loads((root/'stock_watch/manifest_2027.json').read_text())
+          r=n['byESPNId'];frozen=a['byESPNId']
+          assert 'universal-coldstart-v1' in n['release'] and n['policyVersion']==3
+          assert n['playerCount']==len(r) and len(r)>=12000 and len(frozen)==6057
+          assert all(pid in r and r[pid]['preseason']==r[pid]['value']==value
+                     and r[pid]['weight']==0 and r[pid]['status']=='PRESEASON_BASELINE'
+                     for pid,value in frozen.items())
+          assert not m['dates'] and not m['months']
+          print('PASS universal 2027 updater; 6057 opening NIL prices unchanged; no Stock Watch history')
+          PY
+      - name: Publish updated model feed without Netlify site deployment
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add public/nil_estimation_model_2027.json public/nil_estimation_model_2027.json.manifest.json public/stock_watch/
+          if git diff --cached --quiet; then
+            echo 'No validated model changes to publish'
+            exit 0
+          fi
+          git commit -m 'Enable season-wide Bayesian NIL updates for all priced 2027 players'
+          git push origin HEAD:main
