@@ -1,0 +1,64 @@
+name: ESPN 2027 advanced PBP integration checks
+on:
+  workflow_dispatch:
+  push:
+    branches: [research-2027-shot-onoff-position-automation]
+  pull_request:
+    paths:
+      - "scripts/build_2027_advanced.py"
+      - "scripts/collect_2027_advanced.R"
+      - "scripts/daily_update.R"
+      - ".github/workflows/daily-update.yml"
+      - "tests/test_build_2027_advanced.py"
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 7
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+      - name: Validate synthetic ESPN shots, box minutes and 5-man intervals
+        run: |
+          python -m py_compile scripts/build_2027_advanced.py
+          python -m unittest discover -s tests -p 'test_build_2027_advanced.py' -v
+          python scripts/build_2027_advanced.py
+      - name: Confirm preseason has no fabricated 2027 advanced files
+        run: |
+          test ! -f public/portal_shots_2027/manifest.json
+          test ! -f public/portal_onoff_2027/manifest.json
+          test ! -f public/portal_positions_2027/manifest.json
+          echo 'Advanced-data readiness checks PASS; empty preseason remains empty.'
+
+  espn-schema-probe:
+    # R cold installs cost Actions minutes; run only on explicit manual verification.
+    # Verify real archived ESPN PBP once before opening week; keep the existing synthetic QA.
+    if: github.event_name == 'workflow_dispatch' || github.event_name == 'push'
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v6
+      - uses: r-lib/actions/setup-r@v2
+      - uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          extra-packages: |
+            any::hoopR
+            any::dplyr
+            any::jsonlite
+      - name: Parse advanced collector and inspect archived ESPN game
+        shell: bash
+        run: |
+          Rscript - <<'RS'
+          parse(file='scripts/collect_2027_advanced.R')
+          p <- hoopR::espn_mbb_pbp(game_id=401856563)
+          if(is.null(p) || !is.data.frame(p) || nrow(p)<50L)
+            stop('ESPN historical per-game PBP probe unavailable')
+          essential <- c('period_number','clock_display_value','type_text','team_id')
+          if(!all(essential %in% names(p)))stop('ESPN PBP schema changed: ',paste(setdiff(essential,names(p)),collapse=','))
+          person <- intersect(c('athlete_id_1','participants_0_athlete_id'),names(p))
+          if(!length(person))stop('ESPN primary athlete identifier missing')
+          message('PASS live hoopR ESPN schema for ',nrow(p),' archived plays')
+          RS
