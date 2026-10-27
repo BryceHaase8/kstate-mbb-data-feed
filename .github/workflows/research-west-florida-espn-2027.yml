@@ -1,0 +1,42 @@
+name: Research ESPN 2027 West Florida athlete identities
+on:
+  push:
+    branches: [research-uwf-roster-international-nil-20261027]
+    paths:
+      - '.github/workflows/research-west-florida-espn-2027.yml'
+permissions:
+  contents: read
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Look for ESPN athlete identities without name-based joining
+        run: |
+          python3 - <<'PY'
+          import json,urllib.request
+          urls=[
+           'https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/teams/2697/roster?season=2027',
+           'https://site.web.api.espn.com/apis/common/v3/sports/basketball/mens-college-basketball/athletes?team=2697&season=2027',
+           'https://sports.core.api.espn.com/v2/sports/basketball/leagues/mens-college-basketball/seasons/2027/teams/2697/athletes?limit=100'
+          ]
+          for url in urls:
+           try:
+            req=urllib.request.Request(url,headers={'User-Agent':'Mozilla/5.0 kstate-roster-audit/1.0','Accept':'application/json'})
+            with urllib.request.urlopen(req,timeout=17) as response: data=json.load(response)
+            print('URL',url)
+            print('KEYS',list(data)[:25])
+            print('NAME',data.get('team',{}).get('displayName') if isinstance(data.get('team'),dict) else 'unavailable')
+            records=data.get('athletes') or data.get('items') or data.get('entries') or []
+            if isinstance(records,dict):records=records.get('items') or list(records.values())
+            print('ITEM_COUNT',len(records))
+            sample=[]
+            for row in records[:25]:
+             if isinstance(row,dict):
+              atom=row.get('athlete') or row
+              if isinstance(atom,dict):sample.append({k:atom.get(k) for k in ('id','displayName','fullName','firstName','lastName','$ref') if atom.get(k)})
+            print('SAMPLE',json.dumps(sample,ensure_ascii=False)[:3500])
+           except Exception as e:
+            print('ENDPOINT_ERROR',url, str(e)[:350])
+          PY
