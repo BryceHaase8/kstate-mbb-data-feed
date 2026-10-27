@@ -3,7 +3,6 @@
   "season": 2027,
   "asOf": "2026-10-27",
   "stage": "TOP100_INTL_STAFF_SHEET_APPROVED",
-  "sourceSheet": "https://docs.google.com/spreadsheets/d/17WtkMDr5RF-YMW4zrGx0fXHhBBnmEYNNGO9z8rqAGNQ/edit",
   "priceType": "OPEN_MARKET_PRESEASON_ESTIMATE_NOT_PAYMENT",
   "playerCount": 16,
   "byESPNId": {
@@ -51,8 +50,7 @@
       "price": 500000,
       "source": "STAFF_EDITED_GOOGLE_SHEET",
       "reviewStage": "NEW • Your review needed",
-      "firstYearCollegeCaveat": "",
-      "sourceSheetRow": 2
+      "firstYearCollegeCaveat": ""
     },
     {
       "espnId": "5351498",
@@ -62,8 +60,7 @@
       "price": 500000,
       "source": "STAFF_EDITED_GOOGLE_SHEET",
       "reviewStage": "NEW • Your review needed",
-      "firstYearCollegeCaveat": "",
-      "sourceSheetRow": 3
+      "firstYearCollegeCaveat": ""
     },
     {
       "espnId": "5185443",
@@ -73,8 +70,7 @@
       "price": 2300000,
       "source": "STAFF_EDITED_GOOGLE_SHEET",
       "reviewStage": "NEW • Your review needed",
-      "firstYearCollegeCaveat": "",
-      "sourceSheetRow": 4
+      "firstYearCollegeCaveat": ""
     },
     {
       "espnId": "5345014",
@@ -84,8 +80,7 @@
       "price": 2000000,
       "source": "STAFF_EDITED_GOOGLE_SHEET",
       "reviewStage": "NEW • Your review needed",
-      "firstYearCollegeCaveat": "",
-      "sourceSheetRow": 5
+      "firstYearCollegeCaveat": ""
     },
     {
       "espnId": "5442783",
@@ -95,8 +90,7 @@
       "price": 600000,
       "source": "STAFF_EDITED_GOOGLE_SHEET",
       "reviewStage": "NEW • Your review needed",
-      "firstYearCollegeCaveat": "",
-      "sourceSheetRow": 6
+      "firstYearCollegeCaveat": ""
     },
     {
       "espnId": "5457373",
@@ -106,8 +100,7 @@
       "price": 1000000,
       "source": "STAFF_EDITED_GOOGLE_SHEET",
       "reviewStage": "NEW • Your review needed",
-      "firstYearCollegeCaveat": "",
-      "sourceSheetRow": 7
+      "firstYearCollegeCaveat": ""
     },
     {
       "espnId": "5458700",
@@ -117,8 +110,7 @@
       "price": 750000,
       "source": "STAFF_EDITED_GOOGLE_SHEET",
       "reviewStage": "NEW • Your review needed",
-      "firstYearCollegeCaveat": "",
-      "sourceSheetRow": 8
+      "firstYearCollegeCaveat": ""
     },
     {
       "espnId": "5458320",
@@ -128,8 +120,7 @@
       "price": 1400000,
       "source": "STAFF_EDITED_GOOGLE_SHEET",
       "reviewStage": "NEW • Your review needed",
-      "firstYearCollegeCaveat": "",
-      "sourceSheetRow": 9
+      "firstYearCollegeCaveat": ""
     },
     {
       "espnId": "5455669",
@@ -139,8 +130,7 @@
       "price": 1100000,
       "source": "STAFF_EDITED_GOOGLE_SHEET",
       "reviewStage": "Published researched estimate (22)",
-      "firstYearCollegeCaveat": "",
-      "sourceSheetRow": 10
+      "firstYearCollegeCaveat": ""
     },
     {
       "espnId": "5455248",
@@ -150,8 +140,7 @@
       "price": 1400000,
       "source": "STAFF_EDITED_GOOGLE_SHEET",
       "reviewStage": "Published researched estimate (22)",
-      "firstYearCollegeCaveat": "",
-      "sourceSheetRow": 13
+      "firstYearCollegeCaveat": ""
     },
     {
       "espnId": "5369499",
@@ -161,8 +150,7 @@
       "price": 2750000,
       "source": "STAFF_EDITED_GOOGLE_SHEET",
       "reviewStage": "Published researched estimate (22)",
-      "firstYearCollegeCaveat": "",
-      "sourceSheetRow": 20
+      "firstYearCollegeCaveat": ""
     },
     {
       "espnId": "5362459",
@@ -172,8 +160,7 @@
       "price": 2500000,
       "source": "STAFF_EDITED_GOOGLE_SHEET",
       "reviewStage": "Published researched estimate (22)",
-      "firstYearCollegeCaveat": "",
-      "sourceSheetRow": 22
+      "firstYearCollegeCaveat": ""
     },
     {
       "espnId": "5458318",
@@ -183,8 +170,7 @@
       "price": 2300000,
       "source": "STAFF_EDITED_GOOGLE_SHEET",
       "reviewStage": "Published researched estimate (22)",
-      "firstYearCollegeCaveat": "",
-      "sourceSheetRow": 31
+      "firstYearCollegeCaveat": ""
     },
     {
       "espnId": "5347035",
@@ -194,8 +180,7 @@
       "price": 2100000,
       "source": "STAFF_EDITED_GOOGLE_SHEET",
       "reviewStage": "Not yet background verified",
-      "firstYearCollegeCaveat": "",
-      "sourceSheetRow": 71
+      "firstYearCollegeCaveat": ""
     },
     {
       "espnId": "5347037",
@@ -205,8 +190,7 @@
       "price": 300000,
       "source": "STAFF_EDITED_GOOGLE_SHEET",
       "reviewStage": "Not yet background verified",
-      "firstYearCollegeCaveat": "",
-      "sourceSheetRow": 80
+      "firstYearCollegeCaveat": ""
     },
     {
       "espnId": "5312303",
@@ -216,8 +200,7 @@
       "price": 250000,
       "source": "STAFF_EDITED_GOOGLE_SHEET",
       "reviewStage": "Exclude • prior college",
-      "firstYearCollegeCaveat": "Previously enrolled at St. John's; no college game statistics",
-      "sourceSheetRow": 138
+      "firstYearCollegeCaveat": "Previously enrolled at St. John's; no college game statistics"
     }
   ],
   "priorCollegeException": {
@@ -226,5 +209,6 @@
     "note": "2025-26 St. John's redshirt; no recorded college game statistics; staff supplied $250K. Preserve college enrollment provenance and do not imply pure overseas first-year status."
   },
   "original12Unchanged": true,
-  "unreviewedAndUneditedRemainUnchanged": true
+  "unreviewedAndUneditedRemainUnchanged": true,
+  "reviewSource": "2026-10-27 staff submitted prices (private worksheet not published)"
 }
