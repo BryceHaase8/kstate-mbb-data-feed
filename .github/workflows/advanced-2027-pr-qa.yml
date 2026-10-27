@@ -1,5 +1,6 @@
 name: ESPN 2027 advanced PBP integration checks
 on:
+  workflow_dispatch:
   push:
     branches: [research-2027-shot-onoff-position-automation]
   pull_request:
@@ -33,6 +34,8 @@ jobs:
           echo 'Advanced-data readiness checks PASS; empty preseason remains empty.'
 
   espn-schema-probe:
+    # R cold installs cost Actions minutes; run only on explicit manual verification.
+    if: github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     timeout-minutes: 18
     steps:
