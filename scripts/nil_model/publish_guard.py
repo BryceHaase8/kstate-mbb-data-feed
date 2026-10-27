@@ -5,7 +5,7 @@ import argparse,datetime,json,math,pathlib,statistics
 def load(path):
  return json.loads(pathlib.Path(path).read_text())
 
-def check(new,old,source,anchor=None,legacy=None,history=None):
+def check(new,old,source,anchor=None,legacy=None,history=None,rookies=None,v4=None):
  n,o,f=load(new),load(old),load(source)
  if n.get('season')!=2027 or n.get('policyVersion')!=3:
   raise ValueError('Unexpected NIL model policy')
@@ -28,14 +28,23 @@ def check(new,old,source,anchor=None,legacy=None,history=None):
  migration=o.get('policyVersion')==2 and n.get('policyVersion')==3
  ignored=set()
  if migration:
-  if not anchor or not legacy or not history:
+  if not anchor or not legacy or not history or not rookies or not v4:
    raise ValueError('V4 baseline migration must provide three rollback/QA files')
   a,b,h=load(anchor),load(legacy),load(history)
+  q,v=load(rookies),load(v4)
   arows=a.get('byESPNId') or {};brows=b.get('byESPNId') or {}
-  if a.get('baselineVersion')!='V4_FROZEN_SITE_V770_2026_10_27' or a.get('season')!=2027:
+  if a.get('baselineVersion')!='V4_FROZEN_SITE_V770_PLUS_FRESHMEN_V771_2026_10_27' or a.get('season')!=2027:
    raise ValueError('Unverified V4 migration version')
-  if len(arows)!=3051 or a.get('playerCount')!=3051 or set(arows)!=set(brows):
-   raise ValueError('V4 migration changed ESPN-ID coverage')
+  vrows=v.get('byESPNId') or {}
+  qrows=q.get('byESPNId') or {}
+  if (len(vrows)!=3051 or len(qrows)!=1420 or len(arows)!=4471 or
+      a.get('playerCount')!=4471 or set(vrows)!=set(brows) or
+      set(vrows)&set(qrows) or set(arows)!=set(vrows)|set(qrows)):
+   raise ValueError('Frozen baseline did not retain exact 3051 V4 + 1420 verified freshman ESPN identities')
+  if any(arows[pid]!=price for part in (vrows,qrows) for pid,price in part.items()):
+   raise ValueError('Full release anchor disagrees with its component originals')
+  if v.get('baselineVersion')!='V4_FROZEN_SITE_V770_2026_10_27' or q.get('baselineVersion')!='ROOKIE_HS_SITE_V771_ESPN_ID_2026_10_27':
+   raise ValueError('Incorrect component baseline version')
   if b.get('asOf')!='2026-10-24' or b.get('playerCount')!=3051:
    raise ValueError('Archived legacy snapshot is not the original frozen feed')
   if (h.get('dates') or []) or (h.get('months') or []):
@@ -70,6 +79,6 @@ def check(new,old,source,anchor=None,legacy=None,history=None):
 if __name__=='__main__':
  p=argparse.ArgumentParser()
  for arg in ('new','old','source'):p.add_argument('--'+arg,required=True)
- for arg in ('anchor','legacy','history'):p.add_argument('--'+arg)
+ for arg in ('anchor','legacy','history','rookies','v4'):p.add_argument('--'+arg)
  a=p.parse_args()
- check(a.new,a.old,a.source,a.anchor,a.legacy,a.history)
+ check(a.new,a.old,a.source,a.anchor,a.legacy,a.history,a.rookies,a.v4)
