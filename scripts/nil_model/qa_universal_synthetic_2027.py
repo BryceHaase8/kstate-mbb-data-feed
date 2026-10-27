@@ -111,6 +111,14 @@ def main():
    run(str(source_file),str(ROOT/'scripts/nil_model/source_data/torvik_team_context.json'),
        str(team_file),day,str(out),.50,None,str(public/'stock_watch/preseason_2027.json'))
    predicted=read(out)['byESPNId']
+   # Even when verified college games have begun, every OTHER player among
+   # the locked 6057 must remain at the preseason baseline until THEY play.
+   assert set(frozen).issubset(predicted)
+   for anchor_id,anchor_value in frozen.items():
+    line=predicted[anchor_id]
+    assert line['preseason']==anchor_value,(stage,anchor_id)
+    if anchor_id not in ids:
+     assert line['value']==anchor_value and line['status']=='PRESEASON_BASELINE',(stage,anchor_id)
    exposures[stage]={}
    for pid in ids:
     row=predicted[pid]
