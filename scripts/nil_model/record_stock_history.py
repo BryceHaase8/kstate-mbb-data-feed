@@ -20,7 +20,7 @@ def load(path):return json.loads(path.read_text(encoding='utf-8'))
 
 def record(candidate,root,asof=None):
  payload=load(pathlib.Path(candidate));root=pathlib.Path(root)
- if payload.get('schemaVersion')!=1 or payload.get('model')!='NIL Estimation Model' or payload.get('season')!=2027 or payload.get('policyVersion')!=2:raise ValueError('Wrong pricing model/schema')
+ if payload.get('schemaVersion')!=1 or payload.get('model')!='NIL Estimation Model' or payload.get('season')!=2027 or payload.get('policyVersion')!=3:raise ValueError('Wrong pricing model/schema')
  entries=payload.get('byESPNId',{})
  if len(entries)<1000 or len(entries)!=payload.get('playerCount'):raise ValueError('Invalid scoring coverage')
  baseline_path=root/'preseason_2027.json';anchor=load(baseline_path)
