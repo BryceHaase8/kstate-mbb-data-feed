@@ -4,7 +4,7 @@ import argparse,json,math,pathlib,statistics
 
 def check(new_path,manifest_path,prior_path=None):
  n=json.loads(pathlib.Path(new_path).read_text());audit=json.loads(pathlib.Path(manifest_path).read_text());
- assert n.get('schemaVersion')==1 and n.get('model')=='NIL Estimation Model' and n.get('season')==2027 and n.get('policyVersion')==2 and 'bayesian-v2' in n.get('release','')
+ assert n.get('schemaVersion')==1 and n.get('model')=='NIL Estimation Model' and n.get('season')==2027 and n.get('policyVersion')==3 and 'v4-relative-v3' in n.get('release','')
  assert n.get('release')==audit.get('release') and n.get('generatedAt','')[:10]==audit.get('asOf')
  rows=n.get('byESPNId') or {};assert len(rows)==n.get('playerCount') and len(rows)>=1000
  for id,r in rows.items():

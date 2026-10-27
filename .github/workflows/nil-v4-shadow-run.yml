@@ -1,0 +1,145 @@
+# One-time repeat after integrating PR #6 advanced ESPN publisher; no production writes.
+name: V4 shadow refresh — no GitHub publication
+on:
+  push:
+    branches: [research-v4-anchored-nil-relative-updates-2026]
+    paths:
+      - ".github/workflows/nil-v4-shadow-run.yml"
+permissions:
+  contents: read
+concurrency:
+  group: nil-v4-shadow-one-time
+  cancel-in-progress: false
+jobs:
+  shadow:
+    if: github.ref == 'refs/heads/research-v4-anchored-nil-relative-updates-2026'
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    env:
+      NIL_MODEL_KEY: ${{ secrets.NIL_MODEL_KEY }}
+    steps:
+      - name: Checkout research branch
+        uses: actions/checkout@v6
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+      - name: Strict key check
+        shell: bash
+        run: |
+          if [ -z "${NIL_MODEL_KEY:-}" ]; then
+            echo "::error::NIL_MODEL_KEY not configured; no shadow model run attempted."
+            exit 1
+          fi
+      - name: Run release pipeline in isolated checkout only
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install -r scripts/nil_model/requirements-nil.txt
+          # May write candidate files in the *runner checkout* but never
+          # commits or pushes. Secret model decrypted only in runner temp.
+          bash scripts/nil_model/refresh_nil.sh
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          out=json.loads(Path('public/nil_estimation_model_2027.json').read_text())
+          h=json.loads(Path('public/stock_watch/manifest_2027.json').read_text())
+          rows=out['byESPNId']
+          assert out['policyVersion']==3
+          model_bytes=Path('public/nil_estimation_model_2027.json').stat().st_size
+          assert model_bytes<5000000, 'Full model payload exceeds the Netlify function 5 MB safety ceiling'
+          print('Published model JSON payload bytes:',model_bytes)
+          assert len(rows)>=12500
+          baseline=json.loads(Path('public/stock_watch/preseason_2027.json').read_text())
+          assert baseline['playerCount']==6010
+          assert baseline['byESPNId']['5281366']==791196
+          assert rows['5281366']['preseason']==791196
+          assert len(json.loads(Path('public/stock_watch/v4_preseason_2027_candidate.json').read_text())['byESPNId'])==3052
+          rookie=json.loads(Path('public/stock_watch/freshman_preseason_2027_candidate.json').read_text())['byESPNId']
+          assert len(rookie)==1420
+          assert all(id in rows and rows[id]['value']==price and rows[id]['preseason']==price and rows[id].get('anchorType')=='FRESHMAN_HS' for id,price in rookie.items())
+          print('Verified',len(rookie),'frozen freshman prices for opening week')
+          other_doc=json.loads(Path('public/stock_watch/roster_other_preseason_2027_candidate.json').read_text())
+          other=other_doc['byESPNId'];methods=other_doc['methodByESPNId']
+          assert len(other)==1538
+          assert sum(kind=='LEGACY_MODEL_PRESEASON_PRESERVED' for kind in methods.values())==733
+          assert sum(kind=='SITE_UNMODELED_PROVISIONAL_50000' for kind in methods.values())==805
+          assert all(pid in rows and rows[pid]['preseason']==amount and rows[pid]['value']==amount and rows[pid].get('anchorType')==methods[pid] for pid,amount in other.items())
+          print('Verified 1538 other frozen roster values with explicit 733 previously priced and 805 unmodeled placeholder provenance')
+          assert all(r['preseason']==json.loads(Path('public/stock_watch/preseason_2027.json').read_text())['byESPNId'][i] for i,r in rows.items() if i in json.loads(Path('public/stock_watch/preseason_2027.json').read_text())['byESPNId'])
+          assert not h['dates'], 'Preseason must have no fabricated Stock Watch dates'
+          assert sum(r['status']=='UPDATED' for r in rows.values())==0
+          print('PASS V4 shadow job: ',len(rows),'prices, no fake games, Stock Watch history untouched')
+          PY
+      - name: Simulate a genuine current-season update in runner temp only
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p "$RUNNER_TEMP/nil_shadow_game"
+          python - <<'PY'
+          import copy,json,os,pathlib
+          src=pathlib.Path('public/portal_factual_data.json')
+          data=json.loads(src.read_text())
+          athlete='5176309'
+          player=data['players'][athlete]
+          prior=next(x for x in player['seasons'] if int(x.get('season') or 0)==2026)
+          current=copy.deepcopy(prior)
+          current.update({'season':2027,'gp':2,'gs':2,'minutes':56,'mpg':28,
+            'pts':40,'ppg':20,'reb':14,'rpg':7,'ast':6,'apg':3,
+            'two_pm':13,'two_pa':22,'three_pm':4,'three_pa':8,
+            'ftm':2,'fta':3,'fga':30,'fgm':17,
+            'two_pt_pct':13/22,'three_pt_pct':.5,'ft_pct':2/3,
+            'efg_pct':19/30,'ts_pct':40/(2*(30+.44*3))})
+          player['seasons'].append(current);player['latest']=current
+          data['latestSeason']=2027
+          data['generatedAt']='2026-10-28T01:00:00Z'
+          path=pathlib.Path(os.environ['RUNNER_TEMP'])/'nil_shadow_game'/'factual.json'
+          path.write_text(json.dumps(data))
+          print('SIMULATED ESPN DATA: 1 athlete with two games, written to runner temp only')
+          PY
+          python scripts/nil_model/decrypt_model.py
+          trap 'rm -f scripts/nil_model/nil_estimation_model_core_shadow.joblib' EXIT
+          python scripts/nil_model/nil_season_engine.py \
+            --factual "$RUNNER_TEMP/nil_shadow_game/factual.json" \
+            --archived-teams scripts/nil_model/source_data/torvik_team_context.json \
+            --current-teams "$RUNNER_TEMP/nil_candidate/team_2027.json" \
+            --as-of 2026-10-28 \
+            --output "$RUNNER_TEMP/nil_shadow_game/updated.json" \
+            --preseason-anchor public/stock_watch/preseason_2027.json --min-coverage .5
+          python scripts/nil_model/validate_publish.py \
+            --new "$RUNNER_TEMP/nil_shadow_game/updated.json" \
+            --manifest "$RUNNER_TEMP/nil_shadow_game/updated.json.manifest.json" \
+            --previous public/nil_estimation_model_2027.json
+          python scripts/nil_model/publish_guard.py \
+            --new "$RUNNER_TEMP/nil_shadow_game/updated.json" \
+            --old public/nil_estimation_model_2027.json \
+            --source "$RUNNER_TEMP/nil_shadow_game/factual.json" \
+            --anchor public/stock_watch/preseason_2027.json \
+            --legacy public/stock_watch/preseason_2027_legacy_2026_10_24.json \
+            --history public/stock_watch/manifest_2027.json --rookies public/stock_watch/freshman_preseason_2027_candidate.json --v4 public/stock_watch/v4_preseason_2027_candidate.json --others public/stock_watch/roster_other_preseason_2027_candidate.json
+          cp -a public/stock_watch "$RUNNER_TEMP/nil_shadow_game/stock_watch"
+          python scripts/nil_model/record_stock_history.py \
+            --new "$RUNNER_TEMP/nil_shadow_game/updated.json" \
+            --root "$RUNNER_TEMP/nil_shadow_game/stock_watch"
+          python - <<'PY'
+          import json,os,pathlib
+          t=pathlib.Path(os.environ['RUNNER_TEMP'])/'nil_shadow_game'
+          pricing=json.loads((t/'updated.json').read_text())
+          player=pricing['byESPNId']['5176309']
+          history=json.loads((t/'stock_watch'/'manifest_2027.json').read_text())
+          assert player['status']=='UPDATED' and player['games']==2 and player['weight']>0
+          assert history['dates']==['2026-10-28']
+          rookies=json.loads(pathlib.Path('public/stock_watch/freshman_preseason_2027_candidate.json').read_text())['byESPNId']
+          month=json.loads((t/'stock_watch'/'2026-10.json').read_text())
+          assert len(rookies)==1420
+          assert all(month['byESPNId'][id]==[price] for id,price in rookies.items())
+          print('Simulated October 28 Stock Watch entry includes all 1420 rookies at original prices')
+          other=json.loads(pathlib.Path('public/stock_watch/roster_other_preseason_2027_candidate.json').read_text())['byESPNId']
+          assert len(other)==1538 and all(month['byESPNId'][id]==[price] for id,price in other.items())
+          print('Verified all 1538 roster-only anchors persisted without fake game changes')
+          assert player['preseason']==json.loads(pathlib.Path('public/stock_watch/preseason_2027.json').read_text())['byESPNId']['5176309']
+          print('PASS simulated game-day: two verified-shaped ESPN appearances, player updated, one dated Stock Watch snapshot, V4 preseason unchanged')
+          PY
+      - name: Confirm no GitHub publication from this job
+        run: |
+          echo 'Shadow pass means files passed inside this runner only. No commit, push, artifact publication or Netlify deployment is performed.'

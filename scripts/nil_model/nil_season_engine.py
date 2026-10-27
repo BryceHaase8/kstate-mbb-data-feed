@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""NIL Estimation Model: ESPN-native Bayesian in-season publisher.
+"""NIL Estimation Model: verified V4 dollar anchor, relative in-season publisher.
 
 The fitted CatBoost model (market-price proxy distilled from V4) must remain PRIVATE.
 Only ID-keyed, source-versioned predictions may be published to the site's public feed.
@@ -17,7 +17,7 @@ sys.path.insert(0,str(HERE))
 import features as old
 from season_features import enrich, make_catboost_row
 MODEL=HERE/'nil_estimation_model_core_shadow.joblib'
-RELEASE='nil-estimation-bayesian-v2-2026-10-24'
+RELEASE='nil-v4-relative-v3-2026-10-27'
 FLOOR=20_000
 FULL_GAMES=30
 STATS=('pts','reb','ast','stl','blk','tov','pf','oreb','dreb','fga','two_pa','three_pa','fta')
@@ -146,6 +146,29 @@ def stabilized_virtual_season(cur, prior, year,team_games=None):
  v['fg_pct']=v['fgm']/v['fga'] if v['fga'] else None
  return v,role_w
 
+def comparable_virtual_reference(prior, year, current_team_id):
+ """Season-equivalent COUNTERFACTUAL based solely on pre-season player production.
+
+ The current and reference predictions share the same model, target season,
+ current team rating and historical seasons. Only new basketball evidence
+ changes their ratio; model-level price-scale disagreement cannot move V4.
+ """
+ if num(prior.get('gp')) <= 0 or num(prior.get('minutes')) <= 0:
+  raise ValueError('Cannot construct a preseason reference without verified prior')
+ neutral, _ = stabilized_virtual_season(prior,prior,year)
+ neutral['teamId'] = current_team_id
+ return neutral
+
+def relative_v4_update(v4, auxiliary_now, auxiliary_reference, w):
+ """Return the frozen V4 price scaled by reliable *relative* evidence."""
+ base=num(v4);cur=num(auxiliary_now);reference=num(auxiliary_reference)
+ if min(base,cur,reference)<=0:raise ValueError('Missing or nonpositive relative pricing input')
+ if not 0<=w<1:raise ValueError('Invalid evidence weight')
+ log_movement=math.log(cur/reference)
+ if abs(log_movement)>math.log(4):
+  raise ValueError('Auxiliary evidence implies >4x movement; review required')
+ return int(round(clamp(base*math.exp(w*log_movement),FLOOR,20_000_000)))
+
 def verified_context(x,year,asof):
  # Only signed-off schema/stage. Preseason forecast intentionally allowed.
  if x.get('season')!=year or not isinstance(x.get('teams'),list) or not 300<=len(x['teams'])<=400:
@@ -198,7 +221,32 @@ def run(players_file,archived_context_file, current_context_file, asof,output, m
    raise ValueError('Missing or incorrect immutable preseason anchor')
   frozen={str(k):int(v) for k,v in anchor['byESPNId'].items()}
   if any(v<FLOOR or v>20_000_000 for v in frozen.values()):raise ValueError('Invalid frozen baseline price')
- asset=joblib.load(MODEL);allrows={};stats={'2026_based':0,'older_season_based':0,'current_updated':0,'current_missing_context':0,'roster_without_prior':0,'no_prior_model':0,'current_without_2027':0}
+ # Distinguish original returning-player V4 from independently verified HS
+ # baselines without using names in-season. No Torvik player data is needed.
+ anchor_meta={}
+ if preseason_anchor_file:
+  locked=json.loads(pathlib.Path(preseason_anchor_file).read_text())
+  composition=locked.get('composition') or {}
+  if composition.get('originalV4')==3052 and composition.get('originalRookie')==1420:
+   rookie_data=json.loads((pathlib.Path(preseason_anchor_file).parent/'freshman_preseason_2027_candidate.json').read_text())
+   rookie_ids=rookie_data.get('byESPNId') or {}
+   if len(rookie_ids)!=1420 or any(frozen.get(pid)!=amount for pid,amount in rookie_ids.items()):
+    raise ValueError('Frozen rookie baseline does not match independently verified site-derived rookie prices')
+   anchor_meta={pid:'FRESHMAN_HS' for pid in rookie_ids}
+   other=json.loads((pathlib.Path(preseason_anchor_file).parent/'roster_other_preseason_2027_candidate.json').read_text())
+   other_ids=other.get('byESPNId') or {}
+   sources=other.get('methodByESPNId') or {}
+   if (composition.get('otherExisting')!=1538 or len(other_ids)!=1538 or
+       any(frozen.get(pid)!=price for pid,price in other_ids.items())):
+    raise ValueError('Frozen roster-only prices do not match their verified source')
+   for pid,price in other_ids.items():
+    provenance=sources.get(pid)
+    if provenance not in ('LEGACY_MODEL_PRESEASON_PRESERVED','SITE_UNMODELED_PROVISIONAL_50000'):
+     raise ValueError('Unknown roster-only NIL baseline provenance')
+    if provenance=='SITE_UNMODELED_PROVISIONAL_50000' and price!=50000:
+     raise ValueError('An unmodeled provisional price changed from site-approved $50K placeholder')
+    anchor_meta[pid]=provenance
+ asset=joblib.load(MODEL);allrows={};stats={'2026_based':0,'rookie_frozen_without_box':0,'older_season_based':0,'current_updated':0,'current_missing_context':0,'roster_without_prior':0,'no_prior_model':0,'current_without_2027':0}
  for athlete,entry in sorted((payload.get('players') or {}).items()):
   if not str(athlete).isdigit():continue
   past=past_seasons(entry,2027)
@@ -235,7 +283,18 @@ def run(players_file,archived_context_file, current_context_file, asof,output, m
      current_price=score_model(asset,virtual,past,2027,newctx[team_id]);
      w,effective=player_weight(gp,minutes,num(prior.get('minutes')),num(prior.get('gp')))
      if baseline:
-      score=int(round(math.exp((1-w)*math.log(baseline)+w*math.log(current_price))))
+      # Same model, same 2027 context and season, different evidence.
+      # NEVER blend V4 toward the auxiliary model's absolute dollar scale.
+      if num(prior.get('minutes'))>0 and num(prior.get('gp'))>0:
+       reference=comparable_virtual_reference(prior,2027,team_id)
+       reference_price=score_model(asset,reference,past,2027,newctx[team_id])
+       score=relative_v4_update(baseline,current_price,reference_price,w)
+      else:
+       # A previously priced first-year player with no historical box record
+       # needs a verified HS / international baseline and a separate update
+       # calibration. Do not overwrite its established starting estimate.
+       score=baseline
+       w=0.
       status='UPDATED' if w>.005 else 'PRESEASON_BASELINE'
      elif gp>=5 and minutes>=100:
       # This is a *candidate* current-season prediction, not a value replacing
@@ -251,14 +310,28 @@ def run(players_file,archived_context_file, current_context_file, asof,output, m
   allrows[str(athlete)]={'value':int(score),'preseason':baseline,'currentOnly':current_price,
    'season':2027,'priorSeason':prior_season,'games':int(gp),'minutes':round(minutes,2),
    'weight':round(w,5),'roleWeight':round(role_w,5),'status':status,
-   'evidenceGP':int(gp),'evidenceMPG':round(minutes/gp,2) if gp else 0}
+   'evidenceGP':int(gp),'evidenceMPG':round(minutes/gp,2) if gp else 0,
+   'anchorType':anchor_meta.get(str(athlete),'V4_OR_ARCHIVED_ESPN')}
+ # Incoming first-year athletes don't appear in historical player stats before
+ # their actual debut. Publish their VERIFIED FROZEN BASELINE anyway, so
+ # Stock Watch and the Player tab can use the same ESPN-ID reference.
+ for pid,amount in frozen.items():
+  if pid in allrows:continue
+  if anchor_meta.get(pid) not in ('FRESHMAN_HS','LEGACY_MODEL_PRESEASON_PRESERVED','SITE_UNMODELED_PROVISIONAL_50000'):
+   # Non-freshman orphan identities must not be filled with invented games.
+   raise ValueError('Frozen V4 ESPN ID absent from the verified factual feed: '+pid)
+  allrows[pid]={'value':amount,'preseason':amount,'currentOnly':None,
+    'season':2027,'priorSeason':None,'games':0,'minutes':0,'weight':0,
+    'roleWeight':0,'status':'PRESEASON_BASELINE','evidenceGP':0,
+    'evidenceMPG':0,'anchorType':anchor_meta[pid]}
+  stats['rookie_frozen_without_box']+=int(anchor_meta.get(pid)=='FRESHMAN_HS')
  cover=stats['2026_based']+stats['older_season_based'];coverage=cover/max(1,len(payload.get('players') or {}))
  if cover<100 or coverage<min_coverage:raise ValueError(f'Baseline coverage unexpectedly low: {cover}/{len(payload.get("players") or {})}')
  out={'schemaVersion':1,'model':'NIL Estimation Model','release':RELEASE,'season':2027,
   'generatedAt':asof+'T00:00:00Z','factualGeneratedAt':payload.get('generatedAt'),
   'target':'open-market transfer NIL estimate; not actual compensation or asking price',
-  'inputContext':'2025-26 stats prior; 2026-27 verified box stats; nonlinear games/minutes Bayes-v2 policy',
-  'policyVersion':2,'weightPolicy':'nonlinear_games_and_minutes_1.65; 30x30 ~91% direct weight',
+  'inputContext':'V4 frozen 2026-27 dollar prior; verified 2026-27 ESPN evidence; same-model 2027 relative scoring',
+  'policyVersion':3,'weightPolicy':'nonlinear_games_and_minutes_1.65; 30x30 ~91% direct weight',
   'productionModelFrozen':True, 'playerCount':len(allrows),'byESPNId':allrows}
  dest=pathlib.Path(output);dest.parent.mkdir(parents=True,exist_ok=True)
  dest.write_text(json.dumps(out,separators=(',',':'))+'\n')

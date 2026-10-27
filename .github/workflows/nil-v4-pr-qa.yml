@@ -1,0 +1,23 @@
+name: V4 NIL integration PR checks
+on:
+  pull_request:
+    paths:
+      - "scripts/nil_model/**"
+      - "public/stock_watch/**"
+      - "tests/test_v4_*.py"
+      - ".github/workflows/nil-v4-pr-qa.yml"
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Verify source syntax and V4 safeguards (no secrets or external calls)
+        run: |
+          python -m compileall -q scripts/nil_model tests
+          python -m unittest discover -s tests -p 'test_v4_*.py' -v
