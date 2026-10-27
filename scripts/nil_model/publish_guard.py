@@ -6,7 +6,7 @@ def check(new,old,source):
  n=json.loads(pathlib.Path(new).read_text())
  o=json.loads(pathlib.Path(old).read_text())
  f=json.loads(pathlib.Path(source).read_text())
- assert n['season']==2027 and n['policyVersion']==2
+ assert n['season']==2027 and n['policyVersion']==3
  assert n['factualGeneratedAt']==f['generatedAt']
  assert int(f.get('latestSeason') or 0)<=2027
  rows=n['byESPNId'];older=o['byESPNId']
