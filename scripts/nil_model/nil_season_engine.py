@@ -16,8 +16,9 @@ HERE=pathlib.Path(__file__).resolve().parent
 sys.path.insert(0,str(HERE))
 import features as old
 from season_features import enrich, make_catboost_row
+from cold_start import cold_start_reference, cold_start_relative_update
 MODEL=HERE/'nil_estimation_model_core_shadow.joblib'
-RELEASE='nil-v4-relative-v3-2026-10-27'
+RELEASE='nil-v4-relative-v3-universal-coldstart-v1-2026-10-27'
 FLOOR=20_000
 FULL_GAMES=30
 STATS=('pts','reb','ast','stl','blk','tov','pf','oreb','dreb','fga','two_pa','three_pa','fta')
@@ -114,6 +115,16 @@ def player_weight(gp,minutes,prior_minutes,prior_games):
  evidence=effective**exponent
  weight=evidence/(evidence+prior_strength**exponent)
  return clamp(weight,0,.999),effective
+
+def cold_start_weight(gp,minutes):
+ """Extra first-game protection without delaying evidence by game 30.
+
+ An NCAA debut carries more noise than an established player's 25th game.
+ The gate goes from ~2% evidence in game one to ~91% after 30 x 30 MPG.
+ """
+ raw,effective=player_weight(gp,minutes,350,20)
+ protective=1-.45*math.exp(-max(0,num(gp)-1)/3.)
+ return raw*protective,effective
 
 def stabilized_virtual_season(cur, prior, year,team_games=None):
  gp=num(cur.get('gp'));m=num(cur.get('minutes'))
@@ -357,47 +368,62 @@ def run(players_file,archived_context_file, current_context_file, asof,output, m
    if not current:continue
   elif prior_season==2026:stats['2026_based']+=1
   else:stats['older_season_based']+=1
-  score=baseline;current_price=None;w=0;role_w=0;gp=num((current or {}).get('gp'));minutes=num((current or {}).get('minutes'))
+  score=baseline;current_price=None;reference_price=None;w=0;role_w=0;gp=num((current or {}).get('gp'));minutes=num((current or {}).get('minutes'))
   status='PRESEASON_BASELINE' if baseline else 'UNPRICED_NO_PRIOR'
+  update_method='PRESEASON_ONLY'
   team_id=str((current or {}).get('teamId') or '')
   if current and gp>0 and minutes>0:
    if not newctx or team_id not in newctx:
     stats['current_missing_context']+=1;status='MISSING_CURRENT_TEAM_CONTEXT'
    else:
-    # No valid prior: require adequate independent current-season evidence.
-    if prior is None:prior={'gp':0,'minutes':0,'gs':0,'position':current.get('position')}
-    virtual,role_w=stabilized_virtual_season(current,prior,2027,games.get(team_id))
+    # Historical priors are always factual. The separate cold-start
+    # comparison profile is NEVER appended to past college seasons.
+    cold=baseline is not None and prior is None
+    reference=None
+    if cold:
+     reference=cold_start_reference(baseline,
+       current.get('position') or entry.get('position') or (entry.get('latest') or {}).get('position'),
+       2027,team_id)
+     virtual,role_w=stabilized_virtual_season(current,reference,2027,games.get(team_id))
+    else:
+     if prior is None:prior={'gp':0,'minutes':0,'gs':0,'position':current.get('position')}
+     virtual,role_w=stabilized_virtual_season(current,prior,2027,games.get(team_id))
     try:
-     current_price=score_model(asset,virtual,past,2027,newctx[team_id]);
-     w,effective=player_weight(gp,minutes,num(prior.get('minutes')),num(prior.get('gp')))
+     current_price=score_model(asset,virtual,past,2027,newctx[team_id])
+     # Neutral expected GP/MPG are NOT historical games. The published
+     # preseason dollar is an independent market prior, so its uncertainty
+     # maps to the same 30-game ~91%-evidence target as a veteran.
+     if cold:
+      w,effective=cold_start_weight(gp,minutes)
+     else:
+      w,effective=player_weight(gp,minutes,num(prior.get('minutes')),num(prior.get('gp')))
      if baseline:
-      # Same model, same 2027 context and season, different evidence.
-      # NEVER blend V4 toward the auxiliary model's absolute dollar scale.
-      if num(prior.get('minutes'))>0 and num(prior.get('gp'))>0:
+      if cold:
+       reference_price=score_model(asset,reference,past,2027,newctx[team_id])
+       score=cold_start_relative_update(baseline,current_price,reference_price,w)
+       update_method='COLD_START_RELATIVE_V1'
+      else:
        reference=comparable_virtual_reference(prior,2027,team_id)
        reference_price=score_model(asset,reference,past,2027,newctx[team_id])
        score=relative_v4_update(baseline,current_price,reference_price,w)
-      else:
-       # A previously priced first-year player with no historical box record
-       # needs a verified HS / international baseline and a separate update
-       # calibration. Do not overwrite its established starting estimate.
-       score=baseline
-       w=0.
+       update_method='HISTORICAL_RELATIVE_V4'
       status='UPDATED' if w>.005 else 'PRESEASON_BASELINE'
      elif gp>=5 and minutes>=100:
-      # This is a *candidate* current-season prediction, not a value replacing
-      # a freshman's verified HS baseline. Site will blend it via output weight.
+      # An ID absent from the verified 6057-price opening board can earn a
+      # provisional prediction, but never invent a retroactive anchor.
       score=current_price;status='NEW_PLAYER_PROVISIONAL'
+      update_method='UNANCHORED_PROVISIONAL'
      else:score=None;status='NEW_PLAYER_INSUFFICIENT_EVIDENCE'
-     if score:stats['current_updated']+=1
+     if score and status in ('UPDATED','NEW_PLAYER_PROVISIONAL'):
+      stats['current_updated']+=1
     except Exception as exc:status='SCORING_ERROR';current_price=None;score=baseline
   elif baseline:stats['current_without_2027']+=1
   if score is None:continue
   # No end-to-end website cash change if as-of fails. Prices published as
   # full replacement snapshot and can always be rolled back to V4 fallback.
-  allrows[str(athlete)]={'value':int(score),'preseason':baseline,'currentOnly':current_price,
+  allrows[str(athlete)]={'value':int(score),'preseason':baseline,'currentOnly':current_price,'referenceOnly':reference_price,
    'season':2027,'priorSeason':prior_season,'games':int(gp),'minutes':round(minutes,2),
-   'weight':round(w,5),'roleWeight':round(role_w,5),'status':status,
+   'weight':round(w,5),'roleWeight':round(role_w,5),'status':status,'updateMethod':update_method,
    'evidenceGP':int(gp),'evidenceMPG':round(minutes/gp,2) if gp else 0,
    'anchorType':anchor_meta.get(str(athlete),'V4_OR_ARCHIVED_ESPN')}
  # Incoming first-year athletes don't appear in historical player stats before
@@ -408,9 +434,9 @@ def run(players_file,archived_context_file, current_context_file, asof,output, m
   if anchor_meta.get(pid) not in ('FRESHMAN_HS','LEGACY_MODEL_PRESEASON_PRESERVED','SITE_UNMODELED_PROVISIONAL_50000','V4_HISTORICAL_AUXILIARY_FROZEN','V4_TEAM_COHORT_PROXY_NO_STATS','INTERNATIONAL_PRO_PRESEASON_REVIEWED','INTERNATIONAL_NONCOLLEGE_RESEARCH_PRIOR','INTERNATIONAL_STAFF_REVIEWED_PRESEASON','INTERNATIONAL_PREVIOUS_COLLEGE_REDSHIRT_STAFF_REVIEWED'):
    # Non-freshman orphan identities must not be filled with invented games.
    raise ValueError('Frozen V4 ESPN ID absent from the verified factual feed: '+pid)
-  allrows[pid]={'value':amount,'preseason':amount,'currentOnly':None,
+  allrows[pid]={'value':amount,'preseason':amount,'currentOnly':None,'referenceOnly':None,
     'season':2027,'priorSeason':None,'games':0,'minutes':0,'weight':0,
-    'roleWeight':0,'status':'PRESEASON_BASELINE','evidenceGP':0,
+    'roleWeight':0,'status':'PRESEASON_BASELINE','updateMethod':'PRESEASON_ONLY','evidenceGP':0,
     'evidenceMPG':0,'anchorType':anchor_meta[pid]}
   stats['rookie_frozen_without_box']+=int(anchor_meta.get(pid)=='FRESHMAN_HS')
  cover=stats['2026_based']+stats['older_season_based'];coverage=cover/max(1,len(payload.get('players') or {}))
@@ -418,8 +444,8 @@ def run(players_file,archived_context_file, current_context_file, asof,output, m
  out={'schemaVersion':1,'model':'NIL Estimation Model','release':RELEASE,'season':2027,
   'generatedAt':asof+'T00:00:00Z','factualGeneratedAt':payload.get('generatedAt'),
   'target':'open-market transfer NIL estimate; not actual compensation or asking price',
-  'inputContext':'V4 frozen 2026-27 dollar prior; verified 2026-27 ESPN evidence; same-model 2027 relative scoring',
-  'policyVersion':3,'weightPolicy':'nonlinear_games_and_minutes_1.65; 30x30 ~91% direct weight',
+  'inputContext':'Frozen 2026-27 price anchor; factual 2026-27 ESPN results; veteran relative evidence or explicit nonhistorical newcomer reference',
+  'policyVersion':3,'weightPolicy':'universal_newcomer_v1; nonlinear_games_and_minutes_1.65; 30x30 ~91% evidence weight',
   'productionModelFrozen':True, 'playerCount':len(allrows),'byESPNId':allrows}
  dest=pathlib.Path(output);dest.parent.mkdir(parents=True,exist_ok=True)
  dest.write_text(json.dumps(out,separators=(',',':'))+'\n')

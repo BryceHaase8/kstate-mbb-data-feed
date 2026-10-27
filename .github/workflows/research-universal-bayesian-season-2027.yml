@@ -1,0 +1,61 @@
+name: Universal 2027 NIL Bayesian updater shadow tests
+on:
+  push:
+    branches:
+      - season-2027-universal-bayesian-cold-start
+  pull_request:
+    branches:
+      - main
+permissions:
+  contents: read
+jobs:
+  validate-universal:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    env:
+      NIL_MODEL_KEY: ${{ secrets.NIL_MODEL_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install production model dependencies
+        run: python -m pip install -r scripts/nil_model/requirements-nil.txt
+      - name: Source syntax and all baseline/in-season unit tests
+        run: |
+          python -m compileall -q scripts/nil_model tests
+          python -m unittest discover -s tests -p 'test_v4_*.py' -v
+          python -m unittest discover -s tests -p 'test_international_*.py' -v
+          python -m unittest discover -s tests -p 'test_universal_season_2027.py' -v
+      - name: Check published preseason data, 6057 frozen anchors, rollback guards
+        run: |
+          set -euo pipefail
+          test -n "$NIL_MODEL_KEY"
+          bash scripts/nil_model/refresh_nil.sh
+          python - <<'PY'
+          import json,pathlib
+          root=pathlib.Path('.')
+          old=json.loads((root/'public/stock_watch/preseason_2027.json').read_text())
+          n=json.loads((root/'public/nil_estimation_model_2027.json').read_text())
+          m=json.loads((root/'public/stock_watch/manifest_2027.json').read_text())
+          a=n['byESPNId']
+          assert len(old['byESPNId'])==6057 and len(a)>=12000
+          assert all(a[k]['preseason']==a[k]['value']==v for k,v in old['byESPNId'].items())
+          assert all(a[k]['status']=='PRESEASON_BASELINE' and a[k]['weight']==0 for k in old['byESPNId'])
+          assert not m['dates'] and not m['months']
+          print('PASS static frozen preseason NIL remains exactly unchanged')
+          PY
+      - name: Real encrypted model, synthetic 1/10/30-game season scenarios
+        run: |
+          set -euo pipefail
+          trap 'rm -f scripts/nil_model/nil_estimation_model_core_shadow.joblib' EXIT
+          python scripts/nil_model/decrypt_model.py
+          python scripts/nil_model/qa_universal_synthetic_2027.py "$RUNNER_TEMP/nil_candidate/team_2027.json"
+      - name: Confirm no artificial Stock Watch history was created
+        run: |
+          python - <<'PY'
+          import json,pathlib
+          m=json.loads(pathlib.Path('public/stock_watch/manifest_2027.json').read_text())
+          assert not m['dates'] and not m['months']
+          print('PASS all simulations isolated from GitHub release files')
+          PY
