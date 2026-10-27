@@ -1,0 +1,90 @@
+{
+  "schemaVersion": 1,
+  "season": 2027,
+  "asOf": "2026-10-27",
+  "releaseStatus": "RESEARCH_ONLY_NO_NIL_PRICE_CHANGE",
+  "priorVerifiedCases": 9,
+  "additionalVerifiedCases": 3,
+  "totalConfirmedPriorityCases": 12,
+  "addedVerified": [
+    {
+      "espnId": "5351837",
+      "name": "Alex Samodurov",
+      "team": "North Carolina Tar Heels",
+      "teamId": "153",
+      "currentPrice": 50000,
+      "verifiedHistory": "Panathinaikos 2022-26; Greek Basket League and EuroLeague; Greek senior national team; U20 EuroBasket 2025 all-tournament 17.6 PPG",
+      "tier": "HIGH_PRO_PROSPECT",
+      "source": "https://goheels.com/sports/mens-basketball/roster/alex-samodurov/28593",
+      "notes": "EuroLeague participation and age-appropriate national performance documented; 2025-26 EuroLeague minutes limited; not an NIL salary anchor"
+    },
+    {
+      "espnId": "5458832",
+      "name": "Nathan De Sousa",
+      "team": "Gonzaga Bulldogs",
+      "teamId": "2250",
+      "currentPrice": 50000,
+      "verifiedHistory": "Cholet Basket top French league rotation; French U20 gold; senior national team involvement",
+      "tier": "PRO_ROTATION",
+      "source": "https://gozags.com/sports/mens-basketball/roster/nathan-de-sousa/6665",
+      "notes": "Gonzaga roster lists 31 games 5.6 PPG/2 APG in 2025-26; official press release quotes different 36 GP 10.9 PPG; resolve season/competition mismatch before modeling"
+    },
+    {
+      "espnId": "5458339",
+      "name": "Enzo Shahrvin",
+      "team": "Purdue Boilermakers",
+      "teamId": "2509",
+      "currentPrice": 50000,
+      "verifiedHistory": "Paris Basketball top French league, EuroLeague minutes, EuroCup history; 111 career international games, 2025-26 strong offensive rebounding rate",
+      "tier": "PRO_ROTATION_SPECIALIST",
+      "source": "https://purduesports.com/sports/mens-basketball/roster/player/enzo-shahrvin",
+      "notes": "School reports 2.2 PPG, 4.4 RPG and 1.1 BPG in 18 games at ~10.6 MPG; do not infer star-level NIL from league name alone"
+    }
+  ],
+  "otherReviewed": [
+    {
+      "espnId": "5311898",
+      "name": "Mabil Mawut",
+      "team": "Arizona Wildcats",
+      "existingPrice": 50000,
+      "category": "HIGH_SCHOOL_NOT_CONFIRMED_PRO",
+      "source": "https://arizonasports.com/ncaa/arizona-wildcats/uofa-basketball/mabil-mawut",
+      "reason": "Prior Our Saviour Lutheran high school and NBA Academy; international birthplace is not a professional career"
+    },
+    {
+      "espnId": "5459442",
+      "name": "Wesly Rosa",
+      "team": "Creighton Bluejays",
+      "existingPrice": 50000,
+      "category": "NJCAA_NOT_PRO",
+      "source": "https://d2560u4h06m0te.cloudfront.net/sports/mens-basketball/roster/wesly-rosa/9443",
+      "reason": "Former Dodge City Community College player; 2025-26 JUCO Defensive Player of the Year"
+    },
+    {
+      "espnId": "5456488",
+      "name": "Alex K'Medehouto",
+      "team": "Maryland Terrapins",
+      "existingPrice": 50000,
+      "category": "NJCAA_NOT_PRO",
+      "source": "https://umterps.com/sports/mens-basketball/roster/alex-kmedehouto/16094",
+      "reason": "Two years at Frank Phillips and South Plains College; not a European professional import"
+    },
+    {
+      "espnId": "5461294",
+      "name": "Federico Grani",
+      "team": "New Mexico Lobos",
+      "existingPrice": 50000,
+      "category": "PRO_LOWER_TIER_RESEARCH",
+      "source": "https://sports.yahoo.com/articles/unm-lobos-sign-italian-pro-030500726.html",
+      "reason": "Reported Italy Serie B pro player 7.9 PPG 6.1 RPG 1.3 BPG; league level requires separate translation, not automatic EuroLeague-level price"
+    }
+  ],
+  "guardrails": [
+    "Do not use international birthplace alone to imply professional success",
+    "Do not infer actual NIL payments from club salary or contract buyouts",
+    "Normalize professional stats by league and role, not broad league-name presence",
+    "Do not change the 6057 frozen preseason prices until reviewed explicit overrides are approved",
+    "Do not promote junior college production into a pro-league tier",
+    "Current Bayesian no-prior baseline freeze bug remains unfixed"
+  ]
+}
