@@ -45,6 +45,9 @@ jobs:
           h=json.loads(Path('public/stock_watch/manifest_2027.json').read_text())
           rows=out['byESPNId']
           assert out['policyVersion']==3
+          model_bytes=Path('public/nil_estimation_model_2027.json').stat().st_size
+          assert model_bytes<5000000, 'Full model payload exceeds the Netlify function 5 MB safety ceiling'
+          print('Published model JSON payload bytes:',model_bytes)
           assert len(rows)>=11000
           baseline=json.loads(Path('public/stock_watch/preseason_2027.json').read_text())
           assert baseline['playerCount']==4472
