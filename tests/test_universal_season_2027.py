@@ -6,7 +6,7 @@ import unittest
 from pathlib import Path
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'scripts'/'nil_model'))
 from cold_start import cold_start_reference,cold_start_relative_update
-from nil_season_engine import player_weight,stabilized_virtual_season,past_seasons
+from nil_season_engine import player_weight,cold_start_weight,stabilized_virtual_season,past_seasons
 
 def observed(games,mpg,pts30=16,three_pct=.35,position='G'):
  minutes=games*mpg
@@ -43,9 +43,9 @@ class UniversalSeasonTests(unittest.TestCase):
 
  def test_evidence_moves_every_cold_start_up_or_down(self):
   for base in [50000,250000,900000,3500000]:
-   w1=player_weight(1,30,350,20)[0]
-   w10=player_weight(10,300,350,20)[0]
-   w30=player_weight(30,900,350,20)[0]
+   w1=cold_start_weight(1,30)[0]
+   w10=cold_start_weight(10,300)[0]
+   w30=cold_start_weight(30,900)[0]
    self.assertTrue(0<w1<w10<w30<1)
    self.assertTrue(.90<w30<.93)
    upside=[cold_start_relative_update(base,1000000,500000,w) for w in (w1,w10,w30)]
@@ -54,17 +54,17 @@ class UniversalSeasonTests(unittest.TestCase):
    self.assertTrue(base>=down[0]>down[1]>down[2])
 
  def test_one_hot_game_does_not_override_price(self):
-  w=player_weight(1,30,350,20)[0]
+  w=cold_start_weight(1,30)[0]
   for base in [50000,3500000]:
    p=cold_start_relative_update(base,50_000_000,50000,w)
    self.assertLess(p/base,1.06)
-  late=player_weight(30,900,350,20)[0]
+  late=cold_start_weight(30,900)[0]
   self.assertLessEqual(cold_start_relative_update(3500000,20_000_000,20000,late),20_000_000)
   self.assertLessEqual(cold_start_relative_update(50000,20_000_000,20000,late),400000)
 
  def test_low_mpg_updates_but_lower_confidence(self):
-  fast=player_weight(30,900,350,20)[0]
-  slow=player_weight(30,180,350,20)[0]
+  fast=cold_start_weight(30,900)[0]
+  slow=cold_start_weight(30,180)[0]
   self.assertTrue(.7<slow<fast)
   self.assertNotEqual(cold_start_relative_update(900000,600000,500000,slow),900000)
 
