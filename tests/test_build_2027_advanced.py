@@ -41,6 +41,16 @@ class TestAdvanced(unittest.TestCase):
    self.assertEqual(len(d['players'][shot]),12)
    self.assertEqual(d['players'][shot][0][8],'Rim')
    self.assertEqual(json.loads((output/'portal_shots_2027'/'manifest.json').read_text())['season'],2027)
+   off=json.loads((output/'portal_onoff_2027'/f'onoff_{shard:03d}.json').read_text())
+   self.assertEqual(off['players'][shot]['games'],1)
+   self.assertAlmostEqual(off['players'][shot]['on']['minutes'],40,delta=.1)
+   self.assertAlmostEqual(off['players'][shot]['off']['minutes'],0,delta=.1)
+   positions=json.loads((output/'portal_positions_2027'/f'positions_{shard:03d}.json').read_text())
+   record=positions['players'][shot]
+   self.assertEqual(len(record),5)
+   self.assertAlmostEqual(sum(record[0]),record[1],delta=.1)
+   self.assertLessEqual(record[1],record[2]+1)
+
  def test_no_games_does_not_publish_manifest(self):
   with tempfile.TemporaryDirectory() as tmp:
    root=Path(tmp);res=mod.build({},root/'missing',root/'public')
@@ -49,6 +59,11 @@ class TestAdvanced(unittest.TestCase):
  def test_invalid_location_is_not_fabricated(self):
   e={'game_id':'123','team_id':'111','type_text':'JumpShot','score_value':3,'coordinate_x':'', 'coordinate_y':'4'}
   self.assertIsNone(mod.shot_event(e,'111','222'))
+ def test_size_context_only_changes_estimated_role_priors(self):
+  guard=mod.position_scores({'position':'PG','height':72,'weight':170})
+  center=mod.position_scores({'position':'C','height':85,'weight':250})
+  self.assertEqual(guard.index(max(guard)),0)
+  self.assertEqual(center.index(max(center)),4)
  def test_ambiguous_half_rejected(self):
   events=[{'period_number':2,'clock_display_value':'19:59','team_id':'222','athlete_id_1':'2','type_text':'JumpShot','text':''}]
   self.assertEqual(mod.player_states(events,{'min':15,'started':False},'1','111')[1],'missing_period')
