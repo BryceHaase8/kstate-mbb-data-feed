@@ -5,7 +5,7 @@ import argparse,datetime,json,math,pathlib,statistics
 def load(path):
  return json.loads(pathlib.Path(path).read_text())
 
-def check(new,old,source,anchor=None,legacy=None,history=None,rookies=None,v4=None):
+def check(new,old,source,anchor=None,legacy=None,history=None,rookies=None,v4=None,others=None):
  n,o,f=load(new),load(old),load(source)
  if n.get('season')!=2027 or n.get('policyVersion')!=3:
   raise ValueError('Unexpected NIL model policy')
@@ -28,25 +28,34 @@ def check(new,old,source,anchor=None,legacy=None,history=None,rookies=None,v4=No
  migration=o.get('policyVersion')==2 and n.get('policyVersion')==3
  ignored=set()
  if migration:
-  if not anchor or not legacy or not history or not rookies or not v4:
+  if not anchor or not legacy or not history or not rookies or not v4 or not others:
    raise ValueError('V4 baseline migration must provide three rollback/QA files')
   a,b,h=load(anchor),load(legacy),load(history)
-  q,v=load(rookies),load(v4)
+  q,v,t=load(rookies),load(v4),load(others)
   arows=a.get('byESPNId') or {};brows=b.get('byESPNId') or {}
-  if a.get('baselineVersion')!='V4_FROZEN_SITE_V771_3052_PLUS_FRESHMEN_2026_10_27' or a.get('season')!=2027:
+  if a.get('baselineVersion')!='V4_3052_HS_1420_ROSTER_EXISTING_1538_2026_10_27' or a.get('season')!=2027:
    raise ValueError('Unverified V4 migration version')
   vrows=v.get('byESPNId') or {}
   qrows=q.get('byESPNId') or {}
-  if (len(vrows)!=3052 or len(qrows)!=1420 or len(arows)!=4472 or
-      a.get('playerCount')!=4472 or not set(brows).issubset(vrows) or
-      set(vrows)&set(qrows) or set(arows)!=set(vrows)|set(qrows)):
-   raise ValueError('Frozen baseline did not retain exact 3052 V4 + 1420 verified freshman ESPN identities')
-  if any(arows[pid]!=price for part in (vrows,qrows) for pid,price in part.items()):
+  trows=t.get('byESPNId') or {}
+  methods=t.get('methodByESPNId') or {}
+  if (len(vrows)!=3052 or len(qrows)!=1420 or len(trows)!=1538 or len(arows)!=6010 or
+      a.get('playerCount')!=6010 or not set(brows).issubset(vrows) or
+      set(vrows)&set(qrows) or set(vrows)&set(trows) or set(qrows)&set(trows) or
+      set(arows)!=set(vrows)|set(qrows)|set(trows)):
+   raise ValueError('Frozen baseline did not retain exact 3052 V4 + 1420 freshmen + 1538 preserved roster identities')
+  if any(arows[pid]!=price for part in (vrows,qrows,trows) for pid,price in part.items()):
    raise ValueError('Full release anchor disagrees with its component originals')
   if (set(vrows)-set(brows)!={'5281366'} or vrows.get('5281366')!=791196):
    raise ValueError('K-State Timo Malovec original V4 ESPN identity was not preserved')
   if v.get('baselineVersion')!='V4_FROZEN_SITE_V771_3052_2026_10_27' or q.get('baselineVersion')!='ROOKIE_HS_SITE_V771_ESPN_ID_2026_10_27':
    raise ValueError('Incorrect component baseline version')
+  if (t.get('baselineVersion')!='CURRENT_ROSTER_EXISTING_PRICE_GAP_2026_10_27' or
+      set(methods)!=set(trows) or
+      sum(x=='SITE_UNMODELED_PROVISIONAL_50000' for x in methods.values())!=805 or
+      sum(x=='LEGACY_MODEL_PRESEASON_PRESERVED' for x in methods.values())!=733 or
+      any(trows[pid]!=50000 for pid,kind in methods.items() if kind=='SITE_UNMODELED_PROVISIONAL_50000')):
+   raise ValueError('Roster-only 805 unmodeled and 733 legacy-provenance prices changed')
   if b.get('asOf')!='2026-10-24' or b.get('playerCount')!=3051:
    raise ValueError('Archived legacy snapshot is not the original frozen feed')
   if (h.get('dates') or []) or (h.get('months') or []):
@@ -81,6 +90,6 @@ def check(new,old,source,anchor=None,legacy=None,history=None,rookies=None,v4=No
 if __name__=='__main__':
  p=argparse.ArgumentParser()
  for arg in ('new','old','source'):p.add_argument('--'+arg,required=True)
- for arg in ('anchor','legacy','history','rookies','v4'):p.add_argument('--'+arg)
+ for arg in ('anchor','legacy','history','rookies','v4','others'):p.add_argument('--'+arg)
  a=p.parse_args()
- check(a.new,a.old,a.source,a.anchor,a.legacy,a.history,a.rookies,a.v4)
+ check(a.new,a.old,a.source,a.anchor,a.legacy,a.history,a.rookies,a.v4,a.others)
