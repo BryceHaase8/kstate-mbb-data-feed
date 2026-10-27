@@ -1,0 +1,966 @@
+{
+  "comparisonAsOf": "2026-10-27T18:26:27.126579+00:00",
+  "baselinePlayers": 5541,
+  "currentPlayers": 5541,
+  "teams": 365,
+  "addedCount": 63,
+  "removedCount": 63,
+  "transfersAmongRetainedCount": 0,
+  "metadataChangedCount": 6,
+  "added": [
+    {
+      "espnAthleteId": "4897705",
+      "name": "Drew McConnell",
+      "teamId": "2239",
+      "team": "Cal State Fullerton Titans",
+      "headshot": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/4897705.png"
+    },
+    {
+      "espnAthleteId": "5105532",
+      "name": "Jaden Newell",
+      "teamId": "294",
+      "team": "Jacksonville Dolphins",
+      "headshot": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5105532.png"
+    },
+    {
+      "espnAthleteId": "5105794",
+      "name": "Skyy Clark",
+      "teamId": "99",
+      "team": "LSU Tigers",
+      "headshot": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5105794.png"
+    },
+    {
+      "espnAthleteId": "5106783",
+      "name": "Dominic Capriotti",
+      "teamId": "2029",
+      "team": "Arkansas-Pine Bluff Golden Lions",
+      "headshot": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5106783.png"
+    },
+    {
+      "espnAthleteId": "5107807",
+      "name": "Michael Eley",
+      "teamId": "2504",
+      "team": "Prairie View A&M Panthers",
+      "headshot": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5107807.png"
+    },
+    {
+      "espnAthleteId": "5108054",
+      "name": "Micah Bell",
+      "teamId": "2504",
+      "team": "Prairie View A&M Panthers",
+      "headshot": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5108054.png"
+    },
+    {
+      "espnAthleteId": "5144545",
+      "name": "Sam Mbingazo",
+      "teamId": "294",
+      "team": "Jacksonville Dolphins",
+      "headshot": null
+    },
+    {
+      "espnAthleteId": "5175393",
+      "name": "Rockwell Reynolds",
+      "teamId": "2239",
+      "team": "Cal State Fullerton Titans",
+      "headshot": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5175393.png"
+    },
+    {
+      "espnAthleteId": "5177353",
+      "name": "Creed Williamson",
+      "teamId": "2029",
+      "team": "Arkansas-Pine Bluff Golden Lions",
+      "headshot": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5177353.png"
+    },
+    {
+      "espnAthleteId": "5177542",
+      "name": "Lataevyon Taylor",
+      "teamId": "2029",
+      "team": "Arkansas-Pine Bluff Golden Lions",
+      "headshot": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5177542.png"
+    },
+    {
+      "espnAthleteId": "5179094",
+      "name": "James Morrow",
+      "teamId": "294",
+      "team": "Jacksonville Dolphins",
+      "headshot": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5179094.png"
+    },
+    {
+      "espnAthleteId": "5239776",
+      "name": "Nehemiah Turner",
+      "teamId": "294",
+      "team": "Jacksonville Dolphins",
+      "headshot": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5239776.png"
+    },
+    {
+      "espnAthleteId": "5240016",
+      "name": "Jamie Phillips Jr.",
+      "teamId": "294",
+      "team": "Jacksonville Dolphins",
+      "headshot": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5240016.png"
+    },
+    {
+      "espnAthleteId": "5240267",
+      "name": "CJ Smith",
+      "teamId": "2029",
+      "team": "Arkansas-Pine Bluff Golden Lions",
+      "headshot": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5240267.png"
+    },
+    {
+      "espnAthleteId": "5240355",
+      "name": "Jaylen Wharton",
+      "teamId": "2504",
+      "team": "Prairie View A&M Panthers",
+      "headshot": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5240355.png"
+    },
+    {
+      "espnAthleteId": "5240408",
+      "name": "Jackson Fazande",
+      "teamId": "2504",
+      "team": "Prairie View A&M Panthers",
+      "headshot": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5240408.png"
+    },
+    {
+      "espnAthleteId": "5240411",
+      "name": "Anthony Gause",
+      "teamId": "2504",
+      "team": "Prairie View A&M Panthers",
+      "headshot": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5240411.png"
+    },
+    {
+      "espnAthleteId": "5240614",
+      "name": "Marley Zeller",
+      "teamId": "2239",
+      "team": "Cal State Fullerton Titans",
+      "headshot": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5240614.png"
+    },
+    {
+      "espnAthleteId": "5241236",
+      "name": "Troy Jenkins",
+      "teamId": "2239",
+      "team": "Cal State Fullerton Titans",
+      "headshot": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5241236.png"
+    },
+    {
+      "espnAthleteId": "5241303",
+      "name": "Sebastian Tidor",
+      "teamId": "2504",
+      "team": "Prairie View A&M Panthers",
+      "headshot": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5241303.png"
+    },
+    {
+      "espnAthleteId": "5241337",
+      "name": "Braylon Johnson",
+      "teamId": "2029",
+      "team": "Arkansas-Pine Bluff Golden Lions",
+      "headshot": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5241337.png"
+    },
+    {
+      "espnAthleteId": "5242609",
+      "name": "Jackson Rogers",
+      "teamId": "2011",
+      "team": "Alabama State Hornets",
+      "headshot": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5242609.png"
+    },
+    {
+      "espnAthleteId": "5243035",
+      "name": "Caleb Williams",
+      "teamId": "294",
+      "team": "Jacksonville Dolphins",
+      "headshot": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5243035.png"
+    },
+    {
+      "espnAthleteId": "5243188",
+      "name": "Davian Williams",
+      "teamId": "2504",
+      "team": "Prairie View A&M Panthers",
+      "headshot": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5243188.png"
+    },
+    {
+      "espnAthleteId": "5243345",
+      "name": "Jalen Tatum",
+      "teamId": "2029",
+      "team": "Arkansas-Pine Bluff Golden Lions",
+      "headshot": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5243345.png"
+    },
+    {
+      "espnAthleteId": "5281137",
+      "name": "Saliou Niang",
+      "teamId": "99",
+      "team": "LSU Tigers",
+      "headshot": null
+    },
+    {
+      "espnAthleteId": "5309816",
+      "name": "Greg Howard Jr.",
+      "teamId": "2239",
+      "team": "Cal State Fullerton Titans",
+      "headshot": null
+    },
+    {
+      "espnAthleteId": "5312305",
+      "name": "Tory James Jr.",
+      "teamId": "2400",
+      "team": "Mississippi Valley State Delta Devils",
+      "headshot": null
+    },
+    {
+      "espnAthleteId": "5313174",
+      "name": "David Giddens",
+      "teamId": "2029",
+      "team": "Arkansas-Pine Bluff Golden Lions",
+      "headshot": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5313174.png"
+    },
+    {
+      "espnAthleteId": "5314618",
+      "name": "Rex Stirling",
+      "teamId": "294",
+      "team": "Jacksonville Dolphins",
+      "headshot": null
+    },
+    {
+      "espnAthleteId": "5314703",
+      "name": "Kobi Pearson",
+      "teamId": "2617",
+      "team": "Stephen F. Austin Lumberjacks",
+      "headshot": null
+    },
+    {
+      "espnAthleteId": "5314833",
+      "name": "Odartey Blankson",
+      "teamId": "2856",
+      "team": "California Baptist Lancers",
+      "headshot": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5314833.png"
+    },
+    {
+      "espnAthleteId": "5322027",
+      "name": "Elijah Hernandez",
+      "teamId": "2029",
+      "team": "Arkansas-Pine Bluff Golden Lions",
+      "headshot": null
+    },
+    {
+      "espnAthleteId": "5327891",
+      "name": "Lyndell Buckingham Jr.",
+      "teamId": "294",
+      "team": "Jacksonville Dolphins",
+      "headshot": null
+    },
+    {
+      "espnAthleteId": "5328515",
+      "name": "Henry Beckett",
+      "teamId": "2239",
+      "team": "Cal State Fullerton Titans",
+      "headshot": null
+    },
+    {
+      "espnAthleteId": "5388939",
+      "name": "Onyeka Joe Agu",
+      "teamId": "30",
+      "team": "USC Trojans",
+      "headshot": null
+    },
+    {
+      "espnAthleteId": "5460690",
+      "name": "Jordan Clark",
+      "teamId": "149",
+      "team": "Montana Grizzlies",
+      "headshot": null
+    },
+    {
+      "espnAthleteId": "5464668",
+      "name": "Noah Cohen",
+      "teamId": "163",
+      "team": "Princeton Tigers",
+      "headshot": null
+    },
+    {
+      "espnAthleteId": "5464739",
+      "name": "Anthony Ponga",
+      "teamId": "2239",
+      "team": "Cal State Fullerton Titans",
+      "headshot": null
+    },
+    {
+      "espnAthleteId": "5464740",
+      "name": "Malcolm Bell",
+      "teamId": "2239",
+      "team": "Cal State Fullerton Titans",
+      "headshot": null
+    },
+    {
+      "espnAthleteId": "5464741",
+      "name": "Sean Chris Tresvant",
+      "teamId": "2239",
+      "team": "Cal State Fullerton Titans",
+      "headshot": null
+    },
+    {
+      "espnAthleteId": "5464742",
+      "name": "Matthew Willenborg",
+      "teamId": "2239",
+      "team": "Cal State Fullerton Titans",
+      "headshot": null
+    },
+    {
+      "espnAthleteId": "5464743",
+      "name": "Tiernan Stynes",
+      "teamId": "2239",
+      "team": "Cal State Fullerton Titans",
+      "headshot": null
+    },
+    {
+      "espnAthleteId": "5464773",
+      "name": "Jeremy Nyakundi",
+      "teamId": "2029",
+      "team": "Arkansas-Pine Bluff Golden Lions",
+      "headshot": null
+    },
+    {
+      "espnAthleteId": "5464774",
+      "name": "Kalli Johnson",
+      "teamId": "2029",
+      "team": "Arkansas-Pine Bluff Golden Lions",
+      "headshot": null
+    },
+    {
+      "espnAthleteId": "5464775",
+      "name": "Cedric Dixon",
+      "teamId": "2029",
+      "team": "Arkansas-Pine Bluff Golden Lions",
+      "headshot": null
+    },
+    {
+      "espnAthleteId": "5464776",
+      "name": "Miles Williams",
+      "teamId": "2029",
+      "team": "Arkansas-Pine Bluff Golden Lions",
+      "headshot": null
+    },
+    {
+      "espnAthleteId": "5464868",
+      "name": "Tadej Colnaric",
+      "teamId": "2739",
+      "team": "Green Bay Phoenix",
+      "headshot": null
+    },
+    {
+      "espnAthleteId": "5464872",
+      "name": "Jordan Mathews",
+      "teamId": "2612",
+      "team": "Saint Peter's Peacocks",
+      "headshot": null
+    },
+    {
+      "espnAthleteId": "5465505",
+      "name": "Evan Roberts",
+      "teamId": "294",
+      "team": "Jacksonville Dolphins",
+      "headshot": null
+    },
+    {
+      "espnAthleteId": "5465506",
+      "name": "LJ Katz",
+      "teamId": "294",
+      "team": "Jacksonville Dolphins",
+      "headshot": null
+    },
+    {
+      "espnAthleteId": "5465507",
+      "name": "Maddox Palmer",
+      "teamId": "294",
+      "team": "Jacksonville Dolphins",
+      "headshot": null
+    },
+    {
+      "espnAthleteId": "5465511",
+      "name": "Ben Pearce",
+      "teamId": "2363",
+      "team": "Manhattan Jaspers",
+      "headshot": null
+    },
+    {
+      "espnAthleteId": "5465876",
+      "name": "Derrick Rivers",
+      "teamId": "2504",
+      "team": "Prairie View A&M Panthers",
+      "headshot": null
+    },
+    {
+      "espnAthleteId": "5465877",
+      "name": "Davis Bynum",
+      "teamId": "2504",
+      "team": "Prairie View A&M Panthers",
+      "headshot": null
+    },
+    {
+      "espnAthleteId": "5465878",
+      "name": "Bryant Ajiero",
+      "teamId": "2504",
+      "team": "Prairie View A&M Panthers",
+      "headshot": null
+    },
+    {
+      "espnAthleteId": "5465879",
+      "name": "Jaylen Lee",
+      "teamId": "2504",
+      "team": "Prairie View A&M Panthers",
+      "headshot": null
+    },
+    {
+      "espnAthleteId": "5465880",
+      "name": "Eddie Page",
+      "teamId": "2504",
+      "team": "Prairie View A&M Panthers",
+      "headshot": null
+    },
+    {
+      "espnAthleteId": "5465881",
+      "name": "Dashawn Ceaser",
+      "teamId": "2504",
+      "team": "Prairie View A&M Panthers",
+      "headshot": null
+    },
+    {
+      "espnAthleteId": "5466535",
+      "name": "Zach Trezvant",
+      "teamId": "331",
+      "team": "Eastern Washington Eagles",
+      "headshot": null
+    },
+    {
+      "espnAthleteId": "5466586",
+      "name": "Jordan Houegban",
+      "teamId": "26",
+      "team": "UCLA Bruins",
+      "headshot": null
+    },
+    {
+      "espnAthleteId": "5466859",
+      "name": "Filip Kalajzic",
+      "teamId": "249",
+      "team": "North Texas Mean Green",
+      "headshot": null
+    },
+    {
+      "espnAthleteId": "5467070",
+      "name": "Thomas Batties",
+      "teamId": "108",
+      "team": "Harvard Crimson",
+      "headshot": null
+    }
+  ],
+  "removed": [
+    {
+      "espnAthleteId": "4703215",
+      "name": "Tai'Reon Joseph",
+      "teamId": "2504",
+      "team": "Prairie View A&M Panthers",
+      "headshot": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/4703215.png"
+    },
+    {
+      "espnAthleteId": "4705371",
+      "name": "Joey Madimba",
+      "teamId": "2504",
+      "team": "Prairie View A&M Panthers",
+      "headshot": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/4705371.png"
+    },
+    {
+      "espnAthleteId": "4706262",
+      "name": "Jaden Henderson",
+      "teamId": "2239",
+      "team": "Cal State Fullerton Titans",
+      "headshot": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/4706262.png"
+    },
+    {
+      "espnAthleteId": "4899789",
+      "name": "Miranda VanderWal",
+      "teamId": "155",
+      "team": "North Dakota Fighting Hawks",
+      "headshot": null
+    },
+    {
+      "espnAthleteId": "4904924",
+      "name": "Corey Dunning",
+      "teamId": "2504",
+      "team": "Prairie View A&M Panthers",
+      "headshot": null
+    },
+    {
+      "espnAthleteId": "4904928",
+      "name": "Cory Wells",
+      "teamId": "2504",
+      "team": "Prairie View A&M Panthers",
+      "headshot": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/4904928.png"
+    },
+    {
+      "espnAthleteId": "4904931",
+      "name": "Lance Williams",
+      "teamId": "2504",
+      "team": "Prairie View A&M Panthers",
+      "headshot": null
+    },
+    {
+      "espnAthleteId": "4908501",
+      "name": "Trejon Ware",
+      "teamId": "2029",
+      "team": "Arkansas-Pine Bluff Golden Lions",
+      "headshot": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/4908501.png"
+    },
+    {
+      "espnAthleteId": "4910887",
+      "name": "Landon Seaman",
+      "teamId": "2239",
+      "team": "Cal State Fullerton Titans",
+      "headshot": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/4910887.png"
+    },
+    {
+      "espnAthleteId": "5105824",
+      "name": "Ramel Lloyd Jr.",
+      "teamId": "2029",
+      "team": "Arkansas-Pine Bluff Golden Lions",
+      "headshot": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5105824.png"
+    },
+    {
+      "espnAthleteId": "5106274",
+      "name": "Quion Williams",
+      "teamId": "2029",
+      "team": "Arkansas-Pine Bluff Golden Lions",
+      "headshot": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5106274.png"
+    },
+    {
+      "espnAthleteId": "5106662",
+      "name": "Ahmad Johnson",
+      "teamId": "2029",
+      "team": "Arkansas-Pine Bluff Golden Lions",
+      "headshot": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5106662.png"
+    },
+    {
+      "espnAthleteId": "5108085",
+      "name": "Jason Thirdkill Jr.",
+      "teamId": "294",
+      "team": "Jacksonville Dolphins",
+      "headshot": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5108085.png"
+    },
+    {
+      "espnAthleteId": "5109255",
+      "name": "Rakiyah Beal",
+      "teamId": "155",
+      "team": "North Dakota Fighting Hawks",
+      "headshot": null
+    },
+    {
+      "espnAthleteId": "5109256",
+      "name": "Kiyah Hurst",
+      "teamId": "155",
+      "team": "North Dakota Fighting Hawks",
+      "headshot": null
+    },
+    {
+      "espnAthleteId": "5109988",
+      "name": "Walker Demers",
+      "teamId": "155",
+      "team": "North Dakota Fighting Hawks",
+      "headshot": null
+    },
+    {
+      "espnAthleteId": "5122260",
+      "name": "Jaylen Jordon",
+      "teamId": "294",
+      "team": "Jacksonville Dolphins",
+      "headshot": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5122260.png"
+    },
+    {
+      "espnAthleteId": "5174317",
+      "name": "Jaquan Scott",
+      "teamId": "2029",
+      "team": "Arkansas-Pine Bluff Golden Lions",
+      "headshot": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5174317.png"
+    },
+    {
+      "espnAthleteId": "5175954",
+      "name": "Thomas Batties II",
+      "teamId": "108",
+      "team": "Harvard Crimson",
+      "headshot": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5175954.png"
+    },
+    {
+      "espnAthleteId": "5176246",
+      "name": "Jefferson De La Cruz Monegro",
+      "teamId": "2239",
+      "team": "Cal State Fullerton Titans",
+      "headshot": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5176246.png"
+    },
+    {
+      "espnAthleteId": "5176296",
+      "name": "Allen Udemadu",
+      "teamId": "294",
+      "team": "Jacksonville Dolphins",
+      "headshot": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5176296.png"
+    },
+    {
+      "espnAthleteId": "5176727",
+      "name": "Dontae Horne",
+      "teamId": "2504",
+      "team": "Prairie View A&M Panthers",
+      "headshot": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5176727.png"
+    },
+    {
+      "espnAthleteId": "5176729",
+      "name": "Ryan Bolton Jr.",
+      "teamId": "2504",
+      "team": "Prairie View A&M Panthers",
+      "headshot": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5176729.png"
+    },
+    {
+      "espnAthleteId": "5177019",
+      "name": "Marcel Bryant",
+      "teamId": "2504",
+      "team": "Prairie View A&M Panthers",
+      "headshot": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5177019.png"
+    },
+    {
+      "espnAthleteId": "5177138",
+      "name": "Doug Young",
+      "teamId": "2504",
+      "team": "Prairie View A&M Panthers",
+      "headshot": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5177138.png"
+    },
+    {
+      "espnAthleteId": "5178455",
+      "name": "Paris Bass",
+      "teamId": "155",
+      "team": "North Dakota Fighting Hawks",
+      "headshot": null
+    },
+    {
+      "espnAthleteId": "5178456",
+      "name": "Nevaeh Ferrara Horne",
+      "teamId": "155",
+      "team": "North Dakota Fighting Hawks",
+      "headshot": null
+    },
+    {
+      "espnAthleteId": "5178457",
+      "name": "Kiera Pemberton",
+      "teamId": "155",
+      "team": "North Dakota Fighting Hawks",
+      "headshot": null
+    },
+    {
+      "espnAthleteId": "5178458",
+      "name": "Fatima Ibrahim",
+      "teamId": "155",
+      "team": "North Dakota Fighting Hawks",
+      "headshot": null
+    },
+    {
+      "espnAthleteId": "5178460",
+      "name": "Jayla Owen",
+      "teamId": "155",
+      "team": "North Dakota Fighting Hawks",
+      "headshot": null
+    },
+    {
+      "espnAthleteId": "5180837",
+      "name": "Joshua Ward",
+      "teamId": "2239",
+      "team": "Cal State Fullerton Titans",
+      "headshot": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5180837.png"
+    },
+    {
+      "espnAthleteId": "5189243",
+      "name": "Travis Pourciau",
+      "teamId": "2029",
+      "team": "Arkansas-Pine Bluff Golden Lions",
+      "headshot": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5189243.png"
+    },
+    {
+      "espnAthleteId": "5190922",
+      "name": "Hassane Diallo",
+      "teamId": "2504",
+      "team": "Prairie View A&M Panthers",
+      "headshot": null
+    },
+    {
+      "espnAthleteId": "5239539",
+      "name": "Skyler Volmer",
+      "teamId": "155",
+      "team": "North Dakota Fighting Hawks",
+      "headshot": null
+    },
+    {
+      "espnAthleteId": "5239540",
+      "name": "Anaiyah Fletcher",
+      "teamId": "155",
+      "team": "North Dakota Fighting Hawks",
+      "headshot": null
+    },
+    {
+      "espnAthleteId": "5239541",
+      "name": "Mataeya Mathern",
+      "teamId": "155",
+      "team": "North Dakota Fighting Hawks",
+      "headshot": null
+    },
+    {
+      "espnAthleteId": "5239542",
+      "name": "Sydney Piekny",
+      "teamId": "155",
+      "team": "North Dakota Fighting Hawks",
+      "headshot": null
+    },
+    {
+      "espnAthleteId": "5239543",
+      "name": "Jocelyn Schiller",
+      "teamId": "155",
+      "team": "North Dakota Fighting Hawks",
+      "headshot": null
+    },
+    {
+      "espnAthleteId": "5241870",
+      "name": "Kidus Tilahun",
+      "teamId": "2239",
+      "team": "Cal State Fullerton Titans",
+      "headshot": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5241870.png"
+    },
+    {
+      "espnAthleteId": "5243098",
+      "name": "Seryee Lewis",
+      "teamId": "2504",
+      "team": "Prairie View A&M Panthers",
+      "headshot": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5243098.png"
+    },
+    {
+      "espnAthleteId": "5243193",
+      "name": "Anthony Sellars",
+      "teamId": "2029",
+      "team": "Arkansas-Pine Bluff Golden Lions",
+      "headshot": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5243193.png"
+    },
+    {
+      "espnAthleteId": "5243198",
+      "name": "Dennis Asoro",
+      "teamId": "2029",
+      "team": "Arkansas-Pine Bluff Golden Lions",
+      "headshot": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5243198.png"
+    },
+    {
+      "espnAthleteId": "5243199",
+      "name": "Kyle Brown",
+      "teamId": "2029",
+      "team": "Arkansas-Pine Bluff Golden Lions",
+      "headshot": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5243199.png"
+    },
+    {
+      "espnAthleteId": "5243205",
+      "name": "Anakin Brown",
+      "teamId": "294",
+      "team": "Jacksonville Dolphins",
+      "headshot": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5243205.png"
+    },
+    {
+      "espnAthleteId": "5243206",
+      "name": "Lamont Jackson",
+      "teamId": "294",
+      "team": "Jacksonville Dolphins",
+      "headshot": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5243206.png"
+    },
+    {
+      "espnAthleteId": "5243207",
+      "name": "Simon Wheeler",
+      "teamId": "294",
+      "team": "Jacksonville Dolphins",
+      "headshot": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5243207.png"
+    },
+    {
+      "espnAthleteId": "5243210",
+      "name": "Enrico Borio",
+      "teamId": "294",
+      "team": "Jacksonville Dolphins",
+      "headshot": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5243210.png"
+    },
+    {
+      "espnAthleteId": "5243361",
+      "name": "Isaiah Foster",
+      "teamId": "2504",
+      "team": "Prairie View A&M Panthers",
+      "headshot": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5243361.png"
+    },
+    {
+      "espnAthleteId": "5247621",
+      "name": "Keeshawn Mason",
+      "teamId": "2504",
+      "team": "Prairie View A&M Panthers",
+      "headshot": null
+    },
+    {
+      "espnAthleteId": "5259802",
+      "name": "Alex Mirhosseini",
+      "teamId": "2029",
+      "team": "Arkansas-Pine Bluff Golden Lions",
+      "headshot": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5259802.png"
+    },
+    {
+      "espnAthleteId": "5312316",
+      "name": "Karan Kolappa",
+      "teamId": "2239",
+      "team": "Cal State Fullerton Titans",
+      "headshot": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5312316.png"
+    },
+    {
+      "espnAthleteId": "5312317",
+      "name": "Cam Smith",
+      "teamId": "2239",
+      "team": "Cal State Fullerton Titans",
+      "headshot": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5312317.png"
+    },
+    {
+      "espnAthleteId": "5312318",
+      "name": "Nicholas Khatchikian",
+      "teamId": "2239",
+      "team": "Cal State Fullerton Titans",
+      "headshot": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5312318.png"
+    },
+    {
+      "espnAthleteId": "5313437",
+      "name": "Jahmari Hamilton-Brown",
+      "teamId": "2029",
+      "team": "Arkansas-Pine Bluff Golden Lions",
+      "headshot": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5313437.png"
+    },
+    {
+      "espnAthleteId": "5313675",
+      "name": "Michael Harper Jr.",
+      "teamId": "294",
+      "team": "Jacksonville Dolphins",
+      "headshot": null
+    },
+    {
+      "espnAthleteId": "5313677",
+      "name": "Charles Caporaso",
+      "teamId": "294",
+      "team": "Jacksonville Dolphins",
+      "headshot": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5313677.png"
+    },
+    {
+      "espnAthleteId": "5314559",
+      "name": "Calvin Sirmans III",
+      "teamId": "2016",
+      "team": "Alcorn State Braves",
+      "headshot": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5314559.png"
+    },
+    {
+      "espnAthleteId": "5314804",
+      "name": "Jannoy Thomas",
+      "teamId": "2504",
+      "team": "Prairie View A&M Panthers",
+      "headshot": null
+    },
+    {
+      "espnAthleteId": "5458353",
+      "name": "Onyeka Joe Agu",
+      "teamId": "30",
+      "team": "USC Trojans",
+      "headshot": null
+    },
+    {
+      "espnAthleteId": "5458659",
+      "name": "Odartey Blankson",
+      "teamId": "2856",
+      "team": "California Baptist Lancers",
+      "headshot": null
+    },
+    {
+      "espnAthleteId": "5461683",
+      "name": "Jackson Rogers",
+      "teamId": "2011",
+      "team": "Alabama State Hornets",
+      "headshot": null
+    },
+    {
+      "espnAthleteId": "5462521",
+      "name": "Tory James Jr.",
+      "teamId": "2400",
+      "team": "Mississippi Valley State Delta Devils",
+      "headshot": null
+    },
+    {
+      "espnAthleteId": "5462740",
+      "name": "Kobi Pearson",
+      "teamId": "2617",
+      "team": "Stephen F. Austin Lumberjacks",
+      "headshot": null
+    }
+  ],
+  "teamChanges": [],
+  "metadataChanges": [
+    {
+      "espnAthleteId": "5309815",
+      "name": "Julian Adigun",
+      "team": "Harvard Crimson",
+      "changedFields": {
+        "position": {
+          "before": "F",
+          "after": "C"
+        }
+      }
+    },
+    {
+      "espnAthleteId": "5313436",
+      "name": "Jai'chaunn Hayes",
+      "team": "Arkansas-Pine Bluff Golden Lions",
+      "changedFields": {
+        "jersey": {
+          "before": "2",
+          "after": "3"
+        }
+      }
+    },
+    {
+      "espnAthleteId": "5313438",
+      "name": "Harrison Pickett",
+      "team": "Arkansas-Pine Bluff Golden Lions",
+      "changedFields": {
+        "height": {
+          "before": "6' 2\"",
+          "after": "6' 3\""
+        }
+      }
+    },
+    {
+      "espnAthleteId": "5460116",
+      "name": "Max Gaspa",
+      "team": "Bradley Braves",
+      "changedFields": {
+        "name": {
+          "before": "Max Gasp",
+          "after": "Max Gaspa"
+        }
+      }
+    },
+    {
+      "espnAthleteId": "5461289",
+      "name": "Oliver Kullamae",
+      "team": "San José State Spartans",
+      "changedFields": {
+        "name": {
+          "before": "Oliver Kullame",
+          "after": "Oliver Kullamae"
+        }
+      }
+    },
+    {
+      "espnAthleteId": "5461627",
+      "name": "Caua Pacheco",
+      "team": "Troy Trojans",
+      "changedFields": {
+        "name": {
+          "before": "Cau Pacheco",
+          "after": "Caua Pacheco"
+        }
+      }
+    }
+  ],
+  "identityPolicy": "ESPN-ID-only; never infer a transfer or value from player names"
+}
