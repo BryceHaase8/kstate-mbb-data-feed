@@ -1,0 +1,923 @@
+{
+  "schemaVersion": 1,
+  "season": 2027,
+  "asOf": "2026-10-27",
+  "policy": "ADD_ONLY",
+  "provenance": "V4 original peer anchors + 2027 Torvik TEAM strength (not international market study)",
+  "totalPlayers": 47,
+  "historicalModelReanchor": 9,
+  "lowConfidenceV4CohortProxy": 38,
+  "formula": "By verified team Torvik rank: V4 team-peer 25th/40th/45th/50th percentile, scaled 0.70/0.85/0.90/1.00, +8% for ESPN F/C, rounded $1,000, floor $25k, cap $1.4m; no player stats imputed",
+  "staffNote": "Do not misrepresent as original per-player V4; 38 newcomers have no prior ESPN production. Later review international and recruitment priors.",
+  "byESPNId": {
+    "4897705": 59146,
+    "5105794": 2435541,
+    "5106783": 30449,
+    "5107807": 424982,
+    "5108054": 33036,
+    "5144545": 76000,
+    "5175393": 31255,
+    "5177353": 40852,
+    "5177542": 39000,
+    "5240411": 36966,
+    "5240614": 62000,
+    "5241337": 39000,
+    "5242609": 48755,
+    "5281137": 1203000,
+    "5309816": 62000,
+    "5314833": 52000,
+    "5322027": 39000,
+    "5327891": 70000,
+    "5328515": 62000,
+    "5388939": 306000,
+    "5460690": 139000,
+    "5464668": 58000,
+    "5464739": 62000,
+    "5464740": 62000,
+    "5464741": 62000,
+    "5464742": 62000,
+    "5464743": 62000,
+    "5464773": 42000,
+    "5464774": 39000,
+    "5464775": 39000,
+    "5464776": 42000,
+    "5464868": 51000,
+    "5464872": 56000,
+    "5465505": 70000,
+    "5465506": 70000,
+    "5465507": 70000,
+    "5465511": 51000,
+    "5465876": 36000,
+    "5465877": 39000,
+    "5465878": 39000,
+    "5465879": 36000,
+    "5465880": 39000,
+    "5465881": 36000,
+    "5466535": 115000,
+    "5466586": 582000,
+    "5466859": 295000,
+    "5467070": 29000
+  },
+  "methodByESPNId": {
+    "4897705": "V4_HISTORICAL_AUXILIARY_FROZEN",
+    "5105794": "V4_HISTORICAL_AUXILIARY_FROZEN",
+    "5106783": "V4_HISTORICAL_AUXILIARY_FROZEN",
+    "5107807": "V4_HISTORICAL_AUXILIARY_FROZEN",
+    "5108054": "V4_HISTORICAL_AUXILIARY_FROZEN",
+    "5144545": "V4_TEAM_COHORT_PROXY_NO_STATS",
+    "5175393": "V4_HISTORICAL_AUXILIARY_FROZEN",
+    "5177353": "V4_HISTORICAL_AUXILIARY_FROZEN",
+    "5177542": "V4_TEAM_COHORT_PROXY_NO_STATS",
+    "5240411": "V4_HISTORICAL_AUXILIARY_FROZEN",
+    "5240614": "V4_TEAM_COHORT_PROXY_NO_STATS",
+    "5241337": "V4_TEAM_COHORT_PROXY_NO_STATS",
+    "5242609": "V4_HISTORICAL_AUXILIARY_FROZEN",
+    "5281137": "V4_TEAM_COHORT_PROXY_NO_STATS",
+    "5309816": "V4_TEAM_COHORT_PROXY_NO_STATS",
+    "5314833": "V4_TEAM_COHORT_PROXY_NO_STATS",
+    "5322027": "V4_TEAM_COHORT_PROXY_NO_STATS",
+    "5327891": "V4_TEAM_COHORT_PROXY_NO_STATS",
+    "5328515": "V4_TEAM_COHORT_PROXY_NO_STATS",
+    "5388939": "V4_TEAM_COHORT_PROXY_NO_STATS",
+    "5460690": "V4_TEAM_COHORT_PROXY_NO_STATS",
+    "5464668": "V4_TEAM_COHORT_PROXY_NO_STATS",
+    "5464739": "V4_TEAM_COHORT_PROXY_NO_STATS",
+    "5464740": "V4_TEAM_COHORT_PROXY_NO_STATS",
+    "5464741": "V4_TEAM_COHORT_PROXY_NO_STATS",
+    "5464742": "V4_TEAM_COHORT_PROXY_NO_STATS",
+    "5464743": "V4_TEAM_COHORT_PROXY_NO_STATS",
+    "5464773": "V4_TEAM_COHORT_PROXY_NO_STATS",
+    "5464774": "V4_TEAM_COHORT_PROXY_NO_STATS",
+    "5464775": "V4_TEAM_COHORT_PROXY_NO_STATS",
+    "5464776": "V4_TEAM_COHORT_PROXY_NO_STATS",
+    "5464868": "V4_TEAM_COHORT_PROXY_NO_STATS",
+    "5464872": "V4_TEAM_COHORT_PROXY_NO_STATS",
+    "5465505": "V4_TEAM_COHORT_PROXY_NO_STATS",
+    "5465506": "V4_TEAM_COHORT_PROXY_NO_STATS",
+    "5465507": "V4_TEAM_COHORT_PROXY_NO_STATS",
+    "5465511": "V4_TEAM_COHORT_PROXY_NO_STATS",
+    "5465876": "V4_TEAM_COHORT_PROXY_NO_STATS",
+    "5465877": "V4_TEAM_COHORT_PROXY_NO_STATS",
+    "5465878": "V4_TEAM_COHORT_PROXY_NO_STATS",
+    "5465879": "V4_TEAM_COHORT_PROXY_NO_STATS",
+    "5465880": "V4_TEAM_COHORT_PROXY_NO_STATS",
+    "5465881": "V4_TEAM_COHORT_PROXY_NO_STATS",
+    "5466535": "V4_TEAM_COHORT_PROXY_NO_STATS",
+    "5466586": "V4_TEAM_COHORT_PROXY_NO_STATS",
+    "5466859": "V4_TEAM_COHORT_PROXY_NO_STATS",
+    "5467070": "V4_TEAM_COHORT_PROXY_NO_STATS"
+  },
+  "players": {
+    "4897705": {
+      "name": "Drew McConnell",
+      "espnAthleteId": "4897705",
+      "espnTeamId": "2239",
+      "team": "Cal State Fullerton Titans",
+      "position": "G",
+      "preseasonPrice": 59146,
+      "method": "V4_HISTORICAL_AUXILIARY_FROZEN",
+      "confidence": "HISTORICAL_MODEL_NO_ORIGINAL_FROZEN_ANCHOR",
+      "inputs": {
+        "previousVerifiedModelValue": 59146,
+        "priorSeason": 2025
+      }
+    },
+    "5105794": {
+      "name": "Skyy Clark",
+      "espnAthleteId": "5105794",
+      "espnTeamId": "99",
+      "team": "LSU Tigers",
+      "position": "G",
+      "preseasonPrice": 2435541,
+      "method": "V4_HISTORICAL_AUXILIARY_FROZEN",
+      "confidence": "HISTORICAL_MODEL_NO_ORIGINAL_FROZEN_ANCHOR",
+      "inputs": {
+        "previousVerifiedModelValue": 2435541,
+        "priorSeason": 2026
+      }
+    },
+    "5106783": {
+      "name": "Dominic Capriotti",
+      "espnAthleteId": "5106783",
+      "espnTeamId": "2029",
+      "team": "Arkansas-Pine Bluff Golden Lions",
+      "position": "G",
+      "preseasonPrice": 30449,
+      "method": "V4_HISTORICAL_AUXILIARY_FROZEN",
+      "confidence": "HISTORICAL_MODEL_NO_ORIGINAL_FROZEN_ANCHOR",
+      "inputs": {
+        "previousVerifiedModelValue": 30449,
+        "priorSeason": 2025
+      }
+    },
+    "5107807": {
+      "name": "Michael Eley",
+      "espnAthleteId": "5107807",
+      "espnTeamId": "2504",
+      "team": "Prairie View A&M Panthers",
+      "position": "G",
+      "preseasonPrice": 424982,
+      "method": "V4_HISTORICAL_AUXILIARY_FROZEN",
+      "confidence": "HISTORICAL_MODEL_NO_ORIGINAL_FROZEN_ANCHOR",
+      "inputs": {
+        "previousVerifiedModelValue": 424982,
+        "priorSeason": 2026
+      }
+    },
+    "5108054": {
+      "name": "Micah Bell",
+      "espnAthleteId": "5108054",
+      "espnTeamId": "2504",
+      "team": "Prairie View A&M Panthers",
+      "position": "G",
+      "preseasonPrice": 33036,
+      "method": "V4_HISTORICAL_AUXILIARY_FROZEN",
+      "confidence": "HISTORICAL_MODEL_NO_ORIGINAL_FROZEN_ANCHOR",
+      "inputs": {
+        "previousVerifiedModelValue": 33036,
+        "priorSeason": 2024
+      }
+    },
+    "5144545": {
+      "name": "Sam Mbingazo",
+      "espnAthleteId": "5144545",
+      "espnTeamId": "294",
+      "team": "Jacksonville Dolphins",
+      "position": "C",
+      "preseasonPrice": 76000,
+      "method": "V4_TEAM_COHORT_PROXY_NO_STATS",
+      "confidence": "LOW_PRESEASON_PROXY",
+      "inputs": {
+        "teamTorvikRank": 227,
+        "originalV4PeersAtTeam": 9,
+        "peerPercentile": 0.45,
+        "discount": 0.9,
+        "positionMultiplier": 1.08,
+        "peerBasedValue": 78011
+      }
+    },
+    "5175393": {
+      "name": "Rockwell Reynolds",
+      "espnAthleteId": "5175393",
+      "espnTeamId": "2239",
+      "team": "Cal State Fullerton Titans",
+      "position": "F",
+      "preseasonPrice": 31255,
+      "method": "V4_HISTORICAL_AUXILIARY_FROZEN",
+      "confidence": "HISTORICAL_MODEL_NO_ORIGINAL_FROZEN_ANCHOR",
+      "inputs": {
+        "previousVerifiedModelValue": 31255,
+        "priorSeason": 2024
+      }
+    },
+    "5177353": {
+      "name": "Creed Williamson",
+      "espnAthleteId": "5177353",
+      "espnTeamId": "2029",
+      "team": "Arkansas-Pine Bluff Golden Lions",
+      "position": "F",
+      "preseasonPrice": 40852,
+      "method": "V4_HISTORICAL_AUXILIARY_FROZEN",
+      "confidence": "HISTORICAL_MODEL_NO_ORIGINAL_FROZEN_ANCHOR",
+      "inputs": {
+        "previousVerifiedModelValue": 40852,
+        "priorSeason": 2025
+      }
+    },
+    "5177542": {
+      "name": "Lataevyon Taylor",
+      "espnAthleteId": "5177542",
+      "espnTeamId": "2029",
+      "team": "Arkansas-Pine Bluff Golden Lions",
+      "position": "G",
+      "preseasonPrice": 39000,
+      "method": "V4_TEAM_COHORT_PROXY_NO_STATS",
+      "confidence": "LOW_PRESEASON_PROXY",
+      "inputs": {
+        "teamTorvikRank": 361,
+        "originalV4PeersAtTeam": 5,
+        "peerPercentile": 0.5,
+        "discount": 1,
+        "positionMultiplier": 1,
+        "peerBasedValue": 38908
+      }
+    },
+    "5240411": {
+      "name": "Anthony Gause",
+      "espnAthleteId": "5240411",
+      "espnTeamId": "2504",
+      "team": "Prairie View A&M Panthers",
+      "position": "G",
+      "preseasonPrice": 36966,
+      "method": "V4_HISTORICAL_AUXILIARY_FROZEN",
+      "confidence": "HISTORICAL_MODEL_NO_ORIGINAL_FROZEN_ANCHOR",
+      "inputs": {
+        "previousVerifiedModelValue": 36966,
+        "priorSeason": 2026
+      }
+    },
+    "5240614": {
+      "name": "Marley Zeller",
+      "espnAthleteId": "5240614",
+      "espnTeamId": "2239",
+      "team": "Cal State Fullerton Titans",
+      "position": "G",
+      "preseasonPrice": 62000,
+      "method": "V4_TEAM_COHORT_PROXY_NO_STATS",
+      "confidence": "LOW_PRESEASON_PROXY",
+      "inputs": {
+        "teamTorvikRank": 198,
+        "originalV4PeersAtTeam": 6,
+        "peerPercentile": 0.45,
+        "discount": 0.9,
+        "positionMultiplier": 1,
+        "peerBasedValue": 68432
+      }
+    },
+    "5241337": {
+      "name": "Braylon Johnson",
+      "espnAthleteId": "5241337",
+      "espnTeamId": "2029",
+      "team": "Arkansas-Pine Bluff Golden Lions",
+      "position": "G",
+      "preseasonPrice": 39000,
+      "method": "V4_TEAM_COHORT_PROXY_NO_STATS",
+      "confidence": "LOW_PRESEASON_PROXY",
+      "inputs": {
+        "teamTorvikRank": 361,
+        "originalV4PeersAtTeam": 5,
+        "peerPercentile": 0.5,
+        "discount": 1,
+        "positionMultiplier": 1,
+        "peerBasedValue": 38908
+      }
+    },
+    "5242609": {
+      "name": "Jackson Rogers",
+      "espnAthleteId": "5242609",
+      "espnTeamId": "2011",
+      "team": "Alabama State Hornets",
+      "position": "G",
+      "preseasonPrice": 48755,
+      "method": "V4_HISTORICAL_AUXILIARY_FROZEN",
+      "confidence": "HISTORICAL_MODEL_NO_ORIGINAL_FROZEN_ANCHOR",
+      "inputs": {
+        "previousVerifiedModelValue": 48755,
+        "priorSeason": 2025
+      }
+    },
+    "5281137": {
+      "name": "Saliou Niang",
+      "espnAthleteId": "5281137",
+      "espnTeamId": "99",
+      "team": "LSU Tigers",
+      "position": "F",
+      "preseasonPrice": 1203000,
+      "method": "V4_TEAM_COHORT_PROXY_NO_STATS",
+      "confidence": "LOW_PRESEASON_PROXY",
+      "inputs": {
+        "teamTorvikRank": 51,
+        "originalV4PeersAtTeam": 3,
+        "peerPercentile": 0.25,
+        "discount": 0.7,
+        "positionMultiplier": 1.08,
+        "peerBasedValue": 1591536
+      },
+      "notes": "Specific international-market review requested: no international premium inferred from surname or birthplace."
+    },
+    "5309816": {
+      "name": "Greg Howard Jr.",
+      "espnAthleteId": "5309816",
+      "espnTeamId": "2239",
+      "team": "Cal State Fullerton Titans",
+      "position": "G",
+      "preseasonPrice": 62000,
+      "method": "V4_TEAM_COHORT_PROXY_NO_STATS",
+      "confidence": "LOW_PRESEASON_PROXY",
+      "inputs": {
+        "teamTorvikRank": 198,
+        "originalV4PeersAtTeam": 6,
+        "peerPercentile": 0.45,
+        "discount": 0.9,
+        "positionMultiplier": 1,
+        "peerBasedValue": 68432
+      }
+    },
+    "5314833": {
+      "name": "Odartey Blankson",
+      "espnAthleteId": "5314833",
+      "espnTeamId": "2856",
+      "team": "California Baptist Lancers",
+      "position": "G",
+      "preseasonPrice": 52000,
+      "method": "V4_TEAM_COHORT_PROXY_NO_STATS",
+      "confidence": "LOW_PRESEASON_PROXY",
+      "inputs": {
+        "teamTorvikRank": 186,
+        "originalV4PeersAtTeam": 5,
+        "peerPercentile": 0.45,
+        "discount": 0.9,
+        "positionMultiplier": 1,
+        "peerBasedValue": 57986
+      }
+    },
+    "5322027": {
+      "name": "Elijah Hernandez",
+      "espnAthleteId": "5322027",
+      "espnTeamId": "2029",
+      "team": "Arkansas-Pine Bluff Golden Lions",
+      "position": "G",
+      "preseasonPrice": 39000,
+      "method": "V4_TEAM_COHORT_PROXY_NO_STATS",
+      "confidence": "LOW_PRESEASON_PROXY",
+      "inputs": {
+        "teamTorvikRank": 361,
+        "originalV4PeersAtTeam": 5,
+        "peerPercentile": 0.5,
+        "discount": 1,
+        "positionMultiplier": 1,
+        "peerBasedValue": 38908
+      }
+    },
+    "5327891": {
+      "name": "Lyndell Buckingham Jr.",
+      "espnAthleteId": "5327891",
+      "espnTeamId": "294",
+      "team": "Jacksonville Dolphins",
+      "position": "G",
+      "preseasonPrice": 70000,
+      "method": "V4_TEAM_COHORT_PROXY_NO_STATS",
+      "confidence": "LOW_PRESEASON_PROXY",
+      "inputs": {
+        "teamTorvikRank": 227,
+        "originalV4PeersAtTeam": 9,
+        "peerPercentile": 0.45,
+        "discount": 0.9,
+        "positionMultiplier": 1,
+        "peerBasedValue": 78011
+      }
+    },
+    "5328515": {
+      "name": "Henry Beckett",
+      "espnAthleteId": "5328515",
+      "espnTeamId": "2239",
+      "team": "Cal State Fullerton Titans",
+      "position": "G",
+      "preseasonPrice": 62000,
+      "method": "V4_TEAM_COHORT_PROXY_NO_STATS",
+      "confidence": "LOW_PRESEASON_PROXY",
+      "inputs": {
+        "teamTorvikRank": 198,
+        "originalV4PeersAtTeam": 6,
+        "peerPercentile": 0.45,
+        "discount": 0.9,
+        "positionMultiplier": 1,
+        "peerBasedValue": 68432
+      }
+    },
+    "5388939": {
+      "name": "Onyeka Joe Agu",
+      "espnAthleteId": "5388939",
+      "espnTeamId": "30",
+      "team": "USC Trojans",
+      "position": "C",
+      "preseasonPrice": 306000,
+      "method": "V4_TEAM_COHORT_PROXY_NO_STATS",
+      "confidence": "LOW_PRESEASON_PROXY",
+      "inputs": {
+        "teamTorvikRank": 36,
+        "originalV4PeersAtTeam": 9,
+        "peerPercentile": 0.25,
+        "discount": 0.7,
+        "positionMultiplier": 1.08,
+        "peerBasedValue": 404389
+      }
+    },
+    "5460690": {
+      "name": "Jordan Clark",
+      "espnAthleteId": "5460690",
+      "espnTeamId": "149",
+      "team": "Montana Grizzlies",
+      "position": "G",
+      "preseasonPrice": 139000,
+      "method": "V4_TEAM_COHORT_PROXY_NO_STATS",
+      "confidence": "LOW_PRESEASON_PROXY",
+      "inputs": {
+        "teamTorvikRank": 209,
+        "originalV4PeersAtTeam": 4,
+        "peerPercentile": 0.45,
+        "discount": 0.9,
+        "positionMultiplier": 1,
+        "peerBasedValue": 154913
+      }
+    },
+    "5464668": {
+      "name": "Noah Cohen",
+      "espnAthleteId": "5464668",
+      "espnTeamId": "163",
+      "team": "Princeton Tigers",
+      "position": "G",
+      "preseasonPrice": 58000,
+      "method": "V4_TEAM_COHORT_PROXY_NO_STATS",
+      "confidence": "LOW_PRESEASON_PROXY",
+      "inputs": {
+        "teamTorvikRank": 162,
+        "originalV4PeersAtTeam": 16,
+        "peerPercentile": 0.45,
+        "discount": 0.9,
+        "positionMultiplier": 1,
+        "peerBasedValue": 64907
+      }
+    },
+    "5464739": {
+      "name": "Anthony Ponga",
+      "espnAthleteId": "5464739",
+      "espnTeamId": "2239",
+      "team": "Cal State Fullerton Titans",
+      "position": "G",
+      "preseasonPrice": 62000,
+      "method": "V4_TEAM_COHORT_PROXY_NO_STATS",
+      "confidence": "LOW_PRESEASON_PROXY",
+      "inputs": {
+        "teamTorvikRank": 198,
+        "originalV4PeersAtTeam": 6,
+        "peerPercentile": 0.45,
+        "discount": 0.9,
+        "positionMultiplier": 1,
+        "peerBasedValue": 68432
+      }
+    },
+    "5464740": {
+      "name": "Malcolm Bell",
+      "espnAthleteId": "5464740",
+      "espnTeamId": "2239",
+      "team": "Cal State Fullerton Titans",
+      "position": "G",
+      "preseasonPrice": 62000,
+      "method": "V4_TEAM_COHORT_PROXY_NO_STATS",
+      "confidence": "LOW_PRESEASON_PROXY",
+      "inputs": {
+        "teamTorvikRank": 198,
+        "originalV4PeersAtTeam": 6,
+        "peerPercentile": 0.45,
+        "discount": 0.9,
+        "positionMultiplier": 1,
+        "peerBasedValue": 68432
+      }
+    },
+    "5464741": {
+      "name": "Sean Chris Tresvant",
+      "espnAthleteId": "5464741",
+      "espnTeamId": "2239",
+      "team": "Cal State Fullerton Titans",
+      "position": "G",
+      "preseasonPrice": 62000,
+      "method": "V4_TEAM_COHORT_PROXY_NO_STATS",
+      "confidence": "LOW_PRESEASON_PROXY",
+      "inputs": {
+        "teamTorvikRank": 198,
+        "originalV4PeersAtTeam": 6,
+        "peerPercentile": 0.45,
+        "discount": 0.9,
+        "positionMultiplier": 1,
+        "peerBasedValue": 68432
+      }
+    },
+    "5464742": {
+      "name": "Matthew Willenborg",
+      "espnAthleteId": "5464742",
+      "espnTeamId": "2239",
+      "team": "Cal State Fullerton Titans",
+      "position": "G",
+      "preseasonPrice": 62000,
+      "method": "V4_TEAM_COHORT_PROXY_NO_STATS",
+      "confidence": "LOW_PRESEASON_PROXY",
+      "inputs": {
+        "teamTorvikRank": 198,
+        "originalV4PeersAtTeam": 6,
+        "peerPercentile": 0.45,
+        "discount": 0.9,
+        "positionMultiplier": 1,
+        "peerBasedValue": 68432
+      }
+    },
+    "5464743": {
+      "name": "Tiernan Stynes",
+      "espnAthleteId": "5464743",
+      "espnTeamId": "2239",
+      "team": "Cal State Fullerton Titans",
+      "position": "G",
+      "preseasonPrice": 62000,
+      "method": "V4_TEAM_COHORT_PROXY_NO_STATS",
+      "confidence": "LOW_PRESEASON_PROXY",
+      "inputs": {
+        "teamTorvikRank": 198,
+        "originalV4PeersAtTeam": 6,
+        "peerPercentile": 0.45,
+        "discount": 0.9,
+        "positionMultiplier": 1,
+        "peerBasedValue": 68432
+      }
+    },
+    "5464773": {
+      "name": "Jeremy Nyakundi",
+      "espnAthleteId": "5464773",
+      "espnTeamId": "2029",
+      "team": "Arkansas-Pine Bluff Golden Lions",
+      "position": "F",
+      "preseasonPrice": 42000,
+      "method": "V4_TEAM_COHORT_PROXY_NO_STATS",
+      "confidence": "LOW_PRESEASON_PROXY",
+      "inputs": {
+        "teamTorvikRank": 361,
+        "originalV4PeersAtTeam": 5,
+        "peerPercentile": 0.5,
+        "discount": 1,
+        "positionMultiplier": 1.08,
+        "peerBasedValue": 38908
+      }
+    },
+    "5464774": {
+      "name": "Kalli Johnson",
+      "espnAthleteId": "5464774",
+      "espnTeamId": "2029",
+      "team": "Arkansas-Pine Bluff Golden Lions",
+      "position": "G",
+      "preseasonPrice": 39000,
+      "method": "V4_TEAM_COHORT_PROXY_NO_STATS",
+      "confidence": "LOW_PRESEASON_PROXY",
+      "inputs": {
+        "teamTorvikRank": 361,
+        "originalV4PeersAtTeam": 5,
+        "peerPercentile": 0.5,
+        "discount": 1,
+        "positionMultiplier": 1,
+        "peerBasedValue": 38908
+      }
+    },
+    "5464775": {
+      "name": "Cedric Dixon",
+      "espnAthleteId": "5464775",
+      "espnTeamId": "2029",
+      "team": "Arkansas-Pine Bluff Golden Lions",
+      "position": "G",
+      "preseasonPrice": 39000,
+      "method": "V4_TEAM_COHORT_PROXY_NO_STATS",
+      "confidence": "LOW_PRESEASON_PROXY",
+      "inputs": {
+        "teamTorvikRank": 361,
+        "originalV4PeersAtTeam": 5,
+        "peerPercentile": 0.5,
+        "discount": 1,
+        "positionMultiplier": 1,
+        "peerBasedValue": 38908
+      }
+    },
+    "5464776": {
+      "name": "Miles Williams",
+      "espnAthleteId": "5464776",
+      "espnTeamId": "2029",
+      "team": "Arkansas-Pine Bluff Golden Lions",
+      "position": "F",
+      "preseasonPrice": 42000,
+      "method": "V4_TEAM_COHORT_PROXY_NO_STATS",
+      "confidence": "LOW_PRESEASON_PROXY",
+      "inputs": {
+        "teamTorvikRank": 361,
+        "originalV4PeersAtTeam": 5,
+        "peerPercentile": 0.5,
+        "discount": 1,
+        "positionMultiplier": 1.08,
+        "peerBasedValue": 38908
+      }
+    },
+    "5464868": {
+      "name": "Tadej Colnaric",
+      "espnAthleteId": "5464868",
+      "espnTeamId": "2739",
+      "team": "Green Bay Phoenix",
+      "position": "F",
+      "preseasonPrice": 51000,
+      "method": "V4_TEAM_COHORT_PROXY_NO_STATS",
+      "confidence": "LOW_PRESEASON_PROXY",
+      "inputs": {
+        "teamTorvikRank": 163,
+        "originalV4PeersAtTeam": 7,
+        "peerPercentile": 0.45,
+        "discount": 0.9,
+        "positionMultiplier": 1.08,
+        "peerBasedValue": 52837
+      }
+    },
+    "5464872": {
+      "name": "Jordan Mathews",
+      "espnAthleteId": "5464872",
+      "espnTeamId": "2612",
+      "team": "Saint Peter's Peacocks",
+      "position": "F",
+      "preseasonPrice": 56000,
+      "method": "V4_TEAM_COHORT_PROXY_NO_STATS",
+      "confidence": "LOW_PRESEASON_PROXY",
+      "inputs": {
+        "teamTorvikRank": 287,
+        "originalV4PeersAtTeam": 6,
+        "peerPercentile": 0.5,
+        "discount": 1,
+        "positionMultiplier": 1.08,
+        "peerBasedValue": 52265
+      }
+    },
+    "5465505": {
+      "name": "Evan Roberts",
+      "espnAthleteId": "5465505",
+      "espnTeamId": "294",
+      "team": "Jacksonville Dolphins",
+      "position": "G",
+      "preseasonPrice": 70000,
+      "method": "V4_TEAM_COHORT_PROXY_NO_STATS",
+      "confidence": "LOW_PRESEASON_PROXY",
+      "inputs": {
+        "teamTorvikRank": 227,
+        "originalV4PeersAtTeam": 9,
+        "peerPercentile": 0.45,
+        "discount": 0.9,
+        "positionMultiplier": 1,
+        "peerBasedValue": 78011
+      }
+    },
+    "5465506": {
+      "name": "LJ Katz",
+      "espnAthleteId": "5465506",
+      "espnTeamId": "294",
+      "team": "Jacksonville Dolphins",
+      "position": "G",
+      "preseasonPrice": 70000,
+      "method": "V4_TEAM_COHORT_PROXY_NO_STATS",
+      "confidence": "LOW_PRESEASON_PROXY",
+      "inputs": {
+        "teamTorvikRank": 227,
+        "originalV4PeersAtTeam": 9,
+        "peerPercentile": 0.45,
+        "discount": 0.9,
+        "positionMultiplier": 1,
+        "peerBasedValue": 78011
+      }
+    },
+    "5465507": {
+      "name": "Maddox Palmer",
+      "espnAthleteId": "5465507",
+      "espnTeamId": "294",
+      "team": "Jacksonville Dolphins",
+      "position": "G",
+      "preseasonPrice": 70000,
+      "method": "V4_TEAM_COHORT_PROXY_NO_STATS",
+      "confidence": "LOW_PRESEASON_PROXY",
+      "inputs": {
+        "teamTorvikRank": 227,
+        "originalV4PeersAtTeam": 9,
+        "peerPercentile": 0.45,
+        "discount": 0.9,
+        "positionMultiplier": 1,
+        "peerBasedValue": 78011
+      }
+    },
+    "5465511": {
+      "name": "Ben Pearce",
+      "espnAthleteId": "5465511",
+      "espnTeamId": "2363",
+      "team": "Manhattan Jaspers",
+      "position": "G",
+      "preseasonPrice": 51000,
+      "method": "V4_TEAM_COHORT_PROXY_NO_STATS",
+      "confidence": "LOW_PRESEASON_PROXY",
+      "inputs": {
+        "teamTorvikRank": 352,
+        "originalV4PeersAtTeam": 6,
+        "peerPercentile": 0.5,
+        "discount": 1,
+        "positionMultiplier": 1,
+        "peerBasedValue": 50548
+      }
+    },
+    "5465876": {
+      "name": "Derrick Rivers",
+      "espnAthleteId": "5465876",
+      "espnTeamId": "2504",
+      "team": "Prairie View A&M Panthers",
+      "position": "G",
+      "preseasonPrice": 36000,
+      "method": "V4_TEAM_COHORT_PROXY_NO_STATS",
+      "confidence": "LOW_PRESEASON_PROXY",
+      "inputs": {
+        "teamTorvikRank": 269,
+        "originalV4PeersAtTeam": 5,
+        "peerPercentile": 0.5,
+        "discount": 1,
+        "positionMultiplier": 1,
+        "peerBasedValue": 36072
+      }
+    },
+    "5465877": {
+      "name": "Davis Bynum",
+      "espnAthleteId": "5465877",
+      "espnTeamId": "2504",
+      "team": "Prairie View A&M Panthers",
+      "position": "F",
+      "preseasonPrice": 39000,
+      "method": "V4_TEAM_COHORT_PROXY_NO_STATS",
+      "confidence": "LOW_PRESEASON_PROXY",
+      "inputs": {
+        "teamTorvikRank": 269,
+        "originalV4PeersAtTeam": 5,
+        "peerPercentile": 0.5,
+        "discount": 1,
+        "positionMultiplier": 1.08,
+        "peerBasedValue": 36072
+      }
+    },
+    "5465878": {
+      "name": "Bryant Ajiero",
+      "espnAthleteId": "5465878",
+      "espnTeamId": "2504",
+      "team": "Prairie View A&M Panthers",
+      "position": "F",
+      "preseasonPrice": 39000,
+      "method": "V4_TEAM_COHORT_PROXY_NO_STATS",
+      "confidence": "LOW_PRESEASON_PROXY",
+      "inputs": {
+        "teamTorvikRank": 269,
+        "originalV4PeersAtTeam": 5,
+        "peerPercentile": 0.5,
+        "discount": 1,
+        "positionMultiplier": 1.08,
+        "peerBasedValue": 36072
+      }
+    },
+    "5465879": {
+      "name": "Jaylen Lee",
+      "espnAthleteId": "5465879",
+      "espnTeamId": "2504",
+      "team": "Prairie View A&M Panthers",
+      "position": "G",
+      "preseasonPrice": 36000,
+      "method": "V4_TEAM_COHORT_PROXY_NO_STATS",
+      "confidence": "LOW_PRESEASON_PROXY",
+      "inputs": {
+        "teamTorvikRank": 269,
+        "originalV4PeersAtTeam": 5,
+        "peerPercentile": 0.5,
+        "discount": 1,
+        "positionMultiplier": 1,
+        "peerBasedValue": 36072
+      }
+    },
+    "5465880": {
+      "name": "Eddie Page",
+      "espnAthleteId": "5465880",
+      "espnTeamId": "2504",
+      "team": "Prairie View A&M Panthers",
+      "position": "F",
+      "preseasonPrice": 39000,
+      "method": "V4_TEAM_COHORT_PROXY_NO_STATS",
+      "confidence": "LOW_PRESEASON_PROXY",
+      "inputs": {
+        "teamTorvikRank": 269,
+        "originalV4PeersAtTeam": 5,
+        "peerPercentile": 0.5,
+        "discount": 1,
+        "positionMultiplier": 1.08,
+        "peerBasedValue": 36072
+      }
+    },
+    "5465881": {
+      "name": "Dashawn Ceaser",
+      "espnAthleteId": "5465881",
+      "espnTeamId": "2504",
+      "team": "Prairie View A&M Panthers",
+      "position": "G",
+      "preseasonPrice": 36000,
+      "method": "V4_TEAM_COHORT_PROXY_NO_STATS",
+      "confidence": "LOW_PRESEASON_PROXY",
+      "inputs": {
+        "teamTorvikRank": 269,
+        "originalV4PeersAtTeam": 5,
+        "peerPercentile": 0.5,
+        "discount": 1,
+        "positionMultiplier": 1,
+        "peerBasedValue": 36072
+      }
+    },
+    "5466535": {
+      "name": "Zach Trezvant",
+      "espnAthleteId": "5466535",
+      "espnTeamId": "331",
+      "team": "Eastern Washington Eagles",
+      "position": "C",
+      "preseasonPrice": 115000,
+      "method": "V4_TEAM_COHORT_PROXY_NO_STATS",
+      "confidence": "LOW_PRESEASON_PROXY",
+      "inputs": {
+        "teamTorvikRank": 190,
+        "originalV4PeersAtTeam": 3,
+        "peerPercentile": 0.45,
+        "discount": 0.9,
+        "positionMultiplier": 1.08,
+        "peerBasedValue": 118707
+      }
+    },
+    "5466586": {
+      "name": "Jordan Houegban",
+      "espnAthleteId": "5466586",
+      "espnTeamId": "26",
+      "team": "UCLA Bruins",
+      "position": "G",
+      "preseasonPrice": 582000,
+      "method": "V4_TEAM_COHORT_PROXY_NO_STATS",
+      "confidence": "LOW_PRESEASON_PROXY",
+      "inputs": {
+        "teamTorvikRank": 25,
+        "originalV4PeersAtTeam": 9,
+        "peerPercentile": 0.25,
+        "discount": 0.7,
+        "positionMultiplier": 1,
+        "peerBasedValue": 831798
+      }
+    },
+    "5466859": {
+      "name": "Filip Kalajzic",
+      "espnAthleteId": "5466859",
+      "espnTeamId": "249",
+      "team": "North Texas Mean Green",
+      "position": "F",
+      "preseasonPrice": 295000,
+      "method": "V4_TEAM_COHORT_PROXY_NO_STATS",
+      "confidence": "LOW_PRESEASON_PROXY",
+      "inputs": {
+        "teamTorvikRank": 116,
+        "originalV4PeersAtTeam": 7,
+        "peerPercentile": 0.4,
+        "discount": 0.85,
+        "positionMultiplier": 1.08,
+        "peerBasedValue": 321677
+      }
+    },
+    "5467070": {
+      "name": "Thomas Batties",
+      "espnAthleteId": "5467070",
+      "espnTeamId": "108",
+      "team": "Harvard Crimson",
+      "position": "F",
+      "preseasonPrice": 29000,
+      "method": "V4_TEAM_COHORT_PROXY_NO_STATS",
+      "confidence": "LOW_PRESEASON_PROXY",
+      "inputs": {
+        "teamTorvikRank": 124,
+        "originalV4PeersAtTeam": 13,
+        "peerPercentile": 0.4,
+        "discount": 0.85,
+        "positionMultiplier": 1.08,
+        "peerBasedValue": 31757
+      }
+    }
+  }
+}
