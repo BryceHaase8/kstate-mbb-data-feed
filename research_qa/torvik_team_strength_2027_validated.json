@@ -7,7 +7,7 @@
   "retrievedAtUTC": "2026-10-25T21:16:33.294Z",
   "ratingsStage": "PRESEASON_PROJECTION",
   "teamCount": 365,
-  "matchedESPNTeams": 364,
+  "matchedESPNTeams": 365,
   "crosswalkSourceSeason": 2026,
   "teams": [
     {
@@ -4364,7 +4364,7 @@
       "adjEM": -23.631881,
       "barthag": 0.06546798,
       "adjTempo": 73.782798,
-      "espnTeamId": null
+      "espnTeamId": "2697"
     },
     {
       "torvikTeam": "Mississippi Valley St.",
