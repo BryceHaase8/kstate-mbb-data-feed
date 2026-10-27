@@ -1,37 +1,27 @@
-# November 2026 Portal NIL opening-week release gates
+# 2026-27 opening week: consolidated V4, HS freshman, and roster coverage
+**Matching frontend build:** Portal V7.73 TEST. **Do not deploy Netlify or merge GitHub PR before one final test-site pass.**
 
-**Latest decision:** Portal website V7.72 + GitHub NIL v3 are the MATCHED release pair.
-**Status:** complete offline and secret-backed GitHub shadow validation; **do not merge until one final Netlify TEST check**.
+## Frozen starting values (ESPN IDs)
+- Original V4: **3,052** (includes Kansas State Timo Malovec, ID 5281366, $791,196)
+- Preserved site's HS freshman-model baseline: **1,420**
+- Retained older NIL-model starting values not in V4 or HS: **733**
+- Existing site's explicitly unmodeled **$50,000 provisional placeholders**: **805**
+- **6,010 disjoint ESPN-ID frozen prices** in `public/stock_watch/preseason_2027.json`. No historical dated snapshots changed.
+- The last 805 are a **coverage placeholder**, not verified market prices; the website labels them as such, and the automatic publisher does not promote them to V4.
+- `public/stock_watch/roster_other_preseason_2027_candidate.json` records each non-V4, non-HS price provenance. Previous published v2 anchor preserved independently for rollback.
+- The staged 2027 roster has 5,541 players; cross-referencing the retained historical model and these frozen anchors found **zero IDs without either a current published legacy estimate or a frozen anchor**.
 
-## Locked 2026–27 baseline by ESPN ID
+## CI / Shadow proof on Oct 27, 2026
+- Current GitHub PR unit test workflow PASS, including the exact 6,010-price, 4-source reconciliation.
+- Secret-backed shadow refresh PASS: **12,682** price records, `policyVersion=3`, full model JSON 3,088,066 bytes (less than the site's 5,000,000-character proxy guard), no invented games or preseason Stock Watch change.
+- Two synthetic game records in isolated runner PASS: one updated player, exact unchanged V4 preseason dollar anchor, one dated Stock Watch entry with all 1,420 freshmen and all 1,538 roster-only anchors preserved.
+- Reference shadow run: https://github.com/BryceHaase8/kstate-mbb-data-feed/actions/runs/40550512784
+- Synthetic data, private model key and decrypted model never committed or pushed. `main` and Netlify are untouched.
 
-| Source | Identities | Frozen prices |
-|---|---:|---|
-| Original site V4 prior-season valuations | **3,052** | Original V4 price, with $20K publication floor |
-| Existing site freshman ranked/unranked baseline | **1,420** | Original HS rank / previous-team-strength pricing, no invention |
-| Combined immutable Stock Watch preseason | **4,472** | Exact union, no duplicate IDs |
-| Previously deployed v2 baseline rollback | **3,051** | Exact archived file from 2026-10-24 |
+## Release order
+1. Deploy the *complete matching Portal V7.73* ZIP **once to the TEST Netlify site**, retaining Netlify functions, and verify live GitHub/Google Sheets data.
+2. On test, check V4 examples and Malovec; ranked and school-fallback freshmen; a preserved legacy-price player and a transparent unmodeled placeholder; Stock Watch's awaiting-games status; team, game, profile, board, agent, notes and roster features.
+3. After the test passes, deploy the exact same ZIP to production **first**. Only then merge draft PR #5 so the v3 GitHub publisher and website baseline contract switch together.
+4. Confirm price API response, no preseason history until real games, then first genuine official 2026-27 game update and exactly one dated snapshot. Stop deployment on failures.
 
-Timo Malovec ESPN ID `5281366` must be present with **$791,196** original V4; this player was missing from the older 3,051-ID frozen file. Frozen 2027 freshmen have explicit `FRESHMAN_HS` provenance, and the site preserves their HS School/HS Production labels.
-
-## Pipeline test results, Oct 27, 2026
-
-- GitHub PR tests: **PASS**, including identity, baseline components, migration fail-closed cases and fourfold movement rejection.
-- Full secret-backed NIL preseason shadow: **PASS**. Output **11,877** estimates; all **4,472** frozen anchors match, 0 false preseason Stock Watch days; model JSON **2,874,870 bytes**.
-- Genuine pipeline synthetic season replay (in isolated runner only): **PASS**. Two official-shaped player games -> one `UPDATED` returning player -> exactly one dated Stock Watch snapshot -> all 1,420 freshmen retained at original baseline.
-- See https://github.com/BryceHaase8/kstate-mbb-data-feed/actions/runs/40547914495
-- Private fitted model only decrypted in runner; no GitHub `main` push or synthetic/game data publication.
-
-## One Netlify TEST deployment remaining
-
-1. Upload **V7.72** extracted website root to the existing Netlify TEST project, with its `netlify.toml` and `netlify/functions` intact. Do not use V7.71.
-2. Verify V4 prices including Timo Malovec, Scharnowski and Jenkins; also one 2026 ranked recruit and one unranked first-year estimate.
-3. Verify Stock Watch safely says awaiting V4 migration / first games while GitHub `main` still publishes v2. Gainers and losers are legitimately empty.
-4. Verify Google Sheets agents, board, saved notes, Games/Teams, 2027 roster, game logs and player profiles still behave correctly in the test environment; make no sheet schema changes.
-5. **After** passing test, deploy the identical V7.72 ZIP to production FIRST; only then merge this PR to turn on GitHub v3. Verify live JSON release, same 4,472 preseason values, first daily update and Stock Watch. Roll back rather than mixing model versions.
-
-## Clear limitations
-
-- Freshmen now have their **own preserved starting prices and history** when games arrive, but lack a validated college-season *relative* reference before playing. We intentionally prevent their open-market values jumping after a few games from an unrelated absolute model price. Calibrate rookie update policy after reliable actual data.
-- The website's 2027 shots, on/off, and positions pages can consume published feeds, but the corresponding season PBP publishing jobs remain incomplete. Missing data should be displayed as unavailable, never fabricated.
-- No direct access to Netlify deployment or live staff Google Sheets test was used in this project pass.
+Not yet promised for season day one: fully automated shot-location/on-off/position PBP publishers, new freshman market update calibration beyond frozen initial values, or non-provisional valuations for the 805 unmodeled cases.
