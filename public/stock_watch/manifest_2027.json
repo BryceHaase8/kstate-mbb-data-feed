@@ -1,9 +1,11 @@
 {
   "schemaVersion": 1,
   "season": 2027,
-  "baselineAsOf": "2026-10-24",
+  "baselineAsOf": "2026-10-27",
   "latestDate": null,
   "dates": [],
   "months": [],
-  "lastSourceGeneratedAt": null
+  "lastSourceGeneratedAt": null,
+  "baselineVersion": "V4_FROZEN_SITE_V770_2026_10_27",
+  "baselineMigration": "2026-10-27: v2 baseline archived under preseason_2027_legacy_2026_10_24.json; no game-day history changed"
 }
