@@ -227,7 +227,7 @@ def run(players_file,archived_context_file, current_context_file, asof,output, m
  if preseason_anchor_file:
   locked=json.loads(pathlib.Path(preseason_anchor_file).read_text())
   composition=locked.get('composition') or {}
-  if composition.get('originalV4')==3051 and composition.get('originalRookie')==1420:
+  if composition.get('originalV4')==3052 and composition.get('originalRookie')==1420:
    rookie_data=json.loads((pathlib.Path(preseason_anchor_file).parent/'freshman_preseason_2027_candidate.json').read_text())
    rookie_ids=rookie_data.get('byESPNId') or {}
    if len(rookie_ids)!=1420 or any(frozen.get(pid)!=amount for pid,amount in rookie_ids.items()):
