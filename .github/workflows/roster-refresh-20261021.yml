@@ -25,8 +25,16 @@ jobs:
             any::jsonlite
             any::tibble
             any::purrr
+      - name: Preserve previous exact-ID roster snapshot for comparison
+        run: cp research_data/staged/current_roster_2027_candidate.json "$RUNNER_TEMP/portal_roster_prior_2027.json"
       - name: Stage 365 ESPN 2027 season-specific rosters with exact athlete IDs
         run: Rscript scripts/stage_2027_roster_universe.R
+      - name: Report adds, removals, team moves and changed headshots by ESPN ID
+        run: |
+          python scripts/audit_2027_roster_delta.py \
+            --old "$RUNNER_TEMP/portal_roster_prior_2027.json" \
+            --new research_data/staged/current_roster_2027_candidate.json \
+            --out research_qa/roster_integration/roster_changes_since_20261021.json
       - name: Fetch independent successful October 21 roster audit
         run: |
           git fetch --depth=1 origin research-2027-espn-roster-reaudit-20261018
@@ -51,7 +59,8 @@ jobs:
                   research_data/staged/roster_2027_class_evidence.json \
                   research_qa/roster_integration/all_team_2027_readiness.csv \
                   research_qa/roster_integration/roster_2027_stage_qa.json \
-                  research_qa/roster_integration/roster_2027_refreshed_class_estimates_qa.json
+                  research_qa/roster_integration/roster_2027_refreshed_class_estimates_qa.json \
+                  research_qa/roster_integration/roster_changes_since_20261021.json
           if git diff --cached --quiet; then echo 'No changes'; exit 0; fi
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
