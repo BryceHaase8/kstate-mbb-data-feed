@@ -62,3 +62,5 @@ jobs:
           assert not history['dates'] and not history['months']
           print('PASS 22 researched + 12 expert anchors, 5541/5541 roster coverage; zero false stock moves')
           PY
+
+# rerun after guarded two-stage baseline comparison fix
