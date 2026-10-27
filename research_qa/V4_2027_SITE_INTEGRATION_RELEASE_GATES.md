@@ -1,35 +1,32 @@
-# 2026–27 NIL V4 preseason site integration — staging status 2026-10-27
+# V4 NIL and Stock Watch release gates — updated October 27, 2026
 
-## What exists in this research branch
+**Draft PR #5; no production deployment.** The companion portal website build is V7.71.
 
-- `public/stock_watch/v4_preseason_2027_candidate.json`: **3,051 verified ESPN-ID identities** (matches the exact ID set of the existing main anchor).
-- Original V4 model was reconstructed offline once using user-provided frozen 2025–26 Torvik player/stat and team results; **2,999** historical players have identity-verified V4 prices.
-- **52** unverified historical identities retain their exact current public preseason prices. They are not guessed or replaced.
-- Two V4 prices originally <$20K are set to the existing $20K publication floor. Original raw V4 prices are retained in the private offline audit, not here.
-- `public/stock_watch/preseason_2027_legacy_2026_10_24.json`: exact archived previous 3,051-player anchor for rollback.
-- The *existing* `preseason_2027.json`, monthly history, and published `nil_estimation_model_2027.json` are **unchanged** in this branch.
-- `scripts/nil_model/nil_season_engine.py`: research-stage policy v3 that updates V4-based prices based on the **same auxiliary model's current/reference ratio**, not toward its absolute price level.
-- One-time composition, identity coverage scripts, and dependency-light regression tests.
+## Staged launch files
+- `public/stock_watch/preseason_2027.json`: full original site V7.70 frozen V4 baseline, exactly **3,051/3,051** existing ESPN IDs; no older-model fallback among those IDs.
+- `public/stock_watch/v4_preseason_2027_candidate.json`: same 3,051 original V4 values; independent release comparison.
+- `public/stock_watch/preseason_2027_legacy_2026_10_24.json`: exact earlier v2 baseline, preserved for rollback.
+- `public/stock_watch/manifest_2027.json`: V4 baseline migration date 2026-10-27, with **no historical in-season snapshots**.
+- No new Torvik player-data feed; V4 is one-time offline frozen input only. Automatic season updates use ESPN-derived stats, historical context and the existing Torvik **team-level** ratings.
 
-## Checks performed
+## Model/website compatibility
+- Engine: `nil-v4-relative-v3-2026-10-27` and `policyVersion=3`.
+- The V4 value is the dollar anchor. Auxiliary model's *same-model 2027 reference/current ratio* drives growth/decline, progressively gated by games and minutes.
+- Netlify ZIP V7.71 rejects v2 live feeds as stale and any v3 feed whose `preseason` entries differ from the original V4 by even $1.
+- The Stock Watch function won't display legacy v2 price changes as V4 movements.
+- A special publishing guard permits the single 3,051-ID baseline migration ONLY when both original anchors, empty dated history and valid preseason ESPN facts are present. All later publications use normal strict drift/coverage rules.
 
-- New-vs-old set of 3,051 IDs matches exactly (identity FNV-1a 0x855c55ab).
-- Compared all candidate prices to the legacy file: 2,999 changed to V4, 52 are unchanged.
-- Median absolute ratio difference: about 15%; 36 players change 2x or more, none change 4x.
-- Belmont frozen V4 regression sentinels: Drew Scharnowski $2,381,092, Jabez Jenkins $296,117, Graydon Lemke $87,689, Cooper Haynes $77,350.
-- The V4 rebuild is a **one-time initialization**; Torvik player-level data are NOT a dependency of this season's daily jobs.
-- 2026–27 roster/ESPN box automatic publication still depends on the first real games and matching Torvik *team* context.
+## Quality assurance
+- Synthetic GitHub PR job ran **11/11 unit tests successfully** after correcting its expected release version; no private model keys were exposed to the test runner.
+- Local V7.71 frontend tests passed (old v2 reject, valid v3 accept, single V4 discrepancy reject, missing-ID reject, Stock Watch before/after migration).
+- Existing filters, Portal risk, roster functions and agents tests passed. An older legacy test references a development folder absent from this ZIP; full historic test portability is not complete.
+- Exact V4 candidate vs site V7.70: **3051 identities and values match**; two original sub-$20K scores use $20K display floor.
 
-## Deliberate production blockers: DO NOT MERGE YET
+## Not yet done / no production merge
+1. Deploy the V7.71 ZIP to the existing Netlify **test** site and verify against real GitHub access, including private Google Sheets notes/board read/write.
+2. Execute the **secret-backed** GitHub NIL scorer end-to-end on a safe shadow run: decrypt, season context, the one-time v2→v3 baseline migration, and Stock Watch atomic output.
+3. Confirm first game-day ESPN full/partial source coverage and an as-of replay. No fake scores or price movement before valid games.
+4. Import/freeze the site's existing 2026–27 freshman valuation baselines into Stock Watch for **full rookie leaderboard coverage**; site rookie price fallbacks are already present.
+5. Automate separate 2026–27 player shot, on/off and position feeds. The UI can load those paths but they currently are not populated by GitHub main.
 
-1. The existing scheduled publishing safeguards (`validate_publish.py`, `publish_guard.py`, `record_stock_history.py`) currently enforce the *old* v2 price policy. The newly authored research engine announces v3; merging only this engine would fail and must not happen.
-2. New baseline is not yet in the live filename `preseason_2027.json`. One explicit release must move it there and update the Stock Watch manifest, while preserving old anchor under its archive name. No historical daily Stock Watch dates existed as of the audit.
-3. Existing website-owned **freshman and international preseason valuations must remain authoritative**. They are not in this 3,051-player 2025–26 source anchor and cannot be re-created or overwritten by this research branch. Verify the site overlay as part of release.
-4. The staged 5,541-player 2026–27 roster was previously marked `import_ready=false` pending QA. Do not claim complete roster/in-season coverage until that current-year ESPN crosswalk passes.
-5. Verify a full preseason dry run, an early-game partial feed dry run, and a multiple-game as-of replay in an isolated Actions job. QA on GitHub source and local synthetic fixtures is not a production end-to-end run.
-
-## Release path once gates pass
-
-A. Freeze/approve exact 2027 roster/website freshman precedence; B. separate archived anchor and update live preseason baseline **once** with a versioned migration; C. align all v3 release validators without relaxing the daily source, price drift, or identity guards; D. run test-only as-of game replay and check no-game/no-price movement; E. merge to main only when green; F. verify published price JSON and 2027 Stock Watch after a real game.
-
-Branch intentionally contains neither decrypted fitted NIL model nor internal staff labels/asking prices or board information.
+Do not merge a draft PR simply because unit tests passed; the last two runtime checks are release blockers for automatic NIL publication. The public branch includes modeled market prices only, not private asking prices, notes, staff evaluations or secret model artifacts.
