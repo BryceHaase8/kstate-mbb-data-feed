@@ -5,7 +5,7 @@
   "baseCoverage": 0.9982817869415808,
   "stats": {
     "2026_based": 5019,
-    "rookie_frozen_without_box": 1395,
+    "rookie_frozen_without_box": 1384,
     "older_season_based": 5439,
     "current_updated": 0,
     "current_missing_context": 0,
@@ -19,7 +19,7 @@
     "currentTeam": "65ca36654a491c4c0ac280eb7728e18c1354b4b9e46caa2f1c55d70def64d92f",
     "teamGames": null,
     "model": "9f8072f47687f1bc6f13dc6c11a3c5375a3f817615b554c5d6ee7f07425b1cf3",
-    "frozenPreseason": "6d3505957b4b3b353ec32fd96c845965939b47f19c60142ee7069366d09615ed"
+    "frozenPreseason": "b845bf430d62a8f12ca65afa8ea43419d8fd43e9ccb892f3dc90c191058b274f"
   },
   "safety": {
     "joins": "ESPN-ID only",
