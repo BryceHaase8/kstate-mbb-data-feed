@@ -5,7 +5,7 @@ import argparse,datetime,json,math,pathlib,statistics
 def load(path):
  return json.loads(pathlib.Path(path).read_text())
 
-def check(new,old,source,anchor=None,legacy=None,history=None,rookies=None,v4=None,others=None):
+def check(new,old,source,anchor=None,legacy=None,history=None,rookies=None,v4=None,others=None,approved=None,pre_rebase=None):
  n,o,f=load(new),load(old),load(source)
  if n.get('season')!=2027 or n.get('policyVersion')!=3:
   raise ValueError('Unexpected NIL model policy')
@@ -73,8 +73,29 @@ def check(new,old,source,anchor=None,legacy=None,history=None,rookies=None,v4=No
    raise ValueError('Non-V4 prices moved during explicit baseline migration')
  else:
   if int(f.get('latestSeason') or 0)<2027:
-   if any(rows[pid]['value']!=older[pid]['value'] for pid in common):
-    raise ValueError('Preseason price moved without first verified V4 migration or game evidence')
+   moved={pid for pid in common if rows[pid]['value']!=older[pid]['value']}
+   if moved:
+    # A versioned, exact-ID staff-reviewed opening correction is permitted
+    # BEFORE the first game only, never as fictitious Stock Watch movement.
+    if not approved or not pre_rebase or not anchor or not history:
+     raise ValueError('Preseason price moved without documented immutable opening correction')
+    q,b,a,h=load(approved),load(pre_rebase),load(anchor),load(history)
+    proposed=q.get('byESPNId') or {}
+    original=q.get('sourceBaselineByESPNId') or {}
+    preserved=b.get('byESPNId') or {}
+    anchored=a.get('byESPNId') or {}
+    if (len(proposed)!=12 or set(proposed)!=set(original) or set(moved)!=set(proposed) or
+        b.get('playerCount')!=6057 or a.get('playerCount')!=6057 or
+        set(preserved)!=set(anchored) or (h.get('dates') or []) or (h.get('months') or []) or
+        h.get('baselineAsOf')!=a.get('asOf') or
+        any(pid not in preserved or preserved[pid]!=original[pid] for pid in proposed) or
+        any(anchored[pid]!=(proposed[pid] if pid in proposed else price) for pid,price in preserved.items()) or
+        any(older[pid]['value']!=original[pid] or rows[pid]['value']!=proposed[pid] or
+            rows[pid].get('preseason')!=proposed[pid] or
+            rows[pid].get('anchorType')!='INTERNATIONAL_PRO_PRESEASON_REVIEWED'
+            for pid in proposed)):
+     raise ValueError('Unverified international preseason correction or non-reviewed player modified')
+    print('APPROVED PRESEASON CORRECTION: 12 verified ESPN IDs; no Stock Watch dates')
  changes=[abs(math.log(rows[k]['value']/older[k]['value'])) for k in common-ignored]
  median=statistics.median(changes) if changes else 0.
  if median>=.12:raise ValueError('Suspicious day-to-day NIL price drift outside baseline migration')
@@ -90,6 +111,6 @@ def check(new,old,source,anchor=None,legacy=None,history=None,rookies=None,v4=No
 if __name__=='__main__':
  p=argparse.ArgumentParser()
  for arg in ('new','old','source'):p.add_argument('--'+arg,required=True)
- for arg in ('anchor','legacy','history','rookies','v4','others'):p.add_argument('--'+arg)
+ for arg in ('anchor','legacy','history','rookies','v4','others','approved','pre-rebase'):p.add_argument('--'+arg)
  a=p.parse_args()
- check(a.new,a.old,a.source,a.anchor,a.legacy,a.history,a.rookies,a.v4,a.others)
+ check(a.new,a.old,a.source,a.anchor,a.legacy,a.history,a.rookies,a.v4,a.others,a.approved,a.pre_rebase)

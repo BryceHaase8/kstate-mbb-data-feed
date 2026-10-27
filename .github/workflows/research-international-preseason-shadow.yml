@@ -1,0 +1,55 @@
+name: Validate 12 international opening NIL priors (research only)
+on:
+  push:
+    branches: [research-international-market-priors-20261027]
+    paths:
+      - ".github/workflows/research-international-preseason-shadow.yml"
+permissions:
+  contents: read
+jobs:
+  shadow:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      NIL_MODEL_KEY: ${{ secrets.NIL_MODEL_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Unit test immutable preseason identities
+        run: |
+          python -m unittest discover -s tests -p 'test_v4_*.py' -v
+          python -m unittest discover -s tests -p 'test_international_pro_opening.py' -v
+      - name: Check encrypted scoring key is configured
+        run: test -n "$NIL_MODEL_KEY"
+      - name: Publish 12 corrected opening values in temporary checkout, no push
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install -r scripts/nil_model/requirements-nil.txt
+          bash scripts/nil_model/refresh_nil.sh
+      - name: Verify all 12 live-model values, provenance, and 5,541 current rosters
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          load=lambda s:json.loads(Path(s).read_text())
+          model=load('public/nil_estimation_model_2027.json')
+          original=load('public/stock_watch/preseason_2027_pre_international_20261027.json')['byESPNId']
+          reviewed=load('public/stock_watch/international_pro_2027_market_priors.json')['byESPNId']
+          roster=load('data/roster_2027_advanced.json')['players']
+          ids={str(p[0]) for p in roster}
+          rows=model['byESPNId']
+          assert len(ids)==5541 and not (ids-set(rows))
+          assert len(reviewed)==12
+          assert len(rows)>=12720
+          for id,price in reviewed.items():
+           assert rows[id]['value']==price,(id,rows[id]['value'],price)
+           assert rows[id]['preseason']==price
+           assert rows[id]['anchorType']=='INTERNATIONAL_PRO_PRESEASON_REVIEWED'
+           assert rows[id]['weight']==0 and rows[id]['games']==0
+          assert all(rows[id]['value']==price for id,price in original.items() if id not in reviewed)
+          assert not load('public/stock_watch/manifest_2027.json')['dates']
+          print('PASS: 12 reviewed priors, 6,057 frozen players, 5,541/5,541 current coverage, zero manufactured stock moves')
+          PY

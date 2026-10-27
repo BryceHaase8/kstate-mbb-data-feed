@@ -12,7 +12,9 @@ class PreseasonRosterGapQA(unittest.TestCase):
   self.assertEqual(len(rost["players"]),5541)
   ids=[str(row[0]) for row in rost["players"]]
   self.assertEqual(len(ids),len(set(ids)))
-  anchor=read("public/stock_watch/preseason_2027.json")
+  anchor=read("public/stock_watch/preseason_2027_pre_international_20261027.json")
+  calibrated=read("public/stock_watch/preseason_2027.json")
+  reviewed=read("public/stock_watch/international_pro_2027_market_priors.json")
   base=read("public/stock_watch/preseason_2027_original_6010_2026_10_27.json")
   supplement=read("public/stock_watch/roster_2027_new_id_v4_proxy_addendum.json")
   prices=anchor["byESPNId"]
@@ -22,6 +24,7 @@ class PreseasonRosterGapQA(unittest.TestCase):
   self.assertEqual(len(supplement["byESPNId"]),47)
   self.assertFalse(set(base["byESPNId"]) & set(supplement["byESPNId"]))
   self.assertEqual(prices,{**base["byESPNId"],**supplement["byESPNId"]})
+  self.assertEqual(calibrated["byESPNId"],{**prices,**reviewed["byESPNId"]})
   self.assertEqual(set(ids)-set(prices),set(),"A verified October roster player has no NIL baseline")
  def test_source_labelling_and_uncertain_international(self):
   source=read("public/stock_watch/roster_2027_new_id_v4_proxy_addendum.json")
