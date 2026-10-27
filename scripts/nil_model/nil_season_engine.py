@@ -116,6 +116,16 @@ def player_weight(gp,minutes,prior_minutes,prior_games):
  weight=evidence/(evidence+prior_strength**exponent)
  return clamp(weight,0,.999),effective
 
+def cold_start_weight(gp,minutes):
+ """Extra first-game protection without delaying evidence by game 30.
+
+ An NCAA debut carries more noise than an established player's 25th game.
+ The gate goes from ~2% evidence in game one to ~91% after 30 x 30 MPG.
+ """
+ raw,effective=player_weight(gp,minutes,350,20)
+ protective=1-.45*math.exp(-max(0,num(gp)-1)/3.)
+ return raw*protective,effective
+
 def stabilized_virtual_season(cur, prior, year,team_games=None):
  gp=num(cur.get('gp'));m=num(cur.get('minutes'))
  if gp<1 or m<=0:raise ValueError('Current player has no minutes')
@@ -383,9 +393,10 @@ def run(players_file,archived_context_file, current_context_file, asof,output, m
      # Neutral expected GP/MPG are NOT historical games. The published
      # preseason dollar is an independent market prior, so its uncertainty
      # maps to the same 30-game ~91%-evidence target as a veteran.
-     evidence_minutes=350 if cold else num(prior.get('minutes'))
-     evidence_games=20 if cold else num(prior.get('gp'))
-     w,effective=player_weight(gp,minutes,evidence_minutes,evidence_games)
+     if cold:
+      w,effective=cold_start_weight(gp,minutes)
+     else:
+      w,effective=player_weight(gp,minutes,num(prior.get('minutes')),num(prior.get('gp')))
      if baseline:
       if cold:
        reference_price=score_model(asset,reference,past,2027,newctx[team_id])
