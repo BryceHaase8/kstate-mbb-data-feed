@@ -7,7 +7,9 @@ import unittest
 from pathlib import Path
 
 ROOT=Path(__file__).resolve().parents[1]
-ANCHOR=ROOT/'public/stock_watch/preseason_2027.json'
+ANCHOR=ROOT/'public/stock_watch/preseason_2027_original_6010_2026_10_27.json'
+PUBLISHED=ROOT/'public/stock_watch/preseason_2027.json'
+ADDENDUM=ROOT/'public/stock_watch/roster_2027_new_id_v4_proxy_addendum.json'
 STAGED=ROOT/'public/stock_watch/v4_preseason_2027_candidate.json'
 ARCHIVE=ROOT/'public/stock_watch/preseason_2027_legacy_2026_10_24.json'
 ROOKIES=ROOT/'public/stock_watch/freshman_preseason_2027_candidate.json'
@@ -50,6 +52,12 @@ class PreseasonIntegrationQA(unittest.TestCase):
         for id,price in {**staged['byESPNId'],**rookies['byESPNId'],**others['byESPNId']}.items():
             self.assertEqual(previous['byESPNId'][id],price,id)
         self.assertEqual(previous['baselineVersion'],'V4_3052_HS_1420_ROSTER_EXISTING_1538_2026_10_27')
+        supplement=json.loads(ADDENDUM.read_text())
+        published=json.loads(PUBLISHED.read_text())
+        self.assertEqual(len(supplement['byESPNId']),47)
+        self.assertEqual(published['playerCount'],6057)
+        self.assertEqual(published['byESPNId'],{**previous['byESPNId'],**supplement['byESPNId']})
+        self.assertEqual(supplement['methodByESPNId']['5281137'],'V4_TEAM_COHORT_PROXY_NO_STATS')
         self.assertEqual(sum(staged['byESPNId'][k]!=v for k,v in backup['byESPNId'].items()),3051)
         # These former fallback IDs are now reconciled against the site's own V4 prices.
         self.assertTrue(all(pid in staged['byESPNId'] for pid in FALLBACKS))
