@@ -233,6 +233,19 @@ def run(players_file,archived_context_file, current_context_file, asof,output, m
    if len(rookie_ids)!=1420 or any(frozen.get(pid)!=amount for pid,amount in rookie_ids.items()):
     raise ValueError('Frozen rookie baseline does not match independently verified site-derived rookie prices')
    anchor_meta={pid:'FRESHMAN_HS' for pid in rookie_ids}
+   other=json.loads((pathlib.Path(preseason_anchor_file).parent/'roster_other_preseason_2027_candidate.json').read_text())
+   other_ids=other.get('byESPNId') or {}
+   sources=other.get('methodByESPNId') or {}
+   if (composition.get('otherExisting')!=1538 or len(other_ids)!=1538 or
+       any(frozen.get(pid)!=price for pid,price in other_ids.items())):
+    raise ValueError('Frozen roster-only prices do not match their verified source')
+   for pid,price in other_ids.items():
+    provenance=sources.get(pid)
+    if provenance not in ('LEGACY_MODEL_PRESEASON_PRESERVED','SITE_UNMODELED_PROVISIONAL_50000'):
+     raise ValueError('Unknown roster-only NIL baseline provenance')
+    if provenance=='SITE_UNMODELED_PROVISIONAL_50000' and price!=50000:
+     raise ValueError('An unmodeled provisional price changed from site-approved $50K placeholder')
+    anchor_meta[pid]=provenance
  asset=joblib.load(MODEL);allrows={};stats={'2026_based':0,'rookie_frozen_without_box':0,'older_season_based':0,'current_updated':0,'current_missing_context':0,'roster_without_prior':0,'no_prior_model':0,'current_without_2027':0}
  for athlete,entry in sorted((payload.get('players') or {}).items()):
   if not str(athlete).isdigit():continue
@@ -304,14 +317,14 @@ def run(players_file,archived_context_file, current_context_file, asof,output, m
  # Stock Watch and the Player tab can use the same ESPN-ID reference.
  for pid,amount in frozen.items():
   if pid in allrows:continue
-  if anchor_meta.get(pid)!='FRESHMAN_HS':
+  if anchor_meta.get(pid) not in ('FRESHMAN_HS','LEGACY_MODEL_PRESEASON_PRESERVED','SITE_UNMODELED_PROVISIONAL_50000'):
    # Non-freshman orphan identities must not be filled with invented games.
    raise ValueError('Frozen V4 ESPN ID absent from the verified factual feed: '+pid)
   allrows[pid]={'value':amount,'preseason':amount,'currentOnly':None,
     'season':2027,'priorSeason':None,'games':0,'minutes':0,'weight':0,
     'roleWeight':0,'status':'PRESEASON_BASELINE','evidenceGP':0,
-    'evidenceMPG':0,'anchorType':'FRESHMAN_HS'}
-  stats['rookie_frozen_without_box']+=1
+    'evidenceMPG':0,'anchorType':anchor_meta[pid]}
+  stats['rookie_frozen_without_box']+=int(anchor_meta.get(pid)=='FRESHMAN_HS')
  cover=stats['2026_based']+stats['older_season_based'];coverage=cover/max(1,len(payload.get('players') or {}))
  if cover<100 or coverage<min_coverage:raise ValueError(f'Baseline coverage unexpectedly low: {cover}/{len(payload.get("players") or {})}')
  out={'schemaVersion':1,'model':'NIL Estimation Model','release':RELEASE,'season':2027,
