@@ -10,6 +10,7 @@ class InternationalOpeningPriceTests(unittest.TestCase):
   new=load("preseason_2027_before_top100_20261027.json")
   final=load("preseason_2027.json")
   second=load("international_top100_noncollege_2027_priors.json")
+  third=load("international_top100_staff_review_20271027.json")
   reviewed=load("international_pro_2027_market_priors.json")
   manifest=load("manifest_2027.json")
   r=reviewed["byESPNId"]
@@ -32,7 +33,7 @@ class InternationalOpeningPriceTests(unittest.TestCase):
   self.assertFalse(manifest["dates"])
   self.assertFalse(manifest["months"])
   self.assertEqual(manifest["baselineVersion"],final["baselineVersion"])
-  self.assertEqual(final["byESPNId"],{**new["byESPNId"],**second["byESPNId"]})
+  self.assertEqual(final["byESPNId"],{**new["byESPNId"],**second["byESPNId"],**third["byESPNId"]})
   self.assertEqual(sum(r.values())-sum(reviewed["sourceBaselineByESPNId"].values()),24952100)
  def test_no_staff_background_in_public_price_inputs(self):
   reviewed=load("international_pro_2027_market_priors.json")

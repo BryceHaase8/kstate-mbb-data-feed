@@ -9,7 +9,7 @@ class Top100InternationalNoCollegeTests(unittest.TestCase):
   q=load("research_qa/international_top100_no_college_review_2027.json")
   top=load("public/stock_watch/international_top100_noncollege_2027_priors.json")
   before=load("public/stock_watch/preseason_2027_before_top100_20261027.json")
-  after=load("public/stock_watch/preseason_2027.json")
+  after=load("public/stock_watch/preseason_2027_before_staff_20261027.json")
   staff=load("public/stock_watch/international_pro_2027_market_priors.json")
   rows=q["rows"]
   assert len(rows)==138

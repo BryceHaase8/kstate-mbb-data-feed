@@ -5,7 +5,7 @@ import argparse,datetime,json,math,pathlib,statistics
 def load(path):
  return json.loads(pathlib.Path(path).read_text())
 
-def check(new,old,source,anchor=None,legacy=None,history=None,rookies=None,v4=None,others=None,approved=None,pre_rebase=None,top100=None,pre_top100=None):
+def check(new,old,source,anchor=None,legacy=None,history=None,rookies=None,v4=None,others=None,approved=None,pre_rebase=None,top100=None,pre_top100=None,staff_review=None,pre_staff=None):
  n,o,f=load(new),load(old),load(source)
  if n.get('season')!=2027 or n.get('policyVersion')!=3:
   raise ValueError('Unexpected NIL model policy')
@@ -79,7 +79,35 @@ def check(new,old,source,anchor=None,legacy=None,history=None,rookies=None,v4=No
     # BEFORE the first game only, never as fictitious Stock Watch movement.
     if not anchor or not history:
      raise ValueError('Preseason price moved without documented opening correction')
-    if top100 and pre_top100:
+    if staff_review and pre_staff:
+     # Third frozen checkpoint: 16 staff-reviewed ESPN IDs, no synthetic
+     # 2026-27 game movement. A prior college redshirt is an explicit
+     # staff-priced exception, not an overseas-pro classification.
+     q,b,a,h=load(staff_review),load(pre_staff),load(anchor),load(history)
+     updated=q.get('byESPNId') or {}
+     source=q.get('sourceBaselineByESPNId') or {}
+     previous=b.get('byESPNId') or {}
+     now=a.get('byESPNId') or {}
+     approved12=(load(approved).get('byESPNId') or {}) if approved else {}
+     if (q.get('playerCount')!=16 or len(updated)!=16 or
+         set(updated)!=set(source) or set(updated)&set(approved12) or
+         len(previous)!=6057 or set(now)!=set(previous) or
+         set(moved)!=set(updated) or
+         any(previous.get(pid)!=price for pid,price in source.items()) or
+         any(now.get(pid)!=(updated[pid] if pid in updated else price)
+             for pid,price in previous.items()) or
+         any(pid not in common or older[pid]['value']!=source[pid] or
+             rows[pid]['value']!=updated[pid] or rows[pid].get('preseason')!=updated[pid] or
+             rows[pid].get('anchorType')!=(
+                 'INTERNATIONAL_PREVIOUS_COLLEGE_REDSHIRT_STAFF_REVIEWED'
+                 if pid=='5312303' else 'INTERNATIONAL_STAFF_REVIEWED_PRESEASON')
+             for pid in updated) or
+         (h.get('dates') or []) or (h.get('months') or []) or
+         h.get('baselineAsOf')!=a.get('asOf') or
+         int(f.get('latestSeason') or 0)>=2027):
+      raise ValueError('Staff 16 opening rebase changed unrelated prices or created false stock movement')
+     print('APPROVED STAFF OPENING REBASE: 16 exact ESPN IDs; other 6041 unchanged; no Stock Watch movement')
+    elif top100 and pre_top100:
      # Distinct second opening cohort after the original 12 staff-reviewed
      # prices. No player outside the 22 validated ESPN identities may move.
      v,b,a,h=load(top100),load(pre_top100),load(anchor),load(history)
@@ -138,6 +166,6 @@ def check(new,old,source,anchor=None,legacy=None,history=None,rookies=None,v4=No
 if __name__=='__main__':
  p=argparse.ArgumentParser()
  for arg in ('new','old','source'):p.add_argument('--'+arg,required=True)
- for arg in ('anchor','legacy','history','rookies','v4','others','approved','pre-rebase','top100','pre-top100'):p.add_argument('--'+arg)
+ for arg in ('anchor','legacy','history','rookies','v4','others','approved','pre-rebase','top100','pre-top100','staff-review','pre-staff'):p.add_argument('--'+arg)
  a=p.parse_args()
- check(a.new,a.old,a.source,a.anchor,a.legacy,a.history,a.rookies,a.v4,a.others,a.approved,a.pre_rebase,a.top100,a.pre_top100)
+ check(a.new,a.old,a.source,a.anchor,a.legacy,a.history,a.rookies,a.v4,a.others,a.approved,a.pre_rebase,a.top100,a.pre_top100,a.staff_review,a.pre_staff)

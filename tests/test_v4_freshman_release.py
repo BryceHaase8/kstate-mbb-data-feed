@@ -44,7 +44,7 @@ class RookiePreseasonChecks(unittest.TestCase):
   self.assertEqual(sum(kind=='V4_TEAM_COHORT_PROXY_NO_STATS' for kind in addendum['methodByESPNId'].values()),38)
   self.assertEqual(sum(kind=='V4_HISTORICAL_AUXILIARY_FROZEN' for kind in addendum['methodByESPNId'].values()),9)
   self.assertEqual(manifest['baselineAsOf'],anchor['asOf'])
-  self.assertEqual(final['byESPNId'],{**calibrated['byESPNId'],**next22['byESPNId']})
+  self.assertEqual(final['byESPNId'],{**calibrated['byESPNId'],**next22['byESPNId'],**load('international_top100_staff_review_20271027.json')['byESPNId']})
   self.assertEqual(manifest['baselineVersion'],final['baselineVersion'])
   self.assertFalse(manifest['dates'])
   self.assertFalse(manifest['months'])

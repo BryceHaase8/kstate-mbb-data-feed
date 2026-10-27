@@ -1,0 +1,56 @@
+name: Staff-reviewed international NIL dry-run QA
+on:
+  push:
+    branches:
+      - calibration-staff-international-16-20261027
+  pull_request:
+    branches:
+      - main
+permissions:
+  contents: read
+jobs:
+  shadow:
+    runs-on: ubuntu-latest
+    timeout-minutes: 24
+    env:
+      NIL_MODEL_KEY: ${{ secrets.NIL_MODEL_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install model dependencies for protected tests
+        run: python -m pip install -r scripts/nil_model/requirements-nil.txt
+      - name: Static syntax and protected model tests
+        run: |
+          python -m py_compile scripts/nil_model/nil_season_engine.py scripts/nil_model/publish_guard.py
+          python -m unittest discover -s tests -p 'test_v4_*.py' -v
+          python -m unittest discover -s tests -p 'test_international_*.py' -v
+      - name: Require secure model key and perform full national shadow scoring
+        run: |
+          set -euo pipefail
+          test -n "$NIL_MODEL_KEY"
+          bash scripts/nil_model/refresh_nil.sh
+      - name: Verify all source identity and stock guards
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          get=lambda p:json.loads(Path(p).read_text())
+          p=get('public/nil_estimation_model_2027.json')['byESPNId']
+          after=get('public/stock_watch/preseason_2027.json')['byESPNId']
+          before=get('public/stock_watch/preseason_2027_before_staff_20261027.json')['byESPNId']
+          overlay=get('public/stock_watch/international_top100_staff_review_20271027.json')['byESPNId']
+          anchors=get('public/stock_watch/international_pro_2027_market_priors.json')['byESPNId']
+          orig=get('public/stock_watch/international_top100_noncollege_2027_priors.json')['byESPNId']
+          assert len(after)==6057 and len(overlay)==16 and len(p)>=12720
+          assert set(k for k in after if before[k]!=after[k])==set(overlay)
+          assert all(p[k]['value']==p[k]['preseason']==v for k,v in after.items())
+          assert all(p[k]['status']=='PRESEASON_BASELINE' and p[k]['weight']==0 for k in overlay)
+          assert all(p[k]['anchorType']==('INTERNATIONAL_PREVIOUS_COLLEGE_REDSHIRT_STAFF_REVIEWED' if k=='5312303' else 'INTERNATIONAL_STAFF_REVIEWED_PRESEASON') for k in overlay)
+          assert all(p[k]['value']==v for k,v in anchors.items())
+          assert all(p[k]['value']==v for k,v in orig.items() if k not in overlay)
+          sw=get('public/stock_watch/manifest_2027.json')
+          assert not sw['dates'] and not sw['months']
+          print('PASS 16 staff-revised, previous 12+22 preserved if unedited, 6057 frozen, no stock movement')
+          PY

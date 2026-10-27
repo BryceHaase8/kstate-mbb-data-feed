@@ -1,0 +1,70 @@
+name: Publish final staff-reviewed international opening NIL anchors
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - public/stock_watch/international_top100_staff_review_20271027.json
+permissions:
+  contents: write
+concurrency:
+  group: nil-2027-publishing
+  cancel-in-progress: false
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 24
+    env:
+      NIL_MODEL_KEY: ${{ secrets.NIL_MODEL_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Full protected rebase and national publisher
+        run: |
+          set -euo pipefail
+          test -n "$NIL_MODEL_KEY"
+          python -m pip install -r scripts/nil_model/requirements-nil.txt
+          python -m unittest discover -s tests -p 'test_v4_*.py' -v
+          python -m unittest discover -s tests -p 'test_international_*.py' -v
+          bash scripts/nil_model/refresh_nil.sh
+      - name: Validate exact 6057 baseline, staff 16, and zero stock movements
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          get=lambda p: json.loads(Path(p).read_text())
+          a=get('public/stock_watch/preseason_2027.json')['byESPNId']
+          b=get('public/stock_watch/preseason_2027_before_staff_20261027.json')['byESPNId']
+          s=get('public/stock_watch/international_top100_staff_review_20271027.json')['byESPNId']
+          n=get('public/nil_estimation_model_2027.json')['byESPNId']
+          staff12=get('public/stock_watch/international_pro_2027_market_priors.json')['byESPNId']
+          other22=get('public/stock_watch/international_top100_noncollege_2027_priors.json')['byESPNId']
+          roster=get('data/roster_2027_advanced.json')
+          sw=get('public/stock_watch/manifest_2027.json')
+          assert len(b)==len(a)==6057 and len(s)==16 and len(n)>=12720
+          assert all(a[k]==(s[k] if k in s else val) for k,val in b.items())
+          assert all(n[k]['value']==n[k]['preseason']==val and n[k]['status']=='PRESEASON_BASELINE' for k,val in a.items())
+          assert all(n[k]['anchorType']==('INTERNATIONAL_PREVIOUS_COLLEGE_REDSHIRT_STAFF_REVIEWED' if k=='5312303' else 'INTERNATIONAL_STAFF_REVIEWED_PRESEASON') for k in s)
+          assert all(a[k]==v for k,v in staff12.items())
+          assert all(a[k]==v for k,v in other22.items() if k not in s)
+          assert len(roster['players'])==5541
+          assert not {str(p[0]) for p in roster['players']}-set(n)
+          assert not sw['dates'] and not sw['months']
+          print('PASS staff 16, expert 12, research 22, 5541 ESPN roster, no invented Stock Watch change')
+          PY
+      - name: Commit verified national NIL feed without a site rebuild
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add public/nil_estimation_model_2027.json public/nil_estimation_model_2027.json.manifest.json public/stock_watch/
+          if git diff --cached --quiet; then
+            echo 'No model delta to publish'
+            exit 0
+          fi
+          git commit -m 'Publish 16 staff-reviewed international preseason NIL anchors'
+          git push origin HEAD:main
