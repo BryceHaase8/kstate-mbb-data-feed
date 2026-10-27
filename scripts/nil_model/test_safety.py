@@ -20,7 +20,7 @@ def test():
         (p/'stock/manifest_2027.json').write_text(json.dumps({'schemaVersion':1,'season':2027,'dates':[],'months':[]}))
         def candidate(day,updated):
             rows={id:{'preseason':150000,'value':(170000 if id==ids[0] and updated else 150000),'games':1 if updated else 0,'status':'UPDATED' if updated else 'PRESEASON_BASELINE'} for id in ids}
-            (p/'candidate.json').write_text(json.dumps({'schemaVersion':1,'model':'NIL Estimation Model','season':2027,'policyVersion':2,'generatedAt':day+'T00:00:00Z','playerCount':len(rows),'byESPNId':rows}))
+            (p/'candidate.json').write_text(json.dumps({'schemaVersion':1,'model':'NIL Estimation Model','season':2027,'policyVersion':3,'generatedAt':day+'T00:00:00Z','playerCount':len(rows),'byESPNId':rows}))
             return p/'candidate.json'
         assert not record(candidate('2026-10-25',False),p/'stock')['appended']
         assert record(candidate('2026-11-05',True),p/'stock')['appended']
