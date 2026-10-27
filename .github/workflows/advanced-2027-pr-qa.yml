@@ -31,3 +31,30 @@ jobs:
           test ! -f public/portal_onoff_2027/manifest.json
           test ! -f public/portal_positions_2027/manifest.json
           echo 'Advanced-data readiness checks PASS; empty preseason remains empty.'
+
+  espn-schema-probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v6
+      - uses: r-lib/actions/setup-r@v2
+      - uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          extra-packages: |
+            any::hoopR
+            any::dplyr
+            any::jsonlite
+      - name: Parse advanced collector and inspect archived ESPN game
+        shell: bash
+        run: |
+          Rscript - <<'RS'
+          parse(file='scripts/collect_2027_advanced.R')
+          p <- hoopR::espn_mbb_pbp(game_id=401856563)
+          if(is.null(p) || !is.data.frame(p) || nrow(p)<50L)
+            stop('ESPN historical per-game PBP probe unavailable')
+          essential <- c('period_number','clock_display_value','type_text','team_id')
+          if(!all(essential %in% names(p)))stop('ESPN PBP schema changed: ',paste(setdiff(essential,names(p)),collapse=','))
+          person <- intersect(c('athlete_id_1','participants_0_athlete_id'),names(p))
+          if(!length(person))stop('ESPN primary athlete identifier missing')
+          message('PASS live hoopR ESPN schema for ',nrow(p),' archived plays')
+          RS
