@@ -238,11 +238,17 @@ def run(players_file,archived_context_file, current_context_file, asof,output, m
    market_review=approved.get('byESPNId') or {}
    old_review=approved.get('sourceBaselineByESPNId') or {}
    original_prices=original.get('byESPNId') or {}
+   # For multi-stage preseason reviews, validate staff's 12 against their
+   # own frozen checkpoint, then separately audit the new 22 below.
+   first_stage_prices=frozen
+   if composition.get('top100NoncollegeReviewed')==22:
+    first_stage=json.loads((pathlib.Path(preseason_anchor_file).parent/'preseason_2027_before_top100_20261027.json').read_text())
+    first_stage_prices=first_stage.get('byESPNId') or {}
    if (original.get('season')!=2027 or original.get('playerCount')!=6057 or
        len(frozen)!=6057 or len(market_review)!=12 or len(old_review)!=12 or
        set(market_review)!=set(old_review) or
        any(pid not in original_prices or original_prices[pid]!=old_review[pid] for pid in market_review) or
-       any(frozen.get(pid)!=(market_review[pid] if pid in market_review else price) for pid,price in original_prices.items())):
+       any(first_stage_prices.get(pid)!=(market_review[pid] if pid in market_review else price) for pid,price in original_prices.items())):
     raise ValueError('Reviewed preseason prices changed identities or non-reviewed baseline values')
    frozen_original=original_prices
   if composition.get('originalV4')==3052 and composition.get('originalRookie')==1420:
