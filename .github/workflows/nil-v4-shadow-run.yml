@@ -108,7 +108,7 @@ jobs:
             --source "$RUNNER_TEMP/nil_shadow_game/factual.json" \
             --anchor public/stock_watch/preseason_2027.json \
             --legacy public/stock_watch/preseason_2027_legacy_2026_10_24.json \
-            --history public/stock_watch/manifest_2027.json --rookies public/stock_watch/freshman_preseason_2027_candidate.json --v4 public/stock_watch/v4_preseason_2027_candidate.json
+            --history public/stock_watch/manifest_2027.json --rookies public/stock_watch/freshman_preseason_2027_candidate.json --v4 public/stock_watch/v4_preseason_2027_candidate.json --others public/stock_watch/roster_other_preseason_2027_candidate.json
           cp -a public/stock_watch "$RUNNER_TEMP/nil_shadow_game/stock_watch"
           python scripts/nil_model/record_stock_history.py \
             --new "$RUNNER_TEMP/nil_shadow_game/updated.json" \
