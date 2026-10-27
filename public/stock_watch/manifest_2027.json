@@ -6,6 +6,11 @@
   "dates": [],
   "months": [],
   "lastSourceGeneratedAt": null,
-  "baselineVersion": "V4_FROZEN_SITE_V770_2026_10_27",
-  "baselineMigration": "2026-10-27: v2 baseline archived under preseason_2027_legacy_2026_10_24.json; no game-day history changed"
+  "baselineVersion": "V4_FROZEN_SITE_V770_PLUS_FRESHMEN_V771_2026_10_27",
+  "baselineMigration": "V4 3051 old anchor preserved + 1420 verified HS baseline ESPN IDs, dated history empty as of 2026-10-27",
+  "baselinePlayerCount": 4471,
+  "baselineComposition": {
+    "originalV4": 3051,
+    "freshman": 1420
+  }
 }
