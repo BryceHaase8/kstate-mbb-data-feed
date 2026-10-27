@@ -1,0 +1,55 @@
+name: Preseason roster 47-ID V4 proxy publisher shadow QA
+on:
+  push:
+    branches: [preseason-2027-roster-v4-coverage-20261027]
+    paths:
+      - ".github/workflows/roster-v4-addendum-shadow.yml"
+permissions:
+  contents: read
+jobs:
+  dry-run:
+    if: github.ref == 'refs/heads/preseason-2027-roster-v4-coverage-20261027'
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    env:
+      NIL_MODEL_KEY: ${{ secrets.NIL_MODEL_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Require configured model key
+        run: test -n "$NIL_MODEL_KEY"
+      - name: Run full NIL publication pipeline in temporary checkout ONLY
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install -r scripts/nil_model/requirements-nil.txt
+          bash scripts/nil_model/refresh_nil.sh
+      - name: Confirm published candidate covers every Oct 27 roster athlete
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          read=lambda p:json.loads(Path(p).read_text())
+          source=read('data/roster_2027_advanced.json')
+          baseline=read('public/stock_watch/preseason_2027.json')
+          orig=read('public/stock_watch/preseason_2027_original_6010_2026_10_27.json')
+          supplement=read('public/stock_watch/roster_2027_new_id_v4_proxy_addendum.json')
+          model=read('public/nil_estimation_model_2027.json')
+          m=model['byESPNId'];a=baseline['byESPNId']
+          ids={str(row[0]) for row in source['players']}
+          assert len(ids)==5541
+          assert len(a)==6057 and len(orig['byESPNId'])==6010
+          assert len(supplement['byESPNId'])==47
+          assert len(m)>=12720
+          assert not ids-set(m),len(ids-set(m))
+          assert not ids-set(a),len(ids-set(a))
+          assert all(a[k]==v for k,v in orig['byESPNId'].items())
+          assert all(m[k]['preseason']==v and m[k]['value']==v for k,v in supplement['byESPNId'].items())
+          assert all(m[k]['anchorType']==supplement['methodByESPNId'][k] for k in supplement['byESPNId'])
+          assert sum(p['status']=='UPDATED' for p in m.values())==0
+          history=read('public/stock_watch/manifest_2027.json')
+          assert not history['dates'] and not history['months']
+          print(f'PASS 5,541 current roster IDs, {len(m):,} model rows, 6,057 preseason prices, zero fabricated Stock Watch moves')
+          PY
