@@ -1,0 +1,64 @@
+name: Research top100 noncollege international NIL shadow QA
+on:
+  push:
+    branches: [research-international-top100-no-college-20261027]
+    paths:
+      - ".github/workflows/research-international-top100-shadow.yml"
+permissions:
+  contents: read
+jobs:
+  dry-run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 24
+    env:
+      NIL_MODEL_KEY: ${{ secrets.NIL_MODEL_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Syntax check and immutable preseason tests
+        run: |
+          python -m py_compile scripts/nil_model/nil_season_engine.py scripts/nil_model/publish_guard.py
+          python -m unittest discover -s tests -p 'test_v4_*.py' -v
+          python -m unittest discover -s tests -p 'test_international_pro_opening.py' -v
+          python -m unittest discover -s tests -p 'test_international_top100_no_college.py' -v
+      - name: Require secret for complete model test
+        run: test -n "$NIL_MODEL_KEY"
+      - name: Score entire national NIL model in temporary checkout only
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install -r scripts/nil_model/requirements-nil.txt
+          bash scripts/nil_model/refresh_nil.sh
+      - name: Verify all reviewed and unreviewed players from published candidate
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          get=lambda p:json.loads(Path(p).read_text())
+          model=get('public/nil_estimation_model_2027.json')
+          roster=get('data/roster_2027_advanced.json')
+          reviewed=get('public/stock_watch/international_top100_noncollege_2027_priors.json')
+          prior=get('public/stock_watch/preseason_2027_before_top100_20261027.json')
+          staff=get('public/stock_watch/international_pro_2027_market_priors.json')
+          board=get('research_qa/international_top100_no_college_review_2027.json')
+          rows=model['byESPNId'];r=reviewed['byESPNId']
+          ids={str(x[0]) for x in roster['players']}
+          assert len(ids)==5541 and not (ids-set(rows))
+          assert len(r)==22 and len(board['rows'])==138 and len(staff['byESPNId'])==12
+          assert len(rows)>=12720
+          for id,price in r.items():
+           assert rows[id]['value']==rows[id]['preseason']==price
+           assert rows[id]['status']=='PRESEASON_BASELINE'
+           assert rows[id]['anchorType']=='INTERNATIONAL_NONCOLLEGE_RESEARCH_PRIOR'
+           assert rows[id]['weight']==0
+          for id,price in staff['byESPNId'].items():
+           assert rows[id]['value']==rows[id]['preseason']==price
+           assert rows[id]['anchorType']=='INTERNATIONAL_PRO_PRESEASON_REVIEWED'
+          for id,price in prior['byESPNId'].items():
+           if id not in r: assert rows[id]['value']==price,(id,price,rows[id]['value'])
+          history=get('public/stock_watch/manifest_2027.json')
+          assert not history['dates'] and not history['months']
+          print('PASS 22 researched + 12 expert anchors, 5541/5541 roster coverage; zero false stock moves')
+          PY
