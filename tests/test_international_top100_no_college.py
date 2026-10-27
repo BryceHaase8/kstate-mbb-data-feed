@@ -30,7 +30,7 @@ class Top100InternationalNoCollegeTests(unittest.TestCase):
   assert all(top["sourceBaselineByESPNId"][k]==before["byESPNId"][k] for k in top["byESPNId"])
   assert all(before["byESPNId"][k]<v for k,v in top["byESPNId"].items())
   assert sum(top["byESPNId"].values())-sum(top["sourceBaselineByESPNId"].values())==22938900
-  self.assertEqual(top["byESPNId"]["5458320"],before["byESPNId"]["5458320"])
+  self.assertEqual(after["byESPNId"]["5458320"],before["byESPNId"]["5458320"])
  def test_stock_watch_not_inflated(self):
   m=load("public/stock_watch/manifest_2027.json")
   assert not m["dates"] and not m["months"] and m["baselinePlayerCount"]==6057
