@@ -39,6 +39,7 @@ with tempfile.TemporaryDirectory() as tmp:
     context={'teams':{'2026':{}}}
     for i,team in enumerate(fixture['teams']):
         if team['team']=='West Florida':continue  # No 2025-26 D-I ESPN context
+        eid='2306' if team['team']=='Kansas St.' else str(10000+i)
         context['teams']['2026'][eid]={'name':'Kansas State Wildcats' if eid=='2306' else team['team']+' Wildcats'}
     (base/'context.json').write_text(json.dumps(context))
     (base/'input.json').write_text(json.dumps(fixture))
