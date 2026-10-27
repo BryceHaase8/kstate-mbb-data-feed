@@ -1,3 +1,4 @@
+# One-time repeat after integrating PR #6 advanced ESPN publisher; no production writes.
 name: V4 shadow refresh — no GitHub publication
 on:
   push:
