@@ -48,9 +48,9 @@ jobs:
           model_bytes=Path('public/nil_estimation_model_2027.json').stat().st_size
           assert model_bytes<5000000, 'Full model payload exceeds the Netlify function 5 MB safety ceiling'
           print('Published model JSON payload bytes:',model_bytes)
-          assert len(rows)>=11000
+          assert len(rows)>=12500
           baseline=json.loads(Path('public/stock_watch/preseason_2027.json').read_text())
-          assert baseline['playerCount']==4472
+          assert baseline['playerCount']==6010
           assert baseline['byESPNId']['5281366']==791196
           assert rows['5281366']['preseason']==791196
           assert len(json.loads(Path('public/stock_watch/v4_preseason_2027_candidate.json').read_text())['byESPNId'])==3052
@@ -58,6 +58,13 @@ jobs:
           assert len(rookie)==1420
           assert all(id in rows and rows[id]['value']==price and rows[id]['preseason']==price and rows[id].get('anchorType')=='FRESHMAN_HS' for id,price in rookie.items())
           print('Verified',len(rookie),'frozen freshman prices for opening week')
+          other_doc=json.loads(Path('public/stock_watch/roster_other_preseason_2027_candidate.json').read_text())
+          other=other_doc['byESPNId'];methods=other_doc['methodByESPNId']
+          assert len(other)==1538
+          assert sum(kind=='LEGACY_MODEL_PRESEASON_PRESERVED' for kind in methods.values())==733
+          assert sum(kind=='SITE_UNMODELED_PROVISIONAL_50000' for kind in methods.values())==805
+          assert all(pid in rows and rows[pid]['preseason']==amount and rows[pid]['value']==amount and rows[pid].get('anchorType')==methods[pid] for pid,amount in other.items())
+          print('Verified 1538 other frozen roster values with explicit 733 previously priced and 805 unmodeled placeholder provenance')
           assert all(r['preseason']==json.loads(Path('public/stock_watch/preseason_2027.json').read_text())['byESPNId'][i] for i,r in rows.items() if i in json.loads(Path('public/stock_watch/preseason_2027.json').read_text())['byESPNId'])
           assert not h['dates'], 'Preseason must have no fabricated Stock Watch dates'
           assert sum(r['status']=='UPDATED' for r in rows.values())==0
@@ -126,6 +133,9 @@ jobs:
           assert len(rookies)==1420
           assert all(month['byESPNId'][id]==[price] for id,price in rookies.items())
           print('Simulated October 28 Stock Watch entry includes all 1420 rookies at original prices')
+          other=json.loads(pathlib.Path('public/stock_watch/roster_other_preseason_2027_candidate.json').read_text())['byESPNId']
+          assert len(other)==1538 and all(month['byESPNId'][id]==[price] for id,price in other.items())
+          print('Verified all 1538 roster-only anchors persisted without fake game changes')
           assert player['preseason']==json.loads(pathlib.Path('public/stock_watch/preseason_2027.json').read_text())['byESPNId']['5176309']
           print('PASS simulated game-day: two verified-shaped ESPN appearances, player updated, one dated Stock Watch snapshot, V4 preseason unchanged')
           PY
