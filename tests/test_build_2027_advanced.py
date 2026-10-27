@@ -1,6 +1,6 @@
 import csv,gzip,importlib.util,json,tempfile,unittest
 from pathlib import Path
-spec=importlib.util.spec_from_file_location('advanced',Path(__file__).parent/'build_2027_advanced.py')
+spec=importlib.util.spec_from_file_location('advanced',Path(__file__).resolve().parents[1]/'scripts'/'build_2027_advanced.py')
 mod=importlib.util.module_from_spec(spec);spec.loader.exec_module(mod)
 class TestAdvanced(unittest.TestCase):
  def writecsv(self,path,rows):
