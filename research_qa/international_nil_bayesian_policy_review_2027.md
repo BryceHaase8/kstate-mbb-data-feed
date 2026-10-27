@@ -43,3 +43,17 @@ Proposed architecture (hold for quantitative validation before publishing):
 ## West Florida team issue: resolved separately
 
 The latest ESPN roster already contains 15 real athlete IDs for team 2697. The actual Teams-tab blank arose from the Torvik row missing its `espnTeamId`; the validated Torvik research publisher has been patched to map `West Florida` to `2697`, with a regression test. This does not change NIL prices, the ESPN roster, the website, or Google Sheets.
+
+## Second pass: verified 12-player professional group (research only)
+
+Add three high-priority $50K placeholders, keyed by exact ESPN ID, to the nine school-confirmed professional cases:
+
+| ESPN ID | School | Player | Existing price | Verified résumé |
+|---|---|---|---:|---|
+| 5351837 | North Carolina | Alex Samodurov | $50,000 | Panathinaikos EuroLeague / Greek top league, Greece national teams ([UNC](https://goheels.com/sports/mens-basketball/roster/alex-samodurov/28593)) |
+| 5458832 | Gonzaga | Nathan De Sousa | $50,000 | Cholet Betclic Élite rotation and French national pathway ([Gonzaga](https://gozags.com/sports/mens-basketball/roster/nathan-de-sousa/6665)) |
+| 5458339 | Purdue | Enzo Shahrvin | $50,000 | Paris Basketball top French league, EuroLeague and strong offensive rebounding ([Purdue](https://purduesports.com/sports/mens-basketball/roster/player/enzo-shahrvin)) |
+
+**Important negative controls:** Mabil Mawut (Arizona) has a high-school/NBA Academy background rather than verified senior pro production; Wesly Rosa (Creighton) and Alex K'Medehouto (Maryland) played junior college basketball, which the ESPN Division I history misses. Federico Grani (New Mexico) has Italian Serie B experience—a different tier from EuroLeague. These examples demonstrate why the 533 birth-place candidates are a research screening list, not a verified professional NIL price pool. [Detailed exact-ID source notes](international_nil_2027_second_pass_addendum.json).
+
+**Do not change live prices on this branch.** Prioritize building verified starting anchors for 12 professionals and a separate, protected no-prior current-season Bayesian reference before applying overrides. Resolve discrepancies in reported Gonzaga Nathan De Sousa 2025-26 league totals by competition before using his counting stats quantitatively.
