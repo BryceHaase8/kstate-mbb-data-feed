@@ -6,9 +6,9 @@
   "dates": [],
   "months": [],
   "lastSourceGeneratedAt": null,
-  "baselineVersion": "V4_3052_HS_1420_ROSTER_EXISTING_1538_2026_10_27",
-  "baselineMigration": "2026-10-27 one-time frozen 6010 baseline; previous 3051-price v2 anchor preserved; no stock history",
-  "baselinePlayerCount": 6010,
+  "baselineVersion": "V4_3052_HS_1420_ROSTER_EXISTING_1538_PLUS_47_ID_ADDENDUM_2026_10_27",
+  "baselineMigration": "2026-10-27 one-time frozen 6010 baseline; previous 3051-price v2 anchor preserved; no stock history; 47 append-only preseason roster identity additions; original 6010 unchanged",
+  "baselinePlayerCount": 6057,
   "baselineComposition": {
     "originalV4": 3052,
     "freshman": 1420,
@@ -17,5 +17,11 @@
       "legacyModel": 733,
       "unmodeledProvisional": 805
     }
+  },
+  "rosterAddendum": {
+    "newIds": 47,
+    "modelHistorical": 9,
+    "v4TeamCohortProxy": 38,
+    "file": "roster_2027_new_id_v4_proxy_addendum.json"
   }
 }

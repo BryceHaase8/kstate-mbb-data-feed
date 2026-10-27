@@ -246,6 +246,25 @@ def run(players_file,archived_context_file, current_context_file, asof,output, m
     if provenance=='SITE_UNMODELED_PROVISIONAL_50000' and price!=50000:
      raise ValueError('An unmodeled provisional price changed from site-approved $50K placeholder')
     anchor_meta[pid]=provenance
+    # Late ESPN roster audit adds 47 exact IDs without modifying the 6010
+    # original preseason anchors. Newcomers without prior ESPN statistics
+    # receive low-confidence V4-team-cohort proxy prices, NOT original V4.
+    addendum_count=int(composition.get('rosterAddendum') or 0)
+    if addendum_count:
+     overlay=json.loads((pathlib.Path(preseason_anchor_file).parent/'roster_2027_new_id_v4_proxy_addendum.json').read_text())
+     additional=overlay.get('byESPNId') or {}
+     add_methods=overlay.get('methodByESPNId') or {}
+     v4_original=json.loads((pathlib.Path(preseason_anchor_file).parent/'v4_preseason_2027_candidate.json').read_text()).get('byESPNId',{})
+     original_ids=set(v4_original)|set(rookie_ids)|set(other_ids)
+     if (addendum_count!=47 or len(additional)!=47 or len(add_methods)!=47 or
+         set(additional)!=set(add_methods) or set(additional)&original_ids or
+         len(frozen)!=len(original_ids)+47):
+      raise ValueError('2027 roster supplement identity overlap or completeness error')
+     if (sum(k=='V4_HISTORICAL_AUXILIARY_FROZEN' for k in add_methods.values())!=9 or
+         sum(k=='V4_TEAM_COHORT_PROXY_NO_STATS' for k in add_methods.values())!=38 or
+         any(frozen.get(pid)!=val for pid,val in additional.items())):
+      raise ValueError('2027 roster supplement price/method misattribution')
+     anchor_meta.update(add_methods)
  asset=joblib.load(MODEL);allrows={};stats={'2026_based':0,'rookie_frozen_without_box':0,'older_season_based':0,'current_updated':0,'current_missing_context':0,'roster_without_prior':0,'no_prior_model':0,'current_without_2027':0}
  for athlete,entry in sorted((payload.get('players') or {}).items()):
   if not str(athlete).isdigit():continue
@@ -317,7 +336,7 @@ def run(players_file,archived_context_file, current_context_file, asof,output, m
  # Stock Watch and the Player tab can use the same ESPN-ID reference.
  for pid,amount in frozen.items():
   if pid in allrows:continue
-  if anchor_meta.get(pid) not in ('FRESHMAN_HS','LEGACY_MODEL_PRESEASON_PRESERVED','SITE_UNMODELED_PROVISIONAL_50000'):
+  if anchor_meta.get(pid) not in ('FRESHMAN_HS','LEGACY_MODEL_PRESEASON_PRESERVED','SITE_UNMODELED_PROVISIONAL_50000','V4_HISTORICAL_AUXILIARY_FROZEN','V4_TEAM_COHORT_PROXY_NO_STATS'):
    # Non-freshman orphan identities must not be filled with invented games.
    raise ValueError('Frozen V4 ESPN ID absent from the verified factual feed: '+pid)
   allrows[pid]={'value':amount,'preseason':amount,'currentOnly':None,
