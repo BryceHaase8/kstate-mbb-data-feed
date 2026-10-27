@@ -51,6 +51,67 @@ jobs:
           assert sum(r['status']=='UPDATED' for r in rows.values())==0
           print('PASS V4 shadow job: ',len(rows),'prices, no fake games, Stock Watch history untouched')
           PY
+      - name: Simulate a genuine current-season update in runner temp only
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p "$RUNNER_TEMP/nil_shadow_game"
+          python - <<'PY'
+          import copy,json,os,pathlib
+          src=pathlib.Path('public/portal_factual_data.json')
+          data=json.loads(src.read_text())
+          athlete='5176309'
+          player=data['players'][athlete]
+          prior=next(x for x in player['seasons'] if int(x.get('season') or 0)==2026)
+          current=copy.deepcopy(prior)
+          current.update({'season':2027,'gp':2,'gs':2,'minutes':56,'mpg':28,
+            'pts':40,'ppg':20,'reb':14,'rpg':7,'ast':6,'apg':3,
+            'two_pm':13,'two_pa':22,'three_pm':4,'three_pa':8,
+            'ftm':2,'fta':3,'fga':30,'fgm':17,
+            'two_pt_pct':13/22,'three_pt_pct':.5,'ft_pct':2/3,
+            'efg_pct':19/30,'ts_pct':40/(2*(30+.44*3))})
+          player['seasons'].append(current);player['latest']=current
+          data['latestSeason']=2027
+          data['generatedAt']='2026-10-28T01:00:00Z'
+          path=pathlib.Path(os.environ['RUNNER_TEMP'])/'nil_shadow_game'/'factual.json'
+          path.write_text(json.dumps(data))
+          print('SIMULATED ESPN DATA: 1 athlete with two games, written to runner temp only')
+          PY
+          python scripts/nil_model/decrypt_model.py
+          trap 'rm -f scripts/nil_model/nil_estimation_model_core_shadow.joblib' EXIT
+          python scripts/nil_model/nil_season_engine.py \
+            --factual "$RUNNER_TEMP/nil_shadow_game/factual.json" \
+            --archived-teams scripts/nil_model/source_data/torvik_team_context.json \
+            --current-teams "$RUNNER_TEMP/nil_candidate/team_2027.json" \
+            --as-of 2026-10-28 \
+            --output "$RUNNER_TEMP/nil_shadow_game/updated.json" \
+            --preseason-anchor public/stock_watch/preseason_2027.json --min-coverage .5
+          python scripts/nil_model/validate_publish.py \
+            --new "$RUNNER_TEMP/nil_shadow_game/updated.json" \
+            --manifest "$RUNNER_TEMP/nil_shadow_game/updated.json.manifest.json" \
+            --previous public/nil_estimation_model_2027.json
+          python scripts/nil_model/publish_guard.py \
+            --new "$RUNNER_TEMP/nil_shadow_game/updated.json" \
+            --old public/nil_estimation_model_2027.json \
+            --source "$RUNNER_TEMP/nil_shadow_game/factual.json" \
+            --anchor public/stock_watch/preseason_2027.json \
+            --legacy public/stock_watch/preseason_2027_legacy_2026_10_24.json \
+            --history public/stock_watch/manifest_2027.json
+          cp -a public/stock_watch "$RUNNER_TEMP/nil_shadow_game/stock_watch"
+          python scripts/nil_model/record_stock_history.py \
+            --new "$RUNNER_TEMP/nil_shadow_game/updated.json" \
+            --root "$RUNNER_TEMP/nil_shadow_game/stock_watch"
+          python - <<'PY'
+          import json,os,pathlib
+          t=pathlib.Path(os.environ['RUNNER_TEMP'])/'nil_shadow_game'
+          pricing=json.loads((t/'updated.json').read_text())
+          player=pricing['byESPNId']['5176309']
+          history=json.loads((t/'stock_watch'/'manifest_2027.json').read_text())
+          assert player['status']=='UPDATED' and player['games']==2 and player['weight']>0
+          assert history['dates']==['2026-10-28']
+          assert player['preseason']==json.loads(pathlib.Path('public/stock_watch/preseason_2027.json').read_text())['byESPNId']['5176309']
+          print('PASS simulated game-day: two verified-shaped ESPN appearances, player updated, one dated Stock Watch snapshot, V4 preseason unchanged')
+          PY
       - name: Confirm no GitHub publication from this job
         run: |
           echo 'Shadow pass means files passed inside this runner only. No commit, push, artifact publication or Netlify deployment is performed.'
