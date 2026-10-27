@@ -3,6 +3,9 @@ on:
   push:
     branches:
       - calibration-staff-international-16-20261027
+  pull_request:
+    branches:
+      - main
 permissions:
   contents: read
 jobs:
@@ -16,6 +19,8 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
+      - name: Install model dependencies for protected tests
+        run: python -m pip install -r scripts/nil_model/requirements-nil.txt
       - name: Static syntax and protected model tests
         run: |
           python -m py_compile scripts/nil_model/nil_season_engine.py scripts/nil_model/publish_guard.py
@@ -25,7 +30,6 @@ jobs:
         run: |
           set -euo pipefail
           test -n "$NIL_MODEL_KEY"
-          python -m pip install -r scripts/nil_model/requirements-nil.txt
           bash scripts/nil_model/refresh_nil.sh
       - name: Verify all source identity and stock guards
         run: |
