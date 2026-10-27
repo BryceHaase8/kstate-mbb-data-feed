@@ -300,16 +300,40 @@ def run(players_file,archived_context_file, current_context_file, asof,output, m
     original_top=before.get('byESPNId') or {}
     proposed_top=proposal.get('byESPNId') or {}
     earlier_top=proposal.get('sourceBaselineByESPNId') or {}
+    # The separately approved staff corrections are a third checkpoint.
+    # Verify the earlier 22 against the frozen PRE-staff snapshot.
+    after_top=frozen
+    if composition.get('internationalStaffReviewed')==16:
+     staged=json.loads((pathlib.Path(preseason_anchor_file).parent/'preseason_2027_before_staff_20261027.json').read_text())
+     after_top=staged.get('byESPNId') or {}
     if (composition.get('top100NoncollegeReviewed')!=22 or
-        len(original_top)!=6057 or len(frozen)!=6057 or
+        len(original_top)!=6057 or len(after_top)!=6057 or
         len(proposed_top)!=22 or set(proposed_top)!=set(earlier_top) or
         set(proposed_top)&set(market_review) or
         any(original_top.get(pid)!=value for pid,value in earlier_top.items()) or
-        any(frozen.get(pid)!=(proposed_top[pid] if pid in proposed_top else previous)
+        any(after_top.get(pid)!=(proposed_top[pid] if pid in proposed_top else previous)
             for pid,previous in original_top.items())):
      raise ValueError('Noncollege international preseason rebase changed unrelated prices or identity')
     for pid in proposed_top:
      anchor_meta[pid]='INTERNATIONAL_NONCOLLEGE_RESEARCH_PRIOR'
+    if composition.get('internationalStaffReviewed'):
+     root=pathlib.Path(preseason_anchor_file).parent
+     before_staff=json.loads((root/'preseason_2027_before_staff_20261027.json').read_text())
+     staff_final=json.loads((root/'international_top100_staff_review_20271027.json').read_text())
+     previous=before_staff.get('byESPNId') or {}
+     reviewed=staff_final.get('byESPNId') or {}
+     source=staff_final.get('sourceBaselineByESPNId') or {}
+     if (composition['internationalStaffReviewed']!=16 or staff_final.get('playerCount')!=16 or
+         len(previous)!=6057 or len(frozen)!=6057 or set(frozen)!=set(previous) or
+         len(reviewed)!=16 or set(reviewed)!=set(source) or
+         set(reviewed)&set(market_review) or
+         any(previous.get(pid)!=value for pid,value in source.items()) or
+         any(frozen.get(pid)!=(reviewed[pid] if pid in reviewed else amount)
+             for pid,amount in previous.items())):
+      raise ValueError('Staff 16 opening review changed unapproved prices or ESPN identities')
+     for pid in reviewed:
+      anchor_meta[pid]=('INTERNATIONAL_PREVIOUS_COLLEGE_REDSHIRT_STAFF_REVIEWED'
+                        if pid=='5312303' else 'INTERNATIONAL_STAFF_REVIEWED_PRESEASON')
  asset=joblib.load(MODEL);allrows={};stats={'2026_based':0,'rookie_frozen_without_box':0,'older_season_based':0,'current_updated':0,'current_missing_context':0,'roster_without_prior':0,'no_prior_model':0,'current_without_2027':0}
  for athlete,entry in sorted((payload.get('players') or {}).items()):
   if not str(athlete).isdigit():continue
@@ -381,7 +405,7 @@ def run(players_file,archived_context_file, current_context_file, asof,output, m
  # Stock Watch and the Player tab can use the same ESPN-ID reference.
  for pid,amount in frozen.items():
   if pid in allrows:continue
-  if anchor_meta.get(pid) not in ('FRESHMAN_HS','LEGACY_MODEL_PRESEASON_PRESERVED','SITE_UNMODELED_PROVISIONAL_50000','V4_HISTORICAL_AUXILIARY_FROZEN','V4_TEAM_COHORT_PROXY_NO_STATS','INTERNATIONAL_PRO_PRESEASON_REVIEWED','INTERNATIONAL_NONCOLLEGE_RESEARCH_PRIOR'):
+  if anchor_meta.get(pid) not in ('FRESHMAN_HS','LEGACY_MODEL_PRESEASON_PRESERVED','SITE_UNMODELED_PROVISIONAL_50000','V4_HISTORICAL_AUXILIARY_FROZEN','V4_TEAM_COHORT_PROXY_NO_STATS','INTERNATIONAL_PRO_PRESEASON_REVIEWED','INTERNATIONAL_NONCOLLEGE_RESEARCH_PRIOR','INTERNATIONAL_STAFF_REVIEWED_PRESEASON','INTERNATIONAL_PREVIOUS_COLLEGE_REDSHIRT_STAFF_REVIEWED'):
    # Non-freshman orphan identities must not be filled with invented games.
    raise ValueError('Frozen V4 ESPN ID absent from the verified factual feed: '+pid)
   allrows[pid]={'value':amount,'preseason':amount,'currentOnly':None,
