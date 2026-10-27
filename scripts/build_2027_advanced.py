@@ -151,14 +151,44 @@ def player_states(events,meta,pid,team):
     return {'states':states,'onMin':on,'initial':initial},None
 
 def position_scores(meta):
+    """2026-27 assignment priors: ESPN position plus verified roster size.
+
+    This remains an estimated lineup role, never a measured tracking position.
+    """
     v=str(meta.get('position') or '').upper().replace('-','/')
-    if v in ('PG','POINT GUARD'):return [7,2,-3,-7,-9]
-    if v in ('SG','SHOOTING GUARD'):return [3,7,1,-4,-8]
-    if v in ('SF','SMALL FORWARD'):return [-4,1,7,4,-3]
-    if v in ('PF','POWER FORWARD'):return [-7,-3,3,7,3]
-    if v in ('C','CENTER'):return [-9,-7,-3,3,8]
-    if v in ('F','FORWARD'):return [-5,-3,4,6,3]
-    return [4,5,1,-4,-8]
+    priors={'PG':[7,2,-3,-7,-9],'SG':[3,7,1,-4,-8],
+      'SF':[-4,1,7,4,-3],'PF':[-7,-3,3,7,3],
+      'C':[-9,-7,-3,3,8], 'F':[-5,-3,4,6,3],
+      'G':[4,5,1,-4,-8]}
+    a=priors.get(v,priors['F'] if v.startswith('F') else priors['G'])[:]
+    height,weight=meta.get('height'),meta.get('weight')
+    if height and weight:
+        target_h=(75,78,80,82,84);target_w=(185,195,207,222,239)
+        for ix in range(5):
+            a[ix]-=1.55*((height-target_h[ix])/4)**2+.7*((weight-target_w[ix])/48)**2
+    return a
+
+def attach_roster_size(box,roster_path):
+    """Optional exact ESPN-ID, one-time season roster context; never a player join by name."""
+    if not roster_path or not roster_path.exists():return 0
+    doc=json.loads(roster_path.read_text())
+    if doc.get('rosterSeason')!=2027 or not isinstance(doc.get('players'),list):
+        raise ValueError('Unrecognized 2027 ESPN-ID roster size source')
+    size={}
+    for player in doc['players']:
+        if not isinstance(player,list) or len(player)<6:continue
+        pid=ident(player[0])
+        h=re.search(r"(\d+)'\s*(\d+)",str(player[4]))
+        w=re.search(r'\d+',str(player[5]))
+        if not pid or not h or not w:continue
+        inches=int(h.group(1))*12+int(h.group(2));lbs=int(w.group())
+        if 62<=inches<=93 and 120<=lbs<=390:size[pid]=(inches,lbs)
+    found=0
+    for (_,team),players in box.items():
+        for pid,meta in players.items():
+            if pid in size:
+                meta['height'],meta['weight']=size[pid];found+=1
+    return found
 
 def assign_roles(lineup,meta):
     ids=tuple(sorted(lineup))
@@ -173,7 +203,7 @@ def build(box,pbp_dir,out,season_stats=None):
     all_shots=defaultdict(list)
     all_onoff=defaultdict(lambda:{'on':{'off':defaultdict(float),'def':defaultdict(float),'minutes':0.},
           'off':{'off':defaultdict(float),'def':defaultdict(float),'minutes':0.},'games':0,'teamIds':set(),'verifiedBoxMinutes':0.})
-    role=defaultdict(lambda:{'roles':[0.]*5,'verifiedMinutes':0.,'games':set()})
+    role=defaultdict(lambda:{'roles':[0.]*5,'verifiedMinutes':0.,'knownSizeMinutes':0.,'games':set()})
     qa=Counter(); failure=Counter();source_games=0;shot_games=0
     for file in sorted(pbp_dir.glob('*.csv.gz')):
         gid=file.name.split('.')[0]
@@ -245,6 +275,8 @@ def build(box,pbp_dir,out,season_stats=None):
                     for pid,pos in assignments.items():
                         role[pid]['roles'][pos]+=seconds/60
                         role[pid]['verifiedMinutes']+=seconds/60
+                        if teams[team][pid].get('height') and teams[team][pid].get('weight'):
+                            role[pid]['knownSizeMinutes']+=seconds/60
                         role[pid]['games'].add(gid)
                     qa['verifiedFivePlayerIntervals']+=1
     if not source_games:return {'published':False,'reason':'no eligible complete 2026-27 PBP games'}
@@ -275,7 +307,8 @@ def build(box,pbp_dir,out,season_stats=None):
                 total=sum(meta['min'] for (gid,tid),people in box.items() for k,meta in people.items() if k==pid)
             verified=v['verifiedMinutes']
             if verified>total+min(12,.03*total):failure['positions_over_box']+=1;continue
-            positions[pid]=[[round(x,3) for x in v['roles']],round(verified,2),round(total,2),len(v['games']),0.]
+            positions[pid]=[[round(x,3) for x in v['roles']],round(verified,2),round(total,2),len(v['games']),
+               round(v['knownSizeMinutes']/verified,3)]
         write(posdir/f'positions_{i:03d}.json',{'schemaVersion':1,'season':SEASON,'modulo':MOD,'shard':i,'players':positions})
     shot_manifest={'schemaVersion':1,'season':SEASON,'seasonLabel':'2026–27','modulo':MOD,
        'available':bool(all_shots),'complete':False,'source':source,
@@ -304,13 +337,16 @@ def main():
     a.add_argument('--pbp',default='data/advanced_2027_pbp/games')
     a.add_argument('--out',default='public')
     a.add_argument('--stats',default='data/current_player_season_stats.csv')
+    a.add_argument('--roster',default='data/roster_2027_advanced.json')
     args=a.parse_args()
     b=source_box(Path(args.box))
+    size_count=attach_roster_size(b,Path(args.roster))
     minutes={}
     if Path(args.stats).exists():
         with Path(args.stats).open(newline='',encoding='utf-8') as f:
             for row in csv.DictReader(f):
                 if str(row.get('season'))=='2027':minutes[ident(row.get('athlete_id'))]=num(row.get('minutes'))
     result=build(b,Path(args.pbp),Path(args.out),minutes)
+    result['boxPlayersWithRosterSize']=size_count
     print(json.dumps(result,sort_keys=True))
 if __name__=='__main__':main()
