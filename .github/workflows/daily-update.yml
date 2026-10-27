@@ -51,6 +51,21 @@ jobs:
         run: Rscript scripts/daily_update.R
       - name: Fail closed on incomplete factual data
         run: python3 scripts/validate_factual_feed.py
+      # Research-validated ESPN game PBP is collected after player boxes.
+      # Failure is isolated: missing advanced data must not stop the factual
+      # scoreboard / Game Logs / NIL Stock Watch pipeline.
+      - name: Build 2026-27 shot, on/off and position feeds
+        id: advanced_refresh
+        continue-on-error: true
+        run: |
+          set -euo pipefail
+          python3 -m unittest discover -s tests -p 'test_build_2027_advanced.py' -v
+          python3 scripts/build_2027_advanced.py
+      - name: Surface incomplete advanced data without blocking official stats
+        if: ${{ steps.advanced_refresh.outcome == 'failure' }}
+        run: |
+          echo '::warning:: 2026-27 advanced data verification failed. Box scores and NIL can still update; no fabricated shot/on-off/position rows should be published.'
+          echo 'Advanced ESPN PBP QA failure; investigate separately from the validated factual feed.' >> "$GITHUB_STEP_SUMMARY"
       - name: Check whether NIL model key is configured
         id: nil_secret
         env:
@@ -91,6 +106,19 @@ jobs:
           git add data/current_player_season_stats.csv public/portal_factual_data.json public/portal_factual_qa.json
           if [ -d public/portal_game_logs_2027 ]; then
             git add public/portal_game_logs_2027/
+          fi
+          # Only stage finished ESPN PBP games and actual validated output.
+          if [ -f data/advanced_2027_player_box.csv.gz ]; then
+            git add data/advanced_2027_player_box.csv.gz
+          fi
+          if [ -d data/advanced_2027_pbp/games ]; then
+            git add data/advanced_2027_pbp/games/
+          fi
+          if [ "${{ steps.advanced_refresh.outcome }}" = 'success' ]; then
+            for kind in shots onoff positions; do
+              path="public/portal_${kind}_2027"
+              if [ -f "$path/manifest.json" ]; then git add "$path/"; fi
+            done
           fi
           if [ -f public/nil_estimation_model_2027.json ]; then
             git add public/nil_estimation_model_2027.json public/nil_estimation_model_2027.json.manifest.json public/stock_watch/
