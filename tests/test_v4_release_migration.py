@@ -9,6 +9,7 @@ class ReleaseMigrationTests(unittest.TestCase):
  def test_verified_migration_and_unsafe_cases(self):
   v4ids=[str(4000000+k) for k in range(3051)]
   kids=[str(6000000+k) for k in range(1420)]
+  others=[str(7000000+k) for k in range(1538)]
   with tempfile.TemporaryDirectory() as tmp:
    root=Path(tmp)
    def store(name,obj):
@@ -17,12 +18,15 @@ class ReleaseMigrationTests(unittest.TestCase):
    v4_prices={p:150000 for p in v4ids}
    v4_prices['5281366']=791196
    rookie_prices={p:80000 for p in kids}
+   other_prices={p:120000 if ix<733 else 50000 for ix,p in enumerate(others)}
+   other_methods={p:'LEGACY_MODEL_PRESEASON_PRESERVED' if ix<733 else 'SITE_UNMODELED_PROVISIONAL_50000' for ix,p in enumerate(others)}
+   other={'schemaVersion':1,'season':2027,'baselineVersion':'CURRENT_ROSTER_EXISTING_PRICE_GAP_2026_10_27','byESPNId':other_prices,'methodByESPNId':other_methods}
    b={'schemaVersion':1,'season':2027,'playerCount':3051,'asOf':'2026-10-24','byESPNId':old_prices}
    v={'schemaVersion':1,'season':2027,'playerCount':3052,'baselineVersion':'V4_FROZEN_SITE_V771_3052_2026_10_27','byESPNId':v4_prices}
    q={'schemaVersion':1,'season':2027,'playerCount':1420,'baselineVersion':'ROOKIE_HS_SITE_V771_ESPN_ID_2026_10_27','byESPNId':rookie_prices}
-   a={'schemaVersion':1,'season':2027,'playerCount':4472,'asOf':'2026-10-27',
-      'baselineVersion':'V4_FROZEN_SITE_V771_3052_PLUS_FRESHMEN_2026_10_27',
-      'byESPNId':{**v4_prices,**rookie_prices}}
+   a={'schemaVersion':1,'season':2027,'playerCount':6010,'asOf':'2026-10-27',
+      'baselineVersion':'V4_3052_HS_1420_ROSTER_EXISTING_1538_2026_10_27',
+      'byESPNId':{**v4_prices,**rookie_prices,**other_prices}}
    previous={'season':2027,'policyVersion':2,'byESPNId':{p:{'preseason':100000,'value':100000} for p in v4ids}}
    now={'season':2027,'policyVersion':3,'generatedAt':'2026-10-27T00:00:00Z',
      'factualGeneratedAt':'2026-10-26T00:00:00Z',
@@ -31,9 +35,9 @@ class ReleaseMigrationTests(unittest.TestCase):
    facts={'generatedAt':'2026-10-26T00:00:00Z','latestSeason':2026}
    history={'baselineAsOf':'2026-10-27','dates':[],'months':[]}
    table={'new':now,'old':previous,'source':facts,'anchor':a,
-     'legacy':b,'history':history,'rookies':q,'v4':v}
+     'legacy':b,'history':history,'rookies':q,'v4':v,'others':other}
    paths={name:store(name,obj) for name,obj in table.items()}
-   def run():return check(*(paths[x] for x in ('new','old','source','anchor','legacy','history','rookies','v4')))
+   def run():return check(*(paths[x] for x in ('new','old','source','anchor','legacy','history','rookies','v4','others')))
    self.assertTrue(run())
    def invalid(name,field,updated):
     item=copy.deepcopy(table[name]);item[field]=updated
@@ -53,5 +57,9 @@ class ReleaseMigrationTests(unittest.TestCase):
    bad=copy.deepcopy(q);bad['byESPNId'][kids[0]]=80000
    bad['byESPNId'][v4ids[10]]=60000;del bad['byESPNId'][kids[1]]
    paths['rookies']=store('rookies',bad)
+   with self.assertRaises(ValueError):run()
+   paths['rookies']=store('rookies',q)
+   bad=copy.deepcopy(other);bad['byESPNId'][others[850]]=55000
+   paths['others']=store('others',bad)
    with self.assertRaises(ValueError):run()
 if __name__=='__main__':unittest.main()
