@@ -1,6 +1,6 @@
 {
   "release": "nil-estimation-bayesian-v2-2026-10-24",
-  "asOf": "2026-10-26",
+  "asOf": "2026-10-27",
   "count": 10457,
   "baseCoverage": 0.9981863306605575,
   "stats": {
@@ -13,7 +13,7 @@
     "current_without_2027": 10457
   },
   "sha256": {
-    "factual": "863feaeb2985032ef79050af1691969f88387b8780ae9f0639a40b921d814030",
+    "factual": "e202050119c2aa91bf544a5163aaa0ad45bccaec2c76e7f0c3516d2e9d2526dc",
     "historicalTeam": "b15927171d62e48a8f175b96d6461dece650a946027accf856953bde5d44d77c",
     "currentTeam": "0cb5bda38ac7a3b0072de7f9c04a09cea722d079622d7e2406acf09b10608801",
     "teamGames": null,
