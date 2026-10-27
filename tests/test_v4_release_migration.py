@@ -15,12 +15,13 @@ class ReleaseMigrationTests(unittest.TestCase):
     file=root/(name+'.json');file.write_text(json.dumps(obj));return str(file)
    old_prices={p:100000 for p in v4ids}
    v4_prices={p:150000 for p in v4ids}
+   v4_prices['5281366']=791196
    rookie_prices={p:80000 for p in kids}
    b={'schemaVersion':1,'season':2027,'playerCount':3051,'asOf':'2026-10-24','byESPNId':old_prices}
-   v={'schemaVersion':1,'season':2027,'playerCount':3051,'baselineVersion':'V4_FROZEN_SITE_V770_2026_10_27','byESPNId':v4_prices}
+   v={'schemaVersion':1,'season':2027,'playerCount':3052,'baselineVersion':'V4_FROZEN_SITE_V771_3052_2026_10_27','byESPNId':v4_prices}
    q={'schemaVersion':1,'season':2027,'playerCount':1420,'baselineVersion':'ROOKIE_HS_SITE_V771_ESPN_ID_2026_10_27','byESPNId':rookie_prices}
-   a={'schemaVersion':1,'season':2027,'playerCount':4471,'asOf':'2026-10-27',
-      'baselineVersion':'V4_FROZEN_SITE_V770_PLUS_FRESHMEN_V771_2026_10_27',
+   a={'schemaVersion':1,'season':2027,'playerCount':4472,'asOf':'2026-10-27',
+      'baselineVersion':'V4_FROZEN_SITE_V771_3052_PLUS_FRESHMEN_2026_10_27',
       'byESPNId':{**v4_prices,**rookie_prices}}
    previous={'season':2027,'policyVersion':2,'byESPNId':{p:{'preseason':100000,'value':100000} for p in v4ids}}
    now={'season':2027,'policyVersion':3,'generatedAt':'2026-10-27T00:00:00Z',
