@@ -1,0 +1,56 @@
+name: V4 shadow refresh — no GitHub publication
+on:
+  push:
+    branches: [research-v4-anchored-nil-relative-updates-2026]
+    paths:
+      - ".github/workflows/nil-v4-shadow-run.yml"
+permissions:
+  contents: read
+concurrency:
+  group: nil-v4-shadow-one-time
+  cancel-in-progress: false
+jobs:
+  shadow:
+    if: github.ref == 'refs/heads/research-v4-anchored-nil-relative-updates-2026'
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    env:
+      NIL_MODEL_KEY: ${{ secrets.NIL_MODEL_KEY }}
+    steps:
+      - name: Checkout research branch
+        uses: actions/checkout@v6
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+      - name: Strict key check
+        shell: bash
+        run: |
+          if [ -z "${NIL_MODEL_KEY:-}" ]; then
+            echo "::error::NIL_MODEL_KEY not configured; no shadow model run attempted."
+            exit 1
+          fi
+      - name: Run release pipeline in isolated checkout only
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install -r scripts/nil_model/requirements-nil.txt
+          # May write candidate files in the *runner checkout* but never
+          # commits or pushes. Secret model decrypted only in runner temp.
+          bash scripts/nil_model/refresh_nil.sh
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          out=json.loads(Path('public/nil_estimation_model_2027.json').read_text())
+          h=json.loads(Path('public/stock_watch/manifest_2027.json').read_text())
+          rows=out['byESPNId']
+          assert out['policyVersion']==3
+          assert len(rows)>=10000
+          assert all(r['preseason']==json.loads(Path('public/stock_watch/preseason_2027.json').read_text())['byESPNId'][i] for i,r in rows.items() if i in json.loads(Path('public/stock_watch/preseason_2027.json').read_text())['byESPNId'])
+          assert not h['dates'], 'Preseason must have no fabricated Stock Watch dates'
+          assert sum(r['status']=='UPDATED' for r in rows.values())==0
+          print('PASS V4 shadow job: ',len(rows),'prices, no fake games, Stock Watch history untouched')
+          PY
+      - name: Confirm no GitHub publication from this job
+        run: |
+          echo 'Shadow pass means files passed inside this runner only. No commit, push, artifact publication or Netlify deployment is performed.'
