@@ -51,6 +51,8 @@ class AdvancedPublisherTests(unittest.TestCase):
   self.assertEqual(kind({'type_text':'Substitution','text':'in for'}),'sub')
   self.assertEqual(kind({'type_text':'Made Shot','text':'A makes 3-point jumper'}),'shot')
   self.assertTrue(shot_three({'text':'A misses 3-point jumper'}))
+  self.assertTrue(shot_three({'text':'A misses 3PT shot'}))
+  self.assertTrue(shot_three({'text':'A makes three point jumper'}))
   self.assertIsNone(kind({'text':'Coach timeout','type_text':'Timeout'}))
  def test_three_publishers_same_verified_game(self):
   with tempfile.TemporaryDirectory() as root:
