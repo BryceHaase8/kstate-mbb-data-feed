@@ -83,7 +83,7 @@ class UniversalSeasonTests(unittest.TestCase):
    self.assertTrue(0<virtual['mpg']<40)
 
  def test_invalid_reference_and_evidence_fail_closed(self):
-  for amount in [0,19999,20000001,float('nan')]:
+  for amount in [0,4999,20000001,float('nan')]:
    with self.assertRaises(ValueError):cold_start_reference(amount,'G',2027,'2306')
   for nums in [(0,1,1,.3),(100000,0,1,.3),(100000,1,0,.3),
                (100000,1,1,-.01),(100000,1,1,1)]:

@@ -1,0 +1,67 @@
+name: Publish reviewed low-major 5k opening NIL prices
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - public/stock_watch/unranked_low_major_sliding_2027_priors.json
+permissions:
+  contents: write
+concurrency:
+  group: nil-2027-publishing
+  cancel-in-progress: false
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      NIL_MODEL_KEY: ${{ secrets.NIL_MODEL_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Validate exact 1835 price rebase plus all original safeguards
+        run: |
+          set -euo pipefail
+          test -n "$NIL_MODEL_KEY"
+          python -m pip install -r scripts/nil_model/requirements-nil.txt
+          python -m compileall -q scripts/nil_model tests
+          python -m unittest discover -s tests -p 'test_v4_*.py'
+          python -m unittest discover -s tests -p 'test_international_*.py'
+          python -m unittest discover -s tests -p 'test_universal_season_2027.py'
+          python -m unittest discover -s tests -p 'test_unranked_low_major_sliding_2027.py'
+      - name: Score and validate national NIL snapshot with versioned opening rebase
+        run: bash scripts/nil_model/refresh_nil.sh
+      - name: Confirm all frozen anchors, ESPN identities, and no fake stock
+        run: |
+          python - <<'PY'
+          import json,pathlib
+          r=pathlib.Path('public')
+          load=lambda x:json.loads(x.read_text())
+          after=load(r/'stock_watch/preseason_2027.json')['byESPNId']
+          before=load(r/'stock_watch/preseason_2027_before_unranked_sliding_20261027.json')['byESPNId']
+          overlay=load(r/'stock_watch/unranked_low_major_sliding_2027_priors.json')['byESPNId']
+          model=load(r/'nil_estimation_model_2027.json')['byESPNId']
+          history=load(r/'stock_watch/manifest_2027.json')
+          assert len(before)==len(after)==6057 and len(overlay)==1835 and len(model)>=12000
+          assert {id for id in after if after[id]!=before[id]}==set(overlay)
+          assert all(id in model and model[id]['value']==model[id]['preseason']==val for id,val in after.items())
+          assert all(model[id]['status']=='PRESEASON_BASELINE' for id in overlay)
+          assert not history['dates'] and not history['months']
+          print('PASS exact $5k-$50k opening-price rebase, all 6,057 frozen model anchors, zero Stock Watch activity')
+          PY
+      - name: Publish only the validated NIL/Stock Watch files, no Netlify deploy
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add public/nil_estimation_model_2027.json public/nil_estimation_model_2027.json.manifest.json public/stock_watch/
+          if git diff --cached --quiet; then
+            echo 'No model delta to publish'
+            exit 0
+          fi
+          git commit -m 'Publish 1835 protected $5k-$50k unranked NIL opening prices'
+          git push origin HEAD:main

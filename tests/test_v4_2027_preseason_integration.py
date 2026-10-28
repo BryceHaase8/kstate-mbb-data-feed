@@ -66,7 +66,7 @@ class PreseasonIntegrationQA(unittest.TestCase):
         self.assertEqual(calibrated['byESPNId'],{**published['byESPNId'],**pro['byESPNId']})
         final=json.loads(FINAL.read_text())
         top22=json.loads(TOP22.read_text())
-        self.assertEqual(final['byESPNId'],{**calibrated['byESPNId'],**top22['byESPNId'],**json.loads((ROOT/'public/stock_watch/international_top100_staff_review_20271027.json').read_text())['byESPNId']})
+        self.assertEqual(final['byESPNId'],{**calibrated['byESPNId'],**top22['byESPNId'],**json.loads((ROOT/'public/stock_watch/international_top100_staff_review_20271027.json').read_text())['byESPNId'],**json.loads((ROOT/'public/stock_watch/unranked_low_major_sliding_2027_priors.json').read_text())['byESPNId']})
         self.assertEqual(published['byESPNId'],{**previous['byESPNId'],**supplement['byESPNId']})
         self.assertEqual(supplement['methodByESPNId']['5281137'],'V4_TEAM_COHORT_PROXY_NO_STATS')
         self.assertEqual(sum(staged['byESPNId'][k]!=v for k,v in backup['byESPNId'].items()),3051)

@@ -8,7 +8,7 @@ Never append these estimated stats to a player's factual season history.
 """
 import math
 
-FLOOR,CEILING=20_000,20_000_000
+FLOOR,CEILING=5_000,20_000_000
 
 def clamp(x,low,high):
  return max(low,min(high,x))

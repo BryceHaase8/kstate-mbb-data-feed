@@ -1,0 +1,57 @@
+name: Low-major 5k NIL sliding baseline audit
+on:
+  push:
+    branches:
+      - season-2027-sliding-unranked-low-major-priors
+  pull_request:
+    branches:
+      - main
+permissions:
+  contents: read
+jobs:
+  shadow:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      NIL_MODEL_KEY: ${{ secrets.NIL_MODEL_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install protected production model dependencies
+        run: python -m pip install -r scripts/nil_model/requirements-nil.txt
+      - name: All original + four new opening baseline tests
+        run: |
+          python -m compileall -q scripts/nil_model tests
+          python -m unittest discover -s tests -p 'test_v4_*.py' -v
+          python -m unittest discover -s tests -p 'test_international_*.py' -v
+          python -m unittest discover -s tests -p 'test_universal_season_2027.py' -v
+          python -m unittest discover -s tests -p 'test_unranked_low_major_sliding_2027.py' -v
+      - name: Run full national NIL shadow publisher without modifying repository
+        run: |
+          set -euo pipefail
+          test -n "$NIL_MODEL_KEY"
+          bash scripts/nil_model/refresh_nil.sh
+      - name: Verify exact ID joins, archived rank, $5k floor, zero artificial stocks
+        run: |
+          python - <<'PY'
+          import json,pathlib
+          p=pathlib.Path('public')
+          read=lambda q:json.loads(q.read_text())
+          old=read(p/'stock_watch/preseason_2027_before_unranked_sliding_20261027.json')['byESPNId']
+          new=read(p/'stock_watch/preseason_2027.json')['byESPNId']
+          changed=read(p/'stock_watch/unranked_low_major_sliding_2027_priors.json')['byESPNId']
+          scored=read(p/'nil_estimation_model_2027.json')
+          rows=scored['byESPNId']
+          stock=read(p/'stock_watch/manifest_2027.json')
+          assert len(new)==len(old)==6057
+          assert len(changed)==1835
+          assert len(rows)>=12000
+          assert {k for k in old if old[k]!=new[k]}==set(changed)
+          assert all(rows[k]['preseason']==rows[k]['value']==v and rows[k]['weight']==0 for k,v in new.items())
+          assert all(rows[k]['anchorType'] in ('UNRANKED_HS_TEAM_SLIDING_2027','ROSTER_UNMODELED_TEAM_SLIDING_2027') for k in changed)
+          assert min(changed.values())==5000 and max(changed.values())<=50000
+          assert not stock['dates'] and not stock['months']
+          print('PASS 1835 exact rank-priced players, 4222 original preserved, 12720 national priced athletes')
+          PY

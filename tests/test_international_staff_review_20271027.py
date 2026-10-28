@@ -11,7 +11,7 @@ def load(path):
 class InternationalStaffReviewTests(unittest.TestCase):
  def test_staff_16_immutable_rebase(self):
   old=load("public/stock_watch/preseason_2027_before_staff_20261027.json")
-  new=load("public/stock_watch/preseason_2027.json")
+  new=load("public/stock_watch/preseason_2027_before_unranked_sliding_20261027.json")
   edited=load("public/stock_watch/international_top100_staff_review_20271027.json")
   staff12=load("public/stock_watch/international_pro_2027_market_priors.json")["byESPNId"]
   research22=load("public/stock_watch/international_top100_noncollege_2027_priors.json")["byESPNId"]

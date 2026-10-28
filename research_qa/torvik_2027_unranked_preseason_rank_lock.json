@@ -1,0 +1,1836 @@
+{
+  "schemaVersion": 1,
+  "season": 2027,
+  "asOf": "2026-10-25",
+  "stage": "FROZEN_PRESEASON_TEAM_STRENGTH_FOR_NIL",
+  "source": "Torvik daily validated 2026-27 preseason strength branch",
+  "sourceDataSha": "5d1f58a513c88825884b121b0ea52244eed216ff",
+  "teamCount": 365,
+  "byESPNTeamId": {
+    "2": {
+      "rank": 37,
+      "team": "Auburn",
+      "adjEM": 18.148623
+    },
+    "5": {
+      "rank": 127,
+      "team": "UAB",
+      "adjEM": 3.2846
+    },
+    "6": {
+      "rank": 267,
+      "team": "South Alabama",
+      "adjEM": -8.428472
+    },
+    "8": {
+      "rank": 22,
+      "team": "Arkansas",
+      "adjEM": 20.432248
+    },
+    "9": {
+      "rank": 65,
+      "team": "Arizona St.",
+      "adjEM": 12.966848
+    },
+    "12": {
+      "rank": 2,
+      "team": "Arizona",
+      "adjEM": 26.879387
+    },
+    "13": {
+      "rank": 174,
+      "team": "Cal Poly",
+      "adjEM": -1.422903
+    },
+    "16": {
+      "rank": 161,
+      "team": "Sacramento St.",
+      "adjEM": -0.275922
+    },
+    "21": {
+      "rank": 58,
+      "team": "San Diego St.",
+      "adjEM": 14.841761
+    },
+    "23": {
+      "rank": 178,
+      "team": "San Jose St.",
+      "adjEM": -1.791024
+    },
+    "24": {
+      "rank": 84,
+      "team": "Stanford",
+      "adjEM": 9.647213
+    },
+    "25": {
+      "rank": 91,
+      "team": "California",
+      "adjEM": 8.997457
+    },
+    "26": {
+      "rank": 25,
+      "team": "UCLA",
+      "adjEM": 20.427772
+    },
+    "27": {
+      "rank": 265,
+      "team": "UC Riverside",
+      "adjEM": -8.428481
+    },
+    "28": {
+      "rank": 117,
+      "team": "UC San Diego",
+      "adjEM": 4.326493
+    },
+    "30": {
+      "rank": 36,
+      "team": "USC",
+      "adjEM": 17.711203
+    },
+    "36": {
+      "rank": 83,
+      "team": "Colorado St.",
+      "adjEM": 9.944258
+    },
+    "38": {
+      "rank": 85,
+      "team": "Colorado",
+      "adjEM": 9.616581
+    },
+    "41": {
+      "rank": 13,
+      "team": "Connecticut",
+      "adjEM": 22.602837
+    },
+    "43": {
+      "rank": 201,
+      "team": "Yale",
+      "adjEM": -3.432228
+    },
+    "44": {
+      "rank": 194,
+      "team": "American",
+      "adjEM": -2.846057
+    },
+    "45": {
+      "rank": 77,
+      "team": "George Washington",
+      "adjEM": 10.747725
+    },
+    "46": {
+      "rank": 61,
+      "team": "Georgetown",
+      "adjEM": 13.740625
+    },
+    "47": {
+      "rank": 155,
+      "team": "Howard",
+      "adjEM": 0.347809
+    },
+    "48": {
+      "rank": 261,
+      "team": "Delaware",
+      "adjEM": -8.141469
+    },
+    "50": {
+      "rank": 300,
+      "team": "Florida A&M",
+      "adjEM": -11.20666
+    },
+    "52": {
+      "rank": 60,
+      "team": "Florida St.",
+      "adjEM": 13.862387
+    },
+    "55": {
+      "rank": 215,
+      "team": "Jacksonville St.",
+      "adjEM": -4.718659
+    },
+    "56": {
+      "rank": 263,
+      "team": "Stetson",
+      "adjEM": -8.317542
+    },
+    "57": {
+      "rank": 3,
+      "team": "Florida",
+      "adjEM": 26.902063
+    },
+    "58": {
+      "rank": 90,
+      "team": "South Florida",
+      "adjEM": 9.128535
+    },
+    "59": {
+      "rank": 112,
+      "team": "Georgia Tech",
+      "adjEM": 5.353432
+    },
+    "61": {
+      "rank": 35,
+      "team": "Georgia",
+      "adjEM": 18.275179
+    },
+    "62": {
+      "rank": 136,
+      "team": "Hawaii",
+      "adjEM": 2.542788
+    },
+    "66": {
+      "rank": 10,
+      "team": "Iowa St.",
+      "adjEM": 23.666362
+    },
+    "68": {
+      "rank": 87,
+      "team": "Boise St.",
+      "adjEM": 9.39235
+    },
+    "70": {
+      "rank": 216,
+      "team": "Idaho",
+      "adjEM": -4.680138
+    },
+    "71": {
+      "rank": 187,
+      "team": "Bradley",
+      "adjEM": -2.402919
+    },
+    "77": {
+      "rank": 75,
+      "team": "Northwestern",
+      "adjEM": 10.943267
+    },
+    "79": {
+      "rank": 189,
+      "team": "Southern Illinois",
+      "adjEM": -2.493225
+    },
+    "82": {
+      "rank": 102,
+      "team": "Illinois Chicago",
+      "adjEM": 7.671545
+    },
+    "84": {
+      "rank": 26,
+      "team": "Indiana",
+      "adjEM": 20.261772
+    },
+    "85": {
+      "rank": 255,
+      "team": "IU Indy",
+      "adjEM": -7.808616
+    },
+    "87": {
+      "rank": 82,
+      "team": "Notre Dame",
+      "adjEM": 9.980095
+    },
+    "88": {
+      "rank": 327,
+      "team": "Southern Indiana",
+      "adjEM": -14.345432
+    },
+    "91": {
+      "rank": 309,
+      "team": "Bellarmine",
+      "adjEM": -12.565365
+    },
+    "93": {
+      "rank": 107,
+      "team": "Murray St.",
+      "adjEM": 6.206606
+    },
+    "94": {
+      "rank": 224,
+      "team": "Northern Kentucky",
+      "adjEM": -5.385892
+    },
+    "96": {
+      "rank": 27,
+      "team": "Kentucky",
+      "adjEM": 19.861612
+    },
+    "97": {
+      "rank": 9,
+      "team": "Louisville",
+      "adjEM": 24.452177
+    },
+    "98": {
+      "rank": 105,
+      "team": "Western Kentucky",
+      "adjEM": 6.223782
+    },
+    "99": {
+      "rank": 51,
+      "team": "LSU",
+      "adjEM": 16.074379
+    },
+    "103": {
+      "rank": 108,
+      "team": "Boston College",
+      "adjEM": 6.015549
+    },
+    "104": {
+      "rank": 299,
+      "team": "Boston University",
+      "adjEM": -11.300378
+    },
+    "107": {
+      "rank": 337,
+      "team": "Holy Cross",
+      "adjEM": -15.873821
+    },
+    "108": {
+      "rank": 124,
+      "team": "Harvard",
+      "adjEM": 3.576797
+    },
+    "111": {
+      "rank": 250,
+      "team": "Northeastern",
+      "adjEM": -6.943357
+    },
+    "113": {
+      "rank": 196,
+      "team": "Massachusetts",
+      "adjEM": -2.927777
+    },
+    "116": {
+      "rank": 303,
+      "team": "Mount St. Mary's",
+      "adjEM": -11.380783
+    },
+    "119": {
+      "rank": 185,
+      "team": "Towson",
+      "adjEM": -2.204199
+    },
+    "120": {
+      "rank": 41,
+      "team": "Maryland",
+      "adjEM": 17.282708
+    },
+    "127": {
+      "rank": 11,
+      "team": "Michigan St.",
+      "adjEM": 24.078433
+    },
+    "130": {
+      "rank": 14,
+      "team": "Michigan",
+      "adjEM": 22.95803
+    },
+    "135": {
+      "rank": 79,
+      "team": "Minnesota",
+      "adjEM": 10.328702
+    },
+    "139": {
+      "rank": 69,
+      "team": "Saint Louis",
+      "adjEM": 12.71316
+    },
+    "140": {
+      "rank": 304,
+      "team": "UMKC",
+      "adjEM": -11.798684
+    },
+    "142": {
+      "rank": 29,
+      "team": "Missouri",
+      "adjEM": 19.714613
+    },
+    "145": {
+      "rank": 62,
+      "team": "Mississippi",
+      "adjEM": 13.592959
+    },
+    "147": {
+      "rank": 135,
+      "team": "Montana St.",
+      "adjEM": 2.728371
+    },
+    "149": {
+      "rank": 209,
+      "team": "Montana",
+      "adjEM": -4.369122
+    },
+    "150": {
+      "rank": 1,
+      "team": "Duke",
+      "adjEM": 29.345579
+    },
+    "151": {
+      "rank": 181,
+      "team": "East Carolina",
+      "adjEM": -1.981305
+    },
+    "152": {
+      "rank": 34,
+      "team": "N.C. State",
+      "adjEM": 19.322801
+    },
+    "153": {
+      "rank": 46,
+      "team": "North Carolina",
+      "adjEM": 16.248685
+    },
+    "154": {
+      "rank": 78,
+      "team": "Wake Forest",
+      "adjEM": 10.409428
+    },
+    "155": {
+      "rank": 320,
+      "team": "North Dakota",
+      "adjEM": -13.552047
+    },
+    "156": {
+      "rank": 44,
+      "team": "Creighton",
+      "adjEM": 17.047988
+    },
+    "158": {
+      "rank": 15,
+      "team": "Nebraska",
+      "adjEM": 22.306297
+    },
+    "159": {
+      "rank": 313,
+      "team": "Dartmouth",
+      "adjEM": -12.325964
+    },
+    "160": {
+      "rank": 306,
+      "team": "New Hampshire",
+      "adjEM": -11.636751
+    },
+    "161": {
+      "rank": 348,
+      "team": "Fairleigh Dickinson",
+      "adjEM": -16.41967
+    },
+    "163": {
+      "rank": 162,
+      "team": "Princeton",
+      "adjEM": -0.38444
+    },
+    "164": {
+      "rank": 76,
+      "team": "Rutgers",
+      "adjEM": 10.945302
+    },
+    "166": {
+      "rank": 142,
+      "team": "New Mexico St.",
+      "adjEM": 1.366598
+    },
+    "167": {
+      "rank": 66,
+      "team": "New Mexico",
+      "adjEM": 12.770573
+    },
+    "171": {
+      "rank": 200,
+      "team": "Columbia",
+      "adjEM": -3.352568
+    },
+    "172": {
+      "rank": 231,
+      "team": "Cornell",
+      "adjEM": -5.847035
+    },
+    "179": {
+      "rank": 123,
+      "team": "St. Bonaventure",
+      "adjEM": 3.640406
+    },
+    "183": {
+      "rank": 74,
+      "team": "Syracuse",
+      "adjEM": 11.087375
+    },
+    "189": {
+      "rank": 173,
+      "team": "Bowling Green",
+      "adjEM": -1.346857
+    },
+    "193": {
+      "rank": 95,
+      "team": "Miami OH",
+      "adjEM": 8.736383
+    },
+    "194": {
+      "rank": 20,
+      "team": "Ohio St.",
+      "adjEM": 21.539544
+    },
+    "195": {
+      "rank": 208,
+      "team": "Ohio",
+      "adjEM": -4.186906
+    },
+    "197": {
+      "rank": 56,
+      "team": "Oklahoma St.",
+      "adjEM": 15.848385
+    },
+    "198": {
+      "rank": 249,
+      "team": "Oral Roberts",
+      "adjEM": -6.882356
+    },
+    "201": {
+      "rank": 28,
+      "team": "Oklahoma",
+      "adjEM": 19.964697
+    },
+    "202": {
+      "rank": 94,
+      "team": "Tulsa",
+      "adjEM": 8.668256
+    },
+    "204": {
+      "rank": 99,
+      "team": "Oregon St.",
+      "adjEM": 8.405362
+    },
+    "213": {
+      "rank": 100,
+      "team": "Penn St.",
+      "adjEM": 8.419176
+    },
+    "218": {
+      "rank": 131,
+      "team": "Temple",
+      "adjEM": 3.154004
+    },
+    "219": {
+      "rank": 118,
+      "team": "Penn",
+      "adjEM": 4.270028
+    },
+    "221": {
+      "rank": 88,
+      "team": "Pittsburgh",
+      "adjEM": 9.559854
+    },
+    "222": {
+      "rank": 31,
+      "team": "Villanova",
+      "adjEM": 19.46404
+    },
+    "225": {
+      "rank": 238,
+      "team": "Brown",
+      "adjEM": -5.895737
+    },
+    "227": {
+      "rank": 143,
+      "team": "Rhode Island",
+      "adjEM": 1.309706
+    },
+    "228": {
+      "rank": 38,
+      "team": "Clemson",
+      "adjEM": 17.400674
+    },
+    "231": {
+      "rank": 149,
+      "team": "Furman",
+      "adjEM": 0.924511
+    },
+    "232": {
+      "rank": 157,
+      "team": "Charleston",
+      "adjEM": 0.272727
+    },
+    "233": {
+      "rank": 292,
+      "team": "South Dakota",
+      "adjEM": -10.1687
+    },
+    "235": {
+      "rank": 111,
+      "team": "Memphis",
+      "adjEM": 5.778706
+    },
+    "236": {
+      "rank": 285,
+      "team": "Chattanooga",
+      "adjEM": -9.73456
+    },
+    "238": {
+      "rank": 23,
+      "team": "Vanderbilt",
+      "adjEM": 20.299625
+    },
+    "239": {
+      "rank": 45,
+      "team": "Baylor",
+      "adjEM": 16.755599
+    },
+    "242": {
+      "rank": 243,
+      "team": "Rice",
+      "adjEM": -6.472465
+    },
+    "245": {
+      "rank": 33,
+      "team": "Texas A&M",
+      "adjEM": 18.806076
+    },
+    "248": {
+      "rank": 6,
+      "team": "Houston",
+      "adjEM": 25.632815
+    },
+    "249": {
+      "rank": 116,
+      "team": "North Texas",
+      "adjEM": 4.310261
+    },
+    "250": {
+      "rank": 213,
+      "team": "UT Arlington",
+      "adjEM": -4.514086
+    },
+    "251": {
+      "rank": 19,
+      "team": "Texas",
+      "adjEM": 21.684965
+    },
+    "252": {
+      "rank": 24,
+      "team": "BYU",
+      "adjEM": 20.594013
+    },
+    "253": {
+      "rank": 242,
+      "team": "Southern Utah",
+      "adjEM": -6.494357
+    },
+    "254": {
+      "rank": 104,
+      "team": "Utah",
+      "adjEM": 7.112806
+    },
+    "256": {
+      "rank": 156,
+      "team": "James Madison",
+      "adjEM": 0.305297
+    },
+    "257": {
+      "rank": 113,
+      "team": "Richmond",
+      "adjEM": 4.960072
+    },
+    "258": {
+      "rank": 5,
+      "team": "Virginia",
+      "adjEM": 26.605938
+    },
+    "259": {
+      "rank": 42,
+      "team": "Virginia Tech",
+      "adjEM": 17.037297
+    },
+    "261": {
+      "rank": 188,
+      "team": "Vermont",
+      "adjEM": -2.457481
+    },
+    "264": {
+      "rank": 73,
+      "team": "Washington",
+      "adjEM": 11.655861
+    },
+    "265": {
+      "rank": 169,
+      "team": "Washington St.",
+      "adjEM": -1.028025
+    },
+    "269": {
+      "rank": 32,
+      "team": "Marquette",
+      "adjEM": 18.878618
+    },
+    "270": {
+      "rank": 251,
+      "team": "Milwaukee",
+      "adjEM": -6.884675
+    },
+    "275": {
+      "rank": 47,
+      "team": "Wisconsin",
+      "adjEM": 16.250564
+    },
+    "276": {
+      "rank": 289,
+      "team": "Marshall",
+      "adjEM": -9.838037
+    },
+    "277": {
+      "rank": 48,
+      "team": "West Virginia",
+      "adjEM": 16.035501
+    },
+    "278": {
+      "rank": 138,
+      "team": "Fresno St.",
+      "adjEM": 1.657293
+    },
+    "279": {
+      "rank": 134,
+      "team": "Pacific",
+      "adjEM": 2.781475
+    },
+    "282": {
+      "rank": 245,
+      "team": "Indiana St.",
+      "adjEM": -6.472403
+    },
+    "284": {
+      "rank": 349,
+      "team": "Stonehill",
+      "adjEM": -16.53865
+    },
+    "288": {
+      "rank": 232,
+      "team": "Lipscomb",
+      "adjEM": -5.733826
+    },
+    "290": {
+      "rank": 341,
+      "team": "Georgia Southern",
+      "adjEM": -15.861779
+    },
+    "292": {
+      "rank": 206,
+      "team": "UT Rio Grande Valley",
+      "adjEM": -3.870975
+    },
+    "294": {
+      "rank": 227,
+      "team": "Jacksonville",
+      "adjEM": -5.618827
+    },
+    "295": {
+      "rank": 207,
+      "team": "Old Dominion",
+      "adjEM": -4.08331
+    },
+    "299": {
+      "rank": 266,
+      "team": "Long Beach St.",
+      "adjEM": -8.596093
+    },
+    "300": {
+      "rank": 109,
+      "team": "UC Irvine",
+      "adjEM": 5.516714
+    },
+    "301": {
+      "rank": 137,
+      "team": "San Diego",
+      "adjEM": 2.017325
+    },
+    "302": {
+      "rank": 197,
+      "team": "UC Davis",
+      "adjEM": -2.972095
+    },
+    "304": {
+      "rank": 322,
+      "team": "Idaho St.",
+      "adjEM": -13.55359
+    },
+    "305": {
+      "rank": 64,
+      "team": "DePaul",
+      "adjEM": 12.889364
+    },
+    "309": {
+      "rank": 221,
+      "team": "Louisiana",
+      "adjEM": -5.100617
+    },
+    "311": {
+      "rank": 332,
+      "team": "Maine",
+      "adjEM": -14.584068
+    },
+    "314": {
+      "rank": 237,
+      "team": "Iona",
+      "adjEM": -6.117835
+    },
+    "315": {
+      "rank": 317,
+      "team": "Niagara",
+      "adjEM": -13.350326
+    },
+    "322": {
+      "rank": 336,
+      "team": "Lafayette",
+      "adjEM": -15.358822
+    },
+    "324": {
+      "rank": 228,
+      "team": "Coastal Carolina",
+      "adjEM": -5.561964
+    },
+    "325": {
+      "rank": 288,
+      "team": "Cleveland St.",
+      "adjEM": -9.883314
+    },
+    "326": {
+      "rank": 122,
+      "team": "Texas St.",
+      "adjEM": 3.706068
+    },
+    "328": {
+      "rank": 59,
+      "team": "Utah St.",
+      "adjEM": 14.138441
+    },
+    "331": {
+      "rank": 190,
+      "team": "Eastern Washington",
+      "adjEM": -2.771136
+    },
+    "333": {
+      "rank": 21,
+      "team": "Alabama",
+      "adjEM": 21.401457
+    },
+    "338": {
+      "rank": 151,
+      "team": "Kennesaw St.",
+      "adjEM": 0.866222
+    },
+    "339": {
+      "rank": 282,
+      "team": "Evansville",
+      "adjEM": -9.416887
+    },
+    "344": {
+      "rank": 63,
+      "team": "Mississippi St.",
+      "adjEM": 13.580129
+    },
+    "349": {
+      "rank": 359,
+      "team": "Army",
+      "adjEM": -19.261203
+    },
+    "350": {
+      "rank": 110,
+      "team": "UNC Wilmington",
+      "adjEM": 5.879988
+    },
+    "356": {
+      "rank": 7,
+      "team": "Illinois",
+      "adjEM": 26.109462
+    },
+    "357": {
+      "rank": 205,
+      "team": "Texas A&M Corpus Chris",
+      "adjEM": -3.811395
+    },
+    "399": {
+      "rank": 298,
+      "team": "Albany",
+      "adjEM": -11.039818
+    },
+    "526": {
+      "rank": 274,
+      "team": "Florida Gulf Coast",
+      "adjEM": -8.555876
+    },
+    "2000": {
+      "rank": 273,
+      "team": "Abilene Christian",
+      "adjEM": -8.45833
+    },
+    "2005": {
+      "rank": 275,
+      "team": "Air Force",
+      "adjEM": -8.914676
+    },
+    "2006": {
+      "rank": 101,
+      "team": "Akron",
+      "adjEM": 8.008687
+    },
+    "2010": {
+      "rank": 293,
+      "team": "Alabama A&M",
+      "adjEM": -10.295094
+    },
+    "2011": {
+      "rank": 252,
+      "team": "Alabama St.",
+      "adjEM": -7.028826
+    },
+    "2016": {
+      "rank": 357,
+      "team": "Alcorn St.",
+      "adjEM": -18.519514
+    },
+    "2026": {
+      "rank": 268,
+      "team": "Appalachian St.",
+      "adjEM": -8.284834
+    },
+    "2029": {
+      "rank": 361,
+      "team": "Arkansas Pine Bluff",
+      "adjEM": -20.866735
+    },
+    "2031": {
+      "rank": 256,
+      "team": "Little Rock",
+      "adjEM": -7.701172
+    },
+    "2032": {
+      "rank": 199,
+      "team": "Arkansas St.",
+      "adjEM": -3.268465
+    },
+    "2046": {
+      "rank": 179,
+      "team": "Austin Peay",
+      "adjEM": -1.965865
+    },
+    "2050": {
+      "rank": 281,
+      "team": "Ball St.",
+      "adjEM": -9.311525
+    },
+    "2057": {
+      "rank": 114,
+      "team": "Belmont",
+      "adjEM": 4.547424
+    },
+    "2065": {
+      "rank": 177,
+      "team": "Bethune Cookman",
+      "adjEM": -1.727967
+    },
+    "2066": {
+      "rank": 335,
+      "team": "Binghamton",
+      "adjEM": -15.851525
+    },
+    "2083": {
+      "rank": 354,
+      "team": "Bucknell",
+      "adjEM": -17.37967
+    },
+    "2084": {
+      "rank": 195,
+      "team": "Buffalo",
+      "adjEM": -2.890688
+    },
+    "2086": {
+      "rank": 89,
+      "team": "Butler",
+      "adjEM": 9.293373
+    },
+    "2097": {
+      "rank": 222,
+      "team": "Campbell",
+      "adjEM": -5.233685
+    },
+    "2099": {
+      "rank": 323,
+      "team": "Canisius",
+      "adjEM": -14.718435
+    },
+    "2110": {
+      "rank": 172,
+      "team": "Central Arkansas",
+      "adjEM": -1.319898
+    },
+    "2115": {
+      "rank": 340,
+      "team": "Central Connecticut",
+      "adjEM": -15.624893
+    },
+    "2116": {
+      "rank": 50,
+      "team": "UCF",
+      "adjEM": 15.962468
+    },
+    "2117": {
+      "rank": 218,
+      "team": "Central Michigan",
+      "adjEM": -4.775845
+    },
+    "2127": {
+      "rank": 328,
+      "team": "Charleston Southern",
+      "adjEM": -14.465029
+    },
+    "2130": {
+      "rank": 351,
+      "team": "Chicago St.",
+      "adjEM": -17.015106
+    },
+    "2132": {
+      "rank": 40,
+      "team": "Cincinnati",
+      "adjEM": 17.267839
+    },
+    "2142": {
+      "rank": 219,
+      "team": "Colgate",
+      "adjEM": -4.912281
+    },
+    "2154": {
+      "rank": 358,
+      "team": "Coppin St.",
+      "adjEM": -19.312071
+    },
+    "2166": {
+      "rank": 115,
+      "team": "Davidson",
+      "adjEM": 4.506389
+    },
+    "2168": {
+      "rank": 72,
+      "team": "Dayton",
+      "adjEM": 11.51926
+    },
+    "2169": {
+      "rank": 353,
+      "team": "Delaware St.",
+      "adjEM": -17.158703
+    },
+    "2172": {
+      "rank": 260,
+      "team": "Denver",
+      "adjEM": -8.2669
+    },
+    "2174": {
+      "rank": 246,
+      "team": "Detroit Mercy",
+      "adjEM": -6.677589
+    },
+    "2181": {
+      "rank": 148,
+      "team": "Drake",
+      "adjEM": 0.949715
+    },
+    "2182": {
+      "rank": 258,
+      "team": "Drexel",
+      "adjEM": -7.616886
+    },
+    "2184": {
+      "rank": 128,
+      "team": "Duquesne",
+      "adjEM": 3.31323
+    },
+    "2193": {
+      "rank": 175,
+      "team": "East Tennessee St.",
+      "adjEM": -1.59297
+    },
+    "2197": {
+      "rank": 343,
+      "team": "Eastern Illinois",
+      "adjEM": -15.881605
+    },
+    "2198": {
+      "rank": 297,
+      "team": "Eastern Kentucky",
+      "adjEM": -10.907734
+    },
+    "2199": {
+      "rank": 167,
+      "team": "Eastern Michigan",
+      "adjEM": -0.912699
+    },
+    "2210": {
+      "rank": 240,
+      "team": "Elon",
+      "adjEM": -6.551947
+    },
+    "2217": {
+      "rank": 236,
+      "team": "Fairfield",
+      "adjEM": -5.96712
+    },
+    "2226": {
+      "rank": 121,
+      "team": "Florida Atlantic",
+      "adjEM": 3.90649
+    },
+    "2229": {
+      "rank": 164,
+      "team": "FIU",
+      "adjEM": -0.648952
+    },
+    "2230": {
+      "rank": 132,
+      "team": "Fordham",
+      "adjEM": 3.068596
+    },
+    "2239": {
+      "rank": 198,
+      "team": "Cal St. Fullerton",
+      "adjEM": -3.034871
+    },
+    "2241": {
+      "rank": 355,
+      "team": "Gardner Webb",
+      "adjEM": -18.034302
+    },
+    "2244": {
+      "rank": 93,
+      "team": "George Mason",
+      "adjEM": 8.999125
+    },
+    "2247": {
+      "rank": 217,
+      "team": "Georgia St.",
+      "adjEM": -4.882757
+    },
+    "2250": {
+      "rank": 8,
+      "team": "Gonzaga",
+      "adjEM": 25.527049
+    },
+    "2253": {
+      "rank": 43,
+      "team": "Grand Canyon",
+      "adjEM": 16.686427
+    },
+    "2261": {
+      "rank": 191,
+      "team": "Hampton",
+      "adjEM": -2.809908
+    },
+    "2272": {
+      "rank": 68,
+      "team": "High Point",
+      "adjEM": 12.824915
+    },
+    "2275": {
+      "rank": 158,
+      "team": "Hofstra",
+      "adjEM": 0.145842
+    },
+    "2277": {
+      "rank": 276,
+      "team": "Houston Christian",
+      "adjEM": -8.917001
+    },
+    "2287": {
+      "rank": 106,
+      "team": "Illinois St.",
+      "adjEM": 6.128517
+    },
+    "2294": {
+      "rank": 49,
+      "team": "Iowa",
+      "adjEM": 16.099627
+    },
+    "2296": {
+      "rank": 271,
+      "team": "Jackson St.",
+      "adjEM": -8.693513
+    },
+    "2305": {
+      "rank": 4,
+      "team": "Kansas",
+      "adjEM": 26.83078
+    },
+    "2306": {
+      "rank": 81,
+      "team": "Kansas St.",
+      "adjEM": 10.081683
+    },
+    "2309": {
+      "rank": 140,
+      "team": "Kent St.",
+      "adjEM": 1.578794
+    },
+    "2320": {
+      "rank": 211,
+      "team": "Lamar",
+      "adjEM": -4.429035
+    },
+    "2325": {
+      "rank": 152,
+      "team": "La Salle",
+      "adjEM": 0.795709
+    },
+    "2329": {
+      "rank": 262,
+      "team": "Lehigh",
+      "adjEM": -8.020926
+    },
+    "2330": {
+      "rank": 324,
+      "team": "Le Moyne",
+      "adjEM": -14.225734
+    },
+    "2335": {
+      "rank": 144,
+      "team": "Liberty",
+      "adjEM": 1.290887
+    },
+    "2344": {
+      "rank": 225,
+      "team": "Longwood",
+      "adjEM": -5.471316
+    },
+    "2348": {
+      "rank": 278,
+      "team": "Louisiana Tech",
+      "adjEM": -8.852798
+    },
+    "2349": {
+      "rank": 325,
+      "team": "UMass Lowell",
+      "adjEM": -14.141836
+    },
+    "2350": {
+      "rank": 171,
+      "team": "Loyola Chicago",
+      "adjEM": -1.254638
+    },
+    "2351": {
+      "rank": 130,
+      "team": "Loyola Marymount",
+      "adjEM": 3.153183
+    },
+    "2352": {
+      "rank": 345,
+      "team": "Loyola MD",
+      "adjEM": -16.446829
+    },
+    "2363": {
+      "rank": 352,
+      "team": "Manhattan",
+      "adjEM": -17.35666
+    },
+    "2368": {
+      "rank": 214,
+      "team": "Marist",
+      "adjEM": -4.465515
+    },
+    "2377": {
+      "rank": 80,
+      "team": "McNeese St.",
+      "adjEM": 10.250797
+    },
+    "2378": {
+      "rank": 272,
+      "team": "UMBC",
+      "adjEM": -8.622737
+    },
+    "2379": {
+      "rank": 365,
+      "team": "Maryland Eastern Shore",
+      "adjEM": -25.921101
+    },
+    "2382": {
+      "rank": 230,
+      "team": "Mercer",
+      "adjEM": -5.701952
+    },
+    "2385": {
+      "rank": 286,
+      "team": "Mercyhurst",
+      "adjEM": -9.687444
+    },
+    "2390": {
+      "rank": 12,
+      "team": "Miami FL",
+      "adjEM": 23.437564
+    },
+    "2393": {
+      "rank": 145,
+      "team": "Middle Tennessee",
+      "adjEM": 1.08384
+    },
+    "2400": {
+      "rank": 364,
+      "team": "Mississippi Valley St.",
+      "adjEM": -25.625928
+    },
+    "2405": {
+      "rank": 193,
+      "team": "Monmouth",
+      "adjEM": -2.801545
+    },
+    "2413": {
+      "rank": 315,
+      "team": "Morehead St.",
+      "adjEM": -13.086598
+    },
+    "2415": {
+      "rank": 344,
+      "team": "Morgan St.",
+      "adjEM": -16.490493
+    },
+    "2426": {
+      "rank": 312,
+      "team": "Navy",
+      "adjEM": -12.158105
+    },
+    "2427": {
+      "rank": 280,
+      "team": "UNC Asheville",
+      "adjEM": -9.200082
+    },
+    "2428": {
+      "rank": 356,
+      "team": "North Carolina Central",
+      "adjEM": -18.119018
+    },
+    "2429": {
+      "rank": 97,
+      "team": "Charlotte",
+      "adjEM": 8.535667
+    },
+    "2430": {
+      "rank": 329,
+      "team": "UNC Greensboro",
+      "adjEM": -14.614658
+    },
+    "2433": {
+      "rank": 334,
+      "team": "Louisiana Monroe",
+      "adjEM": -15.547692
+    },
+    "2437": {
+      "rank": 296,
+      "team": "Nebraska Omaha",
+      "adjEM": -10.656804
+    },
+    "2439": {
+      "rank": 98,
+      "team": "UNLV",
+      "adjEM": 8.40524
+    },
+    "2440": {
+      "rank": 86,
+      "team": "Nevada",
+      "adjEM": 9.438912
+    },
+    "2441": {
+      "rank": 342,
+      "team": "New Haven",
+      "adjEM": -15.949349
+    },
+    "2443": {
+      "rank": 210,
+      "team": "New Orleans",
+      "adjEM": -4.456066
+    },
+    "2447": {
+      "rank": 294,
+      "team": "Nicholls St.",
+      "adjEM": -10.174335
+    },
+    "2448": {
+      "rank": 270,
+      "team": "North Carolina A&T",
+      "adjEM": -8.740345
+    },
+    "2449": {
+      "rank": 153,
+      "team": "North Dakota St.",
+      "adjEM": 0.420776
+    },
+    "2450": {
+      "rank": 318,
+      "team": "Norfolk St.",
+      "adjEM": -13.321843
+    },
+    "2453": {
+      "rank": 310,
+      "team": "North Alabama",
+      "adjEM": -12.313406
+    },
+    "2454": {
+      "rank": 326,
+      "team": "North Florida",
+      "adjEM": -14.490506
+    },
+    "2458": {
+      "rank": 203,
+      "team": "Northern Colorado",
+      "adjEM": -3.653366
+    },
+    "2459": {
+      "rank": 247,
+      "team": "Northern Illinois",
+      "adjEM": -6.896714
+    },
+    "2460": {
+      "rank": 119,
+      "team": "Northern Iowa",
+      "adjEM": 4.147598
+    },
+    "2463": {
+      "rank": 204,
+      "team": "Cal St. Northridge",
+      "adjEM": -3.695548
+    },
+    "2464": {
+      "rank": 319,
+      "team": "Northern Arizona",
+      "adjEM": -13.674547
+    },
+    "2466": {
+      "rank": 291,
+      "team": "Northwestern St.",
+      "adjEM": -9.929739
+    },
+    "2473": {
+      "rank": 226,
+      "team": "Oakland",
+      "adjEM": -5.479244
+    },
+    "2483": {
+      "rank": 39,
+      "team": "Oregon",
+      "adjEM": 17.568928
+    },
+    "2492": {
+      "rank": 141,
+      "team": "Pepperdine",
+      "adjEM": 1.394067
+    },
+    "2501": {
+      "rank": 170,
+      "team": "Portland",
+      "adjEM": -1.160602
+    },
+    "2502": {
+      "rank": 212,
+      "team": "Portland St.",
+      "adjEM": -4.488118
+    },
+    "2504": {
+      "rank": 269,
+      "team": "Prairie View A&M",
+      "adjEM": -8.558837
+    },
+    "2506": {
+      "rank": 235,
+      "team": "Presbyterian",
+      "adjEM": -5.994624
+    },
+    "2507": {
+      "rank": 55,
+      "team": "Providence",
+      "adjEM": 15.649687
+    },
+    "2509": {
+      "rank": 30,
+      "team": "Purdue",
+      "adjEM": 19.51453
+    },
+    "2511": {
+      "rank": 192,
+      "team": "Queens",
+      "adjEM": -2.854947
+    },
+    "2514": {
+      "rank": 244,
+      "team": "Quinnipiac",
+      "adjEM": -6.331913
+    },
+    "2515": {
+      "rank": 283,
+      "team": "Radford",
+      "adjEM": -9.529593
+    },
+    "2520": {
+      "rank": 362,
+      "team": "Rider",
+      "adjEM": -22.54628
+    },
+    "2523": {
+      "rank": 180,
+      "team": "Robert Morris",
+      "adjEM": -1.942348
+    },
+    "2529": {
+      "rank": 307,
+      "team": "Sacred Heart",
+      "adjEM": -11.952807
+    },
+    "2534": {
+      "rank": 182,
+      "team": "Sam Houston St.",
+      "adjEM": -2.009366
+    },
+    "2535": {
+      "rank": 234,
+      "team": "Samford",
+      "adjEM": -6.000022
+    },
+    "2539": {
+      "rank": 183,
+      "team": "San Francisco",
+      "adjEM": -2.052551
+    },
+    "2540": {
+      "rank": 103,
+      "team": "UC Santa Barbara",
+      "adjEM": 7.29077
+    },
+    "2541": {
+      "rank": 92,
+      "team": "Santa Clara",
+      "adjEM": 9.145074
+    },
+    "2545": {
+      "rank": 257,
+      "team": "Southeastern Louisiana",
+      "adjEM": -7.714252
+    },
+    "2546": {
+      "rank": 254,
+      "team": "Southeast Missouri St.",
+      "adjEM": -6.83688
+    },
+    "2547": {
+      "rank": 133,
+      "team": "Seattle",
+      "adjEM": 2.820356
+    },
+    "2550": {
+      "rank": 71,
+      "team": "Seton Hall",
+      "adjEM": 11.951553
+    },
+    "2561": {
+      "rank": 241,
+      "team": "Siena",
+      "adjEM": -6.364242
+    },
+    "2565": {
+      "rank": 259,
+      "team": "SIU Edwardsville",
+      "adjEM": -7.679805
+    },
+    "2567": {
+      "rank": 54,
+      "team": "SMU",
+      "adjEM": 15.774851
+    },
+    "2569": {
+      "rank": 333,
+      "team": "South Carolina St.",
+      "adjEM": -15.433312
+    },
+    "2571": {
+      "rank": 264,
+      "team": "South Dakota St.",
+      "adjEM": -8.252243
+    },
+    "2572": {
+      "rank": 220,
+      "team": "Southern Miss",
+      "adjEM": -5.042172
+    },
+    "2579": {
+      "rank": 96,
+      "team": "South Carolina",
+      "adjEM": 8.323988
+    },
+    "2582": {
+      "rank": 302,
+      "team": "Southern",
+      "adjEM": -11.21141
+    },
+    "2599": {
+      "rank": 18,
+      "team": "St. John's",
+      "adjEM": 21.892846
+    },
+    "2603": {
+      "rank": 129,
+      "team": "Saint Joseph's",
+      "adjEM": 2.976147
+    },
+    "2608": {
+      "rank": 67,
+      "team": "Saint Mary's",
+      "adjEM": 12.427339
+    },
+    "2612": {
+      "rank": 287,
+      "team": "Saint Peter's",
+      "adjEM": -9.562215
+    },
+    "2617": {
+      "rank": 126,
+      "team": "Stephen F. Austin",
+      "adjEM": 3.525143
+    },
+    "2619": {
+      "rank": 223,
+      "team": "Stony Brook",
+      "adjEM": -5.228328
+    },
+    "2623": {
+      "rank": 248,
+      "team": "Missouri St.",
+      "adjEM": -6.588109
+    },
+    "2627": {
+      "rank": 146,
+      "team": "Tarleton St.",
+      "adjEM": 1.034272
+    },
+    "2628": {
+      "rank": 53,
+      "team": "TCU",
+      "adjEM": 15.540207
+    },
+    "2630": {
+      "rank": 339,
+      "team": "Tennessee Martin",
+      "adjEM": -15.15799
+    },
+    "2633": {
+      "rank": 16,
+      "team": "Tennessee",
+      "adjEM": 22.657443
+    },
+    "2634": {
+      "rank": 184,
+      "team": "Tennessee St.",
+      "adjEM": -2.148306
+    },
+    "2635": {
+      "rank": 229,
+      "team": "Tennessee Tech",
+      "adjEM": -5.818755
+    },
+    "2636": {
+      "rank": 239,
+      "team": "UTSA",
+      "adjEM": -6.28756
+    },
+    "2638": {
+      "rank": 166,
+      "team": "UTEP",
+      "adjEM": -0.890115
+    },
+    "2640": {
+      "rank": 330,
+      "team": "Texas Southern",
+      "adjEM": -14.442043
+    },
+    "2641": {
+      "rank": 17,
+      "team": "Texas Tech",
+      "adjEM": 22.812074
+    },
+    "2643": {
+      "rank": 350,
+      "team": "The Citadel",
+      "adjEM": -17.238606
+    },
+    "2649": {
+      "rank": 154,
+      "team": "Toledo",
+      "adjEM": 0.368392
+    },
+    "2653": {
+      "rank": 139,
+      "team": "Troy",
+      "adjEM": 1.675223
+    },
+    "2655": {
+      "rank": 165,
+      "team": "Tulane",
+      "adjEM": -0.904787
+    },
+    "2670": {
+      "rank": 57,
+      "team": "VCU",
+      "adjEM": 15.199605
+    },
+    "2674": {
+      "rank": 150,
+      "team": "Valparaiso",
+      "adjEM": 0.875951
+    },
+    "2678": {
+      "rank": 338,
+      "team": "VMI",
+      "adjEM": -15.888749
+    },
+    "2681": {
+      "rank": 346,
+      "team": "Wagner",
+      "adjEM": -16.159981
+    },
+    "2692": {
+      "rank": 308,
+      "team": "Weber St.",
+      "adjEM": -11.700897
+    },
+    "2697": {
+      "rank": 363,
+      "team": "West Florida",
+      "adjEM": -23.631881
+    },
+    "2698": {
+      "rank": 305,
+      "team": "West Georgia",
+      "adjEM": -11.655632
+    },
+    "2710": {
+      "rank": 360,
+      "team": "Western Illinois",
+      "adjEM": -19.960218
+    },
+    "2711": {
+      "rank": 168,
+      "team": "Western Michigan",
+      "adjEM": -0.983044
+    },
+    "2717": {
+      "rank": 176,
+      "team": "Western Carolina",
+      "adjEM": -1.687616
+    },
+    "2724": {
+      "rank": 70,
+      "team": "Wichita St.",
+      "adjEM": 12.220788
+    },
+    "2729": {
+      "rank": 202,
+      "team": "William & Mary",
+      "adjEM": -3.454229
+    },
+    "2737": {
+      "rank": 233,
+      "team": "Winthrop",
+      "adjEM": -5.872695
+    },
+    "2739": {
+      "rank": 163,
+      "team": "Green Bay",
+      "adjEM": -0.44246
+    },
+    "2747": {
+      "rank": 277,
+      "team": "Wofford",
+      "adjEM": -9.02186
+    },
+    "2750": {
+      "rank": 160,
+      "team": "Wright St.",
+      "adjEM": -0.163966
+    },
+    "2751": {
+      "rank": 120,
+      "team": "Wyoming",
+      "adjEM": 4.138553
+    },
+    "2752": {
+      "rank": 52,
+      "team": "Xavier",
+      "adjEM": 15.981659
+    },
+    "2754": {
+      "rank": 290,
+      "team": "Youngstown St.",
+      "adjEM": -9.689863
+    },
+    "2755": {
+      "rank": 301,
+      "team": "Grambling St.",
+      "adjEM": -11.217403
+    },
+    "2771": {
+      "rank": 159,
+      "team": "Merrimack",
+      "adjEM": -0.118126
+    },
+    "2803": {
+      "rank": 331,
+      "team": "Bryant",
+      "adjEM": -14.693605
+    },
+    "2815": {
+      "rank": 279,
+      "team": "Lindenwood",
+      "adjEM": -9.07917
+    },
+    "2837": {
+      "rank": 321,
+      "team": "East Texas A&M",
+      "adjEM": -13.204171
+    },
+    "2856": {
+      "rank": 186,
+      "team": "Cal Baptist",
+      "adjEM": -2.23834
+    },
+    "2870": {
+      "rank": 284,
+      "team": "Purdue Fort Wayne",
+      "adjEM": -9.513708
+    },
+    "2885": {
+      "rank": 311,
+      "team": "NJIT",
+      "adjEM": -12.497096
+    },
+    "2900": {
+      "rank": 147,
+      "team": "St. Thomas",
+      "adjEM": 0.960214
+    },
+    "2908": {
+      "rank": 347,
+      "team": "USC Upstate",
+      "adjEM": -16.167375
+    },
+    "2916": {
+      "rank": 314,
+      "team": "Incarnate Word",
+      "adjEM": -12.982732
+    },
+    "2934": {
+      "rank": 295,
+      "team": "Cal St. Bakersfield",
+      "adjEM": -10.840784
+    },
+    "3084": {
+      "rank": 125,
+      "team": "Utah Valley",
+      "adjEM": 3.565054
+    },
+    "3101": {
+      "rank": 316,
+      "team": "Utah Tech",
+      "adjEM": -12.521742
+    },
+    "112358": {
+      "rank": 253,
+      "team": "LIU",
+      "adjEM": -6.928059
+    }
+  }
+}
