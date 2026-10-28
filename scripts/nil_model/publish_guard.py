@@ -113,6 +113,7 @@ def check(new,old,source,anchor=None,legacy=None,history=None,rookies=None,v4=No
          h.get('baselineAsOf')!=a.get('asOf') or
          int(f.get('latestSeason') or 0)>=2027):
       raise ValueError('Unverified 1835-player unranked opening rebase or artificial Stock Watch movement')
+     ignored=set(moved) # Already individually validated opening REBASE, never daily movement.
      print('APPROVED 5K-50K OPENING PRIOR REBASE: 1835 exact IDs; 4222 prices protected')
     elif staff_review and pre_staff:
      # Third frozen checkpoint: 16 staff-reviewed ESPN IDs, no synthetic
