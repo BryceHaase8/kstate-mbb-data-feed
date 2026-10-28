@@ -39,12 +39,16 @@ jobs:
           get=lambda p:json.loads(Path(p).read_text())
           p=get('public/nil_estimation_model_2027.json')['byESPNId']
           after=get('public/stock_watch/preseason_2027.json')['byESPNId']
+          before_sliding=get('public/stock_watch/preseason_2027_before_unranked_sliding_20261027.json')['byESPNId']
           before=get('public/stock_watch/preseason_2027_before_staff_20261027.json')['byESPNId']
+          sliding=get('public/stock_watch/unranked_low_major_sliding_2027_priors.json')['byESPNId']
           overlay=get('public/stock_watch/international_top100_staff_review_20271027.json')['byESPNId']
           anchors=get('public/stock_watch/international_pro_2027_market_priors.json')['byESPNId']
           orig=get('public/stock_watch/international_top100_noncollege_2027_priors.json')['byESPNId']
           assert len(after)==6057 and len(overlay)==16 and len(p)>=12720
-          assert set(k for k in after if before[k]!=after[k])==set(overlay)
+          assert set(k for k in before_sliding if before[k]!=before_sliding[k])==set(overlay)
+          assert set(k for k in after if before_sliding[k]!=after[k])==set(sliding)
+          assert all(after[k]==(sliding[k] if k in sliding else price) for k,price in before_sliding.items())
           assert all(p[k]['value']==p[k]['preseason']==v for k,v in after.items())
           assert all(p[k]['status']=='PRESEASON_BASELINE' and p[k]['weight']==0 for k in overlay)
           assert all(p[k]['anchorType']==('INTERNATIONAL_PREVIOUS_COLLEGE_REDSHIRT_STAFF_REVIEWED' if k=='5312303' else 'INTERNATIONAL_STAFF_REVIEWED_PRESEASON') for k in overlay)
