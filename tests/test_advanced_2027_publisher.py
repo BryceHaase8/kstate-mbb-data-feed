@@ -65,6 +65,10 @@ class AdvancedPublisherTests(unittest.TestCase):
    self.assertAlmostEqual(oo['players']['10000']['on']['minutes'],40)
    self.assertEqual(oo['players']['10000']['on']['off']['fga'],1)
    self.assertEqual(oo['players']['10000']['on']['def']['fga'],1)
+   self.assertEqual(oo['players']['10000']['on']['off']['cornerA'],1)
+   self.assertEqual(oo['players']['10000']['on']['off']['cornerM'],1)
+   self.assertEqual(oo['players']['10000']['on']['def']['rimA'],1)
+   self.assertEqual(oo['players']['10000']['on']['def']['rimM'],0)
    pos=json.loads((pub/'portal_positions_2027/positions_016.json').read_text())['players']['10000']
    self.assertEqual(len(pos),5)
    self.assertEqual(len(pos[0]),5)
