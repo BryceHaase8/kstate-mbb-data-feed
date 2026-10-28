@@ -30,8 +30,8 @@ def fixture(root, bad_sub=False, bad_shot=False, no_shots=False):
  events=[]
  events.append(ev(1,'20:00','Period Start','First half begins'))
  if not no_shots:
-  events.append(ev(1,'19:00','Made Shot','Athlete makes 3-point jumper','100','10000',x='2' if not bad_shot else '',y='1',sc='3'))
-  events.append(ev(1,'18:00','Missed Shot','Athlete misses two-point jumper','200','20000',x='25',y='1'))
+  events.append(ev(1,'19:00','Made Shot','Athlete makes 23-foot 3-point jumper','100','10000',x='2' if not bad_shot else '',y='1',sc='3'))
+  events.append(ev(1,'18:00','Missed Shot','Athlete misses 2-foot layup','200','20000',x='25',y='1'))
  if bad_sub:
   events.append(ev(1,'17:00','Substitution','Player enters the game for player','100','10001','10002'))
  for i in range(50):
@@ -87,16 +87,20 @@ class AdvancedPublisherTests(unittest.TestCase):
    m=publish(base)
    self.assertEqual((m['shotGames'],m['lineupGames']),(0,0))
    self.assertEqual(m['rejected']['shot_coordinates_missing_or_changed'],1)
-   self.assertFalse(json.loads((base/'public/portal_shots_2027/manifest.json').read_text())['available'])
+   self.assertFalse((base/'public/portal_shots_2027/manifest.json').exists())
    self.assertEqual(list((base/'data/advanced_2027_verified_games').glob('*.json')),[])
+ def test_archive_lengthwise_court_frame_detected_without_guessing(self):
+  from publish_2027_advanced import coordinate_frame,court_candidate
+  events=[{'type_text':'Made Shot','text':'Athlete makes 2-foot layup',
+           'coordinate_x':'43','coordinate_y':'2'}]
+  self.assertEqual(coordinate_frame(events),'lengthwise')
+  self.assertEqual(court_candidate(43,2,'lengthwise'),(2,4))
  def test_missing_pbps_publish_explicit_unavailable_manifests(self):
   with tempfile.TemporaryDirectory() as root:
    base=pathlib.Path(root)
    m=publish(base)
    self.assertEqual((m['shotGames'],m['lineupGames']),(0,0))
    for kind in ('shots','onoff','positions'):
-    payload=json.loads((base/f'public/portal_{kind}_2027/manifest.json').read_text())
-    self.assertEqual(payload['season'],2027)
-    self.assertFalse(payload['available'])
+    self.assertFalse((base/f'public/portal_{kind}_2027/manifest.json').exists())
 
 if __name__=='__main__':unittest.main()
