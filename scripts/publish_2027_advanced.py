@@ -314,7 +314,7 @@ def consolidate(cache,roster):
    bucket['verifiedBoxMinutes']+=p['boxMinutes']
    q=positions[pid];q['games']+=1;q['box']+=p['boxMinutes']
    rp=roster.get(pid) or []
-   if len(rp)>=6 and re.search(r"(\\d+)'\\s*(\\d+)",str(rp[4])) and re.search(r'\\d+',str(rp[5])):
+   if len(rp)>=6 and re.search(r"(\d+)'\s*(\d+)",str(rp[4])) and re.search(r'\d+',str(rp[5])):
     q['known']=1.0
    for j,val in enumerate(p['positions']):q['roles'][j]+=val
  for pid,v in onoff.items():
