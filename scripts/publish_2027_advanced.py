@@ -54,7 +54,7 @@ def make_status(row):
  return bool(re.search(r'\b(?:makes?|made)\b',txt)) and not bool(re.search(r'\bmiss(?:es|ed)?\b',txt))
 def shot_three(row):
  text=(str(row.get('text') or '')+' '+str(row.get('type_text') or '')).lower()
- return bool(re.search(r'(?:\b3\s*[- ]\s*(?:pt|point|pointer)|\bthree\s*[- ]?\s*(?:pt|point|pointer))',text)) or (make_status(row) and integer(row.get('score_value'))==3)
+ return bool(re.search(r'\\b(?:3|three)[\\s-]*(?:pt|point|pointer)s?\\b',text)) or (make_status(row) and integer(row.get('score_value'))==3)
 def zone_for(x,y,three):
  d=math.hypot(x,y-RIM)
  if three:
