@@ -204,6 +204,7 @@ def lineup_game(gid,events,box,shots,roster):
   base,seconds=parsed
   times.append((base+seconds,i,ev))
  times.sort(key=lambda x:(x[0],x[1]))
+ frame=coordinate_frame(events) # compute once per game, not per play/player
  periods=[integer(e.get('period_number')) for e in events]
  last=max(periods)
  if set(range(1,last+1))-set(periods):return None,'ambiguous_period'
@@ -249,7 +250,7 @@ def lineup_game(gid,events,box,shots,roster):
     else:return None,'ambiguous_substitution'
    else:return None,'unmatched_substitution_ids'
    continue
-  stats=event_stats(ev,coordinate_frame(events))
+  stats=event_stats(ev,frame)
   if not stats or team not in teams:continue
   if any(len(active[side_team])!=5 for side_team in teams):
    return None,'incomplete_substitution_batch'
