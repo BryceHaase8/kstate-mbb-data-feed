@@ -1,10 +1,9 @@
 name: 2026 ESPN archived PBP schema and coordinates probe
+# Real archived ESPN schema was verified on 2026-10-27.
+# Keep a manual probe for future API schema changes without spending Actions
+# minutes on every harmless Python test change.
 on:
-  pull_request:
-    branches: [main]
-    paths:
-      - "scripts/publish_2027_advanced.py"
-      - ".github/workflows/espn-advanced-archive-probe.yml"
+  workflow_dispatch:
 permissions:
   contents: read
 jobs:
