@@ -60,7 +60,8 @@ jobs:
         run: |
           set -euo pipefail
           python3 -m unittest discover -s tests -p 'test_build_2027_advanced.py' -v
-          python3 scripts/build_2027_advanced.py
+          python3 -m unittest discover -s tests -p 'test_advanced_2027_publisher.py' -v
+          python3 scripts/publish_2027_advanced.py
       - name: Surface incomplete advanced data without blocking official stats
         if: ${{ steps.advanced_refresh.outcome == 'failure' }}
         run: |
@@ -113,6 +114,11 @@ jobs:
           fi
           if [ -d data/advanced_2027_pbp/games ]; then
             git add data/advanced_2027_pbp/games/
+          fi
+          # Immutable box/PBP-verified per-game snapshots keep advanced
+          # coverage from disappearing on later ESPN outage days.
+          if [ "${{ steps.advanced_refresh.outcome }}" = 'success' ] && [ -d data/advanced_2027_verified_games ]; then
+            git add data/advanced_2027_verified_games/
           fi
           if [ "${{ steps.advanced_refresh.outcome }}" = 'success' ]; then
             for kind in shots onoff positions; do

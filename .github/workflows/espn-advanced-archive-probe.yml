@@ -1,0 +1,41 @@
+name: 2026 ESPN archived PBP schema and coordinates probe
+# Real archived ESPN schema was verified on 2026-10-27.
+# Keep a manual probe for future API schema changes without spending Actions
+# minutes on every harmless Python test change.
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  archived-game-probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 22
+    steps:
+      - uses: actions/checkout@v4
+      - uses: r-lib/actions/setup-r@v2
+      - uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          extra-packages: |
+            any::hoopR
+            any::dplyr
+            any::jsonlite
+      - name: Verify actual ESPN field names, shot type, coordinate conventions and sub labels
+        run: |
+          Rscript - <<'RS'
+          p <- hoopR::espn_mbb_pbp(game_id=401856563)
+          if(is.null(p)||!is.data.frame(p)||nrow(p)<50)stop('Archived 2026 ESPN play-by-play unavailable')
+          cols=c('period_number','clock_display_value','type_text','text','athlete_id_1','athlete_id_2',
+                 'coordinate_x','coordinate_y','team_id','score_value','scoring_play')
+          if(!all(cols%in%names(p)))stop(paste('Archived ESPN fields missing:',paste(setdiff(cols,names(p)),collapse=',')))
+          cat('Archived plays:',nrow(p),'\n')
+          print(head(sort(table(p$type_text),decreasing=TRUE),30))
+          shots<-p[grepl('shot|jumper|layup|dunk',p$type_text,ignore.case=TRUE),]
+          cat('Shooting candidate rows:',nrow(shots),'\n')
+          print(utils::head(shots[,cols],12))
+          sub<-p[grepl('substitut',p$type_text,ignore.case=TRUE),]
+          cat('Sub rows:',nrow(sub),'\n')
+          print(utils::head(sub[,cols],9))
+          cat('PBP source coordinate range\n')
+          print(summary(shots[,c('coordinate_x','coordinate_y')]))
+          if(nrow(shots)<20)stop('No classifiable archived ESPN shots')
+          RS

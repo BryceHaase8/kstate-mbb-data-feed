@@ -22,9 +22,21 @@ if (!exists('active_player_box') || !exists('active_season') || as.integer(activ
   if(length(games)){
     dir.create('data/advanced_2027_pbp/games',recursive=TRUE,showWarnings=FALSE)
     dir.create('data',recursive=TRUE,showWarnings=FALSE)
+    # A complete per-player/per-game box reference is mandatory for releasing
+    # coordinates or lineup analytics. These are native ESPN, not Torvik data.
+    statcol<-function(g,name,default=NA_real_){
+      if(name%in%names(g))suppressWarnings(as.numeric(g[[name]])) else rep(default,nrow(g))
+    }
+    strcol<-function(g,name,default=''){
+      if(name%in%names(g))as.character(g[[name]]) else rep(default,nrow(g))
+    }
     pieces <- lapply(games,function(g) data.frame(game_id=g$game_id, team_id=g$team_id,
       athlete_id=g$athlete_id, started=as.integer(!is.na(g$started)&g$started),
       minutes=g$minutes, fga=ifelse(is.na(g$fga),0,g$fga),
+      fgm=statcol(g,'field_goals_made'),three_pa=statcol(g,'three_point_field_goals_attempted'),
+      three_pm=statcol(g,'three_point_field_goals_made'),
+      team_score=statcol(g,'team_score'),
+      ast=statcol(g,'assists'),reb=statcol(g,'rebounds'),
       position=if('athlete_position_abbreviation'%in%names(g))as.character(g$athlete_position_abbreviation) else '',
       stringsAsFactors=FALSE))
     box <- do.call(rbind,pieces)
