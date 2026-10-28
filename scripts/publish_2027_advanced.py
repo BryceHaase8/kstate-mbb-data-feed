@@ -207,6 +207,9 @@ def lineup_game(gid,events,box,shots,roster):
  valid_stat=collections.defaultdict(lambda:{'off':zero(),'def':zero()})
  def accumulate(seconds):
   if seconds<0:raise ValueError('bad_time')
+  # A batch of substitutions at the SAME clock may transiently pass through
+  # 4 or 6 players. No playing time accrues at zero elapsed seconds.
+  if seconds<1e-7:return
   for team in teams:
    if len(active[team])!=5:raise ValueError('not_five_active')
    ordering=sorted(active[team],key=lambda pid:role_sort(pid,box,roster))
@@ -222,14 +225,25 @@ def lineup_game(gid,events,box,shots,roster):
   if k=='sub':
    if team not in active:return None,'unmatched_substitution_team'
    a=str(ev.get('athlete_id_1') or '');b=str(ev.get('athlete_id_2') or '')
-   if a not in box or b not in box or a==b or box[a]['team']!=team or box[b]['team']!=team:return None,'unmatched_substitution_ids'
-   if a in active[team] and b not in active[team]:outid,inid=a,b
-   elif b in active[team] and a not in active[team]:outid,inid=b,a
-   else:return None,'ambiguous_substitution'
-   active[team].remove(outid);active[team].add(inid)
+   if a in box and b in box and a!=b and box[a]['team']==team and box[b]['team']==team:
+    # Two-participant substitutions: infer only from verified membership.
+    if a in active[team] and b not in active[team]:outid,inid=a,b
+    elif b in active[team] and a not in active[team]:outid,inid=b,a
+    else:return None,'ambiguous_substitution'
+    active[team].remove(outid);active[team].add(inid)
+   elif a in box and box[a]['team']==team and (not b.isdigit() or b not in box):
+    # hoopR archived ESPN PBP frequently represents each substitution as
+    # one athlete ("subbing in" / "subbing out"), two rows per same-clock pair.
+    desc=str(ev.get('text') or '').lower()
+    if 'subbing in' in desc and a not in active[team]:active[team].add(a)
+    elif 'subbing out' in desc and a in active[team]:active[team].remove(a)
+    else:return None,'ambiguous_substitution'
+   else:return None,'unmatched_substitution_ids'
    continue
   stats=event_stats(ev)
   if not stats or team not in teams:continue
+  if any(len(active[side_team])!=5 for side_team in teams):
+   return None,'incomplete_substitution_batch'
   for side_team in teams:
    which='off' if side_team==team else 'def'
    for pid,r in box.items():
