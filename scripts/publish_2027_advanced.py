@@ -45,6 +45,8 @@ def kind(row):
  if 'offensive rebound' in typ or 'offensive rebound' in txt:return 'oreb'
  if 'defensive rebound' in typ or 'defensive rebound' in txt:return 'dreb'
  if 'turnover' in typ or 'turnover' in txt:return 'tov'
+ if 'steal' in typ:return 'stl'
+ if 'block shot' in typ or 'blocked shot' in typ:return 'blk'
  if 'foul' in typ or 'foul' in txt:return 'pf'
  return None
 def make_status(row):
@@ -167,7 +169,7 @@ def role_sort(pid,box,roster):
  return (base,height,-ast,int(pid))
 def add(target,key,n=1):
  target[key]=target.get(key,0)+n
-def event_stats(ev):
+def event_stats(ev,frame=None):
  k=kind(ev)
  if not k or k=='sub':return {}
  made=make_status(ev)
@@ -176,6 +178,13 @@ def event_stats(ev):
   if made:
    out.update({'fgm':1,'threeM' if three else 'twoM':1,'pts':3 if three else 2})
    if str(ev.get('athlete_id_2') or '').isdigit():out['ast']=1
+  x=number(ev.get('coordinate_x'));y=number(ev.get('coordinate_y'))
+  pt=court_candidate(x,y,frame) if x is not None and y is not None else None
+  if pt is not None:
+   zone={'Rim':'rim','Short Paint':'paint','Midrange':'mid',
+         'Corner 3':'corner','Above Break 3':'above','Deep 3':'deep'}[zone_for(*pt,three)]
+   out[zone+'A']=1
+   if made:out[zone+'M']=1
   return out
  if k=='ft':return {'fta':1,**({'ftm':1,'pts':1} if made else {})}
  return {k:1}
@@ -240,12 +249,16 @@ def lineup_game(gid,events,box,shots,roster):
     else:return None,'ambiguous_substitution'
    else:return None,'unmatched_substitution_ids'
    continue
-  stats=event_stats(ev)
+  stats=event_stats(ev,coordinate_frame(events))
   if not stats or team not in teams:continue
   if any(len(active[side_team])!=5 for side_team in teams):
    return None,'incomplete_substitution_batch'
   for side_team in teams:
-   which='off' if side_team==team else 'def'
+   # A defensive rebound, steal, block or defensive foul belongs on the
+   # defending side. Offense-side DREB are the OPPONENT's defensive boards.
+   defensive_event=(k in ('dreb','stl','blk') or
+       (k=='pf' and 'offensive foul' not in str(ev.get('text') or '').lower()))
+   which=('def' if side_team==team else 'off') if defensive_event else ('off' if side_team==team else 'def')
    for pid,r in box.items():
     if r['team']!=side_team:continue
     d=running.setdefault(pid,{'on':{'off':zero(),'def':zero()},'off':{'off':zero(),'def':zero()}})
