@@ -5,7 +5,7 @@ import argparse,datetime,json,math,pathlib,statistics
 def load(path):
  return json.loads(pathlib.Path(path).read_text())
 
-def check(new,old,source,anchor=None,legacy=None,history=None,rookies=None,v4=None,others=None,approved=None,pre_rebase=None,top100=None,pre_top100=None,staff_review=None,pre_staff=None):
+def check(new,old,source,anchor=None,legacy=None,history=None,rookies=None,v4=None,others=None,approved=None,pre_rebase=None,top100=None,pre_top100=None,staff_review=None,pre_staff=None,unranked=None,pre_unranked=None):
  n,o,f=load(new),load(old),load(source)
  if n.get('season')!=2027 or n.get('policyVersion')!=3:
   raise ValueError('Unexpected NIL model policy')
@@ -79,7 +79,42 @@ def check(new,old,source,anchor=None,legacy=None,history=None,rookies=None,v4=No
     # BEFORE the first game only, never as fictitious Stock Watch movement.
     if not anchor or not history:
      raise ValueError('Preseason price moved without documented opening correction')
-    if staff_review and pre_staff:
+    if unranked and pre_unranked:
+     # Exact, versioned 4th release cohort. Never reprice an unrelated ID
+     # or fabricate pre-game Stock Watch appreciation.
+     q,b,a,h=load(unranked),load(pre_unranked),load(anchor),load(history)
+     changed=q.get('byESPNId') or {}
+     source=q.get('previousByESPNId') or {}
+     methods=q.get('provenanceByESPNId') or {}
+     ranks=q.get('teamRankByESPNId') or {}
+     previous=b.get('byESPNId') or {}
+     now=a.get('byESPNId') or {}
+     protection=set((load(approved).get('byESPNId') or {}) if approved else ())
+     protection|=set((load(top100).get('byESPNId') or {}) if top100 else ())
+     protection|=set((load(staff_review).get('byESPNId') or {}) if staff_review else ())
+     if (q.get('playerCount')!=1835 or len(changed)!=1835 or
+         not set(changed)==set(source)==set(methods)==set(ranks) or
+         set(changed)&protection or set(moved)!=set(changed) or
+         len(previous)!=6057 or len(now)!=6057 or set(previous)!=set(now) or
+         any(previous.get(pid)!=val for pid,val in source.items()) or
+         any(now.get(pid)!=(changed[pid] if pid in changed else val)
+             for pid,val in previous.items()) or
+         any(methods[pid] not in ('UNRANKED_SCHOOL_PRIOR_2026','SITE_UNMODELED_PROVISIONAL_50000')
+             or not 1<=ranks[pid]<=365 or
+             changed[pid]!=int(round((5000+45000*((365-ranks[pid])/364)**1.35)/100)*100)
+             for pid in changed) or
+         any(pid not in common or older[pid]['value']!=source[pid] or
+             rows[pid]['value']!=changed[pid] or rows[pid].get('preseason')!=changed[pid] or
+             rows[pid].get('anchorType')!=(
+                 'UNRANKED_HS_TEAM_SLIDING_2027' if methods[pid]=='UNRANKED_SCHOOL_PRIOR_2026'
+                 else 'ROSTER_UNMODELED_TEAM_SLIDING_2027')
+             for pid in changed) or
+         (h.get('dates') or []) or (h.get('months') or []) or
+         h.get('baselineAsOf')!=a.get('asOf') or
+         int(f.get('latestSeason') or 0)>=2027):
+      raise ValueError('Unverified 1835-player unranked opening rebase or artificial Stock Watch movement')
+     print('APPROVED 5K-50K OPENING PRIOR REBASE: 1835 exact IDs; 4222 prices protected')
+    elif staff_review and pre_staff:
      # Third frozen checkpoint: 16 staff-reviewed ESPN IDs, no synthetic
      # 2026-27 game movement. A prior college redshirt is an explicit
      # staff-priced exception, not an overseas-pro classification.
@@ -166,6 +201,6 @@ def check(new,old,source,anchor=None,legacy=None,history=None,rookies=None,v4=No
 if __name__=='__main__':
  p=argparse.ArgumentParser()
  for arg in ('new','old','source'):p.add_argument('--'+arg,required=True)
- for arg in ('anchor','legacy','history','rookies','v4','others','approved','pre-rebase','top100','pre-top100','staff-review','pre-staff'):p.add_argument('--'+arg)
+ for arg in ('anchor','legacy','history','rookies','v4','others','approved','pre-rebase','top100','pre-top100','staff-review','pre-staff','unranked','pre-unranked'):p.add_argument('--'+arg)
  a=p.parse_args()
- check(a.new,a.old,a.source,a.anchor,a.legacy,a.history,a.rookies,a.v4,a.others,a.approved,a.pre_rebase,a.top100,a.pre_top100,a.staff_review,a.pre_staff)
+ check(a.new,a.old,a.source,a.anchor,a.legacy,a.history,a.rookies,a.v4,a.others,a.approved,a.pre_rebase,a.top100,a.pre_top100,a.staff_review,a.pre_staff,a.unranked,a.pre_unranked)
