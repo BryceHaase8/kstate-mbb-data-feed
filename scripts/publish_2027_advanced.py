@@ -312,7 +312,10 @@ def publish(root=ROOT):
   gid=file.name[:-7] # *.csv.gz, strip extension
   if not gid.isdigit():continue
   target=cache/(gid+'.json')
-  if target.exists():continue
+  previous=json.loads(target.read_text()) if target.exists() else None
+  # Keep fully verified releases immutable; retry only missing advanced
+  # components when archived PBP/collector format later improves.
+  if previous and previous.get('shots') is not None and previous.get('lineup') is not None:continue
   box=boxgames.get(gid)
   if not box:
    rejected['box_missing']+=1;continue
@@ -320,10 +323,13 @@ def publish(root=ROOT):
    events=read_csv(file)
    if len(events)<50:raise ValueError('pbp_too_short')
    shot,reason=shot_game(gid,events,box)
+   if previous and previous.get('shots') is not None:shot=previous['shots'];reason=None
    if reason:rejected[reason]+=1
    lineup,lreason=lineup_game(gid,events,box,shot,roster) if shot is not None else (None,'shot_unverified')
+   if previous and previous.get('lineup') is not None:lineup=previous['lineup'];lreason=None
    if lreason:rejected[lreason]+=1
    if shot is None and lineup is None:continue
+   if previous and previous.get('lineup') is None and lineup is None:continue
    save_json(target,{'schemaVersion':1,'season':SEASON,'gameId':gid,'shots':shot,
                      'lineup':lineup,'qa':{'shotsVerified':shot is not None,'lineupVerified':lineup is not None}})
    new+=1
