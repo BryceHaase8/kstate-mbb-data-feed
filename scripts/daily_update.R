@@ -532,4 +532,13 @@ if (active_season == 2027L) {
     source(file.path("scripts", "collect_2027_advanced.R")),
     error=function(e)message("Advanced 2027 ESPN collection deferred: ",conditionMessage(e))
   )
+  # The separate Python publisher audits current-season play-by-play against
+  # official ESPN game box totals and substitution minutes. An unavailable
+  # PBP feed cannot block or roll back verified 2026-27 box-score publishing.
+  tryCatch({
+    status <- system2("python3",c("scripts/publish_2027_advanced.py"),
+      stdout="",stderr="")
+    if (!identical(as.integer(status),0L))
+      message("Advanced analytics publisher deferred (status ",status,")")
+  },error=function(e)message("Advanced analytics publisher deferred: ",conditionMessage(e)))
 }
