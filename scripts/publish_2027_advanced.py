@@ -313,6 +313,9 @@ def consolidate(cache,roster):
    bucket['teamIds'].add(p['teamId'])
    bucket['verifiedBoxMinutes']+=p['boxMinutes']
    q=positions[pid];q['games']+=1;q['box']+=p['boxMinutes']
+   rp=roster.get(pid) or []
+   if len(rp)>=6 and re.search(r"(\\d+)'\\s*(\\d+)",str(rp[4])) and re.search(r'\\d+',str(rp[5])):
+    q['known']=1.0
    for j,val in enumerate(p['positions']):q['roles'][j]+=val
  for pid,v in onoff.items():
   v['teamIds']=sorted(v['teamIds'])
@@ -323,7 +326,7 @@ def consolidate(cache,roster):
   roles=[round(x,4) for x in q['roles']]
   verified=round(sum(roles),4);full=round(q['box'],4)
   if verified<10 or verified>full+max(2,full*.04):continue
-  bypos[pid]=[roles,verified,full,q['games'],0.5]
+  bypos[pid]=[roles,verified,full,q['games'],q['known']]
  return shots,onoff,bypos,game_shots,game_lineups
 def publish(root=ROOT):
  data=root/'data'
