@@ -7,7 +7,7 @@ The preseason anchor is immutable and separate from daily movements.
 """
 import argparse,json,pathlib,datetime,math
 
-MIN_PRICE,MAX_PRICE=20000,20000000
+MIN_PRICE,MAX_PRICE=5000,20000000
 
 def is_price(n):
  return type(n) is int and MIN_PRICE<=n<=MAX_PRICE
