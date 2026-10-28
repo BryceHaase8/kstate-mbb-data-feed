@@ -74,6 +74,42 @@ class AdvancedPublisherTests(unittest.TestCase):
    self.assertEqual(json.loads((pub/'portal_onoff_2027/manifest.json').read_text())['gamesVerified'],1)
    self.assertEqual(json.loads((pub/'portal_positions_2027/manifest.json').read_text())['playersWithRoleTime'],10)
    self.assertEqual(publish(base)['lineupGames'],1) # immutable day-to-day cache, no duplication
+ def test_one_actor_same_clock_substitution_pairs_from_real_hoopr_schema(self):
+  # Archived hoopR returns player-specific substitution rows with athlete_2
+  # missing. The model must accept paired in/out rows but still audit time.
+  with tempfile.TemporaryDirectory() as root:
+   base,pbp=fixture(root)
+   boxpath=base/'data/advanced_2027_player_box.csv.gz'
+   with gzip.open(boxpath,'rt',newline='') as f:
+    rows=list(csv.DictReader(f));fields=list(rows[0])
+   for r in rows:
+    if r['athlete_id']=='10000':r['minutes']='20'
+   rows.append({**rows[0],'athlete_id':'10005','started':'0','minutes':'20',
+     'fga':'0','fgm':'0','three_pa':'0','three_pm':'0'})
+   with gzip.open(boxpath,'wt',newline='') as f:
+    w=csv.DictWriter(f,fields);w.writeheader();w.writerows(rows)
+   rosterpath=base/'data/roster_2027_advanced.json'
+   doc=json.loads(rosterpath.read_text())
+   doc['players'].append(['10005','Bench athlete','100','G',"6' 2\""])
+   rosterpath.write_text(json.dumps(doc))
+   with gzip.open(pbp,'rt',newline='') as f:
+    events=list(csv.DictReader(f));fields=list(events[0])
+   def sub(period,at,pid,action):
+    return {**events[0],'period_number':str(period),'clock_display_value':at,
+            'type_text':'Substitution','text':'Athlete '+action,
+            'team_id':'100','athlete_id_1':pid,'athlete_id_2':'',
+            'coordinate_x':'','coordinate_y':'','score_value':'0'}
+   events[2:2]=[sub(1,'18:30','10000','subbing out'),sub(1,'18:30','10005','subbing in')]
+   events[-1:-1]=[sub(2,'18:30','10005','subbing out'),sub(2,'18:30','10000','subbing in')]
+   with gzip.open(pbp,'wt',newline='') as f:
+    w=csv.DictWriter(f,fields);w.writeheader();w.writerows(events)
+   result=publish(base)
+   self.assertEqual((result['shotGames'],result['lineupGames']),(1,1),result)
+   on=json.loads((base/'public/portal_onoff_2027/onoff_016.json').read_text())
+   self.assertAlmostEqual(on['players']['10000']['on']['minutes'],20,delta=.02)
+   self.assertAlmostEqual(on['players']['10000']['off']['minutes'],20,delta=.02)
+   bench=json.loads((base/'public/portal_onoff_2027/onoff_021.json').read_text())['players']['10005']
+   self.assertAlmostEqual(bench['on']['minutes'],20,delta=.02)
  def test_ambiguous_substitutions_reject_lineup_not_valid_shots(self):
   with tempfile.TemporaryDirectory() as root:
    base,_=fixture(root,bad_sub=True)
