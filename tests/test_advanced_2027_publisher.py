@@ -36,6 +36,8 @@ def fixture(root, bad_sub=False, bad_shot=False, no_shots=False):
   events.append(ev(1,'17:00','Substitution','Player enters the game for player','100','10001','10002'))
  for i in range(50):
   events.append(ev(1,'16:00','Timeout','Dead ball'))
+ events.append(ev(1,'16:00','Defensive Rebound','Team A secures defensive rebound','100','10001'))
+ events.append(ev(1,'16:00','Steal','Team B records steal','200','20001'))
  events.append(ev(2,'20:00','Period Start','Second half begins'))
  events.append(ev(2,'0:00','Period End','Game complete'))
  p=base/'data/advanced_2027_pbp/games/401900001.csv.gz'
@@ -69,6 +71,8 @@ class AdvancedPublisherTests(unittest.TestCase):
    self.assertEqual(oo['players']['10000']['on']['off']['cornerM'],1)
    self.assertEqual(oo['players']['10000']['on']['def']['rimA'],1)
    self.assertEqual(oo['players']['10000']['on']['def'].get('rimM',0),0)
+   self.assertEqual(oo['players']['10000']['on']['def']['dreb'],1)
+   self.assertEqual(oo['players']['10000']['on']['off']['stl'],1)
    pos=json.loads((pub/'portal_positions_2027/positions_016.json').read_text())['players']['10000']
    self.assertEqual(len(pos),5)
    self.assertEqual(len(pos[0]),5)
