@@ -19,7 +19,7 @@ from season_features import enrich, make_catboost_row
 from cold_start import cold_start_reference, cold_start_relative_update
 MODEL=HERE/'nil_estimation_model_core_shadow.joblib'
 RELEASE='nil-v4-relative-v3-universal-coldstart-v1-2026-10-27'
-FLOOR=20_000
+FLOOR=5_000
 FULL_GAMES=30
 STATS=('pts','reb','ast','stl','blk','tov','pf','oreb','dreb','fga','two_pa','three_pa','fta')
 MAKES=('two_pm','three_pm','ftm')
@@ -333,18 +333,49 @@ def run(players_file,archived_context_file, current_context_file, asof,output, m
      staff_final=json.loads((root/'international_top100_staff_review_20271027.json').read_text())
      previous=before_staff.get('byESPNId') or {}
      reviewed=staff_final.get('byESPNId') or {}
+     after_staff=frozen
+     if composition.get('unrankedSliding2027')==1835:
+      sliding_rollback=json.loads((root/'preseason_2027_before_unranked_sliding_20261027.json').read_text())
+      after_staff=sliding_rollback.get('byESPNId') or {}
      source=staff_final.get('sourceBaselineByESPNId') or {}
      if (composition['internationalStaffReviewed']!=16 or staff_final.get('playerCount')!=16 or
-         len(previous)!=6057 or len(frozen)!=6057 or set(frozen)!=set(previous) or
+         len(previous)!=6057 or len(after_staff)!=6057 or set(after_staff)!=set(previous) or
          len(reviewed)!=16 or set(reviewed)!=set(source) or
          set(reviewed)&set(market_review) or
          any(previous.get(pid)!=value for pid,value in source.items()) or
-         any(frozen.get(pid)!=(reviewed[pid] if pid in reviewed else amount)
+         any(after_staff.get(pid)!=(reviewed[pid] if pid in reviewed else amount)
              for pid,amount in previous.items())):
       raise ValueError('Staff 16 opening review changed unapproved prices or ESPN identities')
      for pid in reviewed:
       anchor_meta[pid]=('INTERNATIONAL_PREVIOUS_COLLEGE_REDSHIRT_STAFF_REVIEWED'
                         if pid=='5312303' else 'INTERNATIONAL_STAFF_REVIEWED_PRESEASON')
+    if composition.get('unrankedSliding2027'):
+     root=pathlib.Path(preseason_anchor_file).parent
+     original=json.loads((root/'preseason_2027_before_unranked_sliding_20261027.json').read_text())
+     overlay=json.loads((root/'unranked_low_major_sliding_2027_priors.json').read_text())
+     prior_prices=original.get('byESPNId') or {}
+     adjusted=overlay.get('byESPNId') or {}
+     previous=overlay.get('previousByESPNId') or {}
+     methods=overlay.get('provenanceByESPNId') or {}
+     ranks=overlay.get('teamRankByESPNId') or {}
+     if (composition['unrankedSliding2027']!=1835 or
+         overlay.get('playerCount')!=1835 or len(adjusted)!=1835 or
+         len(prior_prices)!=6057 or len(frozen)!=6057 or
+         set(frozen)!=set(prior_prices) or
+         not set(adjusted)==set(previous)==set(methods)==set(ranks) or
+         any(prior_prices.get(pid)!=old_price for pid,old_price in previous.items()) or
+         any(frozen.get(pid)!=(adjusted[pid] if pid in adjusted else price)
+             for pid,price in prior_prices.items()) or
+         any(methods[pid] not in ('UNRANKED_SCHOOL_PRIOR_2026','SITE_UNMODELED_PROVISIONAL_50000')
+             or not 1<=ranks[pid]<=365 or
+             adjusted[pid]!=int(round((5000+45000*((365-ranks[pid])/364)**1.35)/100)*100)
+             for pid in adjusted) or
+         any(pid in market_review for pid in adjusted)):
+      raise ValueError('Invalid or unrelated 1835-player unranked sliding release')
+     for pid in adjusted:
+      anchor_meta[pid]=('UNRANKED_HS_TEAM_SLIDING_2027'
+                        if methods[pid]=='UNRANKED_SCHOOL_PRIOR_2026'
+                        else 'ROSTER_UNMODELED_TEAM_SLIDING_2027')
  asset=joblib.load(MODEL);allrows={};stats={'2026_based':0,'rookie_frozen_without_box':0,'older_season_based':0,'current_updated':0,'current_missing_context':0,'roster_without_prior':0,'no_prior_model':0,'current_without_2027':0}
  for athlete,entry in sorted((payload.get('players') or {}).items()):
   if not str(athlete).isdigit():continue
@@ -431,7 +462,7 @@ def run(players_file,archived_context_file, current_context_file, asof,output, m
  # Stock Watch and the Player tab can use the same ESPN-ID reference.
  for pid,amount in frozen.items():
   if pid in allrows:continue
-  if anchor_meta.get(pid) not in ('FRESHMAN_HS','LEGACY_MODEL_PRESEASON_PRESERVED','SITE_UNMODELED_PROVISIONAL_50000','V4_HISTORICAL_AUXILIARY_FROZEN','V4_TEAM_COHORT_PROXY_NO_STATS','INTERNATIONAL_PRO_PRESEASON_REVIEWED','INTERNATIONAL_NONCOLLEGE_RESEARCH_PRIOR','INTERNATIONAL_STAFF_REVIEWED_PRESEASON','INTERNATIONAL_PREVIOUS_COLLEGE_REDSHIRT_STAFF_REVIEWED'):
+  if anchor_meta.get(pid) not in ('FRESHMAN_HS','LEGACY_MODEL_PRESEASON_PRESERVED','SITE_UNMODELED_PROVISIONAL_50000','V4_HISTORICAL_AUXILIARY_FROZEN','V4_TEAM_COHORT_PROXY_NO_STATS','INTERNATIONAL_PRO_PRESEASON_REVIEWED','INTERNATIONAL_NONCOLLEGE_RESEARCH_PRIOR','INTERNATIONAL_STAFF_REVIEWED_PRESEASON','INTERNATIONAL_PREVIOUS_COLLEGE_REDSHIRT_STAFF_REVIEWED','UNRANKED_HS_TEAM_SLIDING_2027','ROSTER_UNMODELED_TEAM_SLIDING_2027'):
    # Non-freshman orphan identities must not be filled with invented games.
    raise ValueError('Frozen V4 ESPN ID absent from the verified factual feed: '+pid)
   allrows[pid]={'value':amount,'preseason':amount,'currentOnly':None,'referenceOnly':None,
