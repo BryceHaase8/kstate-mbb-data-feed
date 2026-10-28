@@ -1,0 +1,36 @@
+name: 2026-27 advanced ESPN shot/onoff/positions release gate
+on:
+  push:
+    branches:
+      - season-2027-advanced-shots-onoff-positions-auto
+  pull_request:
+    branches: [main]
+    paths:
+      - "scripts/publish_2027_advanced.py"
+      - "tests/test_advanced_2027_publisher.py"
+      - "scripts/collect_2027_advanced.R"
+      - "scripts/daily_update.R"
+      - ".github/workflows/daily-update.yml"
+permissions:
+  contents: read
+jobs:
+  preflight:
+    runs-on: ubuntu-latest
+    timeout-minutes: 9
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Check original publisher and new conservative three-feed pipeline
+        run: |
+          python -m py_compile scripts/build_2027_advanced.py scripts/publish_2027_advanced.py
+          python -m unittest discover -s tests -p 'test_build_2027_advanced.py' -v
+          python -m unittest discover -s tests -p 'test_advanced_2027_publisher.py' -v
+      - name: Confirm correct preseason withholding (no fabricated NCAA games)
+        run: |
+          python scripts/publish_2027_advanced.py
+          test ! -f public/portal_shots_2027/manifest.json
+          test ! -f public/portal_onoff_2027/manifest.json
+          test ! -f public/portal_positions_2027/manifest.json
+          echo 'Preseason safety: no invented shot/on-off/role data.'
