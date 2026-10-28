@@ -59,6 +59,48 @@ def zone_for(x,y,three):
   if abs(x)>=21.5 and y<19:return 'Corner 3'
   return 'Deep 3' if d>=27 else 'Above Break 3'
  return 'Rim' if d<5 else 'Short Paint' if d<9 else 'Midrange'
+def court_candidate(x,y,mode):
+ # hoopR's normalized full-game PBP has historically supplied a 94x50
+ # centered lengthwise frame (hoop at |x|~41.75). A separate ESPN
+ # half-court representation uses x=0..50, y in feet toward center.
+ # Never guess: score both conventions against shot distances in ESPN text.
+ if mode=='lengthwise':
+  if not -47.5<=x<=47.5 or not -25.5<=y<=25.5:return None
+  cx=(-y if x<0 else y)
+  cy=47-abs(x)
+ elif mode=='halfcourt':
+  if not 0<=x<=50 or not -1<=y<=42:return None
+  cx=x-25;cy=y+RIM
+ else:return None
+ if not -25<=cx<=25 or not 0<=cy<=47:return None
+ return round(cx,2),round(cy,2)
+def coordinate_frame(events):
+ labelled=[]
+ for ev in events:
+  if kind(ev)!='shot':continue
+  text=str(ev.get('text') or '').lower()
+  m=re.search(r'\b(\d{1,2})\s*[- ]\s*foot\b',text)
+  target=float(m.group(1)) if m else 2.5 if any(z in text for z in ('layup','dunk','tip-in','putback')) else None
+  if target is None:continue
+  x=number(ev.get('coordinate_x'));y=number(ev.get('coordinate_y'))
+  if x is None or y is None:continue
+  labelled.append((x,y,target))
+ if not labelled:return None
+ losses={}
+ for mode in ('lengthwise','halfcourt'):
+  errors=[]
+  for x,y,d in labelled:
+   p=court_candidate(x,y,mode)
+   if p is not None:errors.append(abs(math.hypot(p[0],p[1]-RIM)-d))
+  if len(errors)>=max(1,math.ceil(.8*len(labelled))):
+   errors.sort()
+   losses[mode]=errors[len(errors)//2]
+ if not losses:return None
+ best=min(losses,key=losses.get)
+ if losses[best]>6:return None
+ if len(losses)==2 and losses[best]+2>losses[next(k for k in losses if k!=best)]:
+  return None # coordinate convention unresolved, don't plot fake zones
+ return best
 def load_box(path):
  teams=collections.defaultdict(dict)
  for row in read_csv(path):
@@ -80,6 +122,8 @@ def shot_game(gid,events,box):
  teammates={t:set(pid for pid,r in box.items() if r['team']==t) for t in teams}
  counts=collections.defaultdict(lambda:[0,0,0,0])
  out=collections.defaultdict(list)
+ frame=coordinate_frame(events)
+ if frame is None:return None,'shot_coordinate_frame_unverified'
  for ev in events:
   if kind(ev)!='shot':continue
   team=str(ev.get('team_id') or '')
@@ -87,9 +131,9 @@ def shot_game(gid,events,box):
   if team not in teams or pid not in teammates[team]:return None,'shot_identity'
   made=make_status(ev);three=shot_three(ev)
   rawx=number(ev.get('coordinate_x'));rawy=number(ev.get('coordinate_y'))
-  if rawx is None or rawy is None or not 0<=rawx<=50 or not -1<=rawy<=42:
-   return None,'shot_coordinates_missing_or_changed'
-  x=round(rawx-25,2);y=round(rawy+RIM,2)
+  coord=court_candidate(rawx,rawy,frame) if rawx is not None and rawy is not None else None
+  if coord is None:return None,'shot_coordinates_missing_or_changed'
+  x,y=coord
   made_i=int(made);three_i=int(three)
   counts[pid][0]+=1;counts[pid][1]+=made_i
   counts[pid][2]+=three_i;counts[pid][3]+=made_i*three_i
@@ -285,6 +329,12 @@ def publish(root=ROOT):
    new+=1
   except Exception as e:
    rejected['parse_exception_'+type(e).__name__]+=1
+ # Opening-week fail-closed: no verified ESPN game means no fabricated
+ # "available" feed, manifest, or 128 empty player shards.
+ if not any(cache.glob('*.json')):
+  print(json.dumps({'status':'NO_VERIFIED_2027_ADVANCED_GAMES','newCachedGames':0,
+                    'excluded':dict(rejected)},sort_keys=True))
+  return {'shotGames':0,'lineupGames':0,'rejected':dict(rejected)}
  shots,onoff,positions,ns,nl=consolidate(cache,roster)
  teams=json.loads(roster_path.read_text()).get('teams',{}) if roster_path.exists() else {}
  published=root/'public'
