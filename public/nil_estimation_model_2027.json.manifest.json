@@ -1,7 +1,7 @@
 {
   "release": "nil-v4-relative-v3-universal-coldstart-v1-2026-10-27",
-  "asOf": "2026-10-29",
-  "count": 12720,
+  "asOf": "2026-10-30",
+  "count": 12721,
   "baseCoverage": 0.9982817869415808,
   "stats": {
     "2026_based": 5019,
@@ -14,12 +14,13 @@
     "current_without_2027": 10458
   },
   "sha256": {
-    "factual": "72f44b2bdff36f8d3197a4e5690567a25dbb085c58383a608da32ce35ab78ac2",
+    "factual": "3225923c347009f9918b05dab2c7b8891c894965aaffb9838779444b215f7f3d",
     "historicalTeam": "b15927171d62e48a8f175b96d6461dece650a946027accf856953bde5d44d77c",
-    "currentTeam": "7b2ce422f13a1aea34dcfc6eb45f62d25afdc76d3a7703e9858bb483ff1951fe",
+    "currentTeam": "9a68a19e389bb61161c371262f7b3b505144527366866f269ff4142d616c4971",
     "teamGames": null,
     "model": "9f8072f47687f1bc6f13dc6c11a3c5375a3f817615b554c5d6ee7f07425b1cf3",
-    "frozenPreseason": "b845bf430d62a8f12ca65afa8ea43419d8fd43e9ccb892f3dc90c191058b274f"
+    "frozenPreseason": "b845bf430d62a8f12ca65afa8ea43419d8fd43e9ccb892f3dc90c191058b274f",
+    "lateEntrants": "07aede3deeaedcfcf86eff318296b737cd13b6e2285189b280962f3136169aad"
   },
   "safety": {
     "joins": "ESPN-ID only",
