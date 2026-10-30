@@ -5,7 +5,7 @@ import argparse,datetime,json,math,pathlib,statistics
 def load(path):
  return json.loads(pathlib.Path(path).read_text())
 
-def check(new,old,source,anchor=None,legacy=None,history=None,rookies=None,v4=None,others=None,approved=None,pre_rebase=None,top100=None,pre_top100=None,staff_review=None,pre_staff=None):
+def check(new,old,source,anchor=None,legacy=None,history=None,rookies=None,v4=None,others=None,approved=None,pre_rebase=None,top100=None,pre_top100=None,staff_review=None,pre_staff=None,late_entrants=None):
  n,o,f=load(new),load(old),load(source)
  if n.get('season')!=2027 or n.get('policyVersion')!=3:
   raise ValueError('Unexpected NIL model policy')
@@ -14,6 +14,23 @@ def check(new,old,source,anchor=None,legacy=None,history=None,rookies=None,v4=No
  if int(f.get('latestSeason') or 0)>2027:
   raise ValueError('Invalid ESPN factual season')
  rows=n.get('byESPNId') or {};older=o.get('byESPNId') or {}
+ if late_entrants:
+  register=load(late_entrants)
+  if register.get('schemaVersion')!=1 or register.get('season')!=2027 or register.get('policy')!='LATE_ADDITION_STAFF_APPROVED_OPENING_BASELINE_V1':
+   raise ValueError('Invalid late-entrant approval register')
+  original=(load(anchor).get('byESPNId') or {}) if anchor else {}
+  for pid,entry in (register.get('byESPNId') or {}).items():
+   value=entry.get('value');date=entry.get('effectiveDate')
+   if not str(pid).isdigit() or pid in original or type(value) is not int or not 20_000<=value<=20_000_000 or not isinstance(date,str):
+    raise ValueError('Invalid or duplicated late NIL baseline ID '+str(pid))
+   if date<=n.get('generatedAt','')[:10]:
+    actual=rows.get(pid)
+    if (not actual or actual.get('preseason')!=value
+        or actual.get('anchorType')!='LATE_ENTRANT_BASELINE_2027'):
+     raise ValueError('Missing or changed late-entrant opening baseline '+str(pid))
+    prev=older.get(pid)
+    if prev and prev.get('preseason') is not None and prev.get('preseason')!=value:
+     raise ValueError('Previously published late-entrant baseline changed for '+str(pid))
  common=set(rows)&set(older)
  if len(common)<min(2700,int(.90*len(older))) or len(rows)<int(.90*len(older)):
   raise ValueError('Major ESPN athlete identity loss')
@@ -166,6 +183,6 @@ def check(new,old,source,anchor=None,legacy=None,history=None,rookies=None,v4=No
 if __name__=='__main__':
  p=argparse.ArgumentParser()
  for arg in ('new','old','source'):p.add_argument('--'+arg,required=True)
- for arg in ('anchor','legacy','history','rookies','v4','others','approved','pre-rebase','top100','pre-top100','staff-review','pre-staff'):p.add_argument('--'+arg)
+ for arg in ('anchor','legacy','history','rookies','v4','others','approved','pre-rebase','top100','pre-top100','staff-review','pre-staff','late-entrants'):p.add_argument('--'+arg)
  a=p.parse_args()
- check(a.new,a.old,a.source,a.anchor,a.legacy,a.history,a.rookies,a.v4,a.others,a.approved,a.pre_rebase,a.top100,a.pre_top100,a.staff_review,a.pre_staff)
+ check(a.new,a.old,a.source,a.anchor,a.legacy,a.history,a.rookies,a.v4,a.others,a.approved,a.pre_rebase,a.top100,a.pre_top100,a.staff_review,a.pre_staff,a.late_entrants)

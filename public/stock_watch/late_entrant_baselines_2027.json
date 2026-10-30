@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "season": 2027,
+  "policy": "LATE_ADDITION_STAFF_APPROVED_OPENING_BASELINE_V1",
+  "description": "Newly identified ESPN-roster athletes and court-eligibility entrants receive a dated opening NIL prior without revising the immutable 2026-10-27 preseason baseline. Entry persists and is used for relative in-season updates after factual playing time.",
+  "byESPNId": {
+    "5468197": {
+      "playerName": "Channing Francis",
+      "teamId": "2099",
+      "teamName": "Canisius Golden Griffins",
+      "position": "G",
+      "classYear": "JR",
+      "height": "6-2",
+      "weightLbs": 175,
+      "eligibilityYearsEstimate": 2,
+      "value": 25000,
+      "effectiveDate": "2026-10-30",
+      "source": "https://gogriffs.com/sports/mens-basketball/roster/2026-27",
+      "basis": "Low-major junior guard newly added to ESPN roster; no verified prior NCAA Division I performance; conservative baseline vs Canisius cohort; this is a model estimate not reported compensation",
+      "eligibilityStatus": "ROSTER_LISTED_NOT_INDEPENDENTLY_LEGALLY_VERIFIED",
+      "approvedBy": "Staff decision in project chat"
+    }
+  }
+}

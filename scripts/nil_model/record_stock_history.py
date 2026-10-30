@@ -30,6 +30,20 @@ def record(candidate,root,asof=None):
  for id,v in entries.items():
   if not str(id).isdigit() or not is_price(v.get('value')):raise ValueError('Invalid ID/price')
   if id in anchored and v.get('preseason')!=anchored[id]:raise ValueError('Immutable preseason price changed for '+id)
+ # Late entrants have their own irreversible dated opening reference.
+ # Do not rewrite the October 27 cohort or backfill days before inclusion.
+ late_path=root/'late_entrant_baselines_2027.json'
+ if late_path.exists():
+  late=load(late_path)
+  if late.get('schemaVersion')!=1 or late.get('season')!=2027 or late.get('policy')!='LATE_ADDITION_STAFF_APPROVED_OPENING_BASELINE_V1':
+   raise ValueError('Invalid late NIL baseline register')
+  day=str(payload.get('generatedAt',''))[:10]
+  for pid,base in (late.get('byESPNId') or {}).items():
+   amount=base.get('value');effective=base.get('effectiveDate')
+   if pid in anchored or not str(pid).isdigit() or not is_price(amount) or not isinstance(effective,str):
+    raise ValueError('Invalid or duplicate later-opening ESPN identity '+str(pid))
+   if effective<=day and (pid not in entries or entries[pid].get('preseason')!=amount or entries[pid].get('anchorType')!='LATE_ENTRANT_BASELINE_2027'):
+    raise ValueError('Late-entrant prior absent or altered '+str(pid))
  manifest_path=root/'manifest_2027.json';manifest=load(manifest_path)
  if manifest.get('schemaVersion')!=1 or manifest.get('season')!=2027:raise ValueError('Invalid history manifest')
  day=asof or str(payload.get('generatedAt',''))[:10]

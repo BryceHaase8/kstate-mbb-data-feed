@@ -16,6 +16,7 @@ on:
     branches: [main]
     paths:
       - "scripts/**"
+      - "public/stock_watch/late_entrant_baselines_2027.json"
       - ".github/workflows/daily-update.yml"
 
 permissions:
