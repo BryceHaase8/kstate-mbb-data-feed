@@ -1,0 +1,125 @@
+{
+  "schemaVersion": 1,
+  "season": 2027,
+  "stage": "APPROVED_NOT_PUBLISHED_YET",
+  "asOf": "2026-10-29",
+  "priceType": "open-market estimate, not confirmed compensation",
+  "count": 11,
+  "byESPNId": {
+    "5457336": 1250000,
+    "5458220": 700000,
+    "5462455": 225000,
+    "5462456": 400000,
+    "5462457": 300000,
+    "5462458": 175000,
+    "5462459": 275000,
+    "5462460": 250000,
+    "5462461": 400000,
+    "5462462": 210000,
+    "5462463": 600000
+  },
+  "sourceBaselineByESPNId": {
+    "5457336": 67600,
+    "5458220": 50000,
+    "5462455": 33100,
+    "5462456": 33100,
+    "5462457": 33100,
+    "5462458": 33100,
+    "5462459": 33100,
+    "5462460": 33100,
+    "5462461": 50000,
+    "5462462": 33100,
+    "5462463": 33100
+  },
+  "reviewedRows": [
+    {
+      "espnId": "5457336",
+      "name": "Nolan Adekunle",
+      "team": "Virginia",
+      "previous": 67600,
+      "approved": 1250000,
+      "evidence": "https://virginiasports.com/sports/mbball/roster/player/nolan-adekunle"
+    },
+    {
+      "espnId": "5458220",
+      "name": "Guillaume Grotzinger",
+      "team": "Loyola Chicago",
+      "previous": 50000,
+      "approved": 700000,
+      "evidence": "https://loyolaramblers.com/news/2026/4/16/2026-27-mens-basketball-roster-additions.aspx"
+    },
+    {
+      "espnId": "5462463",
+      "name": "Kaan Onat",
+      "team": "UT Martin",
+      "previous": 33100,
+      "approved": 600000,
+      "evidence": "https://utmsports.com/news/2026/10/29/mens-basketball-talented-ut-martin-mens-hoops-squad-ready-to-take-flight-in-2026-27"
+    },
+    {
+      "espnId": "5462456",
+      "name": "Sasha Savkov",
+      "team": "UT Martin",
+      "previous": 33100,
+      "approved": 400000,
+      "evidence": "https://utmsports.com/news/2026/5/5/mens-basketball-skyhawk-mens-hoops-inks-sasha-savkov-for-2026-27-campaign"
+    },
+    {
+      "espnId": "5462461",
+      "name": "Giorgi Sulaberidze",
+      "team": "UT Martin",
+      "previous": 50000,
+      "approved": 400000,
+      "evidence": "https://utmsports.com/news/2026/10/29/mens-basketball-talented-ut-martin-mens-hoops-squad-ready-to-take-flight-in-2026-27"
+    },
+    {
+      "espnId": "5462457",
+      "name": "Nikas Stuknys",
+      "team": "UT Martin",
+      "previous": 33100,
+      "approved": 300000,
+      "evidence": "https://utmsports.com/news/2026/10/29/mens-basketball-talented-ut-martin-mens-hoops-squad-ready-to-take-flight-in-2026-27"
+    },
+    {
+      "espnId": "5462459",
+      "name": "Nikola Janicic",
+      "team": "UT Martin",
+      "previous": 33100,
+      "approved": 275000,
+      "evidence": "https://utmsports.com/news/2026/10/29/mens-basketball-talented-ut-martin-mens-hoops-squad-ready-to-take-flight-in-2026-27"
+    },
+    {
+      "espnId": "5462460",
+      "name": "Gabrielius Bubnys",
+      "team": "UT Martin",
+      "previous": 33100,
+      "approved": 250000,
+      "evidence": "https://utmsports.com/news/2026/10/29/mens-basketball-talented-ut-martin-mens-hoops-squad-ready-to-take-flight-in-2026-27"
+    },
+    {
+      "espnId": "5462455",
+      "name": "Armandas Bancevicius",
+      "team": "UT Martin",
+      "previous": 33100,
+      "approved": 225000,
+      "evidence": "https://utmsports.com/news/2026/10/29/mens-basketball-talented-ut-martin-mens-hoops-squad-ready-to-take-flight-in-2026-27"
+    },
+    {
+      "espnId": "5462462",
+      "name": "Arminas Vilkas",
+      "team": "UT Martin",
+      "previous": 33100,
+      "approved": 210000,
+      "evidence": "https://utmsports.com/news/2026/10/29/mens-basketball-talented-ut-martin-mens-hoops-squad-ready-to-take-flight-in-2026-27"
+    },
+    {
+      "espnId": "5462458",
+      "name": "Ousseynou Sambe",
+      "team": "UT Martin",
+      "previous": 33100,
+      "approved": 175000,
+      "evidence": "https://utmsports.com/news/2026/10/29/mens-basketball-talented-ut-martin-mens-hoops-squad-ready-to-take-flight-in-2026-27"
+    }
+  ],
+  "notice": "Research/pricing approval record only. Does not mutate immutable public preseason baseline, current model or Stock Watch until coordinated rollout."
+}
