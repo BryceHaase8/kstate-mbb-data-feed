@@ -359,7 +359,7 @@ def run(players_file,archived_context_file, current_context_file, asof,output, m
    effective=row.get('effectiveDate') if isinstance(row,dict) else ''
    if (not str(pid).isdigit() or pid in frozen or type(value) is not int
        or not FLOOR<=value<=20_000_000 or not isinstance(effective,str)
-       or not re.fullmatch(r'\\d{4}-\\d{2}-\\d{2}',effective)
+       or not re.fullmatch(r'\d{4}-\d{2}-\d{2}',effective)
        or not str(row.get('playerName') or '').strip()
        or not str(row.get('teamId') or '').isdigit()):
     raise ValueError('Invalid, duplicate, or unmapped late entrant ESPN ID: '+str(pid))
