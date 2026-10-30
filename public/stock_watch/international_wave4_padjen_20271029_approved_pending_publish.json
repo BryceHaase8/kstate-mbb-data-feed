@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "season": 2027,
+  "asOf": "2026-10-29",
+  "stage": "APPROVED_NOT_PUBLISHED_YET",
+  "priceType": "open-market estimate; not verified NIL compensation",
+  "count": 1,
+  "byESPNId": {
+    "5460756": 1500000
+  },
+  "sourceBaselineByESPNId": {
+    "5460756": 50900
+  },
+  "reviewedRows": [
+    {
+      "espnId": "5460756",
+      "name": "Mark Padjen",
+      "team": "Murray State Racers",
+      "previous": 50900,
+      "approved": 1500000,
+      "reviewBasis": "Slovenian 6-foot-6 guard with senior Adriatic League and international-national-team experience; user approved the $1.5M estimate in chat."
+    }
+  ],
+  "relatedPriorApprovals": [
+    "public/stock_watch/international_wave2_20271029_approved_pending_publish.json",
+    "public/stock_watch/international_wave3_20271029_approved_pending_publish.json"
+  ],
+  "notes": "Approval record only. Site overlay requires V7.74.24 deployment; raw GitHub preseason baseline and scheduled publisher remain unchanged until coordinated, validated migration. No fictitious Stock Watch gain."
+}
