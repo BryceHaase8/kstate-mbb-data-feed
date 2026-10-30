@@ -1,0 +1,85 @@
+{
+  "schemaVersion": 1,
+  "season": 2027,
+  "asOf": "2026-10-29",
+  "stage": "APPROVED_NOT_PUBLISHED_YET",
+  "priceType": "open-market estimate; not verified NIL payment",
+  "count": 5,
+  "byESPNId": {
+    "5458758": 550000,
+    "5460119": 950000,
+    "5460758": 1350000,
+    "5460803": 350000,
+    "5461568": 300000
+  },
+  "sourceBaselineByESPNId": {
+    "5458758": 59500,
+    "5460119": 50000,
+    "5460758": 50900,
+    "5460803": 51600,
+    "5461568": 47800
+  },
+  "reviewedRows": [
+    {
+      "espnId": "5460758",
+      "name": "Pavle Nikolic",
+      "team": "Murray State",
+      "previous": 50900,
+      "approved": 1350000,
+      "evidenceTier": "SENIOR_ADRIATIC_ABA_PLUS_FIBA_U20",
+      "evidence": "https://goracers.com/news/2026/5/28/mens-basketball-racer-mens-basketball-inks-pavle-nikolic"
+    },
+    {
+      "espnId": "5460119",
+      "name": "Georgi Gerganov",
+      "team": "Bradley",
+      "previous": 50000,
+      "approved": 950000,
+      "evidenceTier": "SENIOR_BULGARIA_NBL_SCORING_CHAMPION",
+      "evidence": "https://bradleybraves.com/sports/mens-basketball/roster/georgi-gerganov/13970"
+    },
+    {
+      "espnId": "5460803",
+      "name": "Roger Fabrega Urpina",
+      "team": "Fresno State",
+      "previous": 51600,
+      "approved": 350000,
+      "evidenceTier": "SENIOR_SPAIN_SEGUNDA_FEB_THIRD_TIER",
+      "evidence": "https://gobulldogs.com/news/2026/6/3/mens-basketball-bulldogs-sign-spanish-point-guard-roger-fabrega-urpina"
+    },
+    {
+      "espnId": "5461568",
+      "name": "Felipe Minzer",
+      "team": "Austin Peay",
+      "previous": 47800,
+      "approved": 300000,
+      "evidenceTier": "FIBA_U17_U19_PLUS_US_PREP",
+      "evidence": "https://letsgopeay.com/sports/mens-basketball/roster/felipe-minzer/11952"
+    },
+    {
+      "espnId": "5458758",
+      "name": "Lukas Bojovic",
+      "team": "Wake Forest",
+      "previous": 59500,
+      "approved": 550000,
+      "evidenceTier": "PARTIZAN_U19_AND_FIBA_U18_CHAMPION",
+      "evidence": "https://godeacs.com/sports/mens-basketball/roster/lukas-bojovic/9529"
+    }
+  ],
+  "excludedFromReview": [
+    {
+      "name": "Jake Holmes",
+      "espnId": "5458703"
+    },
+    {
+      "name": "Maidy Douglas",
+      "espnId": "5461312"
+    },
+    {
+      "name": "Dorian Glogovac",
+      "espnId": "5317846"
+    }
+  ],
+  "relatedPriorApproval": "public/stock_watch/international_wave2_20271029_approved_pending_publish.json",
+  "note": "Approval record only. Site-level pending release; frozen baseline, source publisher and Stock Watch history must be migrated together with integrity tests, not by individual direct price updates."
+}
