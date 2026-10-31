@@ -109,7 +109,8 @@ def main():
    out=tmp/(stage+'_model.json')
    write(source_file,src);write(team_file,team)
    run(str(source_file),str(ROOT/'scripts/nil_model/source_data/torvik_team_context.json'),
-       str(team_file),day,str(out),.50,None,str(public/'stock_watch/preseason_2027.json'))
+       str(team_file),day,str(out),.50,None,str(public/'stock_watch/preseason_2027.json'),
+       str(public/'stock_watch/late_entrant_baselines_2027.json'))
    predicted=read(out)['byESPNId']
    # Even when verified college games have begun, every OTHER player among
    # the locked 6057 must remain at the preseason baseline until THEY play.
