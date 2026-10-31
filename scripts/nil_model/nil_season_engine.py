@@ -194,7 +194,7 @@ def verified_context(x,year,asof):
  if len(out)<300:raise ValueError('Insufficient ESPN-team identity coverage')
  return out
 
-def run(players_file,archived_context_file, current_context_file, asof,output, min_coverage=0.5, team_games_file=None, preseason_anchor_file=None, late_entrants_file=None):
+def run(players_file,archived_context_file, current_context_file, asof,output, min_coverage=0.5, team_games_file=None, preseason_anchor_file=None, late_entrants_file=None, opening_corrections_file=None):
  # When publishable source is from the future, fail instead of constructing
  # fake historical checkpoints from full-season aggregates.
  asof=datetime.date.fromisoformat(asof).isoformat()
@@ -366,6 +366,31 @@ def run(players_file,archived_context_file, current_context_file, asof,output, m
    if effective<=asof:
     frozen[pid]=value
     anchor_meta[pid]='LATE_ENTRANT_BASELINE_2027'
+ # Reviewed opening reappraisals are effective Bayesian priors, NOT edits
+ # to the historically frozen 2026-10-27 cohort. Verify exact ID and old price.
+ if opening_corrections_file:
+  approved_opening=json.loads(pathlib.Path(opening_corrections_file).read_text())
+  reviewed=approved_opening.get('byESPNId') or {}
+  if (approved_opening.get('schemaVersion')!=1 or approved_opening.get('season')!=2027 or
+      approved_opening.get('policy')!='STAFF_APPROVED_OPENING_PRICE_CORRECTIONS_V1' or
+      not isinstance(reviewed,dict)):
+   raise ValueError('Invalid reviewed opening price register')
+  for pid,review in reviewed.items():
+   prior_amount=review.get('sourceBaseline') if isinstance(review,dict) else None
+   amount=review.get('value') if isinstance(review,dict) else None
+   effective=review.get('effectiveDate') if isinstance(review,dict) else None
+   if (not str(pid).isdigit() or not isinstance(review,dict) or
+       type(prior_amount) is not int or type(amount) is not int or
+       not FLOOR<=prior_amount<=20_000_000 or not FLOOR<=amount<=20_000_000 or
+       frozen.get(pid)!=prior_amount or
+       not isinstance(effective,str) or not re.fullmatch(r'\d{4}-\d{2}-\d{2}',effective) or
+       not str(review.get('playerName') or '').strip() or
+       not str(review.get('teamId') or '').isdigit() or
+       review.get('reviewType')!='INTERNATIONAL_PRO_PRESEASON_STAFF_REVIEWED'):
+    raise ValueError('Unverified reviewed opening NIL correction '+str(pid))
+   if effective<=asof:
+    frozen[pid]=amount
+    anchor_meta[pid]='INTERNATIONAL_PRO_PRESEASON_STAFF_REVIEWED'
  asset=joblib.load(MODEL);allrows={};stats={'2026_based':0,'rookie_frozen_without_box':0,'older_season_based':0,'current_updated':0,'current_missing_context':0,'roster_without_prior':0,'no_prior_model':0,'current_without_2027':0}
  for athlete,entry in sorted((payload.get('players') or {}).items()):
   if not str(athlete).isdigit():continue
@@ -452,7 +477,7 @@ def run(players_file,archived_context_file, current_context_file, asof,output, m
  # Stock Watch and the Player tab can use the same ESPN-ID reference.
  for pid,amount in frozen.items():
   if pid in allrows:continue
-  if anchor_meta.get(pid) not in ('FRESHMAN_HS','LEGACY_MODEL_PRESEASON_PRESERVED','SITE_UNMODELED_PROVISIONAL_50000','V4_HISTORICAL_AUXILIARY_FROZEN','V4_TEAM_COHORT_PROXY_NO_STATS','INTERNATIONAL_PRO_PRESEASON_REVIEWED','INTERNATIONAL_NONCOLLEGE_RESEARCH_PRIOR','INTERNATIONAL_STAFF_REVIEWED_PRESEASON','INTERNATIONAL_PREVIOUS_COLLEGE_REDSHIRT_STAFF_REVIEWED','LATE_ENTRANT_BASELINE_2027'):
+  if anchor_meta.get(pid) not in ('FRESHMAN_HS','LEGACY_MODEL_PRESEASON_PRESERVED','SITE_UNMODELED_PROVISIONAL_50000','V4_HISTORICAL_AUXILIARY_FROZEN','V4_TEAM_COHORT_PROXY_NO_STATS','INTERNATIONAL_PRO_PRESEASON_REVIEWED','INTERNATIONAL_NONCOLLEGE_RESEARCH_PRIOR','INTERNATIONAL_STAFF_REVIEWED_PRESEASON','INTERNATIONAL_PREVIOUS_COLLEGE_REDSHIRT_STAFF_REVIEWED','LATE_ENTRANT_BASELINE_2027','INTERNATIONAL_PRO_PRESEASON_STAFF_REVIEWED'):
    # Non-freshman orphan identities must not be filled with invented games.
    raise ValueError('Frozen V4 ESPN ID absent from the verified factual feed: '+pid)
   allrows[pid]={'value':amount,'preseason':amount,'currentOnly':None,'referenceOnly':None,
@@ -472,11 +497,11 @@ def run(players_file,archived_context_file, current_context_file, asof,output, m
  dest.write_text(json.dumps(out,separators=(',',':'))+'\n')
  def sha(path):return hashlib.sha256(pathlib.Path(path).read_bytes()).hexdigest() if path else None
  manifest={'release':RELEASE,'asOf':asof,'count':len(allrows),'baseCoverage':coverage,'stats':stats,
-  'sha256':{'factual':sha(players_file),'historicalTeam':sha(archived_context_file),'currentTeam':sha(current_context_file),'teamGames':sha(team_games_file),'model':sha(MODEL),'frozenPreseason':sha(preseason_anchor_file),'lateEntrants':sha(late_entrants_file)},
+  'sha256':{'factual':sha(players_file),'historicalTeam':sha(archived_context_file),'currentTeam':sha(current_context_file),'teamGames':sha(team_games_file),'model':sha(MODEL),'frozenPreseason':sha(preseason_anchor_file),'lateEntrants':sha(late_entrants_file),'openingCorrections':sha(opening_corrections_file)},
   'safety':{'joins':'ESPN-ID only','liveStatsAsOfChecked':True,'currentTeamSeasonMatch':bool(current_context_file),'marketGroundTruthVerified':False,'liveSiteWrites':False}}
  (dest.parent/(dest.name+'.manifest.json')).write_text(json.dumps(manifest,indent=2)+'\n')
  return manifest
 
 if __name__=='__main__':
- ap=argparse.ArgumentParser();ap.add_argument('--factual',required=True);ap.add_argument('--archived-teams',required=True);ap.add_argument('--current-teams');ap.add_argument('--preseason-anchor');ap.add_argument('--as-of',required=True);ap.add_argument('--output',required=True);ap.add_argument('--team-games');ap.add_argument('--late-entrants');ap.add_argument('--min-coverage',type=float,default=.5)
- a=ap.parse_args();print(json.dumps(run(a.factual,a.archived_teams,a.current_teams,a.as_of,a.output,a.min_coverage,a.team_games,a.preseason_anchor,a.late_entrants),indent=2))
+ ap=argparse.ArgumentParser();ap.add_argument('--factual',required=True);ap.add_argument('--archived-teams',required=True);ap.add_argument('--current-teams');ap.add_argument('--preseason-anchor');ap.add_argument('--as-of',required=True);ap.add_argument('--output',required=True);ap.add_argument('--team-games');ap.add_argument('--late-entrants');ap.add_argument('--opening-corrections');ap.add_argument('--min-coverage',type=float,default=.5)
+ a=ap.parse_args();print(json.dumps(run(a.factual,a.archived_teams,a.current_teams,a.as_of,a.output,a.min_coverage,a.team_games,a.preseason_anchor,a.late_entrants,a.opening_corrections),indent=2))
