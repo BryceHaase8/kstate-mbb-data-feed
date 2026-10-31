@@ -43,9 +43,14 @@ jobs:
           overlay=get('public/stock_watch/international_top100_staff_review_20271027.json')['byESPNId']
           anchors=get('public/stock_watch/international_pro_2027_market_priors.json')['byESPNId']
           orig=get('public/stock_watch/international_top100_noncollege_2027_priors.json')['byESPNId']
+          corrections=get('public/stock_watch/opening_price_corrections_2027.json')['byESPNId']
+          assert set(corrections)=={'5455519'} and after['5455519']==155000
+          assert corrections['5455519']['sourceBaseline']==155000 and corrections['5455519']['value']==2500000
+          effective={**after,**{k:v['value'] for k,v in corrections.items()}}
           assert len(after)==6057 and len(overlay)==16 and len(p)>=12720
           assert set(k for k in after if before[k]!=after[k])==set(overlay)
-          assert all(p[k]['value']==p[k]['preseason']==v for k,v in after.items())
+          assert all(p[k]['value']==p[k]['preseason']==v for k,v in effective.items())
+          assert p['5455519']['anchorType']=='INTERNATIONAL_PRO_PRESEASON_STAFF_REVIEWED'
           assert all(p[k]['status']=='PRESEASON_BASELINE' and p[k]['weight']==0 for k in overlay)
           assert all(p[k]['anchorType']==('INTERNATIONAL_PREVIOUS_COLLEGE_REDSHIRT_STAFF_REVIEWED' if k=='5312303' else 'INTERNATIONAL_STAFF_REVIEWED_PRESEASON') for k in overlay)
           assert all(p[k]['value']==v for k,v in anchors.items())
