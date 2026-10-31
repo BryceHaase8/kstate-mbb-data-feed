@@ -56,6 +56,11 @@ def main():
  public=ROOT/'public'
  factual=read(public/'portal_factual_data.json')
  frozen=read(public/'stock_watch/preseason_2027.json')['byESPNId']
+ original_juan=frozen['5455519']
+ reviews=read(public/'stock_watch/opening_price_corrections_2027.json')['byESPNId']
+ assert original_juan==155000 and reviews['5455519']['sourceBaseline']==original_juan
+ frozen={**frozen,**{pid:entry['value'] for pid,entry in reviews.items()}}
+ assert frozen['5455519']==2500000
  roster=read(ROOT/'data/roster_2027_advanced.json')['players']
  roster_map={str(row[0]):(str(row[2]),str(row[3] or 'G')) for row in roster}
  teamctx_path=pathlib.Path(sys.argv[1])
@@ -110,7 +115,8 @@ def main():
    write(source_file,src);write(team_file,team)
    run(str(source_file),str(ROOT/'scripts/nil_model/source_data/torvik_team_context.json'),
        str(team_file),day,str(out),.50,None,str(public/'stock_watch/preseason_2027.json'),
-       str(public/'stock_watch/late_entrant_baselines_2027.json'))
+       str(public/'stock_watch/late_entrant_baselines_2027.json'),
+       str(public/'stock_watch/opening_price_corrections_2027.json'))
    predicted=read(out)['byESPNId']
    # Even when verified college games have begun, every OTHER player among
    # the locked 6057 must remain at the preseason baseline until THEY play.
