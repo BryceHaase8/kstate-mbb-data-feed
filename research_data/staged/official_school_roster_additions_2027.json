@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "rosterSeason": 2027,
+  "asOf": "2026-10-31",
+  "status": "SCHOOL_VERIFIED_ESPN_PENDING",
+  "purpose": "2026–27 official-school roster exceptions, no fabricated ESPN IDs and no automatic NIL or Stock Watch writes",
+  "supersession": "When ESPN's 2026–27 roster identifies the same verified school+player and ESPN athlete ID, the actual ESPN record replaces the temporary display identity.",
+  "players": [
+    {
+      "key": "ku_2027_council",
+      "name": "Melvin Council Jr.",
+      "team": "Kansas Jayhawks",
+      "teamId": "2305",
+      "jersey": "14",
+      "position": "G",
+      "height": "6-4",
+      "weight": "180 lbs",
+      "class2027": "Sr",
+      "espnAthleteId": null,
+      "eligibility2027_28Estimate": 0,
+      "source": "https://kuathletics.com/sports/mens-basketball/roster/melvin-council-jr/16516"
+    },
+    {
+      "key": "ku_2027_white",
+      "name": "Tre White",
+      "team": "Kansas Jayhawks",
+      "teamId": "2305",
+      "jersey": "3",
+      "position": "G",
+      "height": "6-7",
+      "weight": "215 lbs",
+      "class2027": "Sr",
+      "espnAthleteId": null,
+      "eligibility2027_28Estimate": 0,
+      "source": "https://kuathletics.com/sports/mens-basketball/roster/tre-white/16514"
+    }
+  ]
+}
