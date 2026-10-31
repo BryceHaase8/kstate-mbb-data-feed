@@ -5,6 +5,7 @@ ROOT="$(cd "$HERE/../.." && pwd)"
 cd "$ROOT"
 : "${NIL_MODEL_KEY:?NIL_MODEL_KEY must be configured as a repository Actions secret}"
 python "$HERE/test_safety.py"
+python "$HERE/test_opening_review.py"
 python "$HERE/decrypt_model.py"
 trap 'rm -f "$HERE/nil_estimation_model_core_shadow.joblib"' EXIT
 mkdir -p "$RUNNER_TEMP/nil_candidate"
