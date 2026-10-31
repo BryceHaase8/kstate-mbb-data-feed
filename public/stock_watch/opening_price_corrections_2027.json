@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "season": 2027,
+  "policy": "STAFF_APPROVED_OPENING_PRICE_CORRECTIONS_V1",
+  "description": "Explicit ESPN-ID-based opening NIL price reappraisals. Original 2026-10-27 frozen cohort and archived snapshots stay immutable; effective reviewed price becomes the model's Bayesian prior and is not treated as a performance-driven Stock Watch move.",
+  "byESPNId": {
+    "5455519": {
+      "playerName": "Juan Fernandez",
+      "teamId": "2579",
+      "teamName": "South Carolina Gamecocks",
+      "sourceBaseline": 155000,
+      "value": 2500000,
+      "effectiveDate": "2026-10-31",
+      "reviewType": "INTERNATIONAL_PRO_PRESEASON_STAFF_REVIEWED",
+      "approval": "User approved $2.5M in project conversation, 2026-10-31",
+      "basis": "Former Spanish Liga ACB professional and Argentina senior national-team player; correcting inappropriate domestic high-school freshman price classification; valuation is an estimate, not reported contract pay"
+    }
+  }
+}
