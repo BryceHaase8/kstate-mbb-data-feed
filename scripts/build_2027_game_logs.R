@@ -65,5 +65,17 @@ if(as.integer(active_season)==2027L){
     jsonlite::write_json(item,file.path(path,sprintf("games_%03d.json",s)),
            auto_unbox=TRUE,na="null",null="null",digits=NA)
  }
+ # A small independent manifest lets the site verify TOTAL season coverage,
+ # rather than incorrectly treating one possibly-empty shard as publication.
+ # It is written only AFTER all 128 validated per-athlete shards succeed.
+ manifest<-list(schemaVersion=1L,season=2027L,modulo=128L,shards=128L,
+    gamesVerified=as.integer(n_distinct(x$game_id)),
+    playersWithGames=as.integer(n_distinct(x$athlete_id)),
+    playerGameRows=as.integer(nrow(x)),
+    latestGameDate=as.character(max(as.Date(x$game_date))),
+    generatedAt=format(Sys.time(),"%Y-%m-%dT%H:%M:%SZ",tz="UTC"),
+    source="Verified ESPN D-I played player boxes; ESPN athlete ID shards")
+ jsonlite::write_json(manifest,file.path(path,"manifest.json"),
+                      auto_unbox=TRUE,na="null",null="null")
  message("ESPN 2027 game log shards staged for ",length(unique(x$athlete_id))," athletes")
 }

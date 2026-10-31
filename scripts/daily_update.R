@@ -525,7 +525,17 @@ cat("Player-season rows:", nrow(combined), "\n")
 # V7.34: refresh verified 2026-27 individual game records only when ESPN
 # supplies real box scores. Historical 2020-26 shards stay immutable.
 if (active_season == 2027L) {
-  source(file.path("scripts", "build_2027_game_logs.R"))
+  # Verified player-season boxes are the authoritative publishable feed.
+  # A missing ESPN game-log field or too-small first-game shard must not
+  # roll back otherwise validated factual data. Log shards are optional,
+  # never fabricated, and published only after their own checks pass.
+  tryCatch(
+    source(file.path("scripts", "build_2027_game_logs.R")),
+    error=function(e)message(
+      "Game-log shards deferred; factual ESPN data will continue to QA: ",
+      conditionMessage(e)
+    )
+  )
   # The advanced PBP collector is separate from official ESPN season totals.
   # Missing ESPN shot/substitution data NEVER blocks valid box-score updates.
   tryCatch(
