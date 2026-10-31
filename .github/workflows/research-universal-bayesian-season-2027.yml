@@ -40,10 +40,15 @@ jobs:
           m=json.loads((root/'public/stock_watch/manifest_2027.json').read_text())
           a=n['byESPNId']
           assert len(old['byESPNId'])==6057 and len(a)>=12000
-          assert all(a[k]['preseason']==a[k]['value']==v for k,v in old['byESPNId'].items())
-          assert all(a[k]['status']=='PRESEASON_BASELINE' and a[k]['weight']==0 for k in old['byESPNId'])
+          approved=json.loads((root/'public/stock_watch/opening_price_corrections_2027.json').read_text())['byESPNId']
+          assert set(approved)=={'5455519'} and old['byESPNId']['5455519']==155000
+          assert approved['5455519']['sourceBaseline']==155000 and approved['5455519']['value']==2500000
+          effective={**old['byESPNId'],**{k:v['value'] for k,v in approved.items()}}
+          assert all(a[k]['preseason']==a[k]['value']==v for k,v in effective.items())
+          assert all(a[k]['status']=='PRESEASON_BASELINE' and a[k]['weight']==0 for k in effective)
+          assert a['5455519']['anchorType']=='INTERNATIONAL_PRO_PRESEASON_STAFF_REVIEWED'
           assert not m['dates'] and not m['months']
-          print('PASS static frozen preseason NIL remains exactly unchanged')
+          print('PASS: 6057 original anchors unchanged; Juan approved $2.5m prior; no Stock Watch history')
           PY
       - name: Real encrypted model, synthetic 1/10/30-game season scenarios
         run: |
