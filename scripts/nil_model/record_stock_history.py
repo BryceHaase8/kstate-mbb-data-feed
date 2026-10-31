@@ -26,10 +26,34 @@ def record(candidate,root,asof=None):
  baseline_path=root/'preseason_2027.json';anchor=load(baseline_path)
  if anchor.get('schemaVersion')!=1 or anchor.get('season')!=2027 or len(anchor.get('byESPNId',{}))<1000:raise ValueError('Missing immutable preseason anchor')
  anchored=anchor['byESPNId']
+ # An exact-ID staff-reviewed opening correction changes the EFFECTIVE prior
+ # without rewriting the immutable original 2026-10-27 price reference.
+ reviewed={}
+ review_path=root/'opening_price_corrections_2027.json'
+ if review_path.exists():
+  review_doc=load(review_path)
+  if (review_doc.get('schemaVersion')!=1 or review_doc.get('season')!=2027 or
+      review_doc.get('policy')!='STAFF_APPROVED_OPENING_PRICE_CORRECTIONS_V1'):
+   raise ValueError('Invalid reviewed opening NIL correction register')
+  day=str(payload.get('generatedAt',''))[:10]
+  for pid,review in (review_doc.get('byESPNId') or {}).items():
+   original=review.get('sourceBaseline');value=review.get('value');effective=review.get('effectiveDate')
+   if (not str(pid).isdigit() or pid not in anchored or
+       type(original) is not int or anchored[pid]!=original or
+       not is_price(value) or not isinstance(effective,str) or
+       review.get('reviewType')!='INTERNATIONAL_PRO_PRESEASON_STAFF_REVIEWED'):
+    raise ValueError('Unverified opening NIL review '+str(pid))
+   if effective<=day:
+    reviewed[pid]=value
  if len(set(anchored)&set(entries))<min(1000,int(len(anchored)*.8)):raise ValueError('Severe identity coverage loss')
  for id,v in entries.items():
   if not str(id).isdigit() or not is_price(v.get('value')):raise ValueError('Invalid ID/price')
-  if id in anchored and v.get('preseason')!=anchored[id]:raise ValueError('Immutable preseason price changed for '+id)
+  if id in anchored and v.get('preseason')!=reviewed.get(id,anchored[id]):
+   raise ValueError('Immutable effective preseason prior changed for '+id)
+  if id in reviewed and v.get('anchorType')!='INTERNATIONAL_PRO_PRESEASON_STAFF_REVIEWED':
+   raise ValueError('Reviewed opening NIL identity misclassified '+id)
+ for pid in reviewed:
+  if pid not in entries:raise ValueError('Reviewed opening NIL identity absent from model '+pid)
  # Late entrants have their own irreversible dated opening reference.
  # Do not rewrite the October 27 cohort or backfill days before inclusion.
  late_path=root/'late_entrant_baselines_2027.json'
