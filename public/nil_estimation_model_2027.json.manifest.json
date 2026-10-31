@@ -5,7 +5,7 @@
   "baseCoverage": 0.9982817869415808,
   "stats": {
     "2026_based": 5019,
-    "rookie_frozen_without_box": 1384,
+    "rookie_frozen_without_box": 1383,
     "older_season_based": 5439,
     "current_updated": 0,
     "current_missing_context": 0,
@@ -14,13 +14,14 @@
     "current_without_2027": 10458
   },
   "sha256": {
-    "factual": "3762c4f017fe461c33b4202c1e9d36389118cc159874718fb1cb67fc012ff106",
+    "factual": "202f6ae4094a45b9d7674120ab758ceac10f7ed450558757c465dd8ebed9dd84",
     "historicalTeam": "b15927171d62e48a8f175b96d6461dece650a946027accf856953bde5d44d77c",
     "currentTeam": "feb62040f481824cb250b6a7cba376524bb54d634d45a6f90d6620606c0fc8e1",
     "teamGames": null,
     "model": "9f8072f47687f1bc6f13dc6c11a3c5375a3f817615b554c5d6ee7f07425b1cf3",
     "frozenPreseason": "b845bf430d62a8f12ca65afa8ea43419d8fd43e9ccb892f3dc90c191058b274f",
-    "lateEntrants": "07aede3deeaedcfcf86eff318296b737cd13b6e2285189b280962f3136169aad"
+    "lateEntrants": "07aede3deeaedcfcf86eff318296b737cd13b6e2285189b280962f3136169aad",
+    "openingCorrections": "e7c3755da9ef45633b0a213b17fdfb42b523d5b7580df1b82320603e9c4d0100"
   },
   "safety": {
     "joins": "ESPN-ID only",
