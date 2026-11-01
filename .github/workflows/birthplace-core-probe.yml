@@ -15,7 +15,7 @@ jobs:
         run: |
           python3 - <<'PY'
           import json,urllib.request
-          for athlete in ('5175954','5467070','5311523'):
+          for athlete in ('5183975','5326293'):
               url='https://sports.core.api.espn.com/v2/sports/basketball/leagues/mens-college-basketball/athletes/'+athlete
               req=urllib.request.Request(url,headers={'User-Agent':'Mozilla/5.0','Accept':'application/json'})
               try:
