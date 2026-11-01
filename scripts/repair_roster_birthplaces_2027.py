@@ -133,6 +133,7 @@ def collect(limit=0):
             if i % 100 == 0:
                 print("ESPN country lookup", i, "/", len(to_query),
                       "verified", successful, "unresolved", len(failures), flush=True)
+    register["unresolvedByESPNId"] = failures
     register["verifiedAt"] = datetime.datetime.now(datetime.timezone.utc).isoformat()
     assert "5311523" in verified and verified["5311523"]["display"] == "Marseille, France", (
         "Kamardine official ESPN birthplace check failed")
@@ -199,6 +200,7 @@ def patch():
     remaining = sum(bool(get_city(r[7])) for r in primary_now)
     report = {"season": 2027, "source": "ESPN official core athlete IDs",
               "confirmedBirthplaces": len(verified), "correctedPlayers": len(changes),
+              "unresolvedESPNIds": registry.get("unresolvedByESPNId", {}),
               "remainingNa": remaining, "changedFiles": touched,
               "siteFilesModified": False, "nilValuesModified": False}
     write(QA, report)
