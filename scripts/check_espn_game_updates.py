@@ -22,7 +22,7 @@ API = "https://api.github.com"
 CHICAGO = ZoneInfo("America/Chicago")
 GAME_LOG_DIR = Path("public/portal_game_logs_2027")
 COOLDOWN_MINUTES = 45
-SUMMARY_LIMIT = 12
+SUMMARY_LIMIT = 6
 FIELDS = ("pts", "reb", "ast", "fgm", "fga", "threePm", "threePa", "ftm", "fta")
 
 
@@ -81,7 +81,10 @@ def final_games(today, fetch=get_json):
     """Return official D-I final events over a rolling 3-calendar-day window."""
     games = {}
     for days_back in (2, 1, 0):
-        day = (today - dt.timedelta(days=days_back)).strftime("%Y%m%d")
+        candidate_date = today - dt.timedelta(days=days_back)
+        if candidate_date < dt.date(2026, 11, 1):
+            continue
+        day = candidate_date.strftime("%Y%m%d")
         url = ESPN + "/scoreboard?" + urllib.parse.urlencode({
             "dates": day, "groups": "50", "limit": "500"
         })
@@ -90,6 +93,11 @@ def final_games(today, fetch=get_json):
             raise ValueError("ESPN scoreboard unavailable for " + day)
         for event in payload["events"]:
             game_id = str(event.get("id") or "")
+            season = event.get("season") or {}
+            if season.get("year") not in (None, 2027):
+                continue
+            if season.get("type") not in (None, 2, 3):
+                continue
             if not game_id.isdigit():
                 continue
             status = event.get("status") or {}
