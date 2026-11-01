@@ -1,0 +1,65 @@
+name: Fix ESPN international birthplaces in staged roster
+on:
+  push:
+    branches: [staging-seven-year-history-2027-roster-identity]
+    paths:
+      - ".github/workflows/fix-2027-international-birthplaces.yml"
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: 2027-staged-roster-birthplace-enrichment
+  cancel-in-progress: false
+jobs:
+  enrich:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: staging-seven-year-history-2027-roster-identity
+          persist-credentials: true
+      - name: Test birthplace-only patch without ESPN calls
+        run: python3 -m unittest discover -s tests -p 'test_2027_birthplace_repair.py' -v
+      - name: Resolve missing birth countries from official ESPN athlete IDs
+        run: python3 scripts/repair_roster_birthplaces_2027.py --fetch --apply
+      - name: Verify corrected international examples and stable IDs
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          root=Path('research_data/staged')
+          p=json.loads((root/'roster_2027_fast_ready.json').read_text())
+          z=json.loads((root/'roster_2027_zero_fast_ready.json').read_text())
+          qa=json.loads(Path('research_qa/roster_integration/espn_birthplace_repair_2027.json').read_text())
+          rows={str(r[0]):r for r in p['players']}
+          assert len(rows)==len(p['players'])==5542
+          assert rows['5311523'][7]=='Marseille, France'
+          assert rows['5174955'][7]=='Kaunas, Lithuania'
+          assert rows['5311896'][7]=='Munich, Germany'
+          assert qa['correctedPlayers']>=500 and qa['remainingNa']<450,qa
+          for r in z['players']:
+              assert rows[str(r[0])]==r
+          print('Validated birthplace-only adjustments',qa)
+          PY
+      - name: Publish corrected roster files only
+        run: |
+          set -euo pipefail
+          git add research_data/staged/roster_2027_fast_ready.json
+          git add research_data/staged/roster_2027_zero_fast_ready.json
+          git add research_data/staged/roster_2027_site_compact.json
+          git add research_data/staged/roster_2027_site_compact_ready.json
+          git add research_data/staged/roster_2027_zero_fallback.json
+          git add research_data/staged/roster_2027_zero_fallback_ready.json
+          git add research_data/staged/current_roster_2027_candidate.json
+          git add research_data/staged/espn_verified_birthplaces_2027.json
+          git add research_qa/roster_integration/espn_birthplace_repair_2027.json
+          if git diff --cached --quiet; then
+            echo 'Already up to date'
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'Correct ESPN-verified international birthplaces by athlete ID'
+          git pull --rebase origin staging-seven-year-history-2027-roster-identity
+          git push origin HEAD:staging-seven-year-history-2027-roster-identity
