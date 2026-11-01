@@ -66,3 +66,7 @@ head={"schemaVersion":3,"rosterSeason":2027,"totalTeams":len(teams),"eligibility
 (root/"roster_2027_zero_fallback_ready.json").write_text((root/"roster_2027_zero_fallback.json").read_text())
 
 print(json.dumps({"roster":len(all_players),"zero":len(zero),"impact":len(entries),"compressedRosterBytes":(root/"roster_2027_site_compact.json").stat().st_size,"zeroBytes":(root/"roster_2027_zero_fallback.json").stat().st_size,"impactBytes":(root/"impact_v3_2026_site.json").stat().st_size}))
+
+# Reapply the immutable ESPN-ID country register after future roster rebuilds.
+# This adjusts ONLY birthPlace, preserving every eligibility/position/NIL input.
+subprocess.run(["python3","scripts/repair_roster_birthplaces_2027.py","--apply"],check=True)
