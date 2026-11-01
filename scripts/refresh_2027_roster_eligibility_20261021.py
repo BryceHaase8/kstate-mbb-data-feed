@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Research-only: build 2027 ESPN roster + eligibility browser assets, ID-first."""
-import argparse,csv,gzip,json,collections,datetime
+import argparse,csv,gzip,json,collections,datetime,subprocess
 from pathlib import Path
 R=Path("research_data/staged");QA=Path("research_qa/roster_integration");QA.mkdir(parents=True,exist_ok=True)
 parser=argparse.ArgumentParser();parser.add_argument("--pre",action="store_true");parser.add_argument("--final",action="store_true")
@@ -97,3 +97,6 @@ qa["nationalZeroBasis"]={b:sum(1 for p in people if p["eligibilityEstimate"]==0 
 qa["eligibilityCaveat"]="ESPN class and first DI box year are provisional. Eligibility clock starts at earlier of first full-time enrollment or year after 19th birthday. Prior JUCO/international years are not observed in DI game stats. Player-specific staff verification overrides."
 (QA/"roster_2027_refreshed_class_estimates_qa.json").write_text(json.dumps(qa,indent=2))
 print(json.dumps(qa))
+
+# Preserve official ESPN birthplace countries across future roster restages.
+subprocess.run(["python3","scripts/repair_roster_birthplaces_2027.py","--apply"],check=True)
