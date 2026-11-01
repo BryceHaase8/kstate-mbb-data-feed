@@ -9,7 +9,7 @@ from pathlib import Path
 def norm(s):
     s = unicodedata.normalize("NFKD",str(s or ""))
     s = "".join(c for c in s if not unicodedata.combining(c)).casefold()
-    s = re.sub(r"\\b(ii|iii|iv|v|jr|sr)\\b", "", s)
+    s = re.sub(r"\b(ii|iii|iv|v|jr|sr)\b", "", s)
     return re.sub(r"[^a-z0-9]+", " ", s).strip()
 
 roster = json.loads(Path("research_data/staged/roster_2027_fast_ready.json").read_text())["players"]
