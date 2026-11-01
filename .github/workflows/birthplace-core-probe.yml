@@ -1,0 +1,25 @@
+name: ESPN core birthplace source probe
+on:
+  push:
+    branches: [staging-seven-year-history-2027-roster-identity]
+    paths: ['.github/workflows/birthplace-core-probe.yml']
+permissions:
+  contents: read
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Fetch official ESPN athlete birthplace fields
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import json,urllib.request
+          for athlete in ('5311523','5174955','5311896'):
+              url='https://sports.core.api.espn.com/v2/sports/basketball/leagues/mens-college-basketball/athletes/'+athlete
+              req=urllib.request.Request(url,headers={'User-Agent':'Mozilla/5.0','Accept':'application/json'})
+              try:
+                  with urllib.request.urlopen(req,timeout=20) as r: payload=json.load(r)
+                  print(athlete, json.dumps({'id':payload.get('id'),'birthPlace':payload.get('birthPlace'),'birthCountry':payload.get('birthCountry')},ensure_ascii=False))
+              except Exception as e: print(athlete,'FAILED',str(e));raise
+          PY
