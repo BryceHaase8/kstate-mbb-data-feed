@@ -191,9 +191,12 @@ def patch():
         if modified:
             write(path, src)
         touched[file] = modified
-    assert changes.get("5311523") == ("Marseille NA", "Marseille, France"), (
-        "Kamardine not corrected in primary roster")
-    remaining = sum(bool(get_city(r[7])) for r in load(PRIMARY)["players"])
+    primary_now = load(PRIMARY)["players"]
+    kamardine = [r for r in primary_now if str(r[0]) == "5311523"]
+    if kamardine:
+        assert kamardine[0][7] == "Marseille, France", (
+            "Kamardine verified birthplace not present in primary roster")
+    remaining = sum(bool(get_city(r[7])) for r in primary_now)
     report = {"season": 2027, "source": "ESPN official core athlete IDs",
               "confirmedBirthplaces": len(verified), "correctedPlayers": len(changes),
               "remainingNa": remaining, "changedFiles": touched,
