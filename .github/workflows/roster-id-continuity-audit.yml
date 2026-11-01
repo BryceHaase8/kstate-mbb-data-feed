@@ -1,0 +1,15 @@
+name: Read-only 2027 ESPN identity continuity audit
+on:
+  push:
+    branches: [staging-seven-year-history-2027-roster-identity]
+    paths: ['.github/workflows/roster-id-continuity-audit.yml','scripts/audit_roster_id_drift_2027.py']
+permissions:
+  contents: read
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Compare every ESPN 2026 stat identity to 2027 current roster
+        run: python3 scripts/audit_roster_id_drift_2027.py
