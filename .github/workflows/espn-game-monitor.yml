@@ -1,0 +1,50 @@
+name: Monitor ESPN final games (lightweight)
+on:
+  workflow_dispatch:
+    inputs:
+      dispatch:
+        description: "Trigger full refresh if verified changes are found (default dry run)"
+        required: false
+        type: boolean
+        default: false
+  schedule:
+    # Check every 15 minutes during likely game/postgame hours (Central).
+    - cron: "*/15 11-23 * 11,12,1,2,3,4 *"
+      timezone: "America/Chicago"
+    - cron: "*/15 0-2 * 11,12,1,2,3,4 *"
+      timezone: "America/Chicago"
+  pull_request:
+    paths:
+      - "scripts/check_espn_game_updates.py"
+      - "tests/test_game_change_monitor.py"
+      - ".github/workflows/espn-game-monitor.yml"
+      - ".github/workflows/daily-update.yml"
+
+permissions:
+  contents: read
+  actions: write
+
+concurrency:
+  group: espn-lightweight-game-monitor
+  cancel-in-progress: false
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Offline safety regression checks
+        run: python3 -m unittest discover -s tests -p 'test_game_change_monitor.py' -v
+      - name: Check newly verified ESPN games and corrections
+        if: ${{ github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          if [[ "${{ github.event_name }}" == "schedule" || "${{ inputs.dispatch }}" == "true" ]]; then
+            python3 scripts/check_espn_game_updates.py --dispatch
+          else
+            python3 scripts/check_espn_game_updates.py
+          fi

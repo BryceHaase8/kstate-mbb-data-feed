@@ -23,7 +23,8 @@ permissions:
   contents: write
 concurrency:
   group: basketball-factual-feed
-  cancel-in-progress: true
+# Do not interrupt an in-flight validated ESPN/NIL publish when a new game arrives.
+  cancel-in-progress: false
 
 jobs:
   update:
