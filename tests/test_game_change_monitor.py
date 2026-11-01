@@ -31,6 +31,23 @@ class GameMonitorTests(unittest.TestCase):
         games = mod.final_games(dt.date(2026, 11, 4), fetch=scoreboard)
         self.assertEqual(games, {"401999001": (77, 80)})
 
+    def test_early_november_ignores_prior_season_dates(self):
+        urls = []
+        def fetch(url):
+            urls.append(url)
+            return {"events": []}
+        mod.final_games(dt.date(2026, 11, 1), fetch=fetch)
+        self.assertEqual(len(urls), 1)
+        self.assertIn("20261101", urls[0])
+
+    def test_other_season_final_does_not_trigger(self):
+        def fetch(url):
+            return {"events": [{"id": "401999003",
+              "season": {"year": 2026, "type": 2},
+              "status": {"type": {"completed": True}},
+              "competitions": [{"competitors": [{"score": 80}, {"score": 79}]}]}]}
+        self.assertEqual(mod.final_games(dt.date(2026, 11, 1), fetch=fetch), {})
+
     def test_new_final_game_triggers(self):
         missing, changed = mod.compare_finals({"401999001": (77, 80)}, {}, slot=0)
         self.assertEqual(missing, ["401999001"])
