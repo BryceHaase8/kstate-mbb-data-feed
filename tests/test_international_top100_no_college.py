@@ -33,7 +33,10 @@ class Top100InternationalNoCollegeTests(unittest.TestCase):
   self.assertEqual(after["byESPNId"]["5458320"],before["byESPNId"]["5458320"])
  def test_stock_watch_not_inflated(self):
   m=load("public/stock_watch/manifest_2027.json")
-  assert not m["dates"] and not m["months"] and m["baselinePlayerCount"]==6057
+  assert m["baselinePlayerCount"]==6057
+  assert m["dates"]==sorted(set(m["dates"]))
+  assert all(day>m["baselineAsOf"] for day in m["dates"])
+  assert m["months"]==sorted(set(day[:7] for day in m["dates"]))
   assert m["top100NoncollegeResearch"]["count"]==22
  def test_no_unverified_international_premium(self):
   q=load("research_qa/international_top100_no_college_review_2027.json")

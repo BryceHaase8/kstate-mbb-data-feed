@@ -1,0 +1,27 @@
+name: 2027 ESPN box coverage regression
+on:
+  pull_request:
+    paths:
+      - "scripts/daily_update.R"
+      - "scripts/season_2027_box_fallback.R"
+      - "tests/test_2027_box_fallback.R"
+      - ".github/workflows/espn-box-2027-qa.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  offline-regression:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: r-lib/actions/setup-r@v2
+      - uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          extra-packages: |
+            any::dplyr
+            any::readr
+            any::tibble
+            any::jsonlite
+      - name: Test final-game collection and partial bulk merging
+        run: Rscript tests/test_2027_box_fallback.R

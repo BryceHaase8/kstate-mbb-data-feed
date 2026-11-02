@@ -46,6 +46,10 @@ class RookiePreseasonChecks(unittest.TestCase):
   self.assertEqual(manifest['baselineAsOf'],anchor['asOf'])
   self.assertEqual(final['byESPNId'],{**calibrated['byESPNId'],**next22['byESPNId'],**load('international_top100_staff_review_20271027.json')['byESPNId']})
   self.assertEqual(manifest['baselineVersion'],final['baselineVersion'])
-  self.assertFalse(manifest['dates'])
-  self.assertFalse(manifest['months'])
+  # The frozen preseason anchor stays intact after opening night; dated
+  # Stock Watch snapshots are now expected and must be chronological.
+  dates=manifest['dates'];months=manifest['months']
+  self.assertEqual(dates,sorted(set(dates)))
+  self.assertTrue(all(day > manifest['baselineAsOf'] for day in dates))
+  self.assertEqual(months,sorted(set(day[:7] for day in dates)))
 if __name__=='__main__':unittest.main()

@@ -46,8 +46,9 @@ class InternationalStaffReviewTests(unittest.TestCase):
   manifest=load("public/stock_watch/manifest_2027.json")
   self.assertEqual(manifest["baselineVersion"],a["baselineVersion"])
   self.assertEqual(manifest["baselinePlayerCount"],6057)
-  self.assertFalse(manifest["dates"])
-  self.assertFalse(manifest["months"])
+  self.assertEqual(manifest["dates"],sorted(set(manifest["dates"])))
+  self.assertTrue(all(day>manifest["baselineAsOf"] for day in manifest["dates"]))
+  self.assertEqual(manifest["months"],sorted(set(day[:7] for day in manifest["dates"])))
   self.assertEqual(manifest["staffInternationalReview"]["count"],16)
 
 if __name__=="__main__":unittest.main()
