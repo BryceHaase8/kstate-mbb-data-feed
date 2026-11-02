@@ -2,13 +2,13 @@ name: Probe 2027 ESPN final boxes (read-only)
 on:
   push:
     branches: [fix-2027-live-box-ingestion-2026-11-02]
-    paths: [".github/workflows/probe-2027-final-box.yml"]
+    paths: [".github/workflows/probe-2027-final-box.yml", "scripts/daily_update.R", "scripts/season_2027_box_fallback.R", ".github/workflows/daily-update.yml"]
 permissions:
   contents: read
 jobs:
   probe:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 40
     steps:
       - name: Inspect actual ESPN November 1 games
         run: |
@@ -38,6 +38,9 @@ jobs:
             any::jsonlite
             any::dplyr
             any::readr
+            any::purrr
+            any::stringr
+            any::tibble
       - name: Verify direct hoopR 2027 box and Division-I membership
         run: |
           Rscript - <<'RS'
@@ -51,3 +54,24 @@ jobs:
           cat("D1 CONFERENCE GROUPS:",nrow(children),"\n")
           stopifnot(nrow(children)>15)
           RS
+      - name: Build 2027 full factual stats from per-game ESPN boxes
+        env:
+          TARGET_SEASON: "2027"
+        run: Rscript scripts/daily_update.R
+      - name: Validate historical immutability and published season counts
+        run: python3 scripts/validate_factual_feed.py
+      - name: Verify Notre Dame and Villanova season statistics and game logs
+        run: |
+          python3 - <<'PY'
+          import json
+          q=json.load(open("public/portal_factual_qa.json"))
+          assert q["currentDataSeason"]==2027,q
+          assert q["seasonPlayerCounts"].get("2027",0)>=20,q
+          d=json.load(open("public/portal_factual_data.json"))
+          for pid in ("5312256","4895776"):
+              p=d["players"].get(pid)
+              assert p and any(s["season"]==2027 and s["gp"]>=1 for s in p["seasons"]),(pid,p)
+          m=json.load(open("public/portal_game_logs_2027/manifest.json"))
+          assert m["season"]==2027 and m["gamesVerified"]>=2 and m["playerGameRows"]>=20,m
+          print("2027 SEASON RELEASE QA PASS",q["seasonPlayerCounts"],m)
+          PY
