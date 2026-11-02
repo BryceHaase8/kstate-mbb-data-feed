@@ -80,16 +80,27 @@ def main():
  veteran_id,old_vet=returning[0]
  ids=rookies+[veteran_id]
  exposures={}
+ # Isolate simulations from real first-game records and date snapshots.
+ synthetic_base=copy.deepcopy(factual)
+ for entry in synthetic_base['players'].values():
+  prior=[r for r in entry.get('seasons',[]) if int(r.get('season') or 0)<2027]
+  entry['seasons']=prior
+  entry['latest']=max(prior,key=lambda r:int(r.get('season') or 0)) if prior else None
+ original_public_history=read(public/'stock_watch/manifest_2027.json')
  with tempfile.TemporaryDirectory(prefix='synthetic_nil_2027_') as td:
   tmp=pathlib.Path(td)
   stock=tmp/'stock_watch'
   shutil.copytree(public/'stock_watch',stock)
+  # Fresh simulated timeline in the TEMP copy; real history is untouched.
+  temp_manifest=read(stock/'manifest_2027.json')
+  temp_manifest.update(dates=[],months=[],latestDate=None,lastSourceGeneratedAt=None)
+  write(stock/'manifest_2027.json',temp_manifest)
   assert not read(stock/'manifest_2027.json')['dates']
   for stage,day,gp,mpg in [
    ('game1','2026-11-10',1,30),
    ('game10','2026-12-10',10,30),
    ('game30','2027-03-05',30,30)]:
-   src=copy.deepcopy(factual)
+   src=copy.deepcopy(synthetic_base)
    src['latestSeason']=2027
    src['generatedAt']=day+'T12:00:00Z'
    for i,pid in enumerate(ids):
@@ -150,7 +161,7 @@ def main():
    else:
     assert weights[2]>.70,(pid,weights)
   assert len(read(stock/'manifest_2027.json')['dates'])==3
-  assert not read(public/'stock_watch/manifest_2027.json')['dates']
+  assert read(public/'stock_watch/manifest_2027.json')==original_public_history
  print(json.dumps({'status':'PASS','playersSimulated':ids,
                    'groups':['high-market international','NBL professional','youth U21',
                              'prior college redshirt','HS freshman','returning D-I'],
