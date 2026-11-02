@@ -37,6 +37,13 @@ calls <- character()
 b <- season_2027_box_fallback(off(list(event(g1,70,65),event(g2,70,65))),
                                get_box,now="2026-11-02",cache_file=cache)
 stopifnot(nrow(b)==40,length(unique(b$game_id))==2L,identical(calls,g2))
+# If ESPN corrects individual boxes but not the score, force that game to reload.
+Sys.setenv(ESPN_FORCE_GAME_IDS=g2)
+calls <- character()
+forced <- season_2027_box_fallback(off(list(event(g1,70,65),event(g2,70,65))),
+  get_box,now="2026-11-02",cache_file=cache)
+stopifnot(nrow(forced)==40,identical(calls,g2))
+Sys.unsetenv("ESPN_FORCE_GAME_IDS")
 calls <- character()
 c <- season_2027_box_fallback(off(list(event(g1,71,65),event(g2,70,65))),
    function(id) {calls <<- c(calls,id);make_box(id,if(id==g1)71 else 70)},
@@ -57,5 +64,14 @@ stopifnot(is.character(merged$game_date),is.character(merged$athlete_jersey))
 stopifnot(nrow(merged)==60,length(unique(merged$game_id))==3L,
   all(merged$team_score[merged$game_id==g1 & merged$team_id=="87"]==71),
   sum(merged$game_id==g1)==20,sum(merged$game_id==g2)==20)
+# An unresolved game outside the 21-day scan remains eligible to retry.
+audit_file <- file.path(dir,"coverage.json")
+writeLines('{"unresolvedByDate":{"2026-11-01":["401920004"]}}',audit_file)
+days <- character()
+season_2027_box_fallback(function(day) {
+  days <<- c(days,day)
+  list(events=list(event(g1,71,65),event(g2,70,65)))
+},get_box,now="2026-12-10",cache_file=cache,audit_file=audit_file)
+stopifnot("20261101" %in% days)
 unlink(dir,recursive=TRUE)
 cat("PASS: verified ESPN games supplement partial hoopR, cache is preserved, corrections rechecked\n")

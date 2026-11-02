@@ -1,0 +1,27 @@
+name: Verified 2027 ESPN coverage and recovery checks
+on:
+  pull_request:
+    paths:
+      - "scripts/audit_2027_coverage.py"
+      - "scripts/check_espn_game_updates.py"
+      - "scripts/season_2027_box_fallback.R"
+      - "tests/test_coverage_audit_2027.py"
+      - "tests/test_game_change_monitor.py"
+      - ".github/workflows/daily-update.yml"
+      - ".github/workflows/espn-game-monitor.yml"
+      - ".github/workflows/coverage-audit-2027-qa.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  offline-coverage:
+    runs-on: ubuntu-latest
+    timeout-minutes: 7
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate source syntax
+        run: python3 -m py_compile scripts/audit_2027_coverage.py scripts/check_espn_game_updates.py
+      - name: Test scoreboard coverage, stale scheduler, 182 games and retries
+        run: |
+          python3 -m unittest discover -s tests -p 'test_game_change_monitor.py' -v
+          python3 -m unittest discover -s tests -p 'test_coverage_audit_2027.py' -v
