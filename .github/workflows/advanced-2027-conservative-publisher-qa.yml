@@ -27,10 +27,21 @@ jobs:
           python -m py_compile scripts/build_2027_advanced.py scripts/publish_2027_advanced.py
           python -m unittest discover -s tests -p 'test_build_2027_advanced.py' -v
           python -m unittest discover -s tests -p 'test_advanced_2027_publisher.py' -v
-      - name: Confirm correct preseason withholding (no fabricated NCAA games)
+      - name: Verify postseason/early-season conservative advanced publication
         run: |
           python scripts/publish_2027_advanced.py
-          test ! -f public/portal_shots_2027/manifest.json
-          test ! -f public/portal_onoff_2027/manifest.json
-          test ! -f public/portal_positions_2027/manifest.json
-          echo 'Preseason safety: no invented shot/on-off/role data.'
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          files=[Path(f'public/portal_{k}_2027/manifest.json') for k in ('shots','onoff','positions')]
+          exists=[p.is_file() for p in files]
+          assert len(set(exists))==1,'Partial advanced publication'
+          if not exists[0]:
+              print('Preseason: no invented shot/on-off/role data')
+          else:
+              docs=[json.loads(p.read_text()) for p in files]
+              assert all(d['season']==2027 and d['schemaVersion']==1 for d in docs)
+              assert all(0<=d['gamesVerified']<=d['gamesInSource'] for d in docs)
+              assert docs[0]['gamesVerified']>=docs[1]['gamesVerified']==docs[2]['gamesVerified']
+              print('In-season: verified advanced data and missing-game exclusions')
+          PY
