@@ -15,8 +15,7 @@ season_2027_box_fallback <- function() {
     stop("2027 ESPN fallback outside season dates")
   discovered <- list()
   scoreboard_errors <- character()
-  for(day in seq(first,today,by="day")) {
-    key <- format(day,"%Y%m%d")
+  for(key in format(seq(first,today,by="day"),"%Y%m%d")) {
     url <- paste0("https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/scoreboard?dates=",key,"&groups=50&limit=500")
     doc <- tryCatch(jsonlite::fromJSON(url,simplifyVector=FALSE),
       error=function(e) {message("ESPN 2027 scoreboard deferred ",key,": ",conditionMessage(e)); NULL})
