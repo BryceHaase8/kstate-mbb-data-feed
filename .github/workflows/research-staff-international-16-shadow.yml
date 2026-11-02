@@ -49,13 +49,21 @@ jobs:
           effective={**after,**{k:v['value'] for k,v in corrections.items()}}
           assert len(after)==6057 and len(overlay)==16 and len(p)>=12720
           assert set(k for k in after if before[k]!=after[k])==set(overlay)
-          assert all(p[k]['value']==p[k]['preseason']==v for k,v in effective.items())
+          # Frozen preseason anchors remain immutable, even after real games
+          # legitimately change the current valuation and create Stock Watch.
+          assert all(p[k]['preseason']==v for k,v in effective.items())
           assert p['5455519']['anchorType']=='INTERNATIONAL_PRO_PRESEASON_STAFF_REVIEWED'
-          assert all(p[k]['status']=='PRESEASON_BASELINE' and p[k]['weight']==0 for k in overlay)
           assert all(p[k]['anchorType']==('INTERNATIONAL_PREVIOUS_COLLEGE_REDSHIRT_STAFF_REVIEWED' if k=='5312303' else 'INTERNATIONAL_STAFF_REVIEWED_PRESEASON') for k in overlay)
-          assert all(p[k]['value']==v for k,v in anchors.items())
-          assert all(p[k]['value']==v for k,v in orig.items() if k not in overlay)
+          assert all(p[k]['preseason']==v for k,v in anchors.items())
+          assert all(p[k]['preseason']==v for k,v in orig.items() if k not in overlay)
+          assert all(p[k]['value']==p[k]['preseason'] and p[k]['status']=='PRESEASON_BASELINE' and p[k]['weight']==0
+                     for k in effective if not p[k].get('games'))
           sw=get('public/stock_watch/manifest_2027.json')
-          assert not sw['dates'] and not sw['months']
-          print('PASS 16 staff-revised, previous 12+22 preserved if unedited, 6057 frozen, no stock movement')
+          factual=get('public/portal_factual_qa.json')
+          if factual['currentDataSeason']==2026:
+              assert not sw['dates'] and not sw['months']
+          else:
+              assert factual['currentDataSeason']==2027
+              assert sw['dates'] and all('2026-11-01'<=d<='2027-05-31' for d in sw['dates'])
+          print('PASS: 16 staff priors and 6057 frozen anchors protected; legitimate in-season changes permitted')
           PY

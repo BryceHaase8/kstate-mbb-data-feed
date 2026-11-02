@@ -44,23 +44,29 @@ jobs:
           assert set(approved)=={'5455519'} and old['byESPNId']['5455519']==155000
           assert approved['5455519']['sourceBaseline']==155000 and approved['5455519']['value']==2500000
           effective={**old['byESPNId'],**{k:v['value'] for k,v in approved.items()}}
-          assert all(a[k]['preseason']==a[k]['value']==v for k,v in effective.items())
-          assert all(a[k]['status']=='PRESEASON_BASELINE' and a[k]['weight']==0 for k in effective)
+          mismatch=[(k,v,a[k].get('preseason'),a[k].get('games'),a[k].get('status'))
+                    for k,v in effective.items() if a[k]['preseason']!=v]
+          if mismatch: print('FROZEN_ANCHOR_MISMATCHES',len(mismatch),mismatch[:15],flush=True)
+          assert not mismatch,'Frozen opening prices were changed by 2027 updater'
+          assert all(a[k]['status']=='PRESEASON_BASELINE' and a[k]['weight']==0 and a[k]['value']==v
+                     for k,v in effective.items() if not a[k].get('games'))
           assert a['5455519']['anchorType']=='INTERNATIONAL_PRO_PRESEASON_STAFF_REVIEWED'
-          assert not m['dates'] and not m['months']
-          print('PASS: 6057 original anchors unchanged; Juan approved $2.5m prior; no Stock Watch history')
+          factual=json.loads((root/'public/portal_factual_qa.json').read_text())
+          if factual['currentDataSeason']==2026:
+              assert not m['dates'] and not m['months']
+          else:
+              assert factual['currentDataSeason']==2027
+              assert m['dates'] and all('2026-11-01'<=d<='2027-05-31' for d in m['dates'])
+          print('PASS: 6057 frozen original anchors unchanged; real-game NIL updates and Stock Watch valid')
           PY
+          sha256sum public/stock_watch/manifest_2027.json > "$RUNNER_TEMP/nil-stock-manifest.sha"
       - name: Real encrypted model, synthetic 1/10/30-game season scenarios
         run: |
           set -euo pipefail
           trap 'rm -f scripts/nil_model/nil_estimation_model_core_shadow.joblib' EXIT
           python scripts/nil_model/decrypt_model.py
           python scripts/nil_model/qa_universal_synthetic_2027.py "$RUNNER_TEMP/nil_candidate/team_2027.json"
-      - name: Confirm no artificial Stock Watch history was created
+      - name: Confirm synthetic runs do not modify real Stock Watch history
         run: |
-          python - <<'PY'
-          import json,pathlib
-          m=json.loads(pathlib.Path('public/stock_watch/manifest_2027.json').read_text())
-          assert not m['dates'] and not m['months']
-          print('PASS all simulations isolated from GitHub release files')
-          PY
+          sha256sum -c "$RUNNER_TEMP/nil-stock-manifest.sha"
+          echo 'PASS: synthetic simulations did not modify real dated Stock Watch history'
