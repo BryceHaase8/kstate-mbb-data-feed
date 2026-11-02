@@ -1,0 +1,30 @@
+name: Probe 2027 ESPN final boxes (read-only)
+on:
+  push:
+    branches: [fix-2027-live-box-ingestion-2026-11-02]
+    paths: [".github/workflows/probe-2027-final-box.yml"]
+permissions:
+  contents: read
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Inspect actual ESPN November 1 games
+        run: |
+          python3 - <<'PY'
+          import json,urllib.request
+          base="https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball"
+          for p in ("/scoreboard?dates=20261101&groups=50&limit=500","/summary?event=401920982"):
+              with urllib.request.urlopen(urllib.request.Request(base+p,headers={"User-Agent":"Mozilla/5.0","Accept":"application/json"}),timeout=25) as f: doc=json.load(f)
+              if "/scoreboard" in p:
+                  for e in doc.get("events",[]): 
+                      c=(e.get("competitions") or [{}])[0]
+                      print("scoreboard",e.get("id"),e.get("date"),(e.get("season") or {}),c.get("status"),[(t["team"].get("id"),t.get("score"),t.get("winner")) for t in c.get("competitors",[])])
+              else:
+                  c=(doc.get("header") or {}).get("competitions",[{}])[0]
+                  print("summary",doc.get("header",{}).get("season"), c.get("status"),c.get("date"),len(doc.get("boxscore",{}).get("players",[])))
+                  for side in doc.get("boxscore",{}).get("players",[]):
+                      stat=(side.get("statistics") or [{}])[0]
+                      print("team",side.get("team",{}).get("id"),"stat keys",stat.get("keys"),"first athlete",[(a.get("athlete",{}).get("id"),a.get("stats")) for a in stat.get("athletes",[])[:2]])
+          PY
