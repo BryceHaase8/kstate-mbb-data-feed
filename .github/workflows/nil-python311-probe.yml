@@ -1,0 +1,27 @@
+name: Verify CatBoost wheel on Python 3.11 (read-only)
+on:
+  push:
+    branches: [fix-nil-python311-2026-11-02]
+    paths: [".github/workflows/nil-python311-probe.yml"]
+permissions:
+  contents: read
+jobs:
+  wheel:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: fix-nil-python311-2026-11-02
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: |
+          python3 --version
+          python3 -m venv /tmp/nil-wheel-test
+          source /tmp/nil-wheel-test/bin/activate
+          python -m pip install --only-binary=:all: -r scripts/nil_model/requirements-nil.txt
+          python - <<'PY'
+          import catboost, numpy, sklearn, cryptography
+          print('NIL DEPENDENCIES VERIFIED',catboost.__version__,numpy.__version__,sklearn.__version__)
+          PY
