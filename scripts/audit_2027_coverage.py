@@ -99,11 +99,17 @@ def build_report(today, published, prior=None, fetch=get_json, window_days=WINDO
         except (OSError, ValueError, TypeError, KeyError) as exc:
             errors.append({"date": key, "reason": str(exc)[:250]})
     ledger = {day: vals for day, vals in sorted(ledger.items()) if vals}
-    missing, corrected, unresolved = [], [], {}
+    missing, corrected, unresolved, duplicates = [], [], {}, []
     expected = set()
     verified = 0
     for day, games in ledger.items():
         for gid, score in games.items():
+            if gid in expected:
+                # A source may list an overnight event on both dates.
+                # Count it once and report the ambiguity, do not block
+                # otherwise valid player-stat publishing.
+                duplicates.append(gid)
+                continue
             expected.add(gid)
             entry = published.get(gid)
             if not entry:
@@ -114,10 +120,8 @@ def build_report(today, published, prior=None, fetch=get_json, window_days=WINDO
                 unresolved.setdefault(day, []).append(gid)
             else:
                 verified += 1
-    if len(expected) != sum(len(g) for g in ledger.values()):
-        raise ValueError("ESPN game ID associated with multiple scoreboard dates")
     status = ("INCOMPLETE" if missing or corrected else
-              "SOURCE_DEGRADED" if errors or shrunk else "COMPLETE")
+              "SOURCE_DEGRADED" if errors or shrunk or duplicates else "COMPLETE")
     checked_at = now or dt.datetime.now(dt.timezone.utc)
     return {
         "schemaVersion": 1,
@@ -137,6 +141,7 @@ def build_report(today, published, prior=None, fetch=get_json, window_days=WINDO
         "completedByDate": ledger,
         "sourceErrors": errors,
         "sourceDisappearedDates": sorted(set(shrunk)),
+        "duplicateSourceGameIds": sorted(set(duplicates)),
         "monitorHealth": monitor_health or {"status": "NOT_CHECKED"},
         "dataIntegrity": "ALREADY_VALIDATED_BY_FACTUAL_QA",
         "note": "Verified data remains publishable when missing ESPN game boxes are pending."
@@ -156,7 +161,7 @@ def emit_report(report):
         print("::warning::ESPN game coverage incomplete: %d missing; %d corrected scores needed. "
               "Future refreshes will retry unresolved games." %
               (len(report["missingGameIds"]), len(report["scoreMismatchGameIds"])), flush=True)
-    if report["sourceErrors"] or report["sourceDisappearedDates"]:
+    if report["sourceErrors"] or report["sourceDisappearedDates"] or report["duplicateSourceGameIds"]:
         print("::warning::ESPN scoreboard partially unavailable or inconsistent; "
               "previously observed finals retained.", flush=True)
     if report["monitorHealth"]["status"] == "STALE":
