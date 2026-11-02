@@ -1,7 +1,7 @@
 # Verified 2026-27 ESPN per-game box fallback while SportsDataverse's
 # bulk player_box_2027.rds is unavailable. Historical seasons never rewritten.
 # Requires hoopR, dplyr, readr, tibble, jsonlite and normalize_ids().
-season_2027_box_fallback <- function(scoreboard_fetcher=NULL,box_fetcher=NULL,now=NULL,cache_file=NULL) {
+season_2027_box_fallback <- function(scoreboard_fetcher=NULL,box_fetcher=NULL,now=NULL,cache_file=NULL,audit_file=NULL) {
   # Optional dependencies support offline QA; production uses live ESPN.
   or <- function(value, fallback) if(is.null(value)) fallback else value
   path <- if(is.null(cache_file)) "data/espn_2027_verified_game_boxes.csv.gz" else cache_file
@@ -13,12 +13,26 @@ season_2027_box_fallback <- function(scoreboard_fetcher=NULL,box_fetcher=NULL,no
   seen <- if(nrow(cached)) unique(as.character(cached$game_id)) else character()
   today <- if(is.null(now)) as.Date(format(Sys.time(),tz="America/Chicago",format="%Y-%m-%d")) else as.Date(now)
   start <- as.Date("2026-11-01")
-  first <- if(length(seen)) max(start,today-7L) else start
   if(today<start || today>as.Date("2027-05-31"))
     stop("2027 ESPN fallback outside season dates")
+  first <- if(length(seen)) max(start,today-21L) else start
+  # Revisit unresolved games even after they age out of the normal window.
+  audit_path <- if(is.null(audit_file)) "public/portal_game_logs_2027/coverage.json" else audit_file
+  older_dates <- character()
+  if(file.exists(audit_path)) {
+    prior_audit <- tryCatch(jsonlite::fromJSON(audit_path,simplifyVector=FALSE),
+       error=function(e) {message("Coverage backlog deferred: ",conditionMessage(e)); NULL})
+    if(!is.null(prior_audit$unresolvedByDate))
+      older_dates <- names(prior_audit$unresolvedByDate)
+  }
+  older_dates <- as.Date(older_dates,format="%Y-%m-%d")
+  older_dates <- older_dates[!is.na(older_dates) & older_dates>=start & older_dates<=today]
+  scan_dates <- sort(unique(c(seq(first,today,by="day"),older_dates)))
+  force_ids <- trimws(unlist(strsplit(Sys.getenv("ESPN_FORCE_GAME_IDS",unset=""),",",fixed=TRUE)))
+  force_ids <- unique(force_ids[grepl("^[0-9]+$",force_ids)])
   discovered <- list()
   scoreboard_errors <- character()
-  for(key in format(seq(first,today,by="day"),"%Y%m%d")) {
+  for(key in format(scan_dates,"%Y%m%d")) {
     url <- paste0("https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/scoreboard?dates=",key,"&groups=50&limit=500")
     doc <- tryCatch(if(is.function(scoreboard_fetcher)) scoreboard_fetcher(key) else jsonlite::fromJSON(url,simplifyVector=FALSE),
       error=function(e) {message("ESPN 2027 scoreboard deferred ",key,": ",conditionMessage(e)); NULL})
@@ -60,7 +74,7 @@ season_2027_box_fallback <- function(scoreboard_fetcher=NULL,box_fetcher=NULL,no
         if(!nrow(rows)) return(NA_real_)
         as.numeric(rows$team_score[[1]])
       },numeric(1))
-      if(all(is.finite(prior_total)) && all(prior_total==expected)) next
+      if(all(is.finite(prior_total)) && all(prior_total==expected) && !(game_id%in%force_ids)) next
       message("2027 ESPN final score changed or stale cache for game ",game_id,"; revalidating")
     }
     box <- tryCatch(if(is.function(box_fetcher)) box_fetcher(game_id) else hoopR::espn_mbb_player_box(game_id=as.numeric(game_id)),
