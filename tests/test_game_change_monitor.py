@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Pure, offline regression checks for ESPN checker; no ESPN/GitHub calls."""
 import datetime as dt
+import json
 import importlib.util
 from pathlib import Path
 import tempfile
@@ -30,6 +31,31 @@ class GameMonitorTests(unittest.TestCase):
     def test_finals_only_includes_completed(self):
         games = mod.final_games(dt.date(2026, 11, 4), fetch=scoreboard)
         self.assertEqual(games, {"401999001": (77, 80)})
+
+    def test_seven_day_recovery_window(self):
+        urls = []
+        def fake(url):
+            urls.append(url)
+            return {"events": []}
+        mod.final_games(dt.date(2026, 11, 11), fetch=fake)
+        self.assertEqual(len(urls), 7)
+        self.assertIn("20261105", urls[0])
+        self.assertIn("20261111", urls[-1])
+
+    def test_corrected_box_dispatch_sends_forced_ids(self):
+        posted = []
+        class Response:
+            status = 204
+            def __enter__(self): return self
+            def __exit__(self, *args): return False
+        def send(request, timeout=15):
+            posted.append(json.loads(request.data.decode()))
+            return Response()
+        with patch.object(mod.urllib.request, "urlopen", send):
+            mod.dispatch_refresh("example/repo", "test-token",
+                ["401999001", "401999002", "401999001", "bad"])
+        self.assertEqual(posted[0]["inputs"]["season"], "2027")
+        self.assertEqual(posted[0]["inputs"]["refresh_games"], "401999001,401999002")
 
     def test_early_november_ignores_prior_season_dates(self):
         urls = []
