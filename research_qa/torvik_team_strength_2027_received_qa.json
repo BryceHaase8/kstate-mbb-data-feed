@@ -3,6 +3,6 @@
   "matchedESPNTeams": 365,
   "unmatched": [],
   "ambiguous": [],
-  "ratingsStage": "PRESEASON_PROJECTION",
-  "sourceSha256": "023d9b3760454b750d99bbff28aaef35c06d407bd529d8181b112512c3e559f0"
+  "ratingsStage": "IN_SEASON_OR_FINAL",
+  "sourceSha256": "d0a6939386aa45b9882f5f860b08addf190ec10e6fb7fe3c19ac6bc630134fc4"
 }
