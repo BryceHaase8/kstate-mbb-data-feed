@@ -79,6 +79,15 @@ jobs:
           else
             echo 'ready=false' >> "$GITHUB_OUTPUT"
           fi
+      # CatBoost 1.2.8 has prebuilt Python 3.11 wheels; Ubuntu's newest
+      # default Python may fall back to an incompatible source build.
+      # Isolation is preserved if the interpreter setup itself fails.
+      - name: Use Python 3.11 for NIL model dependencies
+        if: ${{ steps.nil_secret.outputs.ready == 'true' }}
+        continue-on-error: true
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
       # The entire optional NIL environment setup belongs inside the isolated
       # continue-on-error step. A pip/setup failure must NEVER block ESPN commits.
       - name: Calculate validated NIL and record Stock Watch
