@@ -109,12 +109,17 @@ try_load_player_box <- function(year) {
       tibble()
     }
   )
-  # The SportsDataverse full-season RDS may lag behind the first games.
-  # Collect only verified ESPN final boxes, cache by game, and preserve history.
-  if (year == 2027L && nrow(result) == 0L) {
-    message("2027 bulk player box unavailable; checking final ESPN game boxes")
+  # The season-wide RDS may contain only the first few games.
+  # Always discover completed ESPN games, regardless of bulk row count.
+  if (year == 2027L) {
     source(file.path("scripts", "season_2027_box_fallback.R"))
-    result <- season_2027_box_fallback()
+    verified <- tryCatch(season_2027_box_fallback(),error=function(e) {
+      message("WARNING: Direct ESPN 2027 final-game check failed: ",conditionMessage(e))
+      tibble::tibble()
+    })
+    result <- merge_2027_player_boxes(result,verified)
+    message("2027 combined player-box coverage: ",nrow(result)," athlete-games / ",
+      dplyr::n_distinct(as.character(result$game_id))," games")
   }
   result
 }
