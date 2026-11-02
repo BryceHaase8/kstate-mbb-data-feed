@@ -122,6 +122,12 @@ merge_2027_player_boxes <- function(bulk,direct) {
   direct$game_id <- as.character(direct$game_id)
   bulk$athlete_id <- as.character(bulk$athlete_id)
   direct$athlete_id <- as.character(direct$athlete_id)
+  # hoopR's bulk game_date is Date; ESPN's serialized cache uses text.
+  # Normalize only this shared calendar field, retaining numeric statistics.
+  if("game_date"%in%intersect(names(bulk),names(direct))) {
+    bulk$game_date <- as.character(bulk$game_date)
+    direct$game_date <- as.character(direct$game_date)
+  }
   bulk <- bulk[!(bulk$game_id %in% unique(direct$game_id)),,drop=FALSE]
   dplyr::distinct(dplyr::bind_rows(bulk,direct),game_id,athlete_id,.keep_all=TRUE)
 }
