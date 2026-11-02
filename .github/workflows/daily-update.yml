@@ -7,8 +7,13 @@ on:
         description: "Optional NCAA ending year override (2026 or 2027)"
         required: false
         type: string
+      refresh_games:
+        description: "ESPN game IDs to revalidate after individual box corrections"
+        required: false
+        type: string
   schedule:
-    - cron: "17 2,5,12 * 11,12,1,2,3,4 *"
+    # Independent, staggered full refreshes backstop a skipped 15-minute monitor.
+    - cron: "17 2,5,12,17,22 * 11,12,1,2,3,4 *"
       timezone: "America/Chicago"
     - cron: "17 6 * 5,6,7,8,9,10 *"
       timezone: "America/Chicago"
@@ -33,6 +38,7 @@ jobs:
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       TARGET_SEASON: ${{ github.event.inputs.season }}
+      ESPN_FORCE_GAME_IDS: ${{ github.event.inputs.refresh_games }}
     steps:
       - name: Checkout
         uses: actions/checkout@v6
@@ -53,6 +59,16 @@ jobs:
         run: Rscript scripts/daily_update.R
       - name: Fail closed on incomplete factual data
         run: python3 scripts/validate_factual_feed.py
+      # Missing ESPN finals are recorded as unresolved, never silently PASS.
+      # Preserve already-validated player boxes when ESPN's own summary lags.
+      - name: Audit ESPN completed-game coverage and scheduler health
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          python3 -m unittest discover -s tests -p 'test_game_change_monitor.py' -v
+          python3 -m unittest discover -s tests -p 'test_coverage_audit_2027.py' -v
+          python3 scripts/audit_2027_coverage.py
       # Research-validated ESPN game PBP is collected after player boxes.
       # Failure is isolated: missing advanced data must not stop the factual
       # scoreboard / Game Logs / NIL Stock Watch pipeline.
