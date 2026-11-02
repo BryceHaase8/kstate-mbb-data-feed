@@ -10,6 +10,9 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 40
     steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: fix-2027-live-box-ingestion-2026-11-02
       - name: Inspect actual ESPN November 1 games
         run: |
           python3 - <<'PY'
