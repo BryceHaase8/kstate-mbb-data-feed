@@ -48,7 +48,12 @@ bad <- season_2027_box_fallback(off(list(event(g1,71,65),event(g2,70,65),
 stopifnot(nrow(bad)==40,!g3%in%bad$game_id)
 # A partially populated bulk RDS must be augmented by new verified games.
 bulk <- dplyr::bind_rows(make_box(g1,70,65),make_box(g3,55,50))
+# Real hoopR bulk rows use Date; cached per-game ESPN rows use character.
+bulk$game_date <- as.Date(bulk$game_date)
+bulk$athlete_jersey <- rep("01",nrow(bulk))
+c$athlete_jersey <- rep(1L,nrow(c))
 merged <- merge_2027_player_boxes(bulk,c)
+stopifnot(is.character(merged$game_date),is.character(merged$athlete_jersey))
 stopifnot(nrow(merged)==60,length(unique(merged$game_id))==3L,
   all(merged$team_score[merged$game_id==g1 & merged$team_id=="87"]==71),
   sum(merged$game_id==g1)==20,sum(merged$game_id==g2)==20)
