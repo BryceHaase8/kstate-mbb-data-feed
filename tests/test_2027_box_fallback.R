@@ -50,7 +50,7 @@ stopifnot(nrow(bad)==40,!g3%in%bad$game_id)
 bulk <- dplyr::bind_rows(make_box(g1,70,65),make_box(g3,55,50))
 merged <- merge_2027_player_boxes(bulk,c)
 stopifnot(nrow(merged)==60,length(unique(merged$game_id))==3L,
-  all(merged$team_score[merged$game_id==g1][1:10]==71),
+  all(merged$team_score[merged$game_id==g1 & merged$team_id=="87"]==71),
   sum(merged$game_id==g1)==20,sum(merged$game_id==g2)==20)
 unlink(dir,recursive=TRUE)
 cat("PASS: verified ESPN games supplement partial hoopR, cache is preserved, corrections rechecked\n")
