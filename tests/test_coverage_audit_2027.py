@@ -101,6 +101,19 @@ class CoverageAuditTests(unittest.TestCase):
         self.assertEqual(next_report["sourceDisappearedDates"], ["2026-11-01"])
         self.assertEqual(next_report["totalCompletedGamesObserved"], 1)
 
+    def test_overlapping_overnight_game_dates_are_flagged_without_blocking(self):
+        published = {"401999001": box()}
+        result = audit.build_report(
+            dt.date(2026, 11, 2), published,
+            fetch=fetcher({
+                "20261101": [event("401999001")],
+                "20261102": [event("401999001")]
+            }), window_days=2)
+        self.assertEqual(result["verifiedCompletedGames"], 1)
+        self.assertEqual(result["totalCompletedGamesObserved"], 1)
+        self.assertEqual(result["duplicateSourceGameIds"], ["401999001"])
+        self.assertEqual(result["status"], "SOURCE_DEGRADED")
+
     def test_scheduler_heartbeat_stale(self):
         now = dt.datetime(2026, 11, 2, 22, 0, tzinfo=dt.timezone.utc)
         old = {
