@@ -77,10 +77,12 @@ def load_published(path=GAME_LOG_DIR):
     return output
 
 
-def final_games(today, fetch=get_json):
-    """Return official D-I final events over a rolling 3-calendar-day window."""
+def final_games(today, fetch=get_json, lookback_days=7):
+    """Return ESPN Division-I-group finals in a configurable rolling window."""
+    if not 1 <= lookback_days <= 220:
+        raise ValueError("Invalid ESPN scoreboard lookback window")
     games = {}
-    for days_back in (2, 1, 0):
+    for days_back in range(lookback_days - 1, -1, -1):
         candidate_date = today - dt.timedelta(days=days_back)
         if candidate_date < dt.date(2026, 11, 1):
             continue
@@ -226,9 +228,14 @@ def dispatch_allowed(repository, token, fetch=get_json, now=None):
     return True, "Clear to dispatch"
 
 
-def dispatch_refresh(repository, token):
+def dispatch_refresh(repository, token, refresh_games=None):
     url = API + "/repos/" + repository + "/actions/workflows/daily-update.yml/dispatches"
-    payload = json.dumps({"ref": "main", "inputs": {"season": "2027"}}).encode()
+    # A correction to individual stats may leave the final team score unchanged.
+    # Pass those specific game IDs so the full publisher re-fetches their boxes.
+    forced = sorted({str(x) for x in (refresh_games or []) if str(x).isdigit()})
+    payload = json.dumps({"ref": "main", "inputs": {
+        "season": "2027", "refresh_games": ",".join(forced[:100])
+    }}).encode()
     request = urllib.request.Request(url, data=payload, method="POST", headers={
         "Authorization": "Bearer " + token,
         "Accept": "application/vnd.github+json",
@@ -257,6 +264,19 @@ def main():
     print("ESPN final-game check: %d recent finals; %d already published; %d missing; %d corrected" %
           (len(finals), len(set(finals) & set(published)), len(missing), len(changed)))
     print("Game IDs requiring attention: " + (", ".join(missing + changed) or "none"))
+    if missing or changed:
+        print("::warning::ESPN verified feed has %d missing and %d corrected final games; retry requested." %
+              (len(missing), len(changed)), flush=True)
+    summary = os.getenv("GITHUB_STEP_SUMMARY")
+    if summary:
+        with open(summary, "a", encoding="utf-8") as out:
+            out.write("\n### 2026–27 ESPN Game Coverage Monitor\n\n")
+            out.write("| ESPN finals (7-day window) | Published | Missing | Corrected |\n")
+            out.write("|---:|---:|---:|---:|\n")
+            out.write("| %d | %d | %d | %d |\n\n" %
+                     (len(finals), len(set(finals) & set(published)), len(missing), len(changed)))
+            if missing or changed:
+                out.write("Outstanding game IDs: " + ", ".join(missing + changed) + "\n")
     if not missing and not changed:
         print("NO CHANGE: Full NIL/game pipeline not needed")
         return 0
@@ -269,7 +289,7 @@ def main():
     print("Dispatch gate: " + reason)
     if not allowed:
         return 0
-    dispatch_refresh(repo, token)
+    dispatch_refresh(repo, token, [entry.split(":")[0] for entry in changed])
     print("DISPATCHED: Existing full workflow will independently validate and publish data")
     return 0
 
