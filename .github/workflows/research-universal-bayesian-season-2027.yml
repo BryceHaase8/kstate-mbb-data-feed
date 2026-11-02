@@ -44,7 +44,10 @@ jobs:
           assert set(approved)=={'5455519'} and old['byESPNId']['5455519']==155000
           assert approved['5455519']['sourceBaseline']==155000 and approved['5455519']['value']==2500000
           effective={**old['byESPNId'],**{k:v['value'] for k,v in approved.items()}}
-          assert all(a[k]['preseason']==v for k,v in effective.items())
+          mismatch=[(k,v,a[k].get('preseason'),a[k].get('games'),a[k].get('status'))
+                    for k,v in effective.items() if a[k]['preseason']!=v]
+          if mismatch: print('FROZEN_ANCHOR_MISMATCHES',len(mismatch),mismatch[:15],flush=True)
+          assert not mismatch,'Frozen opening prices were changed by 2027 updater'
           assert all(a[k]['status']=='PRESEASON_BASELINE' and a[k]['weight']==0 and a[k]['value']==v
                      for k,v in effective.items() if not a[k].get('games'))
           assert a['5455519']['anchorType']=='INTERNATIONAL_PRO_PRESEASON_STAFF_REVIEWED'
