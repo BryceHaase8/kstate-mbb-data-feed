@@ -9,13 +9,15 @@ on:
         default: false
   schedule:
     # Check every 15 minutes during likely game/postgame hours (Central).
-    - cron: "*/15 11-23 * 11,12,1,2,3,4 *"
+    # Avoid :00/:15/:30/:45 high-load slots; GitHub schedule is best effort.
+    - cron: "7,22,37,52 11-23 * 11,12,1,2,3,4 *"
       timezone: "America/Chicago"
-    - cron: "*/15 0-2 * 11,12,1,2,3,4 *"
+    - cron: "7,22,37,52 0-3 * 11,12,1,2,3,4 *"
       timezone: "America/Chicago"
   pull_request:
     paths:
       - "scripts/check_espn_game_updates.py"
+      - "scripts/audit_2027_coverage.py"
       - "tests/test_game_change_monitor.py"
       - ".github/workflows/espn-game-monitor.yml"
       - ".github/workflows/daily-update.yml"
