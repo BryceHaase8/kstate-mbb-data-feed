@@ -26,12 +26,24 @@ jobs:
           python -m py_compile scripts/build_2027_advanced.py
           python -m unittest discover -s tests -p 'test_build_2027_advanced.py' -v
           python scripts/build_2027_advanced.py
-      - name: Confirm preseason has no fabricated 2027 advanced files
+      - name: Verify season-appropriate advanced data presence
         run: |
-          test ! -f public/portal_shots_2027/manifest.json
-          test ! -f public/portal_onoff_2027/manifest.json
-          test ! -f public/portal_positions_2027/manifest.json
-          echo 'Advanced-data readiness checks PASS; empty preseason remains empty.'
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          paths=[Path(f'public/portal_{k}_2027/manifest.json') for k in ('shots','onoff','positions')]
+          present=[p.exists() for p in paths]
+          assert len(set(present))==1,'Missing a related advanced 2027 manifest'
+          if not present[0]:
+              print('Preseason: all advanced manifests correctly withheld')
+          else:
+              records=[json.loads(p.read_text()) for p in paths]
+              assert all(d['schemaVersion']==1 and d['season']==2027 for d in records)
+              assert all(0<=d['gamesVerified']<=d['gamesInSource'] for d in records)
+              assert records[0]['gamesVerified']>=records[1]['gamesVerified']
+              assert records[1]['gamesVerified']==records[2]['gamesVerified']
+              print('2027 game data published with verified shot/lineup coverage',*[d['gamesVerified'] for d in records])
+          PY
 
   espn-schema-probe:
     # R cold installs cost Actions minutes; run only on explicit manual verification.
