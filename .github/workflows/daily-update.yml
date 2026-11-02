@@ -107,6 +107,9 @@ jobs:
         run: |
           set -euo pipefail
           git add data/current_player_season_stats.csv public/portal_factual_data.json public/portal_factual_qa.json
+          if [ -f data/espn_2027_verified_game_boxes.csv.gz ]; then
+            git add data/espn_2027_verified_game_boxes.csv.gz
+          fi
           if [ -d public/portal_game_logs_2027 ]; then
             git add public/portal_game_logs_2027/
           fi
