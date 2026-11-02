@@ -1,0 +1,1 @@
+{"schemaVersion":1,"season":2027,"shard":31,"modulo":128,"players":{},"fields":["gameId","teamId","opponentId","shotValue","made","courtX","courtY","assistId","zone"]}
