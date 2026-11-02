@@ -1,14 +1,15 @@
 # Verified 2026-27 ESPN per-game box fallback while SportsDataverse's
 # bulk player_box_2027.rds is unavailable. Historical seasons never rewritten.
 # Requires hoopR, dplyr, readr, tibble, jsonlite and normalize_ids().
-season_2027_box_fallback <- function() {
+season_2027_box_fallback <- function(scoreboard_fetcher=NULL,box_fetcher=NULL,now=NULL,cache_file=NULL) {
+  # Optional dependencies support offline QA; production uses live ESPN.
   or <- function(value, fallback) if(is.null(value)) fallback else value
-  path <- "data/espn_2027_verified_game_boxes.csv.gz"
+  path <- if(is.null(cache_file)) "data/espn_2027_verified_game_boxes.csv.gz" else cache_file
   cached <- if(file.exists(path)) {
     normalize_ids(readr::read_csv(path,show_col_types=FALSE))
   } else tibble::tibble()
   seen <- if(nrow(cached)) unique(as.character(cached$game_id)) else character()
-  today <- as.Date(format(Sys.time(),tz="America/Chicago",format="%Y-%m-%d"))
+  today <- if(is.null(now)) as.Date(format(Sys.time(),tz="America/Chicago",format="%Y-%m-%d")) else as.Date(now)
   start <- as.Date("2026-11-01")
   first <- if(length(seen)) max(start,today-7L) else start
   if(today<start || today>as.Date("2027-05-31"))
@@ -17,7 +18,7 @@ season_2027_box_fallback <- function() {
   scoreboard_errors <- character()
   for(key in format(seq(first,today,by="day"),"%Y%m%d")) {
     url <- paste0("https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/scoreboard?dates=",key,"&groups=50&limit=500")
-    doc <- tryCatch(jsonlite::fromJSON(url,simplifyVector=FALSE),
+    doc <- tryCatch(if(is.function(scoreboard_fetcher)) scoreboard_fetcher(key) else jsonlite::fromJSON(url,simplifyVector=FALSE),
       error=function(e) {message("ESPN 2027 scoreboard deferred ",key,": ",conditionMessage(e)); NULL})
     if(is.null(doc) || !is.list(doc$events)) {
       scoreboard_errors <- c(scoreboard_errors,key)
@@ -45,7 +46,22 @@ season_2027_box_fallback <- function() {
   }
   fetched <- list()
   for(game_id in names(discovered)) {
-    box <- tryCatch(hoopR::espn_mbb_player_box(game_id=as.numeric(game_id)),
+    # Verified ESPN games remain in cache; avoid re-fetching hundreds of
+    # unchanged boxes on busy nights. Corrected final scores are rechecked.
+    teams <- discovered[[game_id]]
+    ids <- vapply(teams,function(t)as.character(t$team$id),character(1))
+    expected <- vapply(teams,function(t)as.numeric(t$score),numeric(1))
+    prior <- if(nrow(cached)) cached[as.character(cached$game_id)==game_id,,drop=FALSE] else tibble::tibble()
+    if(nrow(prior) && all(c("team_score","team_id")%in%names(prior))) {
+      prior_total <- vapply(ids,function(id) {
+        rows <- prior[as.character(prior$team_id)==id,,drop=FALSE]
+        if(!nrow(rows)) return(NA_real_)
+        as.numeric(rows$team_score[[1]])
+      },numeric(1))
+      if(all(is.finite(prior_total)) && all(prior_total==expected)) next
+      message("2027 ESPN final score changed or stale cache for game ",game_id,"; revalidating")
+    }
+    box <- tryCatch(if(is.function(box_fetcher)) box_fetcher(game_id) else hoopR::espn_mbb_player_box(game_id=as.numeric(game_id)),
       error=function(e){message("2027 ESPN box deferred ",game_id,": ",conditionMessage(e)); NULL})
     if(is.null(box) || nrow(box)<15L) next
     box <- normalize_ids(as_tibble(box))
@@ -80,8 +96,29 @@ season_2027_box_fallback <- function() {
     dir.create(dirname(path),recursive=TRUE,showWarnings=FALSE)
     readr::write_csv(cached,path,na="")
   }
-  message("2027 direct ESPN fallback verified ",length(unique(cached$game_id)),
-    " games / ",nrow(cached)," player-games; refreshed ",length(fetched),
+  missing <- setdiff(names(discovered),unique(as.character(cached$game_id)))
+  message("2027 direct ESPN fallback: ESPN final games seen ",length(discovered),
+    "; verified in cache ",length(intersect(names(discovered),unique(as.character(cached$game_id)))),
+    "; refreshed ",length(fetched),"; missing/deferred ",length(missing),
+    "; total cached games ",length(unique(cached$game_id)),
     "; scoreboard errors ",length(scoreboard_errors))
+  if(length(missing)) message("WARNING: ESPN completed games not yet verified: ",paste(head(missing,30L),collapse=","))
+  if(length(scoreboard_errors)) message("WARNING: ESPN scoreboard unavailable for dates: ",paste(scoreboard_errors,collapse=","))
   cached
+}
+
+# Unlike the bulk hoopR RDS, per-game ESPN boxes may be more current.
+# Preserve all unrelated bulk games; replace overlapping games atomically.
+merge_2027_player_boxes <- function(bulk,direct) {
+  if(is.null(direct) || !nrow(direct)) return(bulk)
+  if(is.null(bulk) || !nrow(bulk)) return(direct)
+  fields <- c("game_id","athlete_id")
+  if(length(setdiff(fields,names(bulk))) || length(setdiff(fields,names(direct))))
+    stop("Cannot merge 2027 basketball boxes without game and ESPN athlete IDs")
+  bulk$game_id <- as.character(bulk$game_id)
+  direct$game_id <- as.character(direct$game_id)
+  bulk$athlete_id <- as.character(bulk$athlete_id)
+  direct$athlete_id <- as.character(direct$athlete_id)
+  bulk <- bulk[!(bulk$game_id %in% unique(direct$game_id)),,drop=FALSE]
+  dplyr::distinct(dplyr::bind_rows(bulk,direct),game_id,athlete_id,.keep_all=TRUE)
 }
