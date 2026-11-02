@@ -8,6 +8,8 @@ season_2027_box_fallback <- function(scoreboard_fetcher=NULL,box_fetcher=NULL,no
   cached <- if(file.exists(path)) {
     normalize_ids(readr::read_csv(path,show_col_types=FALSE))
   } else tibble::tibble()
+  if(nrow(cached) && "game_date"%in%names(cached))
+    cached$game_date <- as.character(cached$game_date)
   seen <- if(nrow(cached)) unique(as.character(cached$game_id)) else character()
   today <- if(is.null(now)) as.Date(format(Sys.time(),tz="America/Chicago",format="%Y-%m-%d")) else as.Date(now)
   start <- as.Date("2026-11-01")
@@ -65,6 +67,7 @@ season_2027_box_fallback <- function(scoreboard_fetcher=NULL,box_fetcher=NULL,no
       error=function(e){message("2027 ESPN box deferred ",game_id,": ",conditionMessage(e)); NULL})
     if(is.null(box) || nrow(box)<15L) next
     box <- normalize_ids(as_tibble(box))
+    if("game_date"%in%names(box)) box$game_date <- as.character(box$game_date)
     required <- c("season","game_id","team_id","athlete_id","points","minutes",
                   "field_goals_made","field_goals_attempted","three_point_field_goals_made",
                   "three_point_field_goals_attempted","free_throws_made","free_throws_attempted",
