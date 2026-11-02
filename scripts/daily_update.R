@@ -100,7 +100,7 @@ derive_candidate_season <- function() {
 }
 
 try_load_player_box <- function(year) {
-  tryCatch(
+  result <- tryCatch(
     hoopR::load_mbb_player_box(seasons = year) %>%
       as_tibble() %>%
       normalize_ids(),
@@ -109,6 +109,14 @@ try_load_player_box <- function(year) {
       tibble()
     }
   )
+  # The SportsDataverse full-season RDS may lag behind the first games.
+  # Collect only verified ESPN final boxes, cache by game, and preserve history.
+  if (year == 2027L && nrow(result) == 0L) {
+    message("2027 bulk player box unavailable; checking final ESPN game boxes")
+    source(file.path("scripts", "season_2027_box_fallback.R"))
+    result <- season_2027_box_fallback()
+  }
+  result
 }
 
 get_d1_teams <- function(year) {
