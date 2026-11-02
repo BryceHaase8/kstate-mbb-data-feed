@@ -26,7 +26,6 @@ make_box <- function(id,home=70,away=65) {
 }
 g1 <- "401920001";g2 <- "401920002";g3 <- "401920003"
 dir <- tempfile("espn_2027_test_");dir.create(dir)
-on.exit <- NULL
 cache <- file.path(dir,"cache.csv.gz")
 off <- function(events) function(key) list(events=events)
 calls <- character()
