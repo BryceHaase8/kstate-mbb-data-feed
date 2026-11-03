@@ -840,23 +840,28 @@
     "alreadyFrozen": 6,
     "alreadyLate": 1,
     "addedOriginalV4": 23,
-    "addedV4CohortProxy": 5,
+    "addedV4CohortProxy": 4,
     "unpricedRemaining": 0,
     "pricingEffectiveDate": "2026-11-01",
-    "original6057FrozenChanged": false
+    "original6057FrozenChanged": false,
+    "addedHistoricalPriorPreserved": 1,
+    "previousModelDerivedPricesReconciled": 23
   },
   "priceByESPNId": {
     "4432398": {
       "price": 67203,
-      "method": "DIRECT_ORIGINAL_V4_2026"
+      "method": "DIRECT_ORIGINAL_V4_2026",
+      "previousPreseason": 111705
     },
     "4684628": {
       "price": 590985,
-      "method": "DIRECT_ORIGINAL_V4_2026"
+      "method": "DIRECT_ORIGINAL_V4_2026",
+      "previousPreseason": 620782
     },
     "4870565": {
       "price": 1363294,
-      "method": "DIRECT_ORIGINAL_V4_2026"
+      "method": "DIRECT_ORIGINAL_V4_2026",
+      "previousPreseason": 1039258
     },
     "4873205": {
       "price": 60000,
@@ -864,83 +869,103 @@
     },
     "4896557": {
       "price": 140046,
-      "method": "DIRECT_ORIGINAL_V4_2026"
+      "method": "DIRECT_ORIGINAL_V4_2026",
+      "previousPreseason": 111216
     },
     "5105529": {
       "price": 2499655,
-      "method": "DIRECT_ORIGINAL_V4_2026"
+      "method": "DIRECT_ORIGINAL_V4_2026",
+      "previousPreseason": 2031776
     },
     "5105538": {
       "price": 2046626,
-      "method": "DIRECT_ORIGINAL_V4_2026"
+      "method": "DIRECT_ORIGINAL_V4_2026",
+      "previousPreseason": 1772192
     },
     "5105546": {
       "price": 2816569,
-      "method": "DIRECT_ORIGINAL_V4_2026"
+      "method": "DIRECT_ORIGINAL_V4_2026",
+      "previousPreseason": 4097239
     },
     "5105569": {
       "price": 2442190,
-      "method": "DIRECT_ORIGINAL_V4_2026"
+      "method": "DIRECT_ORIGINAL_V4_2026",
+      "previousPreseason": 1413827
     },
     "5105643": {
       "price": 4085898,
-      "method": "DIRECT_ORIGINAL_V4_2026"
+      "method": "DIRECT_ORIGINAL_V4_2026",
+      "previousPreseason": 3913155
     },
     "5105660": {
       "price": 141380,
-      "method": "DIRECT_ORIGINAL_V4_2026"
+      "method": "DIRECT_ORIGINAL_V4_2026",
+      "previousPreseason": 153309
     },
     "5105974": {
-      "price": 320000,
-      "method": "V4_TEAM_COHORT_PROXY_NO_STATS"
+      "price": 676851,
+      "method": "PREVIOUS_PUBLISHED_V4_ARCHIVED_ESPN_HISTORICAL_PRIOR",
+      "previousPreseason": 676851
     },
     "5107296": {
       "price": 86024,
-      "method": "DIRECT_ORIGINAL_V4_2026"
+      "method": "DIRECT_ORIGINAL_V4_2026",
+      "previousPreseason": 151684
     },
     "5107321": {
       "price": 499217,
-      "method": "DIRECT_ORIGINAL_V4_2026"
+      "method": "DIRECT_ORIGINAL_V4_2026",
+      "previousPreseason": 347276
     },
     "5107477": {
       "price": 79146,
-      "method": "DIRECT_ORIGINAL_V4_2026"
+      "method": "DIRECT_ORIGINAL_V4_2026",
+      "previousPreseason": 82674
     },
     "5108060": {
       "price": 2030619,
-      "method": "DIRECT_ORIGINAL_V4_2026"
+      "method": "DIRECT_ORIGINAL_V4_2026",
+      "previousPreseason": 2132605
     },
     "5108073": {
       "price": 53750,
-      "method": "DIRECT_ORIGINAL_V4_2026"
+      "method": "DIRECT_ORIGINAL_V4_2026",
+      "previousPreseason": 74617
     },
     "5112181": {
       "price": 72736,
-      "method": "DIRECT_ORIGINAL_V4_2026"
+      "method": "DIRECT_ORIGINAL_V4_2026",
+      "previousPreseason": 77532
     },
     "5119069": {
       "price": 709149,
-      "method": "DIRECT_ORIGINAL_V4_2026"
+      "method": "DIRECT_ORIGINAL_V4_2026",
+      "previousPreseason": 835431
     },
     "5177301": {
       "price": 2512535,
-      "method": "DIRECT_ORIGINAL_V4_2026"
+      "method": "DIRECT_ORIGINAL_V4_2026",
+      "previousPreseason": 2654292
     },
     "5189001": {
       "price": 2489739,
-      "method": "DIRECT_ORIGINAL_V4_2026"
+      "method": "DIRECT_ORIGINAL_V4_2026",
+      "previousPreseason": 1741301
     },
     "5241069": {
       "price": 2250529,
-      "method": "DIRECT_ORIGINAL_V4_2026"
+      "method": "DIRECT_ORIGINAL_V4_2026",
+      "previousPreseason": 2344769
     },
     "5243369": {
       "price": 89223,
-      "method": "DIRECT_ORIGINAL_V4_2026"
+      "method": "DIRECT_ORIGINAL_V4_2026",
+      "previousPreseason": 74374
     },
     "5316049": {
       "price": 2183050,
-      "method": "DIRECT_ORIGINAL_V4_2026"
+      "method": "DIRECT_ORIGINAL_V4_2026",
+      "previousPreseason": 2685947
     },
     "5317687": {
       "price": 58000,
