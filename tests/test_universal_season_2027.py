@@ -6,7 +6,7 @@ import unittest
 from pathlib import Path
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'scripts'/'nil_model'))
 from cold_start import cold_start_reference,cold_start_relative_update
-from nil_season_engine import player_weight,cold_start_weight,stabilized_virtual_season,past_seasons
+from nil_season_engine import player_weight,cold_start_weight,stabilized_virtual_season,past_seasons,hold_preseason_if_tiny_evidence
 
 def observed(games,mpg,pts30=16,three_pct=.35,position='G'):
  minutes=games*mpg
@@ -23,6 +23,18 @@ def observed(games,mpg,pts30=16,three_pct=.35,position='G'):
  return z
 
 class UniversalSeasonTests(unittest.TestCase):
+ def test_tiny_evidence_cannot_change_frozen_preseason_price(self):
+  # One verified game with one minute produces a real but sub-threshold
+  # model movement. It must not be labeled PRESEASON_BASELINE with new dollars.
+  tiny=cold_start_weight(1,1)[0]
+  self.assertTrue(0<tiny<=.005)
+  for baseline in (50000,200000,900000,3500000):
+   for candidate in (baseline-1289,baseline+2500):
+    self.assertEqual(hold_preseason_if_tiny_evidence(baseline,candidate,tiny),
+                     (baseline,'PRESEASON_BASELINE'))
+    self.assertEqual(hold_preseason_if_tiny_evidence(baseline,candidate,.02),
+                     (candidate,'UPDATED'))
+
  def test_references_are_explicit_expected_college_profiles_not_espring_history(self):
   prices=[50000,200000,750000,2500000,3500000]
   ref=[cold_start_reference(price,'G',2027,'2306') for price in prices]

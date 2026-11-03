@@ -33,6 +33,12 @@ def clamp(v,lo,hi):return max(lo,min(hi,v))
 
 def weighted(a,b,w):return a*(1-w)+b*w
 
+def hold_preseason_if_tiny_evidence(baseline,candidate,weight):
+ # A PRESEASON_BASELINE label must carry the exact frozen opening dollars.
+ # One-minute appearances can produce tiny model movements below the
+ # existing 0.005 threshold; those must not be published as price changes.
+ return (baseline,'PRESEASON_BASELINE') if weight<=.005 else (candidate,'UPDATED')
+
 def past_seasons(entry,year):
  return sorted([r for r in entry.get('seasons',[]) if int(num(r.get('season'))) <year and num(r.get('gp'))>0],key=lambda r:int(r['season']),reverse=True)
 
@@ -453,7 +459,8 @@ def run(players_file,archived_context_file, current_context_file, asof,output, m
        reference_price=score_model(asset,reference,past,2027,newctx[team_id])
        score=relative_v4_update(baseline,current_price,reference_price,w)
        update_method='HISTORICAL_RELATIVE_V4'
-      status='UPDATED' if w>.005 else 'PRESEASON_BASELINE'
+      score,status=hold_preseason_if_tiny_evidence(baseline,score,w)
+      if status=='PRESEASON_BASELINE':update_method='MINIMAL_EVIDENCE_PRESERVED_PRESEASON'
      elif gp>=5 and minutes>=100:
       # An ID absent from the verified 6057-price opening board can earn a
       # provisional prediction, but never invent a retroactive anchor.

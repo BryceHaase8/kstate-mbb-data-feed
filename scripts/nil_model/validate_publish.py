@@ -11,6 +11,8 @@ def check(new_path,manifest_path,prior_path=None):
   assert id.isdigit() and r.get('season')==2027 and math.isfinite(float(r['value'])) and 20000<=r['value']<=20000000
   if r.get('status') not in {'UPDATED','PRESEASON_BASELINE','NEW_PLAYER_PROVISIONAL','MISSING_CURRENT_TEAM_CONTEXT'}:
    raise ValueError('Unsupported NIL status for ESPN ID '+id+': '+str(r.get('status'))+' (preseason='+str(r.get('preseason'))+', games='+str(r.get('games'))+')')
+  if r.get('status')=='PRESEASON_BASELINE' and r.get('preseason') is not None and r['value']!=r['preseason']:
+   raise ValueError('NIL baseline status has changed dollars for ESPN athlete '+id)
   assert 0<=float(r.get('weight',0))<1.0
  assert audit.get('sha256',{}).get('model') and audit.get('sha256',{}).get('factual')
  prior=None
