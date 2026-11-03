@@ -4,11 +4,11 @@
   "source": "Official ESPN 2026-27 team rosters",
   "asOf": "2026-11-03T13:14:55.894116+00:00",
   "previousRosterPlayers": 5541,
-  "currentRosterPlayers": 5574,
-  "newESPNIDs": 35,
+  "currentRosterPlayers": 5575,
+  "newESPNIDs": 36,
   "teamsRequested": 365,
-  "teamsVerified": 364,
-  "teamsFailed": 1,
+  "teamsVerified": 365,
+  "teamsFailed": 0,
   "additions": {
     "4432398": {
       "name": "Noah Taitz",
@@ -493,6 +493,33 @@
         0
       ]
     },
+    "5176140": {
+      "name": "Karon Boyd",
+      "teamId": "2382",
+      "team": "Mercer Bears",
+      "position": "F",
+      "height": "6' 6\"",
+      "weight": "223 lbs",
+      "espnClass": "",
+      "eligibilityYearsEstimate": 0,
+      "eligibilityStatus": "REVIEW_REQUIRED_PAST_2026_SENIOR_NO_CURRENT_ESPN_CLASS",
+      "source": "ESPN_CURRENT_TEAM_ROSTER_FALLBACK_SEASON_ROSTER_404",
+      "rosterRow": [
+        "5176140",
+        "Karon Boyd",
+        "2382",
+        "F",
+        "6' 6\"",
+        "223 lbs",
+        0,
+        "",
+        2
+      ],
+      "priorTeam": "Wichita St.",
+      "priorSeason": 2026,
+      "priorSeasonClass": "Sr",
+      "sourceURL": "https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/teams/2382?enable=roster"
+    },
     "5177301": {
       "name": "Melvin Council Jr.",
       "teamId": "2305",
@@ -836,16 +863,16 @@
     }
   ],
   "pricingAudit": {
-    "newESPNIDs": 35,
+    "newESPNIDs": 36,
     "alreadyFrozen": 6,
     "alreadyLate": 1,
-    "addedOriginalV4": 23,
+    "addedOriginalV4": 24,
     "addedV4CohortProxy": 4,
     "unpricedRemaining": 0,
     "pricingEffectiveDate": "2026-11-01",
     "original6057FrozenChanged": false,
     "addedHistoricalPriorPreserved": 1,
-    "previousModelDerivedPricesReconciled": 23
+    "previousModelDerivedPricesReconciled": 24
   },
   "priceByESPNId": {
     "4432398": {
@@ -942,6 +969,10 @@
       "method": "DIRECT_ORIGINAL_V4_2026",
       "previousPreseason": 835431
     },
+    "5176140": {
+      "price": 914723,
+      "method": "DIRECT_ORIGINAL_V4_2026"
+    },
     "5177301": {
       "price": 2512535,
       "method": "DIRECT_ORIGINAL_V4_2026",
@@ -983,5 +1014,17 @@
       "price": 186000,
       "method": "V4_TEAM_COHORT_PROXY_NO_STATS"
     }
-  }
+  },
+  "verifiedFallbackTeams": [
+    {
+      "teamId": "2382",
+      "name": "Mercer Bears",
+      "seasonSpecificEndpointStatus": 404,
+      "alternateSource": "ESPN live team roster",
+      "players": 16,
+      "newlyDiscoveredESPNIDs": [
+        "5176140"
+      ]
+    }
+  ]
 }
