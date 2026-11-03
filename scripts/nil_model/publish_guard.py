@@ -30,7 +30,19 @@ def check(new,old,source,anchor=None,legacy=None,history=None,rookies=None,v4=No
      raise ValueError('Missing or changed late-entrant opening baseline '+str(pid))
     prev=older.get(pid)
     if prev and prev.get('preseason') is not None and prev.get('preseason')!=value:
-     raise ValueError('Previously published late-entrant baseline changed for '+str(pid))
+     # Staff authorized a one-time 2025-26 ORIGINAL V4 price for a roster ID
+     # whose only old quote was a NON-FROZEN model-derived historical prior.
+     # Pin the exact old amount and anchor type in the addendum. Once
+     # published as LATE_ENTRANT_BASELINE_2027 this exception cannot recur.
+     migration=(entry.get('modelVersion')=='Original V4 fair-market residual model'
+       and entry.get('baselineMigrationReason')=='STAFF_DIRECTED_ORIGINAL_V4_PRESEASON_PRICE_FROM_2025_26_COMPLETE_YEAR'
+       and str(entry.get('approvedBy') or '').startswith('Staff direction in 2026-11-03 project chat')
+       and prev.get('anchorType')=='V4_OR_ARCHIVED_ESPN'
+       and entry.get('sourcePreviouslyPublishedAnchorType')==prev.get('anchorType')
+       and type(entry.get('sourcePreviouslyPublishedPreseason')) is int
+       and entry.get('sourcePreviouslyPublishedPreseason')==prev.get('preseason'))
+     if not migration:
+      raise ValueError('Previously published late-entrant baseline changed for '+str(pid))
  # A staff-approved opening correction is allowed before actual games.
  # The original frozen 2026-10-27 reference and its audit trail stay intact.
  opening_moves=set()
