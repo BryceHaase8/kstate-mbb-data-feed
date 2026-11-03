@@ -21,3 +21,15 @@ jobs:
         run: |
           python3 -m py_compile scripts/refresh_2027_espn_rosters.py
           python3 -m unittest discover -s tests -p 'test_2027_roster_new_baselines.py' -v
+      - name: Check published model-derived prior for newly discovered IDs
+        run: |
+          python3 - <<'PY'
+          import json
+          current=json.load(open('public/nil_estimation_model_2027.json'))['byESPNId']
+          added=json.load(open('data/roster_additions_2027_20261103.json'))['priceByESPNId']
+          for pid in sorted(added,key=int):
+              r=current.get(pid) or {}
+              print('EXISTING_PRIOR',pid,
+                    'preseason',r.get('preseason'),'value',r.get('value'),
+                    'anchorType',r.get('anchorType'),'status',r.get('status'))
+          PY
