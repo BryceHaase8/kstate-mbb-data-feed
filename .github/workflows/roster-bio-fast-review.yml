@@ -1,0 +1,33 @@
+name: Fast 2026-27 roster bio review (no NIL or eligibility changes)
+on:
+  push:
+    branches: [roster-bio-only-fast-refresh-20261103]
+    paths:
+      - "scripts/refresh_2027_roster_bios_fast.py"
+      - ".github/workflows/roster-bio-fast-review.yml"
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: roster-bio-only-fast-refresh-20261103
+  cancel-in-progress: false
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate simple ESPN metadata script
+        run: python3 -m py_compile scripts/refresh_2027_roster_bios_fast.py
+      - name: Get headshots and size from current ESPN team rosters
+        run: python3 -u scripts/refresh_2027_roster_bios_fast.py
+      - name: Publish only bio metadata on review branch
+        run: |
+          set -euo pipefail
+          git add research_data/staged/roster_2027_fast_ready.json research_data/staged/roster_2027_site_compact_ready.json research_data/staged/roster_2027_bio_refresh_audit.json
+          git diff --cached --check
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Refresh official ESPN headshots and physical measurements only"
+          git pull --rebase origin roster-bio-only-fast-refresh-20261103
+          git push origin HEAD:roster-bio-only-fast-refresh-20261103
