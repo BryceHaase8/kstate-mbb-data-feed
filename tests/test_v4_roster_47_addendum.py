@@ -9,7 +9,7 @@ class PreseasonRosterGapQA(unittest.TestCase):
   rost=read("data/roster_2027_advanced.json")
   self.assertEqual(rost["rosterSeason"],2027)
   self.assertEqual(rost["totalTeams"],365)
-  self.assertEqual(len(rost["players"]),5541)
+  self.assertGreaterEqual(len(rost["players"]),5541)
   ids=[str(row[0]) for row in rost["players"]]
   self.assertEqual(len(ids),len(set(ids)))
   anchor=read("public/stock_watch/preseason_2027_pre_international_20261027.json")
@@ -28,7 +28,10 @@ class PreseasonRosterGapQA(unittest.TestCase):
   self.assertEqual(prices,{**base["byESPNId"],**supplement["byESPNId"]})
   self.assertEqual(calibrated["byESPNId"],{**prices,**reviewed["byESPNId"]})
   self.assertEqual(final["byESPNId"],{**calibrated["byESPNId"],**extra["byESPNId"],**read("public/stock_watch/international_top100_staff_review_20271027.json")["byESPNId"]})
-  self.assertEqual(set(ids)-set(prices),set(),"A verified October roster player has no NIL baseline")
+  late=read("public/stock_watch/late_entrant_baselines_2027.json")["byESPNId"]
+  self.assertFalse(set(prices)&set(late))
+  self.assertEqual(set(ids)-(set(prices)|set(late)),set(),
+                   "A verified ESPN roster player has no frozen or late-entrant NIL baseline")
  def test_source_labelling_and_uncertain_international(self):
   source=read("public/stock_watch/roster_2027_new_id_v4_proxy_addendum.json")
   methods=source["methodByESPNId"]

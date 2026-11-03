@@ -1,0 +1,41 @@
+name: 2026-27 National ESPN roster pass
+on:
+  push:
+    branches: [roster-refresh-20261103]
+    paths:
+      - ".github/workflows/roster-pass-20261103.yml"
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: roster-refresh-20261103
+  cancel-in-progress: false
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: roster-refresh-20261103
+      - name: Validate roster script
+        run: python3 -m py_compile scripts/refresh_2027_espn_rosters.py
+      - name: Fetch all ESPN 2026-27 D-I team rosters
+        run: python3 -u scripts/refresh_2027_espn_rosters.py
+      - name: Publish audit to review branch only
+        run: |
+          set -euo pipefail
+          git add data/roster_2027_advanced.json data/roster_2027_class_evidence.json data/roster_additions_2027_20261103.json
+          if git diff --cached --quiet; then
+            echo "No new ESPN roster players."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Candidate 2026-27 ESPN national roster reconciliation"
+          git pull --rebase origin roster-refresh-20261103
+          git push origin HEAD:roster-refresh-20261103
+      - name: Summarize roster additions
+        if: always()
+        run: |
+          echo "Roster comparison uses the existing 5,541-player research snapshot. New athlete IDs are not yet priced or published to the staff site." >> "$GITHUB_STEP_SUMMARY"

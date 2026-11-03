@@ -462,7 +462,14 @@ def run(players_file,archived_context_file, current_context_file, asof,output, m
      else:score=None;status='NEW_PLAYER_INSUFFICIENT_EVIDENCE'
      if score and status in ('UPDATED','NEW_PLAYER_PROVISIONAL'):
       stats['current_updated']+=1
-    except Exception as exc:status='SCORING_ERROR';current_price=None;score=baseline
+    except Exception as exc:
+     print('WARNING: NIL in-season update deferred for ESPN athlete '+str(athlete)+' (team '+team_id+'): '+repr(exc),file=sys.stderr,flush=True)
+     # A guarded anomalous delta or missing reference must NEVER override
+     # a verified preseason/archived price or prevent safe records publishing.
+     # Preserve the unchanged baseline and explicitly identify the deferral.
+     status='PRESEASON_BASELINE' if baseline is not None else 'SCORING_ERROR'
+     update_method='DEFERRED_MODEL_UPDATE_PRESERVED_PRIOR' if baseline is not None else 'UNANCHORED_SCORING_DEFERRED'
+     current_price=None;reference_price=None;score=baseline
   elif baseline:stats['current_without_2027']+=1
   if score is None:continue
   # No end-to-end website cash change if as-of fails. Prices published as

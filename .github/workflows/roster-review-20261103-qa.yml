@@ -1,0 +1,35 @@
+name: Nov 2026 ESPN roster and V4 addendum QA
+on:
+  pull_request:
+    paths:
+      - "scripts/refresh_2027_espn_rosters.py"
+      - "data/roster_2027_advanced.json"
+      - "data/roster_2027_class_evidence.json"
+      - "data/roster_additions_2027_20261103.json"
+      - "public/stock_watch/late_entrant_baselines_2027.json"
+      - "tests/test_2027_roster_new_baselines.py"
+      - ".github/workflows/roster-review-20261103-qa.yml"
+permissions:
+  contents: read
+jobs:
+  roster-baselines:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check 2027 ESPN roster and immutable V4/preseason anchors
+        run: |
+          python3 -m py_compile scripts/refresh_2027_espn_rosters.py
+          python3 -m unittest discover -s tests -p 'test_2027_roster_new_baselines.py' -v
+      - name: Check published model-derived prior for newly discovered IDs
+        run: |
+          python3 - <<'PY'
+          import json
+          current=json.load(open('public/nil_estimation_model_2027.json'))['byESPNId']
+          added=json.load(open('data/roster_additions_2027_20261103.json'))['priceByESPNId']
+          for pid in sorted(added,key=int):
+              r=current.get(pid) or {}
+              print('EXISTING_PRIOR',pid,
+                    'preseason',r.get('preseason'),'value',r.get('value'),
+                    'anchorType',r.get('anchorType'),'status',r.get('status'))
+          PY
