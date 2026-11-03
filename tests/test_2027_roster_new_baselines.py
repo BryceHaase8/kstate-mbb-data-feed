@@ -41,7 +41,8 @@ class NationalRosterPassQA(unittest.TestCase):
                 self.assertEqual(self.late["byESPNId"][pid]["effectiveDate"][:7],
                                  "2026-10" if pid=="5468197" else "2026-11")
         self.assertEqual(self.audit["pricingAudit"]["addedOriginalV4"],23)
-        self.assertEqual(self.audit["pricingAudit"]["addedV4CohortProxy"],5)
+        self.assertEqual(self.audit["pricingAudit"]["addedV4CohortProxy"],4)
+        self.assertEqual(self.audit["pricingAudit"]["addedHistoricalPriorPreserved"],1)
         self.assertEqual(self.audit["pricingAudit"]["alreadyFrozen"],6)
         self.assertEqual(self.audit["pricingAudit"]["alreadyLate"],1)
     def test_roster_school_and_identity_provenance(self):
@@ -69,16 +70,22 @@ class NationalRosterPassQA(unittest.TestCase):
             row=self.late["byESPNId"][pid]
             method=row["modelVersion"]
             methods[method]=methods.get(method,0)+1
-            self.assertIn(method,("Original V4 fair-market residual model","V4_TEAM_COHORT_PROXY"))
+            self.assertIn(method,("Original V4 fair-market residual model","V4_TEAM_COHORT_PROXY","V4_ARCHIVED_ESPN_HISTORICAL_PRIOR_PRESERVED"))
             if method=="V4_TEAM_COHORT_PROXY":
                 self.assertEqual(row["confidence"],"LOW_CONFIDENCE_NO_DIRECT_V4")
                 self.assertIn("peerContext",row)
                 self.assertGreater(row["peerContext"]["originalV4PeersAtTeam"],2)
-            else:
+            elif method=="Original V4 fair-market residual model":
                 self.assertIn("TORVIK_2025_26",row["source"])
                 self.assertNotIn("peerContext",row)
+            else:
+                self.assertEqual(pid,"5105974")
+                self.assertEqual(row["value"],676851)
+                self.assertEqual(row["sourcePreviouslyPublishedPreseason"],676851)
+                self.assertNotIn("peerContext",row)
         self.assertEqual(methods,{"Original V4 fair-market residual model":23,
-                                 "V4_TEAM_COHORT_PROXY":5})
+                                 "V4_TEAM_COHORT_PROXY":4,
+                                 "V4_ARCHIVED_ESPN_HISTORICAL_PRIOR_PRESERVED":1})
         # Prevent mistaking another 6-5 Noah Williams for the new 6-8 Bradley
         # athlete and accidentally assigning his unrelated prior-year V4.
         self.assertEqual(self.late["byESPNId"]["4873205"]["espnIdSupersedesStagedId"],"5460113")
