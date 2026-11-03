@@ -5,7 +5,7 @@
   "source": "Official 2026-27 ESPN roster; main data/roster_2027_advanced.json",
   "siteRosterBranch": "staging-seven-year-history-2027-roster-identity",
   "priorRosterCount": 5541,
-  "publishedRosterCount": 5574,
+  "publishedRosterCount": 5575,
   "newESPNIDs": [
     "5178211",
     "5316049",
@@ -41,9 +41,10 @@
     "5470445",
     "5105569",
     "5243369",
-    "4432398"
+    "4432398",
+    "5176140"
   ],
-  "newCount": 35,
+  "newCount": 36,
   "supersededESPNIDs": [
     "5460113",
     "5461303"
@@ -55,6 +56,17 @@
   "preservedFailedTeam": {
     "teamId": "2382",
     "name": "Mercer Bears",
-    "status": "ESPN 404, prior records retained"
+    "status": "Recovered live ESPN team roster (season-specific endpoint 404)",
+    "recoveredPlayer": "5176140"
+  },
+  "mercerFallback": {
+    "teamId": "2382",
+    "athleteId": "5176140",
+    "name": "Karon Boyd",
+    "source": "ESPN live team endpoint",
+    "sourceURL": "https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/teams/2382?enable=roster",
+    "classEvidence": "NOT_AVAILABLE",
+    "eligibility": "PROVISIONAL_0_YEARS_AFTER_2025_26_SENIOR",
+    "V4OpenMarketPreseason": 914723
   }
 }
