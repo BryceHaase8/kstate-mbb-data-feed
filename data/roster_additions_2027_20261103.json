@@ -4,7 +4,7 @@
   "source": "Official ESPN 2026-27 team rosters",
   "asOf": "2026-11-03T13:14:55.894116+00:00",
   "previousRosterPlayers": 5541,
-  "currentRosterPlayers": 5576,
+  "currentRosterPlayers": 5574,
   "newESPNIDs": 35,
   "teamsRequested": 365,
   "teamsVerified": 364,
@@ -816,5 +816,147 @@
       ]
     }
   },
-  "note": "Roster identity only; no automatic NIL approval or legal eligibility certification."
+  "note": "Roster identity only; no automatic NIL approval or legal eligibility certification.",
+  "supersededStagedRosterIds": [
+    {
+      "old": "5460113",
+      "current": "4873205",
+      "teamId": "71",
+      "name": "Noah Williams",
+      "originalFrozenPreseason": 50000,
+      "oldHistoricalPricePreserved": true
+    },
+    {
+      "old": "5461303",
+      "current": "5317687",
+      "teamId": "2169",
+      "name": "Tre Hawkins",
+      "originalFrozenPreseason": 50000,
+      "oldHistoricalPricePreserved": true
+    }
+  ],
+  "pricingAudit": {
+    "newESPNIDs": 35,
+    "alreadyFrozen": 6,
+    "alreadyLate": 1,
+    "addedOriginalV4": 23,
+    "addedV4CohortProxy": 5,
+    "unpricedRemaining": 0,
+    "pricingEffectiveDate": "2026-11-01",
+    "original6057FrozenChanged": false
+  },
+  "priceByESPNId": {
+    "4432398": {
+      "price": 67203,
+      "method": "DIRECT_ORIGINAL_V4_2026"
+    },
+    "4684628": {
+      "price": 590985,
+      "method": "DIRECT_ORIGINAL_V4_2026"
+    },
+    "4870565": {
+      "price": 1363294,
+      "method": "DIRECT_ORIGINAL_V4_2026"
+    },
+    "4873205": {
+      "price": 60000,
+      "method": "V4_TEAM_COHORT_PROXY_NO_STATS"
+    },
+    "4896557": {
+      "price": 140046,
+      "method": "DIRECT_ORIGINAL_V4_2026"
+    },
+    "5105529": {
+      "price": 2499655,
+      "method": "DIRECT_ORIGINAL_V4_2026"
+    },
+    "5105538": {
+      "price": 2046626,
+      "method": "DIRECT_ORIGINAL_V4_2026"
+    },
+    "5105546": {
+      "price": 2816569,
+      "method": "DIRECT_ORIGINAL_V4_2026"
+    },
+    "5105569": {
+      "price": 2442190,
+      "method": "DIRECT_ORIGINAL_V4_2026"
+    },
+    "5105643": {
+      "price": 4085898,
+      "method": "DIRECT_ORIGINAL_V4_2026"
+    },
+    "5105660": {
+      "price": 141380,
+      "method": "DIRECT_ORIGINAL_V4_2026"
+    },
+    "5105974": {
+      "price": 320000,
+      "method": "V4_TEAM_COHORT_PROXY_NO_STATS"
+    },
+    "5107296": {
+      "price": 86024,
+      "method": "DIRECT_ORIGINAL_V4_2026"
+    },
+    "5107321": {
+      "price": 499217,
+      "method": "DIRECT_ORIGINAL_V4_2026"
+    },
+    "5107477": {
+      "price": 79146,
+      "method": "DIRECT_ORIGINAL_V4_2026"
+    },
+    "5108060": {
+      "price": 2030619,
+      "method": "DIRECT_ORIGINAL_V4_2026"
+    },
+    "5108073": {
+      "price": 53750,
+      "method": "DIRECT_ORIGINAL_V4_2026"
+    },
+    "5112181": {
+      "price": 72736,
+      "method": "DIRECT_ORIGINAL_V4_2026"
+    },
+    "5119069": {
+      "price": 709149,
+      "method": "DIRECT_ORIGINAL_V4_2026"
+    },
+    "5177301": {
+      "price": 2512535,
+      "method": "DIRECT_ORIGINAL_V4_2026"
+    },
+    "5189001": {
+      "price": 2489739,
+      "method": "DIRECT_ORIGINAL_V4_2026"
+    },
+    "5241069": {
+      "price": 2250529,
+      "method": "DIRECT_ORIGINAL_V4_2026"
+    },
+    "5243369": {
+      "price": 89223,
+      "method": "DIRECT_ORIGINAL_V4_2026"
+    },
+    "5316049": {
+      "price": 2183050,
+      "method": "DIRECT_ORIGINAL_V4_2026"
+    },
+    "5317687": {
+      "price": 58000,
+      "method": "V4_TEAM_COHORT_PROXY_NO_STATS"
+    },
+    "5470445": {
+      "price": 132629,
+      "method": "DIRECT_ORIGINAL_V4_2026"
+    },
+    "5471855": {
+      "price": 80000,
+      "method": "V4_TEAM_COHORT_PROXY_NO_STATS"
+    },
+    "5471911": {
+      "price": 186000,
+      "method": "V4_TEAM_COHORT_PROXY_NO_STATS"
+    }
+  }
 }
