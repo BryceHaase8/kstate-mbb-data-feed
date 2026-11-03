@@ -16,12 +16,12 @@ class NationalRosterPassQA(unittest.TestCase):
     def test_immutable_original_6057(self):
         self.assertEqual(self.prev["playerCount"],6057)
         self.assertEqual(len(self.prev["byESPNId"]),6057)
-        self.assertEqual(len(self.late["byESPNId"]),29)
+        self.assertEqual(len(self.late["byESPNId"]),30)
         self.assertFalse(set(self.prev["byESPNId"]) & set(self.late["byESPNId"]))
     def test_added_athletes_are_exact_id_keyed_and_priced_once(self):
         ids=self.audit["additions"]
-        self.assertEqual(len(ids),35)
-        self.assertEqual(self.audit["newESPNIDs"],35)
+        self.assertEqual(len(ids),36)
+        self.assertEqual(self.audit["newESPNIDs"],36)
         self.assertEqual(self.audit["teamsRequested"],365)
         self.assertGreaterEqual(self.audit["teamsVerified"],350)
         self.assertEqual(self.audit["pricingAudit"]["unpricedRemaining"],0)
@@ -40,7 +40,7 @@ class NationalRosterPassQA(unittest.TestCase):
                 self.assertLessEqual(amount,20000000)
                 self.assertEqual(self.late["byESPNId"][pid]["effectiveDate"][:7],
                                  "2026-10" if pid=="5468197" else "2026-11")
-        self.assertEqual(self.audit["pricingAudit"]["addedOriginalV4"],23)
+        self.assertEqual(self.audit["pricingAudit"]["addedOriginalV4"],24)
         self.assertEqual(self.audit["pricingAudit"]["addedV4CohortProxy"],4)
         self.assertEqual(self.audit["pricingAudit"]["addedHistoricalPriorPreserved"],1)
         self.assertEqual(self.audit["pricingAudit"]["alreadyFrozen"],6)
@@ -51,7 +51,7 @@ class NationalRosterPassQA(unittest.TestCase):
         self.assertEqual(self.roster["schemaVersion"],3)
         self.assertEqual(self.roster["rosterSeason"],2027)
         self.assertEqual(self.roster["eligibilityTargetSeason"],"2027-28")
-        self.assertEqual(len(rows),5574)
+        self.assertEqual(len(rows),5575)
         self.assertEqual(len(byid),len(rows))
         self.assertEqual(len(self.roster["teams"]),365)
         for pid,entry in self.audit["additions"].items():
@@ -63,6 +63,17 @@ class NationalRosterPassQA(unittest.TestCase):
             self.assertNotIn(pair["old"],byid)
             self.assertIn(pair["old"],self.prev["byESPNId"])
             self.assertTrue(pair["oldHistoricalPricePreserved"])
+    def test_mercer_fallback_original_v4_and_class_are_audited(self):
+        row=self.late["byESPNId"]["5176140"]
+        self.assertEqual(row["value"],914723)
+        self.assertEqual(row["sourcePreviouslyPublishedPreseason"],1053906)
+        self.assertEqual(row["sourcePreviouslyPublishedAnchorType"],"V4_OR_ARCHIVED_ESPN")
+        self.assertEqual(row["priorSchool"],"Wichita St.")
+        self.assertEqual(row["priorGames"],35)
+        self.assertIn("REVIEW_REQUIRED",row["eligibilityStatus"])
+        self.assertEqual(self.audit["verifiedFallbackTeams"][0]["teamId"],"2382")
+        self.assertEqual(self.audit["verifiedFallbackTeams"][0]["newlyDiscoveredESPNIDs"],["5176140"])
+
     def test_direct_v4_and_peer_proxies_never_misattributed(self):
         methods={}
         for pid,entry in self.audit["additions"].items():
@@ -83,7 +94,7 @@ class NationalRosterPassQA(unittest.TestCase):
                 self.assertEqual(row["value"],676851)
                 self.assertEqual(row["sourcePreviouslyPublishedPreseason"],676851)
                 self.assertNotIn("peerContext",row)
-        self.assertEqual(methods,{"Original V4 fair-market residual model":23,
+        self.assertEqual(methods,{"Original V4 fair-market residual model":24,
                                  "V4_TEAM_COHORT_PROXY":4,
                                  "V4_ARCHIVED_ESPN_HISTORICAL_PRIOR_PRESERVED":1})
         # Prevent mistaking another 6-5 Noah Williams for the new 6-8 Bradley
