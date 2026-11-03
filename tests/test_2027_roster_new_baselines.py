@@ -1,10 +1,16 @@
 #!/usr/bin/env python3
 """Additive ESPN roster / original V4 opening-baseline QA, November 2026."""
+import io
 import json
 from pathlib import Path
+import sys
 import unittest
+from unittest.mock import patch
+import urllib.error
 
 ROOT=Path(__file__).resolve().parents[1]
+sys.path.insert(0,str(ROOT/"scripts"))
+from refresh_2027_espn_rosters import roster as fetch_live_roster
 
 def read(path):return json.loads((ROOT/path).read_text())
 class NationalRosterPassQA(unittest.TestCase):
@@ -63,6 +69,23 @@ class NationalRosterPassQA(unittest.TestCase):
             self.assertNotIn(pair["old"],byid)
             self.assertIn(pair["old"],self.prev["byESPNId"])
             self.assertTrue(pair["oldHistoricalPricePreserved"])
+    def test_espn_season_404_recovers_live_team_without_inventing_class(self):
+        athletes=[{"id":str(5176140+i),"displayName":("Karon Boyd" if i==0 else "Player "+str(i)),
+                   "active":True,"displayHeight":'6\\' 6"', "displayWeight":"223 lbs",
+                   "position":{"abbreviation":"F"}} for i in range(6)]
+        def mock_open(request,timeout=22):
+            if "/roster?" in request.full_url:
+                raise urllib.error.HTTPError(request.full_url,404,"ESPN season roster missing",{},None)
+            return io.BytesIO(json.dumps({"team":{"id":"2382","athletes":athletes}}).encode())
+        with patch("refresh_2027_espn_rosters.urllib.request.urlopen",side_effect=mock_open):
+            team,players,error=fetch_live_roster("2382")
+        self.assertEqual(team,"2382")
+        self.assertIsNone(error)
+        self.assertEqual(len(players),6)
+        self.assertEqual(players[0]["id"],"5176140")
+        self.assertEqual(players[0]["schoolClass"],"")
+        self.assertEqual(players[0]["source"],"ESPN_CURRENT_TEAM_ROSTER_FALLBACK_SEASON_404")
+
     def test_mercer_fallback_original_v4_and_class_are_audited(self):
         row=self.late["byESPNId"]["5176140"]
         self.assertEqual(row["value"],914723)
