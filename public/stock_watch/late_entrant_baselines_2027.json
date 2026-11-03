@@ -435,6 +435,36 @@
       "sourcePreviouslyPublishedAnchorType": "V4_OR_ARCHIVED_ESPN",
       "baselineMigrationReason": "STAFF_DIRECTED_ORIGINAL_V4_PRESEASON_PRICE_FROM_2025_26_COMPLETE_YEAR"
     },
+    "5176140": {
+      "playerName": "Karon Boyd",
+      "teamId": "2382",
+      "teamName": "Mercer Bears",
+      "position": "F",
+      "classYear": "CURRENT_CLASS_UNVERIFIED_2026_SENIOR",
+      "height": "6' 6\"",
+      "weight": "223 lbs",
+      "eligibilityYearsEstimate": 0,
+      "value": 914723,
+      "effectiveDate": "2026-11-01",
+      "source": "USER_SUPPLIED_V4_ORIGINAL_SCORER_TORVIK_2025_26",
+      "basis": "Original V4 package scored complete 2025-26 BartTorvik individual production (35 games, 83.6% minutes) at Wichita State and 2025-26 Torvik team context. ESPN 2026-27 Mercer season roster endpoint was 404; exact athlete ESPN ID confirmed on current ESPN Mercer team roster, which does not supply class.",
+      "confidence": "STANDARD_V4_SOURCE",
+      "modelVersion": "Original V4 fair-market residual model",
+      "eligibilityStatus": "REVIEW_REQUIRED_PAST_2026_SENIOR_NO_CURRENT_ESPN_CLASS",
+      "approvedBy": "Staff direction in 2026-11-03 project chat: add newly ESPN-listed players, assign V4 preseason estimates",
+      "auditDate": "2026-11-03",
+      "sourcePreviouslyPublishedPreseason": 1053906,
+      "sourcePreviouslyPublishedAnchorType": "V4_OR_ARCHIVED_ESPN",
+      "baselineMigrationReason": "STAFF_DIRECTED_ORIGINAL_V4_PRESEASON_PRICE_FROM_2025_26_COMPLETE_YEAR",
+      "model50pctMarketBand": [
+        681724,
+        1162994
+      ],
+      "priorSchool": "Wichita St.",
+      "priorYear": 2026,
+      "priorGames": 35,
+      "priorMinutesPct": 83.6
+    },
     "5177301": {
       "playerName": "Melvin Council Jr.",
       "teamId": "2305",
