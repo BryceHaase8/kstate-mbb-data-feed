@@ -71,7 +71,7 @@ class NationalRosterPassQA(unittest.TestCase):
             self.assertTrue(pair["oldHistoricalPricePreserved"])
     def test_espn_season_404_recovers_live_team_without_inventing_class(self):
         athletes=[{"id":str(5176140+i),"displayName":("Karon Boyd" if i==0 else "Player "+str(i)),
-                   "active":True,"displayHeight":'6\\' 6"', "displayWeight":"223 lbs",
+                   "active":True,"displayHeight":"6 ft 6 in", "displayWeight":"223 lbs",
                    "position":{"abbreviation":"F"}} for i in range(6)]
         def mock_open(request,timeout=22):
             if "/roster?" in request.full_url:
