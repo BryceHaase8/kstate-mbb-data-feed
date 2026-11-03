@@ -20,6 +20,7 @@ NEW_CLASS=ROOT/"data/roster_2027_class_evidence.json"
 REPORT=ROOT/"data/roster_additions_2027_20261103.json"
 FATAL_MIN_TEAMS=340
 URL="https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/teams/{}/roster?season=2027"
+FALLBACK_URL="https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/teams/{}?enable=roster"
 AGENT="KStateBasketballRosterQA/1.0 (2026-27 research)"
 CLASS_YEARS={"FR":4,"SO":3,"JR":2,"SR":0,"GR":0,"GS":0,"FRESHMAN":4,
              "SOPHOMORE":3,"JUNIOR":2,"SENIOR":0,"GRADUATE":0}
@@ -28,11 +29,28 @@ def roster(team_id):
     for attempt in range(5):
         try:
             req=urllib.request.Request(url,headers={"User-Agent":AGENT,"Accept":"application/json"})
-            with urllib.request.urlopen(req,timeout=22) as response:
-                data=json.load(response)
-            if int((data.get("season") or {}).get("year") or 0)!=2027:
-                raise ValueError("ESPN returned wrong season for "+str(team_id))
-            athletes=data.get("athletes") or []
+            source="ESPN_2027_SEASON_ROSTER_ID"
+            try:
+                with urllib.request.urlopen(req,timeout=22) as response:
+                    data=json.load(response)
+                if int((data.get("season") or {}).get("year") or 0)!=2027:
+                    raise ValueError("ESPN returned wrong season for "+str(team_id))
+                athletes=data.get("athletes") or []
+            except urllib.error.HTTPError as err:
+                if err.code!=404:raise
+                # ESPN sometimes fails the season-specific team route while
+                # its current team roster is available (Mercer #2382, Nov 3).
+                # This alternate feed supplies identity/size, NOT class-year
+                # evidence: absent class remains explicitly review-required.
+                alternate=urllib.request.Request(FALLBACK_URL.format(team_id),
+                    headers={"User-Agent":AGENT,"Accept":"application/json"})
+                with urllib.request.urlopen(alternate,timeout=22) as response:
+                    data=json.load(response)
+                team=data.get("team") or {}
+                if str(team.get("id"))!=str(team_id):
+                    raise ValueError("Alternate ESPN roster returned wrong team "+str(team_id))
+                athletes=team.get("athletes") or []
+                source="ESPN_CURRENT_TEAM_ROSTER_FALLBACK_SEASON_404"
             if not isinstance(athletes,list) or len(athletes)<5:
                 raise ValueError("ESPN returned empty/incomplete team "+str(team_id))
             valid=[]
@@ -50,7 +68,8 @@ def roster(team_id):
                 hometown=str(place.get("displayText") or ", ".join(x for x in [place.get("city"),place.get("state"),place.get("country")] if x) or "")
                 valid.append(dict(id=pid,name=name,teamId=str(team_id),position=pos,
                      height=str(a.get("displayHeight") or ""),weight=str(a.get("displayWeight") or ""),
-                     hometown=hometown,schoolClass=school_class,active=bool(a.get("active",True))))
+                     hometown=hometown,schoolClass=school_class,active=bool(a.get("active",True)),
+                     source=source))
             if len(valid)<5:raise ValueError("No valid roster athletes for "+str(team_id))
             return str(team_id),valid,None
         except (OSError,ValueError,TypeError,KeyError) as e:
@@ -102,7 +121,7 @@ def main():
              "position":a["position"],"height":a["height"],"weight":a["weight"],
              "espnClass":classification,"eligibilityYearsEstimate":years,
              "eligibilityStatus":"RESEARCH_ONLY_NOT_COURT_RULING",
-             "source":"ESPN_2027_SEASON_ROSTER_ID","rosterRow":row}
+             "source":a["source"],"rosterRow":row}
     combined=sorted(updated.values(),key=lambda row:(int(row[2]),str(row[1]).lower(),int(row[0])))
     if len(combined)<len(old_rows) or len({str(x[0]) for x in combined})!=len(combined):
         raise RuntimeError("Data loss or duplicate ESPN roster IDs")
