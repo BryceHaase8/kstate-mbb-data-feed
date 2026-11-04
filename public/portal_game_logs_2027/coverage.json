@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-03T23:30:24.260375Z",
+  "checkedAt": "2026-11-04T02:31:20.167891Z",
   "completedByDate": {
     "2026-11-01": {
       "401920409": [
@@ -740,16 +740,69 @@
         55,
         111
       ]
+    },
+    "2026-11-03": {
+      "401906757": [
+        74,
+        96
+      ],
+      "401906848": [
+        59,
+        90
+      ],
+      "401909551": [
+        50,
+        76
+      ],
+      "401920061": [
+        59,
+        103
+      ],
+      "401920304": [
+        55,
+        75
+      ],
+      "401920376": [
+        54,
+        88
+      ],
+      "401921801": [
+        57,
+        85
+      ],
+      "401921819": [
+        55,
+        81
+      ],
+      "401925779": [
+        71,
+        78
+      ],
+      "401926180": [
+        43,
+        96
+      ]
     }
   },
   "dataIntegrity": "ALREADY_VALIDATED_BY_FACTUAL_QA",
   "duplicateSourceGameIds": [],
   "firstSeasonDate": "2026-11-01",
   "latestScannedDate": "2026-11-03",
-  "missingGameIds": [],
+  "missingGameIds": [
+    "401906757",
+    "401906848",
+    "401909551",
+    "401920061",
+    "401920304",
+    "401920376",
+    "401921801",
+    "401921819",
+    "401925779",
+    "401926180"
+  ],
   "monitorHealth": {
-    "ageMinutes": 73.7,
-    "lastScheduledAt": "2026-11-03T22:16:43Z",
+    "ageMinutes": 3.2,
+    "lastScheduledAt": "2026-11-04T02:28:06Z",
     "status": "HEALTHY"
   },
   "note": "Verified data remains publishable when missing ESPN game boxes are pending.",
@@ -761,8 +814,21 @@
   "sourceDaysChecked": 3,
   "sourceDisappearedDates": [],
   "sourceErrors": [],
-  "status": "COMPLETE",
-  "totalCompletedGamesObserved": 184,
-  "unresolvedByDate": {},
+  "status": "INCOMPLETE",
+  "totalCompletedGamesObserved": 194,
+  "unresolvedByDate": {
+    "2026-11-03": [
+      "401906757",
+      "401906848",
+      "401909551",
+      "401920061",
+      "401920304",
+      "401920376",
+      "401921801",
+      "401921819",
+      "401925779",
+      "401926180"
+    ]
+  },
   "verifiedCompletedGames": 184
 }
