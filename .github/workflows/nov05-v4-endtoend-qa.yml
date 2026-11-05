@@ -39,9 +39,11 @@ jobs:
           assert all(prices[pid]['anchorType']=='LATE_ENTRANT_BASELINE_2027' for pid in expected if pid not in ('5103628','5241932'))
           assert prices['5103628']['anchorType']=='V4_OR_ARCHIVED_ESPN'
           assert prices['5241932']['anchorType']=='V4_OR_ARCHIVED_ESPN'
+          authorized=json.loads((base/'opening_price_corrections_2027.json').read_text())['byESPNId']
           for pid,amount in fixed['byESPNId'].items():
             if pid in ('5180837','5313437'):continue
-            assert prices[pid]['preseason']==amount,(pid,prices[pid]['preseason'],amount)
+            expected_amount=authorized[pid]['value'] if pid in authorized else amount
+            assert prices[pid]['preseason']==expected_amount,(pid,prices[pid]['preseason'],expected_amount)
           print('Eight V4 opening prices VERIFIED', {k:prices[k]['preseason'] for k in expected})
-          print('NIL complete, all other 6055 immutable anchors intact')
+          print('NIL complete, all other original anchors intact, except previously approved opening corrections')
           PY
