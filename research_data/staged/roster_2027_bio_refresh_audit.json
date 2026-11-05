@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-11-03T15:31:20.073575+00:00",
+  "timestamp": "2026-11-05T12:35:27.053548+00:00",
   "method": "ESPN current team roster (same endpoint as hoopR espn_mbb_team_roster)",
   "playersBefore": 5575,
   "playersAfter": 5575,
@@ -8,229 +8,270 @@
   "failedTeams": {},
   "missingWeightBefore": 368,
   "missingWeightAfter": 368,
-  "missingHeadshotBefore": 2086,
-  "missingHeadshotAfter": 1222,
+  "missingHeadshotBefore": 1222,
+  "missingHeadshotAfter": 1067,
   "changes": {
     "weightFilled": 0,
     "weightChanged": 0,
-    "headshotFilled": 864,
+    "headshotFilled": 155,
     "headshotChanged": 0,
     "heightFilled": 0
   },
-  "newIdsNotApplied": [],
+  "newIdsNotApplied": [
+    {
+      "id": "4433285",
+      "name": "Mark Mitchell Jr.",
+      "teamId": "142"
+    },
+    {
+      "id": "5241932",
+      "name": "Tishan Ahir",
+      "teamId": "300"
+    },
+    {
+      "id": "5313437",
+      "name": "Jahmari Hamilton-Brown",
+      "teamId": "2029"
+    },
+    {
+      "id": "5103628",
+      "name": "Macaleab Rich",
+      "teamId": "2029"
+    },
+    {
+      "id": "5180837",
+      "name": "Joshua Ward",
+      "teamId": "2239"
+    },
+    {
+      "id": "5475372",
+      "name": "George Comer",
+      "teamId": "2415"
+    },
+    {
+      "id": "5107508",
+      "name": "Kenyon Giles",
+      "teamId": "2724"
+    },
+    {
+      "id": "5125176",
+      "name": "Emmanuel Okorafor",
+      "teamId": "2724"
+    }
+  ],
   "membershipChanged": false,
   "eligibilityChanged": false,
   "nilChanged": false,
   "examples": [
     {
-      "id": "5319273",
-      "name": "Caleb Williams",
+      "id": "5458673",
+      "name": "Mason Hunt",
       "field": "headshot",
       "before": "",
-      "after": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5319273.png"
+      "after": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5458673.png"
     },
     {
-      "id": "5351499",
-      "name": "Mantas Rubstavicius",
+      "id": "5460827",
+      "name": "Luca Vincini",
       "field": "headshot",
       "before": "",
-      "after": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5351499.png"
+      "after": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5460827.png"
     },
     {
-      "id": "5345015",
-      "name": "Narcisse Ngoy",
+      "id": "5460825",
+      "name": "Luka Skoric",
       "field": "headshot",
       "before": "",
-      "after": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5345015.png"
+      "after": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5460825.png"
     },
     {
-      "id": "5222135",
-      "name": "Abdou Toure",
+      "id": "5461288",
+      "name": "Brayden Barrett",
       "field": "headshot",
       "before": "",
-      "after": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5222135.png"
+      "after": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5461288.png"
     },
     {
-      "id": "5210978",
-      "name": "Caleb Ourigou",
+      "id": "5461287",
+      "name": "Cade Krueger",
       "field": "headshot",
       "before": "",
-      "after": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5210978.png"
+      "after": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5461287.png"
     },
     {
-      "id": "5210941",
-      "name": "Davion Thompson",
+      "id": "5459429",
+      "name": "Brady Wooley",
       "field": "headshot",
       "before": "",
-      "after": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5210941.png"
+      "after": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5459429.png"
     },
     {
-      "id": "5383766",
-      "name": "Ilia Frolov",
+      "id": "5459428",
+      "name": "Chris Bolte",
       "field": "headshot",
       "before": "",
-      "after": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5383766.png"
+      "after": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5459428.png"
     },
     {
-      "id": "5142711",
-      "name": "JJ Andrews",
+      "id": "5459430",
+      "name": "Jonas Oware",
       "field": "headshot",
       "before": "",
-      "after": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5142711.png"
+      "after": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5459430.png"
     },
     {
-      "id": "5142729",
-      "name": "Jordan Smith Jr.",
+      "id": "5461249",
+      "name": "Merrick Smith",
       "field": "headshot",
       "before": "",
-      "after": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5142729.png"
+      "after": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5461249.png"
     },
     {
-      "id": "5041952",
-      "name": "Maper Maker",
+      "id": "5460610",
+      "name": "Marvin Christie III",
       "field": "headshot",
       "before": "",
-      "after": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5041952.png"
+      "after": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5460610.png"
     },
     {
-      "id": "5185443",
-      "name": "Miikka Muurinen",
+      "id": "5460782",
+      "name": "Brady Hennig",
       "field": "headshot",
       "before": "",
-      "after": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5185443.png"
+      "after": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5460782.png"
     },
     {
-      "id": "5178211",
-      "name": "Jonathan Griman",
+      "id": "5460783",
+      "name": "Kaur Tomann",
       "field": "headshot",
       "before": "",
-      "after": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5178211.png"
+      "after": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5460783.png"
     },
     {
-      "id": "5142722",
-      "name": "Caleb Holt",
+      "id": "5462428",
+      "name": "Luke Susko",
       "field": "headshot",
       "before": "",
-      "after": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5142722.png"
+      "after": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5462428.png"
     },
     {
-      "id": "5142719",
-      "name": "Cameron Holmes",
+      "id": "5462429",
+      "name": "Ty Laur",
       "field": "headshot",
       "before": "",
-      "after": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5142719.png"
+      "after": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5462429.png"
     },
     {
-      "id": "5351296",
-      "name": "Endurance Aiyamenkhue",
+      "id": "5459232",
+      "name": "Landon Osswald",
       "field": "headshot",
       "before": "",
-      "after": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5351296.png"
+      "after": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5459232.png"
     },
     {
-      "id": "5455668",
-      "name": "Joaquin Rigdon",
+      "id": "5459233",
+      "name": "Markus Pastorcic-Straun",
       "field": "headshot",
       "before": "",
-      "after": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5455668.png"
+      "after": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5459233.png"
     },
     {
-      "id": "5455669",
-      "name": "Maksim Brnovic",
+      "id": "5459228",
+      "name": "Peyton Heiss",
       "field": "headshot",
       "before": "",
-      "after": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5455669.png"
+      "after": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5459228.png"
     },
     {
-      "id": "5312010",
-      "name": "Ali Assran",
+      "id": "5459229",
+      "name": "Trey Drexler",
       "field": "headshot",
       "before": "",
-      "after": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5312010.png"
+      "after": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5459229.png"
     },
     {
-      "id": "5312011",
-      "name": "Austin Goode",
+      "id": "5458807",
+      "name": "Julius Gizzi",
       "field": "headshot",
       "before": "",
-      "after": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5312011.png"
+      "after": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5458807.png"
     },
     {
-      "id": "5312008",
-      "name": "Braden Freeman",
+      "id": "5458808",
+      "name": "Max Meagher",
       "field": "headshot",
       "before": "",
-      "after": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5312008.png"
+      "after": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5458808.png"
     },
     {
-      "id": "5458632",
-      "name": "Canon Wyatt",
+      "id": "5459306",
+      "name": "Gabrielius Jokubauskas",
       "field": "headshot",
       "before": "",
-      "after": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5458632.png"
+      "after": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5459306.png"
     },
     {
-      "id": "5312009",
-      "name": "Jake Davis",
+      "id": "5459304",
+      "name": "Willie Foster",
       "field": "headshot",
       "before": "",
-      "after": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5312009.png"
+      "after": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5459304.png"
     },
     {
-      "id": "5312006",
-      "name": "Jason Scott",
+      "id": "5459512",
+      "name": "Brandon Burrell",
       "field": "headshot",
       "before": "",
-      "after": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5312006.png"
+      "after": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5459512.png"
     },
     {
-      "id": "5312007",
-      "name": "Jess Esso Essis",
+      "id": "5459514",
+      "name": "Kabir Narasimhan",
       "field": "headshot",
       "before": "",
-      "after": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5312007.png"
+      "after": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5459514.png"
     },
     {
-      "id": "5312012",
-      "name": "Troy Plumtree",
+      "id": "5460690",
+      "name": "Jordan Clark",
       "field": "headshot",
       "before": "",
-      "after": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5312012.png"
+      "after": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5460690.png"
     },
     {
-      "id": "5144500",
-      "name": "Ashton Pierce",
+      "id": "5460692",
+      "name": "Seven Pridgen",
       "field": "headshot",
       "before": "",
-      "after": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5144500.png"
+      "after": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5460692.png"
     },
     {
-      "id": "5142732",
-      "name": "Chidi Nwigwe",
+      "id": "5459448",
+      "name": "Louis O'Keefe",
       "field": "headshot",
       "before": "",
-      "after": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5142732.png"
+      "after": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5459448.png"
     },
     {
-      "id": "5458674",
-      "name": "Giannis Asimakopoulos",
+      "id": "5459450",
+      "name": "William Higgs",
       "field": "headshot",
       "before": "",
-      "after": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5458674.png"
+      "after": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5459450.png"
     },
     {
-      "id": "5458675",
-      "name": "Melvin Stubbs Jr.",
+      "id": "5458785",
+      "name": "Josh Pratt",
       "field": "headshot",
       "before": "",
-      "after": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5458675.png"
+      "after": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5458785.png"
     },
     {
-      "id": "5460826",
-      "name": "Cooper Cornelius",
+      "id": "5458789",
+      "name": "Luke Cruz",
       "field": "headshot",
       "before": "",
-      "after": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5460826.png"
+      "after": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5458789.png"
     }
   ]
 }
