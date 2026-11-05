@@ -123,3 +123,5 @@ def main():
 if __name__=="__main__":main()
 
 # Re-run 2026-11-05 national ESPN roster biography snapshot.
+
+# 2026-11-05 second pass: finalize bio for eight new ESPN IDs and rebuild compact fallback.
