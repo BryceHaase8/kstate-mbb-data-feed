@@ -1,0 +1,99 @@
+{
+  "schemaVersion": 1,
+  "season": 2027,
+  "date": "2026-11-05",
+  "status": "STAFF_APPROVED_VERSIONED_PRESEASON_BASELINES",
+  "method": "User-provided original V4 scorer; 2025-26 BartTorvik player and team stats. Exact ESPN ID matching. Missing prior-player stats use explicitly labeled V4 team-peer proxy.",
+  "originalPreseasonFileModified": false,
+  "existingPlayersOutsideEightRepriced": false,
+  "targetCount": 8,
+  "originalV4Direct": 6,
+  "peerCohortProxy": 2,
+  "registeredLatePrices": 6,
+  "previousOriginalV4FrozenPreserved": 2,
+  "players": [
+    {
+      "id": "4433285",
+      "name": "Mark Mitchell Jr.",
+      "team": "Missouri",
+      "opening": 4539410,
+      "priorPublished": 4747988,
+      "provenance": "ORIGINAL_V4_DIRECT",
+      "torvik2026Name": "Mark Mitchell",
+      "priorGP": 33
+    },
+    {
+      "id": "5103628",
+      "name": "Macaleab Rich",
+      "team": "Arkansas-Pine Bluff",
+      "opening": 202708,
+      "priorPublished": 202708,
+      "provenance": "ORIGINAL_V4_EXISTING_FROZEN",
+      "priorGP": 9
+    },
+    {
+      "id": "5107508",
+      "name": "Kenyon Giles",
+      "team": "Wichita State",
+      "opening": 2226515,
+      "priorPublished": 2456248,
+      "provenance": "ORIGINAL_V4_DIRECT",
+      "priorGP": 35,
+      "note": "Wichita State ESPN ID; not the same-name UMass Lowell player"
+    },
+    {
+      "id": "5125176",
+      "name": "Emmanuel Okorafor",
+      "team": "Wichita State",
+      "opening": 1204390,
+      "priorPublished": 1262751,
+      "provenance": "ORIGINAL_V4_DIRECT",
+      "priorGP": 35
+    },
+    {
+      "id": "5180837",
+      "name": "Joshua Ward",
+      "team": "Cal State Fullerton",
+      "opening": 665305,
+      "priorPublished": 443145,
+      "provenance": "ORIGINAL_V4_DIRECT",
+      "torvik2026Name": "Josh Ward",
+      "priorGP": 32
+    },
+    {
+      "id": "5241932",
+      "name": "Tishan Ahir",
+      "team": "UC Irvine",
+      "opening": 123581,
+      "priorPublished": 123581,
+      "provenance": "ORIGINAL_V4_EXISTING_FROZEN",
+      "priorGP": 9
+    },
+    {
+      "id": "5313437",
+      "name": "Jahmari Hamilton-Brown",
+      "team": "Arkansas-Pine Bluff",
+      "opening": 44000,
+      "priorPublished": 50000,
+      "provenance": "LOW_CONFIDENCE_V4_PEER_PROXY",
+      "teamRank2027": 361,
+      "peerMedian2026": 40507,
+      "peerCount": 5,
+      "forwardMultiplier": 1.08
+    },
+    {
+      "id": "5475372",
+      "name": "George Comer",
+      "team": "Morgan State",
+      "opening": 41000,
+      "priorPublished": null,
+      "provenance": "LOW_CONFIDENCE_V4_PEER_PROXY",
+      "teamRank2027": 346,
+      "peerMedian2026": 40975,
+      "peerCount": 7
+    }
+  ],
+  "currentNILPolicy": "Relative current-season updates derive from effective preseason anchor and real ESPN GP/minutes, no staff override",
+  "stockWatchPolicy": "Effective-date opening rebase; not evidence of basketball performance growth or a change to October 27 frozen source",
+  "signedOff": "Staff direction November 5 to assign V4-based preseason estimates to eight newly roster-listed ESPN players."
+}
