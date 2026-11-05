@@ -21,7 +21,18 @@ def check(new,old,source,anchor=None,legacy=None,history=None,rookies=None,v4=No
   original=(load(anchor).get('byESPNId') or {}) if anchor else {}
   for pid,entry in (register.get('byESPNId') or {}).items():
    value=entry.get('value');date=entry.get('effectiveDate')
-   if not str(pid).isdigit() or pid in original or type(value) is not int or not 20_000<=value<=20_000_000 or not isinstance(date,str):
+   existing_rebase=(pid in ('5180837','5313437') and pid in original
+     and entry.get('baselineMigrationReason')=='STAFF_DIRECTED_NOV05_V4_ROSTER_REIDENTIFICATION'
+     and str(entry.get('approvedBy') or '').startswith('Staff direction in 2026-11-05 project chat:')
+     and type(entry.get('sourcePreviouslyPublishedPreseason')) is int
+     and entry.get('sourcePreviouslyPublishedPreseason')==original.get(pid)
+     and ((pid=='5180837' and entry.get('sourcePreviouslyPublishedAnchorType')=='LEGACY_MODEL_PRESEASON_PRESERVED'
+           and entry.get('source')=='USER_SUPPLIED_V4_ORIGINAL_SCORER_TORVIK_2025_26')
+      or (pid=='5313437' and entry.get('sourcePreviouslyPublishedAnchorType')=='SITE_UNMODELED_PROVISIONAL_50000'
+           and entry.get('source')=='V4_TEAM_COHORT_PROXY_NO_VERIFIED_2025_26_STATS')))
+   if (not str(pid).isdigit() or (pid in original and not existing_rebase)
+       or type(value) is not int or not 20_000<=value<=20_000_000
+       or not isinstance(date,str)):
     raise ValueError('Invalid or duplicated late NIL baseline ID '+str(pid))
    if date<=n.get('generatedAt','')[:10]:
     actual=rows.get(pid)
