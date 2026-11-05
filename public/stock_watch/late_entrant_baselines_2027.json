@@ -26,6 +26,26 @@
       "sourcePreviouslyPublishedAnchorType": "V4_OR_ARCHIVED_ESPN",
       "baselineMigrationReason": "STAFF_DIRECTED_ORIGINAL_V4_PRESEASON_PRICE_FROM_2025_26_COMPLETE_YEAR"
     },
+    "4433285": {
+      "playerName": "Mark Mitchell Jr.",
+      "teamId": "142",
+      "teamName": "Missouri Tigers",
+      "position": "F",
+      "classYear": "SR",
+      "value": 4539410,
+      "effectiveDate": "2026-11-05",
+      "source": "USER_SUPPLIED_V4_ORIGINAL_SCORER_TORVIK_2025_26",
+      "basis": "Original V4 residual model scored using 2025–26 BartTorvik player statistics and 2025–26 Torvik team context; verified ESPN ID",
+      "confidence": "STANDARD_V4_SOURCE",
+      "modelVersion": "Original V4 fair-market residual model",
+      "eligibilityStatus": "ROSTER_LISTED_NOT_INDEPENDENTLY_COURT_VERIFIED",
+      "approvedBy": "Staff direction in 2026-11-05 project chat: V4 estimates assigned as preseason anchors to eight newly listed ESPN roster athletes",
+      "auditDate": "2026-11-05",
+      "evidence": "Mark Mitchell, 33 games for Missouri in 2025–26",
+      "sourcePreviouslyPublishedPreseason": 4747988,
+      "sourcePreviouslyPublishedAnchorType": "V4_OR_ARCHIVED_ESPN",
+      "baselineMigrationReason": "STAFF_DIRECTED_NOV05_V4_ROSTER_REIDENTIFICATION"
+    },
     "4684628": {
       "playerName": "Aidan Mahaney",
       "teamId": "2540",
@@ -347,6 +367,26 @@
       "sourcePreviouslyPublishedAnchorType": "V4_OR_ARCHIVED_ESPN",
       "baselineMigrationReason": "STAFF_DIRECTED_ORIGINAL_V4_PRESEASON_PRICE_FROM_2025_26_COMPLETE_YEAR"
     },
+    "5107508": {
+      "playerName": "Kenyon Giles",
+      "teamId": "2724",
+      "teamName": "Wichita State Shockers",
+      "position": "G",
+      "classYear": "SR",
+      "value": 2226515,
+      "effectiveDate": "2026-11-05",
+      "source": "USER_SUPPLIED_V4_ORIGINAL_SCORER_TORVIK_2025_26",
+      "basis": "Original V4 residual model scored using 2025–26 BartTorvik player statistics and 2025–26 Torvik team context; verified ESPN ID",
+      "confidence": "STANDARD_V4_SOURCE",
+      "modelVersion": "Original V4 fair-market residual model",
+      "eligibilityStatus": "ROSTER_LISTED_NOT_INDEPENDENTLY_COURT_VERIFIED",
+      "approvedBy": "Staff direction in 2026-11-05 project chat: V4 estimates assigned as preseason anchors to eight newly listed ESPN roster athletes",
+      "auditDate": "2026-11-05",
+      "evidence": "Kenyon Giles, Wichita State in 2025–26; distinct from same-name UMass Lowell player",
+      "sourcePreviouslyPublishedPreseason": 2456248,
+      "sourcePreviouslyPublishedAnchorType": "V4_OR_ARCHIVED_ESPN",
+      "baselineMigrationReason": "STAFF_DIRECTED_NOV05_V4_ROSTER_REIDENTIFICATION"
+    },
     "5108060": {
       "playerName": "Amani Lyles",
       "teamId": "2132",
@@ -435,6 +475,26 @@
       "sourcePreviouslyPublishedAnchorType": "V4_OR_ARCHIVED_ESPN",
       "baselineMigrationReason": "STAFF_DIRECTED_ORIGINAL_V4_PRESEASON_PRICE_FROM_2025_26_COMPLETE_YEAR"
     },
+    "5125176": {
+      "playerName": "Emmanuel Okorafor",
+      "teamId": "2724",
+      "teamName": "Wichita State Shockers",
+      "position": "C",
+      "classYear": "SR",
+      "value": 1204390,
+      "effectiveDate": "2026-11-05",
+      "source": "USER_SUPPLIED_V4_ORIGINAL_SCORER_TORVIK_2025_26",
+      "basis": "Original V4 residual model scored using 2025–26 BartTorvik player statistics and 2025–26 Torvik team context; verified ESPN ID",
+      "confidence": "STANDARD_V4_SOURCE",
+      "modelVersion": "Original V4 fair-market residual model",
+      "eligibilityStatus": "ROSTER_LISTED_NOT_INDEPENDENTLY_COURT_VERIFIED",
+      "approvedBy": "Staff direction in 2026-11-05 project chat: V4 estimates assigned as preseason anchors to eight newly listed ESPN roster athletes",
+      "auditDate": "2026-11-05",
+      "evidence": "Emmanuel Okorafor, Wichita State in 2025–26",
+      "sourcePreviouslyPublishedPreseason": 1262751,
+      "sourcePreviouslyPublishedAnchorType": "V4_OR_ARCHIVED_ESPN",
+      "baselineMigrationReason": "STAFF_DIRECTED_NOV05_V4_ROSTER_REIDENTIFICATION"
+    },
     "5176140": {
       "playerName": "Karon Boyd",
       "teamId": "2382",
@@ -486,6 +546,26 @@
       "sourcePreviouslyPublishedPreseason": 2654292,
       "sourcePreviouslyPublishedAnchorType": "V4_OR_ARCHIVED_ESPN",
       "baselineMigrationReason": "STAFF_DIRECTED_ORIGINAL_V4_PRESEASON_PRICE_FROM_2025_26_COMPLETE_YEAR"
+    },
+    "5180837": {
+      "playerName": "Joshua Ward",
+      "teamId": "2239",
+      "teamName": "Cal State Fullerton Titans",
+      "position": "G",
+      "classYear": "SR",
+      "value": 665305,
+      "effectiveDate": "2026-11-05",
+      "source": "USER_SUPPLIED_V4_ORIGINAL_SCORER_TORVIK_2025_26",
+      "basis": "Original V4 residual model scored using 2025–26 BartTorvik player statistics and 2025–26 Torvik team context; verified ESPN ID",
+      "confidence": "STANDARD_V4_SOURCE",
+      "modelVersion": "Original V4 fair-market residual model",
+      "eligibilityStatus": "ROSTER_LISTED_NOT_INDEPENDENTLY_COURT_VERIFIED",
+      "approvedBy": "Staff direction in 2026-11-05 project chat: V4 estimates assigned as preseason anchors to eight newly listed ESPN roster athletes",
+      "auditDate": "2026-11-05",
+      "evidence": "Josh Ward, same Cal State Fullerton player in 2025–26 Torvik",
+      "sourcePreviouslyPublishedPreseason": 443145,
+      "sourcePreviouslyPublishedAnchorType": "LEGACY_MODEL_PRESEASON_PRESERVED",
+      "baselineMigrationReason": "STAFF_DIRECTED_NOV05_V4_ROSTER_REIDENTIFICATION"
     },
     "5189001": {
       "playerName": "Chaze Harris",
@@ -552,6 +632,34 @@
       "sourcePreviouslyPublishedPreseason": 74374,
       "sourcePreviouslyPublishedAnchorType": "V4_OR_ARCHIVED_ESPN",
       "baselineMigrationReason": "STAFF_DIRECTED_ORIGINAL_V4_PRESEASON_PRICE_FROM_2025_26_COMPLETE_YEAR"
+    },
+    "5313437": {
+      "playerName": "Jahmari Hamilton-Brown",
+      "teamId": "2029",
+      "teamName": "Arkansas-Pine Bluff Golden Lions",
+      "position": "F",
+      "classYear": "JR",
+      "value": 44000,
+      "effectiveDate": "2026-11-05",
+      "source": "V4_TEAM_COHORT_PROXY_NO_VERIFIED_2025_26_STATS",
+      "basis": "Low-confidence V4 team-peer estimate; no individual prior-season college stats invented",
+      "confidence": "LOW_CONFIDENCE_NO_DIRECT_V4",
+      "modelVersion": "V4_TEAM_COHORT_PROXY",
+      "eligibilityStatus": "ROSTER_LISTED_NOT_INDEPENDENTLY_COURT_VERIFIED",
+      "approvedBy": "Staff direction in 2026-11-05 project chat: V4 estimates assigned as preseason anchors to eight newly listed ESPN roster athletes",
+      "auditDate": "2026-11-05",
+      "evidence": "2027 Torvik team rank 361; 2025–26 V4 peers n=5, median $40,507, +8% forward adjustment",
+      "sourcePreviouslyPublishedPreseason": 50000,
+      "sourcePreviouslyPublishedAnchorType": "SITE_UNMODELED_PROVISIONAL_50000",
+      "baselineMigrationReason": "STAFF_DIRECTED_NOV05_V4_ROSTER_REIDENTIFICATION",
+      "peerContext": {
+        "teamTorvikRank": 361,
+        "originalV4PeersAtTeam": 5,
+        "peerPercentile": 0.5,
+        "discount": 1,
+        "forwardMultiplier": 1.08,
+        "peerBasedValue": 40507
+      }
     },
     "5316049": {
       "playerName": "Alex Steen",
@@ -688,6 +796,31 @@
         "peerPercentile": 0.4,
         "discount": 0.85,
         "peerBasedValue": 202331.6
+      }
+    },
+    "5475372": {
+      "playerName": "George Comer",
+      "teamId": "2415",
+      "teamName": "Morgan State Bears",
+      "position": "G",
+      "classYear": "FR",
+      "value": 41000,
+      "effectiveDate": "2026-11-05",
+      "source": "V4_TEAM_COHORT_PROXY_NO_VERIFIED_2025_26_STATS",
+      "basis": "Low-confidence V4 team-peer estimate; no individual prior-season college stats invented",
+      "confidence": "LOW_CONFIDENCE_NO_DIRECT_V4",
+      "modelVersion": "V4_TEAM_COHORT_PROXY",
+      "eligibilityStatus": "ROSTER_LISTED_NOT_INDEPENDENTLY_COURT_VERIFIED",
+      "approvedBy": "Staff direction in 2026-11-05 project chat: V4 estimates assigned as preseason anchors to eight newly listed ESPN roster athletes",
+      "auditDate": "2026-11-05",
+      "evidence": "2027 Torvik team rank 346; 2025–26 V4 peers n=7, median $40,975",
+      "peerContext": {
+        "teamTorvikRank": 346,
+        "originalV4PeersAtTeam": 7,
+        "peerPercentile": 0.5,
+        "discount": 1,
+        "forwardMultiplier": 1,
+        "peerBasedValue": 40975
       }
     }
   }
