@@ -1,0 +1,20 @@
+name: Verify November 5 V4 roster pricing
+on:
+  push:
+    branches: [research/nov05-eight-v4-prices]
+    paths:
+      - ".github/workflows/nov05-v4-roster-qa.yml"
+      - "scripts/nil_model/**"
+      - "public/stock_watch/late_entrant_baselines_2027.json"
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify Python syntax
+        run: python3 -m py_compile scripts/nil_model/nil_season_engine.py scripts/nil_model/publish_guard.py scripts/nil_model/record_stock_history.py scripts/nil_model/test_nov05_v4_roster.py
+      - name: Validate 8 V4 priors, live NIL migration contract and Stock Watch
+        run: python3 scripts/nil_model/test_nov05_v4_roster.py
