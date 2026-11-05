@@ -363,12 +363,28 @@ def run(players_file,archived_context_file, current_context_file, asof,output, m
   for pid,row in late_rows.items():
    value=row.get('value') if isinstance(row,dict) else None
    effective=row.get('effectiveDate') if isinstance(row,dict) else ''
-   if (not str(pid).isdigit() or pid in frozen or type(value) is not int
+   if (not str(pid).isdigit() or type(value) is not int
        or not FLOOR<=value<=20_000_000 or not isinstance(effective,str)
        or not re.fullmatch(r'\d{4}-\d{2}-\d{2}',effective)
        or not str(row.get('playerName') or '').strip()
        or not str(row.get('teamId') or '').isdigit()):
-    raise ValueError('Invalid, duplicate, or unmapped late entrant ESPN ID: '+str(pid))
+    raise ValueError('Invalid or unmapped late entrant ESPN ID: '+str(pid))
+   if pid in frozen:
+    # Only two November 5 previously frozen roster entries may be rebased:
+    # prior legacy model / unmodeled placeholders, never original V4 or HS.
+    prior_kind=anchor_meta.get(pid)
+    permitted=(pid in ('5180837','5313437')
+      and row.get('baselineMigrationReason')=='STAFF_DIRECTED_NOV05_V4_ROSTER_REIDENTIFICATION'
+      and str(row.get('approvedBy') or '').startswith('Staff direction in 2026-11-05 project chat:')
+      and prior_kind in ('LEGACY_MODEL_PRESEASON_PRESERVED','SITE_UNMODELED_PROVISIONAL_50000')
+      and row.get('sourcePreviouslyPublishedAnchorType')==prior_kind
+      and type(row.get('sourcePreviouslyPublishedPreseason')) is int
+      and row['sourcePreviouslyPublishedPreseason']==frozen[pid]
+      and ((pid=='5180837' and prior_kind=='LEGACY_MODEL_PRESEASON_PRESERVED' and
+            row.get('source')=='USER_SUPPLIED_V4_ORIGINAL_SCORER_TORVIK_2025_26')
+        or (pid=='5313437' and prior_kind=='SITE_UNMODELED_PROVISIONAL_50000' and
+            row.get('source')=='V4_TEAM_COHORT_PROXY_NO_VERIFIED_2025_26_STATS')))
+    if not permitted:raise ValueError('Unauthorised frozen-price rebase '+str(pid))
    if effective<=asof:
     frozen[pid]=value
     anchor_meta[pid]='LATE_ENTRANT_BASELINE_2027'
