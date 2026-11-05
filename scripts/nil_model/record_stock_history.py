@@ -45,10 +45,35 @@ def record(candidate,root,asof=None):
     raise ValueError('Unverified opening NIL review '+str(pid))
    if effective<=day:
     reviewed[pid]=value
+ # Five November 5 roster IDs may get a dated V4 opening rebase. Two
+ # were part of the older immutable roster cohort, so validate and carry
+ # their effective prior separately without rewriting the October snapshot.
+ rebases={}
+ late_pre=root/'late_entrant_baselines_2027.json'
+ if late_pre.exists():
+  late_doc=load(late_pre)
+  if (late_doc.get('schemaVersion')!=1 or late_doc.get('season')!=2027 or
+      late_doc.get('policy')!='LATE_ADDITION_STAFF_APPROVED_OPENING_BASELINE_V1'):
+   raise ValueError('Invalid late roster register')
+  day=str(payload.get('generatedAt',''))[:10]
+  for id,entry in (late_doc.get('byESPNId') or {}).items():
+   if id not in anchored:continue
+   existing=anchored[id]
+   permitted=(id in ('5180837','5313437') and
+     entry.get('baselineMigrationReason')=='STAFF_DIRECTED_NOV05_V4_ROSTER_REIDENTIFICATION' and
+     str(entry.get('approvedBy') or '').startswith('Staff direction in 2026-11-05 project chat:') and
+     type(entry.get('sourcePreviouslyPublishedPreseason')) is int and
+     existing==entry['sourcePreviouslyPublishedPreseason'] and
+     ((id=='5180837' and entry.get('sourcePreviouslyPublishedAnchorType')=='LEGACY_MODEL_PRESEASON_PRESERVED'
+       and entry.get('source')=='USER_SUPPLIED_V4_ORIGINAL_SCORER_TORVIK_2025_26')
+      or (id=='5313437' and entry.get('sourcePreviouslyPublishedAnchorType')=='SITE_UNMODELED_PROVISIONAL_50000'
+       and entry.get('source')=='V4_TEAM_COHORT_PROXY_NO_VERIFIED_2025_26_STATS')))
+   if not permitted:raise ValueError('Invalid older-cohort roster opening rebase '+id)
+   if entry.get('effectiveDate','')<=day:rebases[id]=entry['value']
  if len(set(anchored)&set(entries))<min(1000,int(len(anchored)*.8)):raise ValueError('Severe identity coverage loss')
  for id,v in entries.items():
   if not str(id).isdigit() or not is_price(v.get('value')):raise ValueError('Invalid ID/price')
-  if id in anchored and v.get('preseason')!=reviewed.get(id,anchored[id]):
+  if id in anchored and v.get('preseason')!=reviewed.get(id,rebases.get(id,anchored[id])):
    raise ValueError('Immutable effective preseason prior changed for '+id)
   if id in reviewed and v.get('anchorType')!='INTERNATIONAL_PRO_PRESEASON_STAFF_REVIEWED':
    raise ValueError('Reviewed opening NIL identity misclassified '+id)
@@ -64,7 +89,7 @@ def record(candidate,root,asof=None):
   day=str(payload.get('generatedAt',''))[:10]
   for pid,base in (late.get('byESPNId') or {}).items():
    amount=base.get('value');effective=base.get('effectiveDate')
-   if pid in anchored or not str(pid).isdigit() or not is_price(amount) or not isinstance(effective,str):
+   if not str(pid).isdigit() or not is_price(amount) or not isinstance(effective,str):
     raise ValueError('Invalid or duplicate later-opening ESPN identity '+str(pid))
    if effective<=day and (pid not in entries or entries[pid].get('preseason')!=amount or entries[pid].get('anchorType')!='LATE_ENTRANT_BASELINE_2027'):
     raise ValueError('Late-entrant prior absent or altered '+str(pid))
