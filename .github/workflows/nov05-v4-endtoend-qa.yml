@@ -1,0 +1,47 @@
+name: Nov 05 eight V4 NIL end-to-end candidate
+on:
+  push:
+    branches: [research/nov05-eight-v4-prices]
+    paths:
+      - ".github/workflows/nov05-v4-endtoend-qa.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      NIL_MODEL_KEY: ${{ secrets.NIL_MODEL_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install NIL scorer
+        run: python -m pip install -r scripts/nil_model/requirements-nil.txt
+      - name: Full dry-run of existing NIL publisher and Stock Watch validations
+        run: bash scripts/nil_model/refresh_nil.sh
+      - name: Verify eight effective preseason values and no unrelated frozen baseline changes
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          base=Path('public/stock_watch')
+          model=json.loads(Path('public/nil_estimation_model_2027.json').read_text())
+          fixed=json.loads((base/'preseason_2027.json').read_text())
+          old=json.loads(__import__('subprocess').check_output(['git','show','HEAD:public/stock_watch/preseason_2027.json'],text=True))
+          expected={'4433285':4539410,'5103628':202708,'5107508':2226515,'5125176':1204390,
+                    '5180837':665305,'5241932':123581,'5313437':44000,'5475372':41000}
+          assert fixed==old and len(fixed['byESPNId'])==6057
+          prices=model['byESPNId']
+          assert all(pid in prices and prices[pid]['preseason']==amount for pid,amount in expected.items())
+          assert all(prices[pid]['anchorType']=='LATE_ENTRANT_BASELINE_2027' for pid in expected if pid not in ('5103628','5241932'))
+          assert prices['5103628']['anchorType']=='V4_OR_ARCHIVED_ESPN'
+          assert prices['5241932']['anchorType']=='V4_OR_ARCHIVED_ESPN'
+          for pid,amount in fixed['byESPNId'].items():
+            if pid in ('5180837','5313437'):continue
+            assert prices[pid]['preseason']==amount,(pid,prices[pid]['preseason'],amount)
+          print('Eight V4 opening prices VERIFIED', {k:prices[k]['preseason'] for k in expected})
+          print('NIL complete, all other 6055 immutable anchors intact')
+          PY
