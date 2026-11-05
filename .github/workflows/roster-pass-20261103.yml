@@ -39,3 +39,5 @@ jobs:
         if: always()
         run: |
           echo "Roster comparison uses the existing 5,541-player research snapshot. New athlete IDs are not yet priced or published to the staff site." >> "$GITHUB_STEP_SUMMARY"
+
+# 2026-11-05 add-only ESPN roster recheck, review branch only.
