@@ -1,0 +1,115 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-11-05",
+  "rosterSeason": 2027,
+  "method": "ESPN current team roster API consumed by hoopR::espn_mbb_team_roster",
+  "sourceRuns": [
+    42028411476,
+    42028436317,
+    42028997400
+  ],
+  "teamsChecked": 365,
+  "teamsVerifiedBio": 365,
+  "teamsVerifiedMembership": 364,
+  "priorPlayers": 5575,
+  "updatedPlayers": 5583,
+  "newESPNIDs": 8,
+  "newPlayers": [
+    {
+      "espnId": "4433285",
+      "name": "Mark Mitchell Jr.",
+      "team": "Missouri Tigers",
+      "height": "6' 9\"",
+      "weight": "230 lbs",
+      "classOnESPN": "SR",
+      "eligibilityYearsProvisional": 0,
+      "headshotVerified": true
+    },
+    {
+      "espnId": "5103628",
+      "name": "Macaleab Rich",
+      "team": "Arkansas-Pine Bluff Golden Lions",
+      "height": "6' 7\"",
+      "weight": "230 lbs",
+      "classOnESPN": "SR",
+      "eligibilityYearsProvisional": 0,
+      "headshotVerified": true
+    },
+    {
+      "espnId": "5107508",
+      "name": "Kenyon Giles",
+      "team": "Wichita State Shockers",
+      "height": "5' 10\"",
+      "weight": "159 lbs",
+      "classOnESPN": "SR",
+      "eligibilityYearsProvisional": 0,
+      "headshotVerified": true
+    },
+    {
+      "espnId": "5125176",
+      "name": "Emmanuel Okorafor",
+      "team": "Wichita State Shockers",
+      "height": "6' 10\"",
+      "weight": "235 lbs",
+      "classOnESPN": "SR",
+      "eligibilityYearsProvisional": 0,
+      "headshotVerified": true
+    },
+    {
+      "espnId": "5180837",
+      "name": "Joshua Ward",
+      "team": "Cal State Fullerton Titans",
+      "height": "6' 1\"",
+      "weight": "185 lbs",
+      "classOnESPN": "SR",
+      "eligibilityYearsProvisional": 0,
+      "headshotVerified": true
+    },
+    {
+      "espnId": "5241932",
+      "name": "Tishan Ahir",
+      "team": "UC Irvine Anteaters",
+      "height": "6' 0\"",
+      "weight": "150 lbs",
+      "classOnESPN": "JR",
+      "eligibilityYearsProvisional": 2,
+      "headshotVerified": true
+    },
+    {
+      "espnId": "5313437",
+      "name": "Jahmari Hamilton-Brown",
+      "team": "Arkansas-Pine Bluff Golden Lions",
+      "height": "6' 7\"",
+      "weight": "205 lbs",
+      "classOnESPN": "JR",
+      "eligibilityYearsProvisional": 2,
+      "headshotVerified": true
+    },
+    {
+      "espnId": "5475372",
+      "name": "George Comer",
+      "team": "Morgan State Bears",
+      "height": "6' 1\"",
+      "weight": "",
+      "classOnESPN": "FR",
+      "eligibilityYearsProvisional": 4,
+      "headshotVerified": false
+    }
+  ],
+  "headshotsFilledExisting": 155,
+  "headshotsFilledNew": 7,
+  "totalHeadshotsAdded": 162,
+  "remainingMissingVerifiedHeadshots": 1068,
+  "existingHeightFilled": 0,
+  "existingHeightChanged": 0,
+  "existingWeightFilled": 0,
+  "existingWeightChanged": 0,
+  "priorHeightOrWeightPreservedOnMissingESPN": true,
+  "finalMissingWeights": 369,
+  "allOriginalESPNIDsPreserved": true,
+  "allOriginalEligibilityYearsPreserved": true,
+  "originalNILFilesUntouched": true,
+  "privateStaffGoogleSheetsUntouched": true,
+  "exactESPNIDMatching": true,
+  "warning": "New ESPN-roster class yields provisional 2027-28 eligibility estimates, not eligibility rulings. George Comer has no verified ESPN headshot. Distinct same-name Kenyon Giles athletes at UMass Lowell and Wichita State remain separate ESPN IDs."
+}
