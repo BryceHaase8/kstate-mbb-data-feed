@@ -121,3 +121,5 @@ def main():
     AUDIT.write_text(json.dumps(audit,ensure_ascii=False,indent=2)+"\n")
     print("FAST BIO REFRESH",json.dumps({k:v for k,v in audit.items() if k not in ("examples","failedTeams","newIdsNotApplied")}),flush=True)
 if __name__=="__main__":main()
+
+# Re-run 2026-11-05 national ESPN roster biography snapshot.
