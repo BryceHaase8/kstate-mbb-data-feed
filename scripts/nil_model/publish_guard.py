@@ -41,7 +41,23 @@ def check(new,old,source,anchor=None,legacy=None,history=None,rookies=None,v4=No
        and entry.get('sourcePreviouslyPublishedAnchorType')==prev.get('anchorType')
        and type(entry.get('sourcePreviouslyPublishedPreseason')) is int
        and entry.get('sourcePreviouslyPublishedPreseason')==prev.get('preseason'))
-     if not migration:
+     # Exactly five Nov 5 roster identities were already quoted by an
+     # auxiliary or placeholder model before their ESPN roster reconciliation.
+     # Only the staff-directed original V4 / explicitly labeled team-peer
+     # opening price is allowed to replace that prior; no generic repricing.
+     new_migration=(pid in ('4433285','5107508','5125176','5180837','5313437')
+       and entry.get('baselineMigrationReason')=='STAFF_DIRECTED_NOV05_V4_ROSTER_REIDENTIFICATION'
+       and str(entry.get('approvedBy') or '').startswith('Staff direction in 2026-11-05 project chat:')
+       and ((pid in ('4433285','5107508','5125176') and prev.get('anchorType')=='V4_OR_ARCHIVED_ESPN'
+             and entry.get('source')=='USER_SUPPLIED_V4_ORIGINAL_SCORER_TORVIK_2025_26')
+         or (pid=='5180837' and prev.get('anchorType')=='LEGACY_MODEL_PRESEASON_PRESERVED'
+             and entry.get('source')=='USER_SUPPLIED_V4_ORIGINAL_SCORER_TORVIK_2025_26')
+         or (pid=='5313437' and prev.get('anchorType')=='SITE_UNMODELED_PROVISIONAL_50000'
+             and entry.get('source')=='V4_TEAM_COHORT_PROXY_NO_VERIFIED_2025_26_STATS'))
+       and entry.get('sourcePreviouslyPublishedAnchorType')==prev.get('anchorType')
+       and type(entry.get('sourcePreviouslyPublishedPreseason')) is int
+       and entry['sourcePreviouslyPublishedPreseason']==prev.get('preseason'))
+     if not (migration or new_migration):
       raise ValueError('Previously published late-entrant baseline changed for '+str(pid))
  # A staff-approved opening correction is allowed before actual games.
  # The original frozen 2026-10-27 reference and its audit trail stay intact.
