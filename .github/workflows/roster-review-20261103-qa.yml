@@ -8,6 +8,7 @@ on:
       - "data/roster_additions_2027_20261103.json"
       - "public/stock_watch/late_entrant_baselines_2027.json"
       - "tests/test_2027_roster_new_baselines.py"
+      - "tests/test_2027_played_roster_missing_11.py"
       - ".github/workflows/roster-review-20261103-qa.yml"
 permissions:
   contents: read
@@ -21,6 +22,7 @@ jobs:
         run: |
           python3 -m py_compile scripts/refresh_2027_espn_rosters.py
           python3 -m unittest discover -s tests -p 'test_2027_roster_new_baselines.py' -v
+          python3 -m unittest discover -s tests -p 'test_2027_played_roster_missing_11.py' -v
       - name: Check published model-derived prior for newly discovered IDs
         run: |
           python3 - <<'PY'
