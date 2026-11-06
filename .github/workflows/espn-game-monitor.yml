@@ -19,6 +19,8 @@ on:
       - "scripts/check_espn_game_updates.py"
       - "scripts/audit_2027_coverage.py"
       - "tests/test_game_change_monitor.py"
+      - "tests/test_coverage_audit_2027.py"
+      - ".github/workflows/espn-game-monitor-backup.yml"
       - ".github/workflows/espn-game-monitor.yml"
       - ".github/workflows/daily-update.yml"
 
@@ -38,7 +40,9 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
       - name: Offline safety regression checks
-        run: python3 -m unittest discover -s tests -p 'test_game_change_monitor.py' -v
+        run: |
+          python3 -m unittest discover -s tests -p 'test_game_change_monitor.py' -v
+          python3 -m unittest discover -s tests -p 'test_coverage_audit_2027.py' -v
       - name: Check newly verified ESPN games and corrections
         if: ${{ github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' }}
         env:

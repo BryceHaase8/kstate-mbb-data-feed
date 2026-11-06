@@ -24,8 +24,17 @@ REPORT_PATH = Path("public/portal_game_logs_2027/coverage.json")
 ACTIVE_MONITOR_HOURS = set(range(11, 24)) | set(range(0, 4))
 
 
+MONITOR_WORKFLOWS = ("espn-game-monitor.yml", "espn-game-monitor-backup.yml")
+MONITOR_STALE_MINUTES = 35
+
+
 def audit_monitor(repository, token, now, fetch=get_json):
-    """Read-only scheduler heartbeat; a missing monitor is never hidden."""
+    """Check BOTH independent scheduled workflows; never hide a skipped monitor.
+
+    Freshness is based on scheduled executions, not manual or PR runs. If only
+    one scheduler is alive the system remains usable but reports DEGRADED.
+    Github's schedule has no guaranteed start-time SLA.
+    """
     local = now.astimezone(CHICAGO)
     result = {"status": "OUTSIDE_GAME_WINDOW", "lastScheduledAt": None}
     if local.month not in (11, 12, 1, 2, 3, 4) or local.hour not in ACTIVE_MONITOR_HOURS:
@@ -33,26 +42,45 @@ def audit_monitor(repository, token, now, fetch=get_json):
     if not repository or not token:
         return {"status": "UNKNOWN", "reason": "GitHub Actions token unavailable",
                 "lastScheduledAt": None}
-    url = API + "/repos/" + repository + "/actions/workflows/espn-game-monitor.yml/runs?per_page=40"
-    try:
-        runs = (fetch(url, token=token) or {}).get("workflow_runs") or []
-        dates = [
-            dt.datetime.fromisoformat(str(run["created_at"]).replace("Z", "+00:00"))
-            for run in runs
-            if run.get("event") == "schedule" and run.get("head_branch") == "main"
-            and run.get("created_at")
-        ]
-        if not dates:
-            return {"status": "STALE", "reason": "No scheduled monitor execution found",
-                    "lastScheduledAt": None}
-        latest = max(dates)
-        age = (now - latest).total_seconds() / 60
-        return {"status": "HEALTHY" if age <= 90 else "STALE",
-                "lastScheduledAt": latest.isoformat().replace("+00:00", "Z"),
-                "ageMinutes": round(age, 1)}
-    except (OSError, ValueError, KeyError, TypeError) as exc:
-        return {"status": "UNKNOWN", "reason": str(exc)[:250],
-                "lastScheduledAt": None}
+    ages = {}
+    errors = {}
+    for workflow in MONITOR_WORKFLOWS:
+        url = API + "/repos/" + repository + "/actions/workflows/" + workflow + "/runs?per_page=40"
+        try:
+            runs = (fetch(url, token=token) or {}).get("workflow_runs") or []
+            dates = [
+                dt.datetime.fromisoformat(str(run["created_at"]).replace("Z", "+00:00"))
+                for run in runs
+                if run.get("event") == "schedule" and run.get("head_branch") == "main"
+                and run.get("created_at")
+            ]
+            ages[workflow] = min(((now - item).total_seconds() / 60 for item in dates),
+                                 default=None)
+        except (OSError, ValueError, KeyError, TypeError, AttributeError) as exc:
+            ages[workflow] = None
+            errors[workflow] = str(exc)[:200]
+    fresh = [name for name, age in ages.items()
+             if age is not None and 0 <= age <= MONITOR_STALE_MINUTES]
+    valid = [age for age in ages.values() if age is not None]
+    last_age = min(valid) if valid else None
+    if len(fresh) == len(MONITOR_WORKFLOWS):
+        status = "HEALTHY"
+    elif fresh:
+        status = "DEGRADED"
+    elif valid or len(errors) < len(MONITOR_WORKFLOWS):
+        status = "STALE"
+    else:
+        status = "UNKNOWN"
+    output = {"status": status,
+              "lastScheduledAt": ((now - dt.timedelta(minutes=last_age)).isoformat()
+                                  .replace("+00:00", "Z") if last_age is not None else None),
+              "ageMinutes": round(last_age, 1) if last_age is not None else None,
+              "healthySchedulers": len(fresh),
+              "schedulerAgeMinutes": {name: (round(age, 1) if age is not None else None)
+                                      for name, age in ages.items()}}
+    if errors:
+        output["schedulerErrors"] = errors
+    return output
 
 
 def build_report(today, published, prior=None, fetch=get_json, window_days=WINDOW_DAYS,
@@ -164,9 +192,10 @@ def emit_report(report):
     if report["sourceErrors"] or report["sourceDisappearedDates"] or report["duplicateSourceGameIds"]:
         print("::warning::ESPN scoreboard partially unavailable or inconsistent; "
               "previously observed finals retained.", flush=True)
-    if report["monitorHealth"]["status"] == "STALE":
-        print("::warning::15-minute ESPN monitor execution is stale; "
-              "scheduled full-refresh backup remains enabled.", flush=True)
+    if report["monitorHealth"]["status"] in ("STALE", "DEGRADED", "UNKNOWN"):
+        print("::warning::ESPN monitor schedule health is %s; "
+              "independent full-refresh backups remain enabled." %
+              report["monitorHealth"]["status"], flush=True)
     summary = os.getenv("GITHUB_STEP_SUMMARY")
     if summary:
         with open(summary, "a", encoding="utf-8") as out:

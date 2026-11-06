@@ -1,0 +1,39 @@
+name: Backup ESPN final games monitor (staggered)
+
+# Independent GitHub schedule: avoids relying on a single monitor workflow's
+# scheduled event. GitHub cron is still best-effort, not a 15-minute SLA.
+on:
+  workflow_dispatch:
+  schedule:
+    # Stagger 7 minutes after the main monitor's :07/:22/:37/:52 slots.
+    - cron: "14,29,44,59 11-23 * 11,12,1,2,3,4 *"
+      timezone: "America/Chicago"
+    - cron: "14,29,44,59 0-3 * 11,12,1,2,3,4 *"
+      timezone: "America/Chicago"
+
+permissions:
+  contents: read
+  actions: write
+
+# Shared with primary monitor so simultaneous scheduled attempts do not race.
+concurrency:
+  group: espn-lightweight-game-monitor
+  cancel-in-progress: false
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Offline safety regression checks
+        run: |
+          python3 -m unittest discover -s tests -p 'test_game_change_monitor.py' -v
+          python3 -m unittest discover -s tests -p 'test_coverage_audit_2027.py' -v
+      - name: Detect ESPN finals and request validated refresh only when needed
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          python3 scripts/check_espn_game_updates.py --dispatch
