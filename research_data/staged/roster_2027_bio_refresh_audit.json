@@ -1,13 +1,11 @@
 {
-  "timestamp": "2026-11-06T12:30:26.007231+00:00",
+  "timestamp": "2026-11-06T12:33:03.478707+00:00",
   "method": "ESPN current team roster (same endpoint as hoopR espn_mbb_team_roster)",
   "playersBefore": 5583,
   "playersAfter": 5583,
   "teamsRequested": 365,
-  "teamsVerified": 364,
-  "failedTeams": {
-    "259": "wrong team or incomplete roster"
-  },
+  "teamsVerified": 365,
+  "failedTeams": {},
   "missingWeightBefore": 369,
   "missingWeightAfter": 369,
   "missingHeadshotBefore": 1068,
@@ -17,7 +15,8 @@
     "weightChanged": 0,
     "headshotFilled": 0,
     "headshotChanged": 0,
-    "heightFilled": 0
+    "heightFilled": 0,
+    "heightChanged": 0
   },
   "newIdsNotApplied": [],
   "membershipChanged": false,
