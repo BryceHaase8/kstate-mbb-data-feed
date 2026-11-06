@@ -73,5 +73,31 @@ season_2027_box_fallback(function(day) {
   list(events=list(event(g1,71,65),event(g2,70,65)))
 },get_box,now="2026-12-10",cache_file=cache,audit_file=audit_file)
 stopifnot("20261101" %in% days)
+# Regression: two newly finalized ESPN games return different types for
+# athlete_jersey. The November 5 production importer previously crashed at
+# bind_rows(fetched), then silently fell back to an old bulk season file.
+mixed_cache <- file.path(dir,"mixed-jersey.csv.gz")
+mixed_box <- function(id) {
+  box <- make_box(id)
+  if(id==g1) {
+    box$athlete_jersey <- rep(3L,nrow(box))
+    box$game_date <- as.Date(box$game_date)
+  } else {
+    box$athlete_jersey <- rep("02A",nrow(box))
+  }
+  box
+}
+mixed <- season_2027_box_fallback(
+  off(list(event(g1,70,65),event(g2,70,65))),
+  mixed_box,now="2026-11-02",cache_file=mixed_cache)
+stopifnot(nrow(mixed)==40L,identical(sort(unique(mixed$game_id)),sort(c(g1,g2))),
+  is.character(mixed$athlete_jersey),is.character(mixed$game_date),
+  all(mixed$athlete_jersey[mixed$game_id==g1]=="3"),
+  all(mixed$athlete_jersey[mixed$game_id==g2]=="02A"))
+mixed_next <- season_2027_box_fallback(
+  off(list(event(g1,70,65),event(g2,70,65),event(g3,70,65))),
+  mixed_box,now="2026-11-02",cache_file=mixed_cache)
+stopifnot(nrow(mixed_next)==60L,length(unique(mixed_next$game_id))==3L,
+  is.character(mixed_next$athlete_jersey))
 unlink(dir,recursive=TRUE)
 cat("PASS: verified ESPN games supplement partial hoopR, cache is preserved, corrections rechecked\n")
