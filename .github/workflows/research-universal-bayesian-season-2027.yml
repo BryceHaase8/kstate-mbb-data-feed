@@ -41,7 +41,8 @@ jobs:
           a=n['byESPNId']
           assert len(old['byESPNId'])==6057 and len(a)>=12000
           approved=json.loads((root/'public/stock_watch/opening_price_corrections_2027.json').read_text())['byESPNId']
-          assert set(approved)=={'5455519'} and old['byESPNId']['5455519']==155000
+          assert set(approved)=={'5455519','5454820'} and old['byESPNId']['5455519']==155000 and old['byESPNId']['5454820']==58200
+          assert approved['5454820']['sourceBaseline']==58200 and approved['5454820']['value']==1500000
           assert approved['5455519']['sourceBaseline']==155000 and approved['5455519']['value']==2500000
           effective={**old['byESPNId'],**{k:v['value'] for k,v in approved.items()}}
           mismatch=[(k,v,a[k].get('preseason'),a[k].get('games'),a[k].get('status'))
