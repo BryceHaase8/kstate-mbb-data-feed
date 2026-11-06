@@ -38,6 +38,12 @@ def verified_weight(a):
     if not m or not 90<=int(m[1])<=400:return ""
     return m[1]+" lbs"
 
+def verified_height(a):
+    raw=str(a.get("displayHeight") or "").strip()
+    m=re.fullmatch(r"""\s*([4-8])\s*'\s*(\d{1,2})\s*"?\s*""",raw)
+    if not m or not 0<=int(m[2])<=11:return ""
+    return str(int(m[1]))+"' "+str(int(m[2]))+'"'
+
 def verified_headshot(a):
     h=a.get("headshot") or {}
     url=h.get("href","") if isinstance(h,dict) else (h if isinstance(h,str) else "")
@@ -69,7 +75,7 @@ def main():
     if len(teams)-len(failures)<300 or duplicates:
         raise RuntimeError("Aborted incomplete source/duplicate IDs: %s/%s teams, %s duplicates"%
             (len(teams)-len(failures),len(teams),len(duplicates)))
-    count={"weightFilled":0,"weightChanged":0,"headshotFilled":0,"headshotChanged":0,"heightFilled":0}
+    count={"weightFilled":0,"weightChanged":0,"headshotFilled":0,"headshotChanged":0,"heightFilled":0,"heightChanged":0}
     old_missing_w=sum(not str(row[5] or "").strip() for row in rows)
     old_missing_h=sum(not (previous.get(id,{}).get("headshot") or "") for id in old)
     output=[];objects=[];examples=[]
@@ -82,8 +88,13 @@ def main():
             key="weightFilled" if not before_w else "weightChanged"
             count[key]+=1
             if len(examples)<30:examples.append({"id":aid,"name":row[1],"field":"weight","before":before_w,"after":weight})
-        if not row[4] and bio.get("displayHeight"):
-            row[4]=str(bio["displayHeight"]);count["heightFilled"]+=1
+        height=verified_height(bio)
+        before_height=str(row[4] or "").strip()
+        if height and height!=before_height:
+            row[4]=height
+            key="heightFilled" if not before_height else "heightChanged"
+            count[key]+=1
+            if len(examples)<30:examples.append({"id":aid,"name":row[1],"field":"height","before":before_height,"after":height})
         if headshot and headshot!=before_h:
             key="headshotFilled" if not before_h else "headshotChanged"
             count[key]+=1
@@ -125,3 +136,5 @@ if __name__=="__main__":main()
 # Re-run 2026-11-05 national ESPN roster biography snapshot.
 
 # 2026-11-06 fast full-roster recheck; append-only research audit; never mutate NIL.
+
+# Nov 6 height audit: compare *changed* official measurements as well as blanks.
