@@ -95,10 +95,23 @@ def check(new,old,source,anchor=None,legacy=None,history=None,rookies=None,v4=No
         not old_row or old_row.get('preseason') not in (previous,amount)):
      raise ValueError('Reviewed opening prior missing, altered, or wrong identity '+str(pid))
     if old_row.get('preseason')==previous and previous!=amount:
-     if (int(f.get('latestSeason') or 0)>=2027 or
-         (history_doc.get('dates') or []) or (history_doc.get('months') or [])):
+     # ONLY the user's verified 2026-11-06 Mark Morano opening reappraisal
+     # may replace an already-published prior after play began. The frozen
+     # October 27 anchor and all earlier daily Stock Watch rows remain intact.
+     morano_review=(pid=='5454820' and previous==58200 and amount==1500000 and
+      effective=='2026-11-06' and str(item.get('teamId'))=='183' and
+      item.get('playerName')=='Mark Morano' and
+      item.get('correctionBasis')=='STAFF_DIRECTED_NOV06_POSTGAME_INTERNATIONAL_OPENING_REAPPRAISAL' and
+      str(item.get('approval') or '').startswith('User explicitly requested $1.5M preseason estimate') and
+      old_row.get('anchorType')=='FRESHMAN_HS' and
+      int(old_row.get('games') or 0)>=1 and
+      int(current_row.get('games') or 0)>=int(old_row.get('games') or 0) and
+      float(current_row.get('minutes') or 0)>=float(old_row.get('minutes') or 0) and
+      current_row.get('status') in ('UPDATED','PRESEASON_BASELINE'))
+     if ((int(f.get('latestSeason') or 0)>=2027 or
+          (history_doc.get('dates') or []) or (history_doc.get('months') or [])) and not morano_review):
       raise ValueError('Cannot retroactively change opening prior after games or Stock Watch')
-     if (current_row.get('value')!=amount or current_row.get('status')!='PRESEASON_BASELINE'):
+     if not morano_review and (current_row.get('value')!=amount or current_row.get('status')!='PRESEASON_BASELINE'):
       raise ValueError('Reviewed opening must not create false current-season movement')
      opening_moves.add(pid)
  common=set(rows)&set(older)

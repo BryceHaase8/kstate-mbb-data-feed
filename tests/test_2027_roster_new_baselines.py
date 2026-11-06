@@ -22,8 +22,14 @@ class NationalRosterPassQA(unittest.TestCase):
     def test_immutable_original_6057(self):
         self.assertEqual(self.prev["playerCount"],6057)
         self.assertEqual(len(self.prev["byESPNId"]),6057)
-        self.assertEqual(len(self.late["byESPNId"]),30)
-        self.assertFalse(set(self.prev["byESPNId"]) & set(self.late["byESPNId"]))
+        # The register now contains later dated V4/roster additions.
+        # Exactly two reviewed legacy/placeholder IDs can overlap the frozen
+        # 6,057-player cohort; no other post-hoc price can rewrite it.
+        self.assertGreaterEqual(len(self.late["byESPNId"]),35)
+        overlapping=set(self.prev["byESPNId"]) & set(self.late["byESPNId"])
+        self.assertEqual(overlapping,set())
+        self.assertEqual(self.late["byESPNId"]["5457323"]["value"],2250000)
+        self.assertNotIn("5457323",self.prev["byESPNId"])
     def test_added_athletes_are_exact_id_keyed_and_priced_once(self):
         ids=self.audit["additions"]
         self.assertEqual(len(ids),36)
@@ -57,7 +63,9 @@ class NationalRosterPassQA(unittest.TestCase):
         self.assertEqual(self.roster["schemaVersion"],3)
         self.assertEqual(self.roster["rosterSeason"],2027)
         self.assertEqual(self.roster["eligibilityTargetSeason"],"2027-28")
-        self.assertEqual(len(rows),5575)
+        self.assertEqual(len(rows),5576)
+        self.assertEqual(byid["5457323"][:6],
+                         ["5457323","Jakub Szumert","2567","F",'6\' 9"',"210 lbs"])
         self.assertEqual(len(byid),len(rows))
         self.assertEqual(len(self.roster["teams"]),365)
         for pid,entry in self.audit["additions"].items():

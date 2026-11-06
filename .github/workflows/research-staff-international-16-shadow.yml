@@ -44,7 +44,8 @@ jobs:
           anchors=get('public/stock_watch/international_pro_2027_market_priors.json')['byESPNId']
           orig=get('public/stock_watch/international_top100_noncollege_2027_priors.json')['byESPNId']
           corrections=get('public/stock_watch/opening_price_corrections_2027.json')['byESPNId']
-          assert set(corrections)=={'5455519'} and after['5455519']==155000
+          assert set(corrections)=={'5455519','5454820'} and after['5455519']==155000 and after['5454820']==58200
+          assert corrections['5454820']['sourceBaseline']==58200 and corrections['5454820']['value']==1500000
           assert corrections['5455519']['sourceBaseline']==155000 and corrections['5455519']['value']==2500000
           effective={**after,**{k:v['value'] for k,v in corrections.items()}}
           assert len(after)==6057 and len(overlay)==16 and len(p)>=12720

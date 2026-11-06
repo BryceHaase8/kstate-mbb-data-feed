@@ -21,3 +21,6 @@ jobs:
         run: |
           python -m compileall -q scripts/nil_model tests
           python -m unittest discover -s tests -p 'test_v4_*.py' -v
+          python scripts/nil_model/test_opening_review.py
+          python scripts/nil_model/test_nov06_international_priors.py
+          python scripts/nil_model/audit_nil_coverage_2027.py
