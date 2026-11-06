@@ -27,7 +27,7 @@ class NationalRosterPassQA(unittest.TestCase):
         # 6,057-player cohort; no other post-hoc price can rewrite it.
         self.assertGreaterEqual(len(self.late["byESPNId"]),35)
         overlapping=set(self.prev["byESPNId"]) & set(self.late["byESPNId"])
-        self.assertEqual(overlapping,{"5180837","5313437"})
+        self.assertEqual(overlapping,set())
         self.assertEqual(self.late["byESPNId"]["5457323"]["value"],2250000)
         self.assertNotIn("5457323",self.prev["byESPNId"])
     def test_added_athletes_are_exact_id_keyed_and_priced_once(self):
