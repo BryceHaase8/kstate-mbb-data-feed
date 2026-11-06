@@ -663,6 +663,25 @@
       "espnIdSupersedesStagedId": "5461303",
       "identityBasis": "Same Delaware State name, 6-8 height, 216 lbs, Waldorf hometown confirmed in current ESPN team roster; old original $50k remains frozen"
     },
+    "5457323": {
+      "playerName": "Jakub Szumert",
+      "teamId": "2567",
+      "teamName": "SMU Mustangs",
+      "position": "F",
+      "classYear": "FR",
+      "height": "6' 9\"",
+      "weight": "210 lbs",
+      "eligibilityYearsEstimate": 4,
+      "value": 2250000,
+      "effectiveDate": "2026-11-06",
+      "source": "STAFF_APPROVED_INTERNATIONAL_PRO_PRESEASON_20261106",
+      "basis": "Orlen Zastal Zielona Gora professional in Poland; validated ESPN game logs already exist for player ID 5457323. Staff-preseason NIL price estimate, not game-driven performance increase.",
+      "confidence": "STAFF_APPROVED_PRO_MARKET_PRIOR",
+      "modelVersion": "NIL_MODEL_EXISTING_RELATIVE_UPDATE",
+      "eligibilityStatus": "ROSTER_MEMBERSHIP_ONLY_LEGAL_ELIGIBILITY_NOT_REVIEWED",
+      "approvedBy": "User explicitly requested $2.25M preseason estimate in 2026-11-06 project conversation",
+      "auditDate": "2026-11-06"
+    },
     "5468197": {
       "playerName": "Channing Francis",
       "teamId": "2099",
