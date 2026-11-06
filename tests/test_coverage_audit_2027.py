@@ -116,24 +116,64 @@ class CoverageAuditTests(unittest.TestCase):
 
     def test_scheduler_heartbeat_stale(self):
         now = dt.datetime(2026, 11, 2, 22, 0, tzinfo=dt.timezone.utc)
-        old = {
-            "head_branch": "main", "event": "schedule",
-            "created_at": "2026-11-02T17:00:00Z"}
-        def fake(url, token=None):
-            return {"workflow_runs": [old]}
-        result = audit.audit_monitor("owner/repo", "test", now, fetch=fake)
+        old = {"head_branch": "main", "event": "schedule",
+               "created_at": "2026-11-02T21:00:00Z"}
+        result = audit.audit_monitor("owner/repo", "test", now,
+                                    fetch=lambda url, token=None: {"workflow_runs": [old]})
         self.assertEqual(result["status"], "STALE")
-        self.assertGreater(result["ageMinutes"], 90)
+        self.assertEqual(result["healthySchedulers"], 0)
 
     def test_scheduler_heartbeat_healthy(self):
         now = dt.datetime(2026, 11, 2, 22, 0, tzinfo=dt.timezone.utc)
-        recent = {
-            "head_branch": "main", "event": "schedule",
-            "created_at": "2026-11-02T21:38:00Z"}
-        def fake(url, token=None):
-            return {"workflow_runs": [recent]}
-        result = audit.audit_monitor("owner/repo", "test", now, fetch=fake)
+        latest = {"head_branch": "main", "event": "schedule",
+                  "created_at": "2026-11-02T21:52:00Z"}
+        result = audit.audit_monitor("owner/repo", "test", now,
+                                    fetch=lambda url, token=None: {"workflow_runs": [latest]})
         self.assertEqual(result["status"], "HEALTHY")
+        self.assertEqual(result["healthySchedulers"], 2)
+
+    def test_backup_recovers_missed_primary_but_flags_degraded(self):
+        now = dt.datetime(2026, 11, 2, 22, 0, tzinfo=dt.timezone.utc)
+        def fake(url, token=None):
+            at = "21:44" if "backup" in url else "20:00"
+            return {"workflow_runs": [{"head_branch": "main", "event": "schedule",
+                "created_at": "2026-11-02T%s:00Z" % at}]}
+        result = audit.audit_monitor("owner/repo", "test", now, fetch=fake)
+        self.assertEqual(result["status"], "DEGRADED")
+        self.assertEqual(result["healthySchedulers"], 1)
+        self.assertEqual(result["ageMinutes"], 16)
+
+    def test_manual_and_pull_request_runs_are_not_scheduler_heartbeats(self):
+        now = dt.datetime(2026, 11, 2, 22, 0, tzinfo=dt.timezone.utc)
+        manual = {"head_branch": "main", "event": "workflow_dispatch",
+                  "created_at": "2026-11-02T21:59:00Z"}
+        result = audit.audit_monitor("owner/repo", "test", now,
+                                    fetch=lambda url, token=None: {"workflow_runs": [manual]})
+        self.assertEqual(result["status"], "STALE")
+        self.assertEqual(result["healthySchedulers"], 0)
+
+    def test_one_scheduler_api_error_does_not_hide_other_scheduler(self):
+        now = dt.datetime(2026, 11, 2, 22, 0, tzinfo=dt.timezone.utc)
+        def fake(url, token=None):
+            if "backup" in url:
+                raise OSError("temporary API error")
+            return {"workflow_runs": [{"head_branch": "main", "event": "schedule",
+                "created_at": "2026-11-02T21:52:00Z"}]}
+        result = audit.audit_monitor("owner/repo", "test", now, fetch=fake)
+        self.assertEqual(result["status"], "DEGRADED")
+        self.assertIn("espn-game-monitor-backup.yml", result["schedulerErrors"])
+
+    def test_independent_staggered_monitor_schedules_and_safe_concurrency(self):
+        root = Path(__file__).resolve().parents[1]
+        primary = (root / ".github/workflows/espn-game-monitor.yml").read_text()
+        backup = (root / ".github/workflows/espn-game-monitor-backup.yml").read_text()
+        self.assertIn('cron: "7,22,37,52', primary)
+        self.assertIn('cron: "14,29,44,59', backup)
+        for content in (primary, backup):
+            self.assertIn('timezone: "America/Chicago"', content)
+            self.assertIn("group: espn-lightweight-game-monitor", content)
+            self.assertIn("cancel-in-progress: false", content)
+            self.assertIn("check_espn_game_updates.py --dispatch", content)
 
 
 if __name__ == "__main__":
