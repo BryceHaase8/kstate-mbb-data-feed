@@ -1,27 +1,27 @@
 {
   "release": "nil-v4-relative-v3-universal-coldstart-v1-2026-10-27",
   "asOf": "2026-11-06",
-  "count": 12727,
-  "baseCoverage": 0.9975229130542482,
+  "count": 12728,
+  "baseCoverage": 0.9976054826191066,
   "stats": {
     "2026_based": 5019,
     "rookie_frozen_without_box": 425,
-    "older_season_based": 7062,
-    "current_updated": 4276,
+    "older_season_based": 7063,
+    "current_updated": 4277,
     "current_missing_context": 0,
-    "roster_without_prior": 30,
+    "roster_without_prior": 29,
     "no_prior_model": 0,
     "current_without_2027": 7725
   },
   "sha256": {
-    "factual": "7d0808f39482fb6b869e32b5192f9b34c21f00aa6555af3b6030ef9ff11d47d3",
+    "factual": "35ea6b89c61c1522b1d3c93bbaae93517aa6d4cb938dc77b047c688459a6bf51",
     "historicalTeam": "b15927171d62e48a8f175b96d6461dece650a946027accf856953bde5d44d77c",
     "currentTeam": "5439b6403eca257d33af6c8268646f772625025d4e337eccf6d18e4ee8674a98",
     "teamGames": null,
     "model": "9f8072f47687f1bc6f13dc6c11a3c5375a3f817615b554c5d6ee7f07425b1cf3",
     "frozenPreseason": "b845bf430d62a8f12ca65afa8ea43419d8fd43e9ccb892f3dc90c191058b274f",
-    "lateEntrants": "96097b1c504a7a7c02da2aed357cc6a935a96f42ebb0793937452eef407bccef",
-    "openingCorrections": "e7c3755da9ef45633b0a213b17fdfb42b523d5b7580df1b82320603e9c4d0100"
+    "lateEntrants": "b88b590f3ce58e60633935b7cad1e9b6ad4565c589b14418ab8cd9455d7f5c4d",
+    "openingCorrections": "9dcb00d3595b8d20a111795cd44e8aa79518fd1b1e2518eadfeb5a937fa0dd2a"
   },
   "safety": {
     "joins": "ESPN-ID only",
