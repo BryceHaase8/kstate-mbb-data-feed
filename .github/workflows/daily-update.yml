@@ -56,6 +56,9 @@ jobs:
             any::stringr
             any::tibble
             any::jsonlite
+      # Catch ESPN per-game type drift before it can silently delay Career Stats.
+      - name: Validate direct ESPN box importer (including mixed jersey types)
+        run: Rscript tests/test_2027_box_fallback.R
       - name: Build latest D-I factual feed
         run: Rscript scripts/daily_update.R
       - name: Fail closed on incomplete factual data
