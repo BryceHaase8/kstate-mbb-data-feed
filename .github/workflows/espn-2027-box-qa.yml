@@ -1,0 +1,30 @@
+name: ESPN 2026-27 direct box importer regression
+on:
+  push:
+    branches: [fix/nov05-espn-box-jersey-and-failclosed]
+    paths:
+      - ".github/workflows/espn-2027-box-qa.yml"
+      - "scripts/season_2027_box_fallback.R"
+      - "scripts/daily_update.R"
+      - "tests/test_2027_box_fallback.R"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v6
+      - uses: r-lib/actions/setup-r@v2
+      - uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          extra-packages: |
+            any::dplyr
+            any::readr
+            any::tibble
+            any::jsonlite
+      - name: Parse importer and publication code
+        run: Rscript -e 'parse(file="scripts/season_2027_box_fallback.R");parse(file="scripts/daily_update.R");cat("R syntax PASS\\n")'
+      - name: Full offline direct-box and jersey-type regression
+        run: Rscript tests/test_2027_box_fallback.R
