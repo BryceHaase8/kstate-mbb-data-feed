@@ -1,19 +1,21 @@
 {
-  "timestamp": "2026-11-05T12:39:36.877709+00:00",
+  "timestamp": "2026-11-06T12:30:26.007231+00:00",
   "method": "ESPN current team roster (same endpoint as hoopR espn_mbb_team_roster)",
   "playersBefore": 5583,
   "playersAfter": 5583,
   "teamsRequested": 365,
-  "teamsVerified": 365,
-  "failedTeams": {},
+  "teamsVerified": 364,
+  "failedTeams": {
+    "259": "wrong team or incomplete roster"
+  },
   "missingWeightBefore": 369,
   "missingWeightAfter": 369,
-  "missingHeadshotBefore": 1075,
+  "missingHeadshotBefore": 1068,
   "missingHeadshotAfter": 1068,
   "changes": {
     "weightFilled": 0,
     "weightChanged": 0,
-    "headshotFilled": 7,
+    "headshotFilled": 0,
     "headshotChanged": 0,
     "heightFilled": 0
   },
@@ -21,55 +23,5 @@
   "membershipChanged": false,
   "eligibilityChanged": false,
   "nilChanged": false,
-  "examples": [
-    {
-      "id": "4433285",
-      "name": "Mark Mitchell Jr.",
-      "field": "headshot",
-      "before": "",
-      "after": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/4433285.png"
-    },
-    {
-      "id": "5103628",
-      "name": "Macaleab Rich",
-      "field": "headshot",
-      "before": "",
-      "after": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5103628.png"
-    },
-    {
-      "id": "5107508",
-      "name": "Kenyon Giles",
-      "field": "headshot",
-      "before": "",
-      "after": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5107508.png"
-    },
-    {
-      "id": "5125176",
-      "name": "Emmanuel Okorafor",
-      "field": "headshot",
-      "before": "",
-      "after": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5125176.png"
-    },
-    {
-      "id": "5180837",
-      "name": "Joshua Ward",
-      "field": "headshot",
-      "before": "",
-      "after": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5180837.png"
-    },
-    {
-      "id": "5241932",
-      "name": "Tishan Ahir",
-      "field": "headshot",
-      "before": "",
-      "after": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5241932.png"
-    },
-    {
-      "id": "5313437",
-      "name": "Jahmari Hamilton-Brown",
-      "field": "headshot",
-      "before": "",
-      "after": "https://a.espncdn.com/i/headshots/mens-college-basketball/players/full/5313437.png"
-    }
-  ]
+  "examples": []
 }
