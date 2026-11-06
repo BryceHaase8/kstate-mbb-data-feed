@@ -1,6 +1,21 @@
 # Verified 2026-27 ESPN per-game box fallback while SportsDataverse's
 # bulk player_box_2027.rds is unavailable. Historical seasons never rewritten.
 # Requires hoopR, dplyr, readr, tibble, jsonlite and normalize_ids().
+# ESPN's individual game boxes and the persisted CSV can disagree on
+# optional text metadata types (e.g. jersey 01, 2, 02A). Normalize those
+# BEFORE combining multiple games, not just when merging with bulk hoopR.
+# Never coerce points, attempts, scores, rebounds, minutes or other stats.
+normalize_2027_box_metadata <- function(box) {
+  fields <- intersect(names(box), c(
+    "game_date", "athlete_jersey", "athlete_display_name",
+    "athlete_headshot_href", "athlete_position_abbreviation",
+    "athlete_full_name", "athlete_short_name", "team_display_name",
+    "opponent_team_display_name", "home_away"
+  ))
+  for(field in fields) box[[field]] <- as.character(box[[field]])
+  box
+}
+
 season_2027_box_fallback <- function(scoreboard_fetcher=NULL,box_fetcher=NULL,now=NULL,cache_file=NULL,audit_file=NULL) {
   # Optional dependencies support offline QA; production uses live ESPN.
   or <- function(value, fallback) if(is.null(value)) fallback else value
@@ -8,8 +23,7 @@ season_2027_box_fallback <- function(scoreboard_fetcher=NULL,box_fetcher=NULL,no
   cached <- if(file.exists(path)) {
     normalize_ids(readr::read_csv(path,show_col_types=FALSE))
   } else tibble::tibble()
-  if(nrow(cached) && "game_date"%in%names(cached))
-    cached$game_date <- as.character(cached$game_date)
+  if(nrow(cached)) cached <- normalize_2027_box_metadata(cached)
   seen <- if(nrow(cached)) unique(as.character(cached$game_id)) else character()
   today <- if(is.null(now)) as.Date(format(Sys.time(),tz="America/Chicago",format="%Y-%m-%d")) else as.Date(now)
   start <- as.Date("2026-11-01")
@@ -80,8 +94,7 @@ season_2027_box_fallback <- function(scoreboard_fetcher=NULL,box_fetcher=NULL,no
     box <- tryCatch(if(is.function(box_fetcher)) box_fetcher(game_id) else hoopR::espn_mbb_player_box(game_id=as.numeric(game_id)),
       error=function(e){message("2027 ESPN box deferred ",game_id,": ",conditionMessage(e)); NULL})
     if(is.null(box) || nrow(box)<15L) next
-    box <- normalize_ids(as_tibble(box))
-    if("game_date"%in%names(box)) box$game_date <- as.character(box$game_date)
+    box <- normalize_2027_box_metadata(normalize_ids(as_tibble(box)))
     required <- c("season","game_id","team_id","athlete_id","points","minutes",
                   "field_goals_made","field_goals_attempted","three_point_field_goals_made",
                   "three_point_field_goals_attempted","free_throws_made","free_throws_attempted",
