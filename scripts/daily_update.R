@@ -114,8 +114,11 @@ try_load_player_box <- function(year) {
   if (year == 2027L) {
     source(file.path("scripts", "season_2027_box_fallback.R"))
     verified <- tryCatch(season_2027_box_fallback(),error=function(e) {
-      message("WARNING: Direct ESPN 2027 final-game check failed: ",conditionMessage(e))
-      tibble::tibble()
+      # Fail closed on an unexpected parser or merge error. A green refresh
+      # must not silently publish yesterday's bulk boxes as current data.
+      # GitHub retains the last verified feed and all historical snapshots.
+      stop("Direct ESPN 2027 final-game importer failed; prior published facts preserved: ",
+           conditionMessage(e),call.=FALSE)
     })
     result <- merge_2027_player_boxes(result,verified)
     message("2027 combined player-box coverage: ",nrow(result)," athlete-games / ",
