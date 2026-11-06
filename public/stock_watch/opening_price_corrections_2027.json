@@ -4,6 +4,18 @@
   "policy": "STAFF_APPROVED_OPENING_PRICE_CORRECTIONS_V1",
   "description": "Explicit ESPN-ID-based opening NIL price reappraisals. Original 2026-10-27 frozen cohort and archived snapshots stay immutable; effective reviewed price becomes the model's Bayesian prior and is not treated as a performance-driven Stock Watch move.",
   "byESPNId": {
+    "5454820": {
+      "playerName": "Mark Morano",
+      "teamId": "183",
+      "teamName": "Syracuse Orange",
+      "sourceBaseline": 58200,
+      "value": 1500000,
+      "effectiveDate": "2026-11-06",
+      "reviewType": "INTERNATIONAL_PRO_PRESEASON_STAFF_REVIEWED",
+      "correctionBasis": "STAFF_DIRECTED_NOV06_POSTGAME_INTERNATIONAL_OPENING_REAPPRAISAL",
+      "approval": "User explicitly requested $1.5M preseason estimate in 2026-11-06 project conversation",
+      "basis": "Professional Helios Suns experience in Slovenia; prior domestic freshman anchor understates pro background. Staff market estimate, not actual compensation; do not treat as in-season stock movement."
+    },
     "5455519": {
       "playerName": "Juan Fernandez",
       "teamId": "2579",
