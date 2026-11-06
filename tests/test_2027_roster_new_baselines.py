@@ -63,7 +63,8 @@ class NationalRosterPassQA(unittest.TestCase):
         self.assertEqual(self.roster["schemaVersion"],3)
         self.assertEqual(self.roster["rosterSeason"],2027)
         self.assertEqual(self.roster["eligibilityTargetSeason"],"2027-28")
-        self.assertEqual(len(rows),5576)
+        self.assertEqual(len(rows),5587)
+        self.assertTrue({'4075245','5184894','5237343','5240515','5280898','5351298','5351500','5455867','5459577','5460603','5461587'}.issubset(byid))
         self.assertEqual(byid["5457323"][:6],
                          ["5457323","Jakub Szumert","2567","F",'6\' 9"',"210 lbs"])
         self.assertEqual(len(byid),len(rows))
