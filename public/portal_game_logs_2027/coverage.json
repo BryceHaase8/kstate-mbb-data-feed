@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-08T13:18:09.929423Z",
+  "checkedAt": "2026-11-08T21:09:14.331305Z",
   "completedByDate": {
     "2026-11-01": {
       "401920409": [
@@ -1762,6 +1762,84 @@
         43,
         116
       ]
+    },
+    "2026-11-08": {
+      "401902277": [
+        81,
+        100
+      ],
+      "401911306": [
+        55,
+        65
+      ],
+      "401920355": [
+        47,
+        63
+      ],
+      "401920424": [
+        72,
+        91
+      ],
+      "401920692": [
+        76,
+        79
+      ],
+      "401920739": [
+        71,
+        87
+      ],
+      "401920843": [
+        67,
+        76
+      ],
+      "401921220": [
+        46,
+        102
+      ],
+      "401921683": [
+        59,
+        68
+      ],
+      "401921684": [
+        62,
+        68
+      ],
+      "401921685": [
+        76,
+        81
+      ],
+      "401921686": [
+        60,
+        73
+      ],
+      "401921687": [
+        61,
+        63
+      ],
+      "401921820": [
+        68,
+        78
+      ],
+      "401924646": [
+        65,
+        104
+      ],
+      "401924719": [
+        59,
+        99
+      ],
+      "401924734": [
+        68,
+        82
+      ],
+      "401926210": [
+        67,
+        100
+      ],
+      "401926867": [
+        48,
+        99
+      ]
     }
   },
   "dataIntegrity": "ALREADY_VALIDATED_BY_FACTUAL_QA",
@@ -1769,14 +1847,23 @@
   "firstSeasonDate": "2026-11-01",
   "latestScannedDate": "2026-11-08",
   "missingGameIds": [
-    "401921153"
+    "401920739",
+    "401920843",
+    "401921153",
+    "401921686"
   ],
   "monitorHealth": {
-    "lastScheduledAt": null,
-    "status": "OUTSIDE_GAME_WINDOW"
+    "ageMinutes": 3.4,
+    "healthySchedulers": 1,
+    "lastScheduledAt": "2026-11-08T21:05:53Z",
+    "schedulerAgeMinutes": {
+      "espn-game-monitor-backup.yml": 460.7,
+      "espn-game-monitor.yml": 3.4
+    },
+    "status": "DEGRADED"
   },
   "note": "Verified data remains publishable when missing ESPN game boxes are pending.",
-  "publishedTotalGames": 436,
+  "publishedTotalGames": 452,
   "routineLookbackDays": 21,
   "schemaVersion": 1,
   "scoreMismatchGameIds": [],
@@ -1785,11 +1872,16 @@
   "sourceDisappearedDates": [],
   "sourceErrors": [],
   "status": "INCOMPLETE",
-  "totalCompletedGamesObserved": 437,
+  "totalCompletedGamesObserved": 456,
   "unresolvedByDate": {
     "2026-11-03": [
       "401921153"
+    ],
+    "2026-11-08": [
+      "401920739",
+      "401920843",
+      "401921686"
     ]
   },
-  "verifiedCompletedGames": 436
+  "verifiedCompletedGames": 452
 }
