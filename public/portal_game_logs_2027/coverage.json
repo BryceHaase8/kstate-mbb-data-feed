@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-09T02:44:52.414012Z",
+  "checkedAt": "2026-11-09T07:42:52.900912Z",
   "completedByDate": {
     "2026-11-01": {
       "401920409": [
@@ -1768,6 +1768,10 @@
         81,
         100
       ],
+      "401909707": [
+        76,
+        82
+      ],
       "401911238": [
         53,
         79
@@ -1787,6 +1791,14 @@
       "401911453": [
         95,
         96
+      ],
+      "401918053": [
+        68,
+        86
+      ],
+      "401919029": [
+        86,
+        93
       ],
       "401920134": [
         80,
@@ -1884,6 +1896,10 @@
         68,
         75
       ],
+      "401929002": [
+        62,
+        71
+      ],
       "401929352": [
         60,
         79
@@ -1897,35 +1913,35 @@
   "dataIntegrity": "ALREADY_VALIDATED_BY_FACTUAL_QA",
   "duplicateSourceGameIds": [],
   "firstSeasonDate": "2026-11-01",
-  "latestScannedDate": "2026-11-08",
+  "latestScannedDate": "2026-11-09",
   "missingGameIds": [
     "401921153"
   ],
   "monitorHealth": {
-    "ageMinutes": 107.1,
-    "healthySchedulers": 0,
-    "lastScheduledAt": "2026-11-09T00:57:49Z",
+    "ageMinutes": 4.4,
+    "healthySchedulers": 1,
+    "lastScheduledAt": "2026-11-09T07:38:26Z",
     "schedulerAgeMinutes": {
-      "espn-game-monitor-backup.yml": 107.1,
-      "espn-game-monitor.yml": 113.0
+      "espn-game-monitor-backup.yml": 405.1,
+      "espn-game-monitor.yml": 4.4
     },
-    "status": "STALE"
+    "status": "DEGRADED"
   },
   "note": "Verified data remains publishable when missing ESPN game boxes are pending.",
-  "publishedTotalGames": 468,
+  "publishedTotalGames": 472,
   "routineLookbackDays": 21,
   "schemaVersion": 1,
   "scoreMismatchGameIds": [],
   "season": 2027,
-  "sourceDaysChecked": 8,
+  "sourceDaysChecked": 9,
   "sourceDisappearedDates": [],
   "sourceErrors": [],
   "status": "INCOMPLETE",
-  "totalCompletedGamesObserved": 469,
+  "totalCompletedGamesObserved": 473,
   "unresolvedByDate": {
     "2026-11-03": [
       "401921153"
     ]
   },
-  "verifiedCompletedGames": 468
+  "verifiedCompletedGames": 472
 }
