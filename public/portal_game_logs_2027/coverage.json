@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-08T22:14:39.641583Z",
+  "checkedAt": "2026-11-09T00:57:17.723430Z",
   "completedByDate": {
     "2026-11-01": {
       "401920409": [
@@ -1768,9 +1768,29 @@
         81,
         100
       ],
+      "401911238": [
+        53,
+        79
+      ],
+      "401911274": [
+        63,
+        75
+      ],
       "401911306": [
         55,
         65
+      ],
+      "401911335": [
+        82,
+        89
+      ],
+      "401911453": [
+        95,
+        96
+      ],
+      "401920134": [
+        80,
+        91
       ],
       "401920233": [
         71,
@@ -1795,6 +1815,10 @@
       "401920843": [
         67,
         76
+      ],
+      "401920865": [
+        52,
+        54
       ],
       "401921220": [
         46,
@@ -1824,6 +1848,10 @@
         68,
         78
       ],
+      "401922262": [
+        69,
+        108
+      ],
       "401924646": [
         65,
         104
@@ -1840,9 +1868,17 @@
         67,
         100
       ],
+      "401926215": [
+        94,
+        97
+      ],
       "401926867": [
         48,
         99
+      ],
+      "401927362": [
+        68,
+        75
       ]
     }
   },
@@ -1851,20 +1887,21 @@
   "firstSeasonDate": "2026-11-01",
   "latestScannedDate": "2026-11-08",
   "missingGameIds": [
+    "401920134",
     "401921153"
   ],
   "monitorHealth": {
-    "ageMinutes": 62.9,
-    "healthySchedulers": 0,
-    "lastScheduledAt": "2026-11-08T21:11:45Z",
+    "ageMinutes": 5.4,
+    "healthySchedulers": 1,
+    "lastScheduledAt": "2026-11-09T00:51:54Z",
     "schedulerAgeMinutes": {
-      "espn-game-monitor-backup.yml": 62.9,
-      "espn-game-monitor.yml": 68.8
+      "espn-game-monitor-backup.yml": 225.5,
+      "espn-game-monitor.yml": 5.4
     },
-    "status": "STALE"
+    "status": "DEGRADED"
   },
   "note": "Verified data remains publishable when missing ESPN game boxes are pending.",
-  "publishedTotalGames": 456,
+  "publishedTotalGames": 464,
   "routineLookbackDays": 21,
   "schemaVersion": 1,
   "scoreMismatchGameIds": [],
@@ -1873,11 +1910,14 @@
   "sourceDisappearedDates": [],
   "sourceErrors": [],
   "status": "INCOMPLETE",
-  "totalCompletedGamesObserved": 457,
+  "totalCompletedGamesObserved": 466,
   "unresolvedByDate": {
     "2026-11-03": [
       "401921153"
+    ],
+    "2026-11-08": [
+      "401920134"
     ]
   },
-  "verifiedCompletedGames": 456
+  "verifiedCompletedGames": 464
 }
