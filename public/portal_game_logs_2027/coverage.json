@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-13T23:39:59.029650Z",
+  "checkedAt": "2026-11-14T02:46:59.904586Z",
   "completedByDate": {
     "2026-11-01": {
       "401920409": [
@@ -2778,13 +2778,137 @@
       ]
     },
     "2026-11-13": {
+      "401902278": [
+        64,
+        76
+      ],
+      "401906772": [
+        54,
+        83
+      ],
+      "401906782": [
+        70,
+        78
+      ],
+      "401906850": [
+        78,
+        83
+      ],
+      "401909515": [
+        78,
+        85
+      ],
+      "401909696": [
+        60,
+        84
+      ],
+      "401911197": [
+        58,
+        80
+      ],
+      "401911210": [
+        57,
+        85
+      ],
+      "401913528": [
+        86,
+        108
+      ],
+      "401916316": [
+        68,
+        84
+      ],
+      "401918958": [
+        62,
+        81
+      ],
+      "401920379": [
+        62,
+        82
+      ],
+      "401920747": [
+        73,
+        84
+      ],
+      "401920973": [
+        70,
+        77
+      ],
       "401921167": [
         67,
         69
       ],
+      "401921191": [
+        59,
+        62
+      ],
+      "401921721": [
+        52,
+        94
+      ],
+      "401921803": [
+        77,
+        78
+      ],
+      "401921825": [
+        62,
+        89
+      ],
+      "401922211": [
+        80,
+        89
+      ],
+      "401923270": [
+        51,
+        72
+      ],
+      "401924704": [
+        59,
+        77
+      ],
+      "401924796": [
+        60,
+        65
+      ],
+      "401925755": [
+        72,
+        106
+      ],
+      "401925820": [
+        60,
+        66
+      ],
+      "401926133": [
+        62,
+        80
+      ],
+      "401926152": [
+        75,
+        88
+      ],
+      "401926203": [
+        53,
+        71
+      ],
+      "401926732": [
+        57,
+        86
+      ],
+      "401926794": [
+        66,
+        74
+      ],
+      "401927363": [
+        72,
+        81
+      ],
       "401928807": [
         46,
         66
+      ],
+      "401929386": [
+        59,
+        106
       ]
     }
   },
@@ -2792,19 +2916,22 @@
   "duplicateSourceGameIds": [],
   "firstSeasonDate": "2026-11-01",
   "latestScannedDate": "2026-11-13",
-  "missingGameIds": [],
+  "missingGameIds": [
+    "401926152",
+    "401927363"
+  ],
   "monitorHealth": {
-    "ageMinutes": 60.8,
-    "healthySchedulers": 0,
-    "lastScheduledAt": "2026-11-13T22:39:11Z",
+    "ageMinutes": 5.3,
+    "healthySchedulers": 2,
+    "lastScheduledAt": "2026-11-14T02:41:43Z",
     "schedulerAgeMinutes": {
-      "espn-game-monitor-backup.yml": 60.8,
-      "espn-game-monitor.yml": 66.7
+      "espn-game-monitor-backup.yml": 5.3,
+      "espn-game-monitor.yml": 6.6
     },
-    "status": "STALE"
+    "status": "HEALTHY"
   },
   "note": "Verified data remains publishable when missing ESPN game boxes are pending.",
-  "publishedTotalGames": 690,
+  "publishedTotalGames": 719,
   "routineLookbackDays": 21,
   "schemaVersion": 1,
   "scoreMismatchGameIds": [],
@@ -2812,8 +2939,13 @@
   "sourceDaysChecked": 13,
   "sourceDisappearedDates": [],
   "sourceErrors": [],
-  "status": "COMPLETE",
-  "totalCompletedGamesObserved": 690,
-  "unresolvedByDate": {},
-  "verifiedCompletedGames": 690
+  "status": "INCOMPLETE",
+  "totalCompletedGamesObserved": 721,
+  "unresolvedByDate": {
+    "2026-11-13": [
+      "401926152",
+      "401927363"
+    ]
+  },
+  "verifiedCompletedGames": 719
 }
