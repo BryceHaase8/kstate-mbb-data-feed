@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-14T21:28:39.105571Z",
+  "checkedAt": "2026-11-14T22:32:33.836995Z",
   "completedByDate": {
     "2026-11-01": {
       "401920409": [
@@ -3028,6 +3028,10 @@
         78,
         86
       ],
+      "401911016": [
+        57,
+        68
+      ],
       "401911231": [
         58,
         73
@@ -3068,6 +3072,14 @@
         64,
         72
       ],
+      "401921038": [
+        72,
+        76
+      ],
+      "401921096": [
+        78,
+        81
+      ],
       "401921155": [
         76,
         104
@@ -3075,6 +3087,10 @@
       "401922054": [
         63,
         102
+      ],
+      "401922220": [
+        74,
+        77
       ],
       "401922230": [
         92,
@@ -3088,6 +3104,10 @@
         64,
         66
       ],
+      "401924921": [
+        53,
+        76
+      ],
       "401929362": [
         87,
         123
@@ -3098,19 +3118,23 @@
   "duplicateSourceGameIds": [],
   "firstSeasonDate": "2026-11-01",
   "latestScannedDate": "2026-11-14",
-  "missingGameIds": [],
+  "missingGameIds": [
+    "401911016",
+    "401921038",
+    "401924921"
+  ],
   "monitorHealth": {
-    "ageMinutes": 3.3,
-    "healthySchedulers": 1,
-    "lastScheduledAt": "2026-11-14T21:25:23Z",
+    "ageMinutes": 61.7,
+    "healthySchedulers": 0,
+    "lastScheduledAt": "2026-11-14T21:30:49Z",
     "schedulerAgeMinutes": {
-      "espn-game-monitor-backup.yml": 473.2,
-      "espn-game-monitor.yml": 3.3
+      "espn-game-monitor-backup.yml": 61.7,
+      "espn-game-monitor.yml": 67.2
     },
-    "status": "DEGRADED"
+    "status": "STALE"
   },
   "note": "Verified data remains publishable when missing ESPN game boxes are pending.",
-  "publishedTotalGames": 766,
+  "publishedTotalGames": 768,
   "routineLookbackDays": 21,
   "schemaVersion": 1,
   "scoreMismatchGameIds": [],
@@ -3118,8 +3142,14 @@
   "sourceDaysChecked": 14,
   "sourceDisappearedDates": [],
   "sourceErrors": [],
-  "status": "COMPLETE",
-  "totalCompletedGamesObserved": 766,
-  "unresolvedByDate": {},
-  "verifiedCompletedGames": 766
+  "status": "INCOMPLETE",
+  "totalCompletedGamesObserved": 771,
+  "unresolvedByDate": {
+    "2026-11-14": [
+      "401911016",
+      "401921038",
+      "401924921"
+    ]
+  },
+  "verifiedCompletedGames": 768
 }
