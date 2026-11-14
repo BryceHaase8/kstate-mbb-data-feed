@@ -703,6 +703,30 @@
       "sourcePreviouslyPublishedAnchorType": "V4_OR_ARCHIVED_ESPN",
       "baselineMigrationReason": "STAFF_DIRECTED_ORIGINAL_V4_PRESEASON_PRICE_FROM_2025_26_COMPLETE_YEAR"
     },
+    "5243279": {
+      "playerName": "Hank Neace",
+      "teamId": "2747",
+      "teamName": "Wofford Terriers",
+      "position": "G",
+      "classYear": "JR",
+      "height": "6' 5\"",
+      "weight": "180 lbs",
+      "eligibilityYearsEstimate": 2,
+      "value": 32900,
+      "effectiveDate": "2026-11-14",
+      "source": "V4_TEAM_COHORT_PROXY_NO_VERIFIED_2025_26_STATS",
+      "basis": "Staff-approved conservative school-comparable V4-style opening estimate. Neither current-season games nor invented prior-season player production contributed to this frozen preseason value.",
+      "confidence": "LOW_CONFIDENCE_NO_DIRECT_V4",
+      "modelVersion": "V4_TEAM_COHORT_PROXY",
+      "eligibilityStatus": "ROSTER_LISTED_LEGAL_ELIGIBILITY_NOT_INDEPENDENTLY_VERIFIED",
+      "approvedBy": "User explicitly accepted five 2026-11-14 V4-style preseason NIL estimates and requested GitHub publisher integration",
+      "auditDate": "2026-11-14",
+      "evidencePlayerGameLog": "2026-27 ESPN verified factual game logs",
+      "peerContext": {
+        "method": "same-team conservative V4-style roster peer",
+        "gamesExcludedFromPreseasonEstimate": true
+      }
+    },
     "5243369": {
       "playerName": "AJ Barnes",
       "teamId": "2755",
@@ -753,6 +777,30 @@
         "peerBasedValue": 62000
       },
       "evidenceSource": "https://fightingillini.com/sports/mens-basketball/roster/lucas-morillo/15986"
+    },
+    "5311920": {
+      "playerName": "Exavier Wilson",
+      "teamId": "2006",
+      "teamName": "Akron Zips",
+      "position": "G",
+      "classYear": "FR",
+      "height": "6' 1\"",
+      "weight": "170 lbs",
+      "eligibilityYearsEstimate": 4,
+      "value": 59800,
+      "effectiveDate": "2026-11-14",
+      "source": "V4_TEAM_COHORT_PROXY_NO_VERIFIED_2025_26_STATS",
+      "basis": "Staff-approved conservative school-comparable V4-style opening estimate. Neither current-season games nor invented prior-season player production contributed to this frozen preseason value.",
+      "confidence": "LOW_CONFIDENCE_NO_DIRECT_V4",
+      "modelVersion": "V4_TEAM_COHORT_PROXY",
+      "eligibilityStatus": "ROSTER_LISTED_LEGAL_ELIGIBILITY_NOT_INDEPENDENTLY_VERIFIED",
+      "approvedBy": "User explicitly accepted five 2026-11-14 V4-style preseason NIL estimates and requested GitHub publisher integration",
+      "auditDate": "2026-11-14",
+      "evidencePlayerGameLog": "2026-27 ESPN verified factual game logs",
+      "peerContext": {
+        "method": "same-team conservative V4-style roster peer",
+        "gamesExcludedFromPreseasonEstimate": true
+      }
     },
     "5316049": {
       "playerName": "Alex Steen",
@@ -962,6 +1010,78 @@
         "discount": 0.7,
         "peerP25": 109944,
         "peerBasedValue": 77000
+      }
+    },
+    "5461298": {
+      "playerName": "AJ Pierre-Jerome",
+      "teamId": "167",
+      "teamName": "New Mexico Lobos",
+      "position": "",
+      "classYear": "UNKNOWN",
+      "height": "",
+      "weight": "",
+      "eligibilityYearsEstimate": 0,
+      "value": 62800,
+      "effectiveDate": "2026-11-14",
+      "source": "V4_TEAM_COHORT_PROXY_NO_VERIFIED_2025_26_STATS",
+      "basis": "Staff-approved conservative school-comparable V4-style opening estimate. Neither current-season games nor invented prior-season player production contributed to this frozen preseason value.",
+      "confidence": "LOW_CONFIDENCE_NO_DIRECT_V4",
+      "modelVersion": "V4_TEAM_COHORT_PROXY",
+      "eligibilityStatus": "PLAYED_ESPN_VERIFIED_ELIGIBILITY_UNREVIEWED",
+      "approvedBy": "User explicitly accepted five 2026-11-14 V4-style preseason NIL estimates and requested GitHub publisher integration",
+      "auditDate": "2026-11-14",
+      "evidencePlayerGameLog": "2026-27 ESPN verified factual game logs",
+      "peerContext": {
+        "method": "same-team conservative V4-style roster peer",
+        "gamesExcludedFromPreseasonEstimate": true
+      }
+    },
+    "5461310": {
+      "playerName": "John Mattingly",
+      "teamId": "2440",
+      "teamName": "Nevada Wolf Pack",
+      "position": "",
+      "classYear": "UNKNOWN",
+      "height": "",
+      "weight": "",
+      "eligibilityYearsEstimate": 0,
+      "value": 58700,
+      "effectiveDate": "2026-11-14",
+      "source": "V4_TEAM_COHORT_PROXY_NO_VERIFIED_2025_26_STATS",
+      "basis": "Staff-approved conservative school-comparable V4-style opening estimate. Neither current-season games nor invented prior-season player production contributed to this frozen preseason value.",
+      "confidence": "LOW_CONFIDENCE_NO_DIRECT_V4",
+      "modelVersion": "V4_TEAM_COHORT_PROXY",
+      "eligibilityStatus": "PLAYED_ESPN_VERIFIED_ELIGIBILITY_UNREVIEWED",
+      "approvedBy": "User explicitly accepted five 2026-11-14 V4-style preseason NIL estimates and requested GitHub publisher integration",
+      "auditDate": "2026-11-14",
+      "evidencePlayerGameLog": "2026-27 ESPN verified factual game logs",
+      "peerContext": {
+        "method": "same-team conservative V4-style roster peer",
+        "gamesExcludedFromPreseasonEstimate": true
+      }
+    },
+    "5461315": {
+      "playerName": "Alois Leyrolles",
+      "teamId": "62",
+      "teamName": "Hawai'i Rainbow Warriors",
+      "position": "",
+      "classYear": "UNKNOWN",
+      "height": "",
+      "weight": "",
+      "eligibilityYearsEstimate": 0,
+      "value": 53000,
+      "effectiveDate": "2026-11-14",
+      "source": "V4_TEAM_COHORT_PROXY_NO_VERIFIED_2025_26_STATS",
+      "basis": "Staff-approved conservative school-comparable V4-style opening estimate. Neither current-season games nor invented prior-season player production contributed to this frozen preseason value.",
+      "confidence": "LOW_CONFIDENCE_NO_DIRECT_V4",
+      "modelVersion": "V4_TEAM_COHORT_PROXY",
+      "eligibilityStatus": "PLAYED_ESPN_VERIFIED_ELIGIBILITY_UNREVIEWED",
+      "approvedBy": "User explicitly accepted five 2026-11-14 V4-style preseason NIL estimates and requested GitHub publisher integration",
+      "auditDate": "2026-11-14",
+      "evidencePlayerGameLog": "2026-27 ESPN verified factual game logs",
+      "peerContext": {
+        "method": "same-team conservative V4-style roster peer",
+        "gamesExcludedFromPreseasonEstimate": true
       }
     },
     "5461587": {
