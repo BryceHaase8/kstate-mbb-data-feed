@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-11-14T22:32:33.539319+00:00",
+  "generatedAt": "2026-11-15T01:22:00.642535+00:00",
   "status": "PASS",
   "currentDataSeason": 2027,
   "currentDataStage": "2026_27_IN_SEASON",
@@ -9,10 +9,10 @@
     "2024": 5063,
     "2025": 5119,
     "2026": 5019,
-    "2027": 4881
+    "2027": 4891
   },
-  "playerSeasonCount": 25184,
-  "playerCount": 12363,
+  "playerSeasonCount": 25194,
+  "playerCount": 12369,
   "currentSeasonTeamsWithGames": 365,
   "modelGuard": {
     "impactSeason": 2026,
