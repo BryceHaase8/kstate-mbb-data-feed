@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-16T08:36:47.785988Z",
+  "checkedAt": "2026-11-16T12:53:00.354412Z",
   "completedByDate": {
     "2026-11-01": {
       "401920409": [
@@ -3478,14 +3478,8 @@
   "latestScannedDate": "2026-11-16",
   "missingGameIds": [],
   "monitorHealth": {
-    "ageMinutes": 3.4,
-    "healthySchedulers": 1,
-    "lastScheduledAt": "2026-11-16T08:33:26Z",
-    "schedulerAgeMinutes": {
-      "espn-game-monitor-backup.yml": 418.6,
-      "espn-game-monitor.yml": 3.4
-    },
-    "status": "DEGRADED"
+    "lastScheduledAt": null,
+    "status": "OUTSIDE_GAME_WINDOW"
   },
   "note": "Verified data remains publishable when missing ESPN game boxes are pending.",
   "publishedTotalGames": 860,
