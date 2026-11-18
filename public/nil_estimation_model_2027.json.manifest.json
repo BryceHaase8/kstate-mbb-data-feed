@@ -11,12 +11,12 @@
     "current_missing_context": 0,
     "roster_without_prior": 20,
     "no_prior_model": 0,
-    "current_without_2027": 7456
+    "current_without_2027": 7455
   },
   "sha256": {
-    "factual": "8166fa3e2d4d9ebe66a0e5f54d000b70e5a7fcdf21541c53d6b881a2446c8e79",
+    "factual": "53454d17066cb68c0044afb7f828e577279ea54ecacbd56a8b24405f579fe2b4",
     "historicalTeam": "b15927171d62e48a8f175b96d6461dece650a946027accf856953bde5d44d77c",
-    "currentTeam": "f9f5eeae14f429fd6f6e4eb3c6d46b806e616732c9e8df57f1c278e71bcb7f3c",
+    "currentTeam": "12bf1257d7bc1222ca46e63ffc15c775760cab01346730baeaf2b0ef8f0cf1b0",
     "teamGames": null,
     "model": "9f8072f47687f1bc6f13dc6c11a3c5375a3f817615b554c5d6ee7f07425b1cf3",
     "frozenPreseason": "b845bf430d62a8f12ca65afa8ea43419d8fd43e9ccb892f3dc90c191058b274f",
