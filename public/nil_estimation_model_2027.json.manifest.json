@@ -1,6 +1,6 @@
 {
   "release": "nil-v4-relative-v3-universal-coldstart-v1-2026-10-27",
-  "asOf": "2026-11-18",
+  "asOf": "2026-11-19",
   "count": 12744,
   "baseCoverage": 0.998389694041868,
   "stats": {
@@ -14,7 +14,7 @@
     "current_without_2027": 7455
   },
   "sha256": {
-    "factual": "53454d17066cb68c0044afb7f828e577279ea54ecacbd56a8b24405f579fe2b4",
+    "factual": "af3abb835e01c5cf6af294f9a0ec104b0f855b7f0df793cf6760a0d16f625c86",
     "historicalTeam": "b15927171d62e48a8f175b96d6461dece650a946027accf856953bde5d44d77c",
     "currentTeam": "12bf1257d7bc1222ca46e63ffc15c775760cab01346730baeaf2b0ef8f0cf1b0",
     "teamGames": null,
