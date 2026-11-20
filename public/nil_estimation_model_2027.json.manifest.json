@@ -7,14 +7,14 @@
     "2026_based": 5019,
     "rookie_frozen_without_box": 207,
     "older_season_based": 7402,
-    "current_updated": 4874,
+    "current_updated": 4873,
     "current_missing_context": 0,
     "roster_without_prior": 21,
     "no_prior_model": 0,
     "current_without_2027": 7428
   },
   "sha256": {
-    "factual": "8f5aad666ece51411aaad0355bd9aa45e6cc27d363d807f444ac12ac2a853c66",
+    "factual": "b0fad84f6e06f8a4f5d9643ccf40a819f6ec4456a34cf1d349ce9809af09ada0",
     "historicalTeam": "b15927171d62e48a8f175b96d6461dece650a946027accf856953bde5d44d77c",
     "currentTeam": "b7674da73a458e5effff9f224fd13bb21651cfa565ee62845547ff82c634aa81",
     "teamGames": null,
