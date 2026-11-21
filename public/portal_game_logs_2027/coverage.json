@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-21T22:15:32.303397Z",
+  "checkedAt": "2026-11-21T23:26:11.537000Z",
   "completedByDate": {
     "2026-11-01": {
       "401920409": [
@@ -4566,6 +4566,22 @@
         69,
         87
       ],
+      "401911278": [
+        46,
+        67
+      ],
+      "401917918": [
+        67,
+        82
+      ],
+      "401917953": [
+        73,
+        79
+      ],
+      "401918995": [
+        62,
+        73
+      ],
       "401919031": [
         60,
         85
@@ -4594,6 +4610,10 @@
         62,
         69
       ],
+      "401921183": [
+        73,
+        83
+      ],
       "401921222": [
         66,
         69
@@ -4601,6 +4621,10 @@
       "401921811": [
         75,
         106
+      ],
+      "401922048": [
+        68,
+        74
       ],
       "401922222": [
         87,
@@ -4634,6 +4658,14 @@
         70,
         91
       ],
+      "401925890": [
+        66,
+        89
+      ],
+      "401926113": [
+        69,
+        108
+      ],
       "401927365": [
         65,
         67
@@ -4654,21 +4686,20 @@
   "latestScannedDate": "2026-11-21",
   "missingGameIds": [
     "401909730",
-    "401920569",
     "401929353"
   ],
   "monitorHealth": {
-    "ageMinutes": 3.9,
-    "healthySchedulers": 2,
+    "ageMinutes": 74.6,
+    "healthySchedulers": 0,
     "lastScheduledAt": "2026-11-21T22:11:38Z",
     "schedulerAgeMinutes": {
-      "espn-game-monitor-backup.yml": 3.9,
-      "espn-game-monitor.yml": 5.8
+      "espn-game-monitor-backup.yml": 74.6,
+      "espn-game-monitor.yml": 76.5
     },
-    "status": "HEALTHY"
+    "status": "STALE"
   },
   "note": "Verified data remains publishable when missing ESPN game boxes are pending.",
-  "publishedTotalGames": 1148,
+  "publishedTotalGames": 1157,
   "routineLookbackDays": 21,
   "schemaVersion": 1,
   "scoreMismatchGameIds": [],
@@ -4677,15 +4708,14 @@
   "sourceDisappearedDates": [],
   "sourceErrors": [],
   "status": "INCOMPLETE",
-  "totalCompletedGamesObserved": 1151,
+  "totalCompletedGamesObserved": 1159,
   "unresolvedByDate": {
     "2026-11-20": [
       "401929353"
     ],
     "2026-11-21": [
-      "401909730",
-      "401920569"
+      "401909730"
     ]
   },
-  "verifiedCompletedGames": 1148
+  "verifiedCompletedGames": 1157
 }
