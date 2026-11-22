@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-22T22:29:49.754362Z",
+  "checkedAt": "2026-11-22T23:41:18.268879Z",
   "completedByDate": {
     "2026-11-01": {
       "401920409": [
@@ -4804,6 +4804,10 @@
         75,
         86
       ],
+      "401917540": [
+        68,
+        72
+      ],
       "401918455": [
         63,
         75
@@ -4828,6 +4832,10 @@
         55,
         89
       ],
+      "401921176": [
+        61,
+        81
+      ],
       "401921706": [
         61,
         79
@@ -4839,6 +4847,10 @@
       "401922252": [
         66,
         79
+      ],
+      "401923323": [
+        75,
+        78
       ],
       "401925066": [
         77,
@@ -4859,6 +4871,14 @@
       "401929023": [
         46,
         66
+      ],
+      "401929202": [
+        69,
+        95
+      ],
+      "401929387": [
+        85,
+        114
       ]
     }
   },
@@ -4866,21 +4886,19 @@
   "duplicateSourceGameIds": [],
   "firstSeasonDate": "2026-11-01",
   "latestScannedDate": "2026-11-22",
-  "missingGameIds": [
-    "401920381"
-  ],
+  "missingGameIds": [],
   "monitorHealth": {
-    "ageMinutes": 1.6,
-    "healthySchedulers": 2,
+    "ageMinutes": 73.1,
+    "healthySchedulers": 0,
     "lastScheduledAt": "2026-11-22T22:28:12Z",
     "schedulerAgeMinutes": {
-      "espn-game-monitor-backup.yml": 1.6,
-      "espn-game-monitor.yml": 4.1
+      "espn-game-monitor-backup.yml": 73.1,
+      "espn-game-monitor.yml": 75.6
     },
-    "status": "HEALTHY"
+    "status": "STALE"
   },
   "note": "Verified data remains publishable when missing ESPN game boxes are pending.",
-  "publishedTotalGames": 1203,
+  "publishedTotalGames": 1209,
   "routineLookbackDays": 21,
   "schemaVersion": 1,
   "scoreMismatchGameIds": [],
@@ -4888,12 +4906,8 @@
   "sourceDaysChecked": 21,
   "sourceDisappearedDates": [],
   "sourceErrors": [],
-  "status": "INCOMPLETE",
-  "totalCompletedGamesObserved": 1204,
-  "unresolvedByDate": {
-    "2026-11-22": [
-      "401920381"
-    ]
-  },
-  "verifiedCompletedGames": 1203
+  "status": "COMPLETE",
+  "totalCompletedGamesObserved": 1209,
+  "unresolvedByDate": {},
+  "verifiedCompletedGames": 1209
 }
