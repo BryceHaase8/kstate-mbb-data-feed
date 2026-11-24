@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-24T15:00:20.639833Z",
+  "checkedAt": "2026-11-24T17:37:37.927793Z",
   "completedByDate": {
     "2026-11-01": {
       "401920409": [
@@ -5134,6 +5134,12 @@
         73,
         101
       ]
+    },
+    "2026-11-24": {
+      "401927398": [
+        70,
+        72
+      ]
     }
   },
   "dataIntegrity": "ALREADY_VALIDATED_BY_FACTUAL_QA",
@@ -5144,11 +5150,17 @@
     "401921157"
   ],
   "monitorHealth": {
-    "lastScheduledAt": null,
-    "status": "OUTSIDE_GAME_WINDOW"
+    "ageMinutes": 6.2,
+    "healthySchedulers": 1,
+    "lastScheduledAt": "2026-11-24T17:31:28Z",
+    "schedulerAgeMinutes": {
+      "espn-game-monitor-backup.yml": 209.1,
+      "espn-game-monitor.yml": 6.2
+    },
+    "status": "DEGRADED"
   },
   "note": "Verified data remains publishable when missing ESPN game boxes are pending.",
-  "publishedTotalGames": 1271,
+  "publishedTotalGames": 1272,
   "routineLookbackDays": 21,
   "schemaVersion": 1,
   "scoreMismatchGameIds": [],
@@ -5157,11 +5169,11 @@
   "sourceDisappearedDates": [],
   "sourceErrors": [],
   "status": "INCOMPLETE",
-  "totalCompletedGamesObserved": 1272,
+  "totalCompletedGamesObserved": 1273,
   "unresolvedByDate": {
     "2026-11-23": [
       "401921157"
     ]
   },
-  "verifiedCompletedGames": 1271
+  "verifiedCompletedGames": 1272
 }
