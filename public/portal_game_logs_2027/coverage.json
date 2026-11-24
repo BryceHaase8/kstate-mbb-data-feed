@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-24T04:03:38.806422Z",
+  "checkedAt": "2026-11-24T14:06:06.278719Z",
   "completedByDate": {
     "2026-11-01": {
       "401920409": [
@@ -4950,6 +4950,14 @@
       ]
     },
     "2026-11-23": {
+      "401909536": [
+        66,
+        72
+      ],
+      "401909743": [
+        83,
+        96
+      ],
       "401909788": [
         67,
         84
@@ -4978,6 +4986,10 @@
         66,
         80
       ],
+      "401918057": [
+        54,
+        96
+      ],
       "401918076": [
         62,
         82
@@ -4997,6 +5009,10 @@
       "401919785": [
         58,
         68
+      ],
+      "401920721": [
+        61,
+        82
       ],
       "401920752": [
         65,
@@ -5034,6 +5050,14 @@
         66,
         69
       ],
+      "401921663": [
+        63,
+        76
+      ],
+      "401921664": [
+        79,
+        88
+      ],
       "401921700": [
         48,
         79
@@ -5069,6 +5093,10 @@
       "401926106": [
         56,
         108
+      ],
+      "401926183": [
+        62,
+        89
       ],
       "401927353": [
         46,
@@ -5111,25 +5139,16 @@
   "dataIntegrity": "ALREADY_VALIDATED_BY_FACTUAL_QA",
   "duplicateSourceGameIds": [],
   "firstSeasonDate": "2026-11-01",
-  "latestScannedDate": "2026-11-23",
+  "latestScannedDate": "2026-11-24",
   "missingGameIds": [
-    "401921157",
-    "401921208",
-    "401922032",
-    "401922263"
+    "401921157"
   ],
   "monitorHealth": {
-    "ageMinutes": 43.5,
-    "healthySchedulers": 0,
-    "lastScheduledAt": "2026-11-24T03:20:10Z",
-    "schedulerAgeMinutes": {
-      "espn-game-monitor-backup.yml": 43.5,
-      "espn-game-monitor.yml": 45.6
-    },
-    "status": "STALE"
+    "lastScheduledAt": null,
+    "status": "OUTSIDE_GAME_WINDOW"
   },
   "note": "Verified data remains publishable when missing ESPN game boxes are pending.",
-  "publishedTotalGames": 1261,
+  "publishedTotalGames": 1271,
   "routineLookbackDays": 21,
   "schemaVersion": 1,
   "scoreMismatchGameIds": [],
@@ -5138,14 +5157,11 @@
   "sourceDisappearedDates": [],
   "sourceErrors": [],
   "status": "INCOMPLETE",
-  "totalCompletedGamesObserved": 1265,
+  "totalCompletedGamesObserved": 1272,
   "unresolvedByDate": {
     "2026-11-23": [
-      "401921157",
-      "401921208",
-      "401922032",
-      "401922263"
+      "401921157"
     ]
   },
-  "verifiedCompletedGames": 1261
+  "verifiedCompletedGames": 1271
 }
