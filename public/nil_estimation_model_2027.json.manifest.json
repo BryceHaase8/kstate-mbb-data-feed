@@ -2,19 +2,19 @@
   "release": "nil-v4-relative-v3-universal-coldstart-v1-2026-10-27",
   "asOf": "2026-11-25",
   "count": 12744,
-  "baseCoverage": 0.9983178468439603,
+  "baseCoverage": 0.998318116290245,
   "stats": {
     "2026_based": 5019,
-    "rookie_frozen_without_box": 177,
-    "older_season_based": 7444,
+    "rookie_frozen_without_box": 175,
+    "older_season_based": 7446,
     "current_updated": 4926,
     "current_missing_context": 0,
     "roster_without_prior": 21,
     "no_prior_model": 0,
-    "current_without_2027": 7393
+    "current_without_2027": 7392
   },
   "sha256": {
-    "factual": "128358fcb12d5dacfd293603c0027aeec0a0ea4fb3656e97aaeadf2a5b71d974",
+    "factual": "6839f4b45dff496f91302069a15aee764aa23ed2c171bd7fc6cacd3873e2462b",
     "historicalTeam": "b15927171d62e48a8f175b96d6461dece650a946027accf856953bde5d44d77c",
     "currentTeam": "7b560415391b2a2bc033ba8eb1a32db9abceb2208def102d979358ad93de4a80",
     "teamGames": null,
