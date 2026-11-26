@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-26T01:03:03.822156Z",
+  "checkedAt": "2026-11-26T01:52:51.654966Z",
   "completedByDate": {
     "2026-11-01": {
       "401920409": [
@@ -5490,6 +5490,10 @@
         53,
         74
       ],
+      "401911028": [
+        54,
+        91
+      ],
       "401911029": [
         72,
         85
@@ -5550,6 +5554,10 @@
         72,
         73
       ],
+      "401920549": [
+        77,
+        91
+      ],
       "401920809": [
         83,
         88
@@ -5561,6 +5569,10 @@
       "401920868": [
         70,
         81
+      ],
+      "401921170": [
+        46,
+        76
       ],
       "401921669": [
         92,
@@ -5669,31 +5681,21 @@
   "firstSeasonDate": "2026-11-01",
   "latestScannedDate": "2026-11-25",
   "missingGameIds": [
-    "401909720",
-    "401911241",
-    "401917967",
-    "401919042",
-    "401920299",
-    "401920548",
-    "401920868",
-    "401921703",
-    "401922253",
-    "401928359",
-    "401928836",
-    "401929406"
+    "401911028",
+    "401921170"
   ],
   "monitorHealth": {
-    "ageMinutes": 3.4,
-    "healthySchedulers": 2,
+    "ageMinutes": 53.2,
+    "healthySchedulers": 0,
     "lastScheduledAt": "2026-11-26T00:59:42Z",
     "schedulerAgeMinutes": {
-      "espn-game-monitor-backup.yml": 3.4,
-      "espn-game-monitor.yml": 5.0
+      "espn-game-monitor-backup.yml": 53.2,
+      "espn-game-monitor.yml": 54.8
     },
-    "status": "HEALTHY"
+    "status": "STALE"
   },
   "note": "Verified data remains publishable when missing ESPN game boxes are pending.",
-  "publishedTotalGames": 1391,
+  "publishedTotalGames": 1404,
   "routineLookbackDays": 21,
   "schemaVersion": 1,
   "scoreMismatchGameIds": [],
@@ -5702,22 +5704,12 @@
   "sourceDisappearedDates": [],
   "sourceErrors": [],
   "status": "INCOMPLETE",
-  "totalCompletedGamesObserved": 1403,
+  "totalCompletedGamesObserved": 1406,
   "unresolvedByDate": {
     "2026-11-25": [
-      "401909720",
-      "401911241",
-      "401917967",
-      "401919042",
-      "401920299",
-      "401920548",
-      "401920868",
-      "401921703",
-      "401922253",
-      "401928359",
-      "401928836",
-      "401929406"
+      "401911028",
+      "401921170"
     ]
   },
-  "verifiedCompletedGames": 1391
+  "verifiedCompletedGames": 1404
 }
