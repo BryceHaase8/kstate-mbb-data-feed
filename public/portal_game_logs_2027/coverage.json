@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-26T01:52:51.654966Z",
+  "checkedAt": "2026-11-26T09:33:21.734619Z",
   "completedByDate": {
     "2026-11-01": {
       "401920409": [
@@ -5486,6 +5486,10 @@
       ]
     },
     "2026-11-25": {
+      "401909568": [
+        63,
+        77
+      ],
       "401909720": [
         53,
         74
@@ -5510,9 +5514,33 @@
         52,
         98
       ],
+      "401911522": [
+        78,
+        80
+      ],
+      "401917182": [
+        70,
+        83
+      ],
+      "401917544": [
+        76,
+        83
+      ],
+      "401917545": [
+        72,
+        81
+      ],
       "401917967": [
         95,
         101
+      ],
+      "401918960": [
+        49,
+        80
+      ],
+      "401918971": [
+        59,
+        93
       ],
       "401919007": [
         47,
@@ -5529,6 +5557,14 @@
       "401920067": [
         89,
         98
+      ],
+      "401920076": [
+        58,
+        93
+      ],
+      "401920138": [
+        68,
+        70
       ],
       "401920196": [
         48,
@@ -5558,9 +5594,17 @@
         77,
         91
       ],
+      "401920550": [
+        54,
+        72
+      ],
       "401920809": [
         83,
         88
+      ],
+      "401920847": [
+        77,
+        86
       ],
       "401920858": [
         58,
@@ -5569,6 +5613,14 @@
       "401920868": [
         70,
         81
+      ],
+      "401920916": [
+        65,
+        68
+      ],
+      "401921108": [
+        52,
+        66
       ],
       "401921170": [
         46,
@@ -5582,12 +5634,28 @@
         69,
         71
       ],
+      "401921671": [
+        73,
+        79
+      ],
+      "401921672": [
+        64,
+        66
+      ],
       "401921702": [
         72,
         85
       ],
       "401921703": [
         72,
+        77
+      ],
+      "401921713": [
+        78,
+        80
+      ],
+      "401921714": [
+        75,
         77
       ],
       "401921715": [
@@ -5606,6 +5674,10 @@
         57,
         71
       ],
+      "401922285": [
+        54,
+        72
+      ],
       "401924268": [
         64,
         65
@@ -5618,6 +5690,10 @@
         72,
         79
       ],
+      "401924897": [
+        77,
+        100
+      ],
       "401925050": [
         80,
         81
@@ -5625,6 +5701,10 @@
       "401925688": [
         70,
         97
+      ],
+      "401925880": [
+        43,
+        110
       ],
       "401925917": [
         65,
@@ -5670,6 +5750,14 @@
         52,
         104
       ],
+      "401929005": [
+        81,
+        83
+      ],
+      "401929287": [
+        71,
+        78
+      ],
       "401929406": [
         50,
         86
@@ -5679,23 +5767,20 @@
   "dataIntegrity": "ALREADY_VALIDATED_BY_FACTUAL_QA",
   "duplicateSourceGameIds": [],
   "firstSeasonDate": "2026-11-01",
-  "latestScannedDate": "2026-11-25",
-  "missingGameIds": [
-    "401911028",
-    "401921170"
-  ],
+  "latestScannedDate": "2026-11-26",
+  "missingGameIds": [],
   "monitorHealth": {
-    "ageMinutes": 53.2,
-    "healthySchedulers": 0,
-    "lastScheduledAt": "2026-11-26T00:59:42Z",
+    "ageMinutes": 1.1,
+    "healthySchedulers": 2,
+    "lastScheduledAt": "2026-11-26T09:32:15Z",
     "schedulerAgeMinutes": {
-      "espn-game-monitor-backup.yml": 53.2,
-      "espn-game-monitor.yml": 54.8
+      "espn-game-monitor-backup.yml": 1.1,
+      "espn-game-monitor.yml": 5.9
     },
-    "status": "STALE"
+    "status": "HEALTHY"
   },
   "note": "Verified data remains publishable when missing ESPN game boxes are pending.",
-  "publishedTotalGames": 1404,
+  "publishedTotalGames": 1428,
   "routineLookbackDays": 21,
   "schemaVersion": 1,
   "scoreMismatchGameIds": [],
@@ -5703,13 +5788,8 @@
   "sourceDaysChecked": 21,
   "sourceDisappearedDates": [],
   "sourceErrors": [],
-  "status": "INCOMPLETE",
-  "totalCompletedGamesObserved": 1406,
-  "unresolvedByDate": {
-    "2026-11-25": [
-      "401911028",
-      "401921170"
-    ]
-  },
-  "verifiedCompletedGames": 1404
+  "status": "COMPLETE",
+  "totalCompletedGamesObserved": 1428,
+  "unresolvedByDate": {},
+  "verifiedCompletedGames": 1428
 }
